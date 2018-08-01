@@ -1,28 +1,23 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
-class App extends React.Component<{}> {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>test</Text>
-            </View>
-        );
-    }
+
 }
 
-export default createStackNavigator({
-    App: {
-        screen: App
+const AppStack = createStackNavigator({
+    Main: {
+        screen: Main
     }
 });
+const AuthStack = createStackNavigator({
+    Login: { screen:  Login },
+    Registration: { screen: Registration }
+});
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+export default createSwitchNavigator({
+    App: AppStack,
+    Auth: AuthStack,
+    Loading: LoadingScreen
+}, {
+    initialRouteName: 'Loading'
 });
