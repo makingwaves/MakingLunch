@@ -1,16 +1,13 @@
-import * as React from 'react';
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
-import AuthStack from './app/navigation/auth';
-import AppStack from './app/navigation/app';
-import InitScreen from './app/screens/init/InitScreen';
+import store from './app/boot/store'
+import {Provider} from 'react-redux';
+import Navigation from './app/navigation/navigation';
+import React from 'react';
 
-export default createSwitchNavigator(
-    {
-        App: AppStack,
-        Auth: AuthStack,
-        Init: InitScreen
-    },
-    {
-        initialRouteName: 'Init'
-    }
-);
+export default () => {
+
+    return (
+        <Provider store={store}>
+            <Navigation/>
+        </Provider>
+    )
+};
