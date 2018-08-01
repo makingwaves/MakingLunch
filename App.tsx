@@ -1,22 +1,13 @@
-import * as React from 'react';
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
-import Login from './app/screens/login/Login';
+import store from './app/boot/store'
+import {Provider} from 'react-redux';
+import Navigation from './app/navigation/navigation';
+import React from 'react';
 
+export default () => {
 
-
-// const AppStack = createStackNavigator({
-    // Main: {
-        // screen: Main
-    // }
-// });
-const AuthStack = createStackNavigator({
-    Login: { screen:  Login },
-    // Registration: { screen: Registration }
-});
-export default createSwitchNavigator({
-    // App: AppStack,
-    Auth: AuthStack,
-    // Loading: LoadingScreen
-}, {
-    initialRouteName: 'Auth'
-});
+    return (
+        <Provider store={store}>
+            <Navigation/>
+        </Provider>
+    )
+};
