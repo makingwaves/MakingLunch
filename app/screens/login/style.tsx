@@ -6,7 +6,9 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: 'white',
-        padding: 100
+        padding: 10,
+        borderWidth: 1,
+        paddingBottom: 100
     },
 
     title: {

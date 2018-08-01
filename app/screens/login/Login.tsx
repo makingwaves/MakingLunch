@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Button, TextInput } from 'react-native';
 import styles from './style';
 import InfoBadge from '../../components/InfoBadge/InfoBadge';
+import LoginButton from '../../components/LoginButton/LoginButton';
 
 class Login extends Component {
     constructor(props) {
@@ -32,6 +33,13 @@ class Login extends Component {
                 <Text style={styles.title}>Making Lunch</Text>
                 <View style={styles.logo} />
                 <View style={styles.loginContainer}>
+                    <LoginButton
+                        text={'Sing up with Facebook'}
+                        onPress={() => console.log('Sing up with Facebook')}
+                        color={'#4a90e2'}
+                        iconContainerColor={'#4280cb'}
+                    />
+
                     <TextInput
                         value={this.state.username}
                         onChangeText={username => this.setState({ username })}
