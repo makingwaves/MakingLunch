@@ -8,7 +8,21 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         padding: 10,
         borderWidth: 1,
-        paddingBottom: 100
+        paddingBottom: 100,
+        paddingTop: 80
+    },
+
+    backgroundImage: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+    },
+
+    socialLoginContainer: {
+        flex: 0,
+        borderWidth: 1
     },
 
     title: {
@@ -23,11 +37,11 @@ export default StyleSheet.create({
         borderWidth: 3
     },
 
-    loginContainer: {
-        flex: 0,
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
+    // loginContainer: {
+    //     flex: 0,
+    //     alignItems: 'center',
+    //     justifyContent: 'space-between'
+    // },
 
     input: {
         width: 200,
