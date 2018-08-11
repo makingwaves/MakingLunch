@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 
 const images: string = {
@@ -21,7 +21,12 @@ const LoginButton: React.SFC<LoginButtonProps> = props => {
     const text = 'Sign up with ';
 
     return (
-        <View style={[styles.container]}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={() => {
+                console.log('button press');
+            }}
+        >
             <View style={[styles.loginButtonContainer, { backgroundColor: props.color }]}>
                 <View style={[styles.iconContainer, { backgroundColor: props.iconContainerColor }]}>
                     <Image source={source} style={styles.icon} resizeMode="contain" />
@@ -34,7 +39,7 @@ const LoginButton: React.SFC<LoginButtonProps> = props => {
                     </Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 

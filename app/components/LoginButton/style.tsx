@@ -2,11 +2,16 @@ import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
     container: {
+        // flexDirection: 'row',
+        // // marginVertical: 20,
+        // marginTop: 5,
+        // height: 60,
+        // width: 250
         flexDirection: 'row',
-        // marginVertical: 20,
-        marginTop: 5,
+        marginHorizontal: 60,
+        marginBottom: 5,
         height: 60,
-        width: 250
+        justifyContent: 'flex-end'
     },
 
     loginButtonContainer: {

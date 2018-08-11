@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import Login from '../screens/login/Login';
+import Landing from '../screens/landing/Landing';
 
 // const AppStack = createStackNavigator({
 // Main: {
@@ -9,6 +10,7 @@ import Login from '../screens/login/Login';
 // });
 const AuthStack = createStackNavigator(
     {
+        Landing: { screen: Landing },
         Login: { screen: Login }
         // Registration: { screen: Registration }
     },

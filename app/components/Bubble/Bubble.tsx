@@ -5,17 +5,14 @@ import styles from './style';
 export interface BubbleProps {
     title: string;
     text: string;
-    color: string;
-    // iconContainerColor: string;
-    // onPress: () => any;
-    // type: string;
+    color?: string;
 }
 
 const Bubble: React.SFC<BubbleProps> = props => {
     return (
         <View style={[styles.container, { backgroundColor: props.color }]}>
-            <Text style={styles.title}>Let's get started now</Text>
-            <Text style={styles.text}>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</Text>
+            <Text style={styles.title}>{props.title}</Text>
+            <Text style={styles.text}>{props.text}</Text>
         </View>
     );
 };
