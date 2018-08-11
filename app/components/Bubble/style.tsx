@@ -22,7 +22,6 @@ export default StyleSheet.create({
 
     text: {
         fontSize: fontSizes.base,
-        // fontWeight: fontWeights.heavyBold,
         color: 'white'
     }
 });

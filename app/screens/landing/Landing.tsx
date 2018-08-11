@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import styles from './style';
-import InfoBadge from '../../components/InfoBadge/InfoBadge';
 import LoginButton from '../../components/LoginButton/LoginButton';
 import Bubble from '../../components/Bubble/Bubble';
 import Button from '../../components/Button/Button';
@@ -23,7 +22,6 @@ class Landing extends Component {
                     text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet."
                 />
 
-                {/* <View style={styles.socialLoginContainer}> */}
                 <LoginButton
                     text={'Sing up with Facebook'}
                     onPress={() => console.log('Sing up with Facebook')}

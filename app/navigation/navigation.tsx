@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import Login from '../screens/login/Login';
 import Landing from '../screens/landing/Landing';
+import { AppNavigator } from './app';
 
 // const AppStack = createStackNavigator({
 // Main: {
@@ -19,7 +20,7 @@ const AuthStack = createStackNavigator(
 
 export default createSwitchNavigator(
     {
-        // App: AppStack,
+        App: AppNavigator,
         Auth: AuthStack
         // Loading: LoadingScreen
     },

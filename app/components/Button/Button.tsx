@@ -8,7 +8,6 @@ export interface ButtonProps {
     iconContainerColor?: string;
     small?: boolean;
     onPress: () => any;
-    // type: string;
 }
 
 const Button: React.SFC<ButtonProps> = props => {
