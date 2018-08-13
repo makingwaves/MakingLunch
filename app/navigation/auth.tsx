@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react'';
 import { createStackNavigator } from 'react-navigation';
 import Login from '../screens/login/Login';
 import Intro1 from '../screens/login/Intro';

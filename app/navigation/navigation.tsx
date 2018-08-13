@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react'';
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import Login from '../screens/login/Login';
 import Landing from '../screens/landing/Landing';
