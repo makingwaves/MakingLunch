@@ -1,7 +1,7 @@
-import React from 'react'';
+import React from 'react';
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
-import Login from '../screens/login/Login';
-import Landing from '../screens/landing/Landing';
+import Login from '../screens/Login';
+import Landing from '../screens/Landing';
 import { AppNavigator } from './app';
 
 // const AppStack = createStackNavigator({
