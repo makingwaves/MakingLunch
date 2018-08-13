@@ -3,9 +3,9 @@ import { View, Text, Image } from 'react-native';
 import styles from './style';
 
 export interface BubbleProps {
-    title: string;
-    text: string;
-    color?: string;
+    readonly title: string;
+    readonly text: string;
+    readonly color?: string;
 }
 
 const Bubble: React.SFC<BubbleProps> = props => {

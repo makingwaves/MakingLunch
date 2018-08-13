@@ -3,10 +3,10 @@ import { View, Text, Image, TouchableOpacity, TextInput } from 'react-native';
 import styles from './style';
 
 export interface InputProps {
-    title: string;
-    value: string;
-    placeholder: string;
-    onChangeText: (text: string) => any;
+    readonly title: string;
+    readonly value: string;
+    readonly placeholder: string;
+    readonly onChangeText: (text: string) => any;
 }
 
 const Input: React.SFC<InputProps> = props => {

@@ -3,11 +3,11 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 
 export interface ButtonProps {
-    text: string;
-    color?: string;
-    iconContainerColor?: string;
-    small?: boolean;
-    onPress: () => any;
+    readonly text: string;
+    readonly color?: string;
+    readonly iconContainerColor?: string;
+    readonly small?: boolean;
+    readonly onPress: () => any;
 }
 
 const Button: React.SFC<ButtonProps> = props => {

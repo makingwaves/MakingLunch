@@ -2,22 +2,22 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 
-const images: string = {
-    Facebook: require('./img/facebook.png'),
-    Google: require('./img/google.png'),
-    Mail: require('./img/mail.png')
-};
+export enum socialImageTypes {
+    'Facebook' = require('./img/facebook.png'),
+    'Gmail' = require('./img/google.png'),
+    'Mail' = require('./img/mail.png')
+}
 
 export interface LoginButtonProps {
-    text: string;
-    color: string;
-    iconContainerColor: string;
-    onPress: () => any;
-    type: string;
+    readonly text: string;
+    readonly color: string;
+    readonly iconContainerColor: string;
+    readonly onPress: () => any;
+    readonly type: socialImageTypes;
 }
 
 const LoginButton: React.SFC<LoginButtonProps> = props => {
-    const source = images[props.type];
+    const source = socialImageTypes[props.type];
     const text = 'Sign up with ';
 
     return (

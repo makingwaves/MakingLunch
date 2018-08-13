@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import styles from './style';
 
 export interface InfoBadgeProps {
-    infoText: string;
+    readonly infoText: string;
 }
 
 const InfoBadge: React.SFC<InfoBadgeProps> = props => (

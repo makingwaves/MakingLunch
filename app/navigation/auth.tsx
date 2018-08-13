@@ -5,7 +5,7 @@ import Intro1 from '../screens/login/Intro';
 import Intro2 from '../screens/login/Intro2';
 import { Easing, Animated } from '../../node_modules/@types/react-native';
 
-export const AuthNavigator = createStackNavigator(
+const AuthNavigator = createStackNavigator(
     {
         Intro1: { screen: Intro1 },
         Intro2: { screen: Intro2 },
@@ -43,3 +43,5 @@ export const AuthNavigator = createStackNavigator(
         })
     }
 );
+
+export default AuthNavigator
