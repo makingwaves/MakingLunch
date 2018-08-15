@@ -3,9 +3,9 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 
 export enum socialImageTypes {
-    'Facebook' = require('./img/facebook.png'),
-    'Gmail' = require('./img/google.png'),
-    'Mail' = require('./img/mail.png')
+    'Facebook' = './img/facebook.png',
+    'Gmail' = './img/google.png',
+    'Mail' = './img/mail.png'
 }
 
 export interface LoginButtonProps {
@@ -17,7 +17,9 @@ export interface LoginButtonProps {
 }
 
 const LoginButton: React.SFC<LoginButtonProps> = props => {
-    const source = socialImageTypes[props.type];
+    // const socialType: keyof typeof socialImageTypes = props.type;
+    // const pathToImage = socialImageTypes[socialType];
+    // const source = require(pathToImage);
     const text = 'Sign up with ';
 
     return (
@@ -29,7 +31,7 @@ const LoginButton: React.SFC<LoginButtonProps> = props => {
         >
             <View style={[styles.loginButtonContainer, { backgroundColor: props.color }]}>
                 <View style={[styles.iconContainer, { backgroundColor: props.iconContainerColor }]}>
-                    <Image source={source} style={styles.icon} resizeMode="contain" />
+                    <Image source={require('./img/mail.png')} style={styles.icon} resizeMode="contain" />
                 </View>
 
                 <View style={styles.textContainer}>

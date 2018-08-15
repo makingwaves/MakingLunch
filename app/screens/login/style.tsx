@@ -17,7 +17,7 @@ export default StyleSheet.create({
         top: 0,
         bottom: 0,
         left: 0,
-        right: 0,
+        right: 0
     },
 
     socialLoginContainer: {
@@ -36,12 +36,6 @@ export default StyleSheet.create({
         height: 100,
         borderWidth: 3
     },
-
-    // loginContainer: {
-    //     flex: 0,
-    //     alignItems: 'center',
-    //     justifyContent: 'space-between'
-    // },
 
     input: {
         width: 200,
