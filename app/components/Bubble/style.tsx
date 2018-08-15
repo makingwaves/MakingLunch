@@ -13,7 +13,6 @@ export default StyleSheet.create({
     },
 
     title: {
-        fontSize: fontSizes.peta,
         fontWeight: fontWeights.heavyBold,
         color: 'white',
         paddingBottom: 15,
