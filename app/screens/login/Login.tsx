@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import styles from './style';
-import InfoBadge from '../../components/InfoBadge/InfoBadge';
-import LoginButton from '../../components/LoginButton/LoginButton';
-import Bubble from '../../components/Bubble/Bubble';
-import Button from '../../components/Button/Button';
-import Input from '../../components/Input/Input';
+import InfoBadge from '../../components/InfoBadge';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import { NavigationScreenProps } from 'react-navigation';
 
 const LOGIN_BACKGROUND_3 = require('./img/intro3.png');
 
-class Login extends Component {
-    constructor(props) {
+type LoginState = {
+    username: string;
+    password: string;
+    failureFlag: boolean;
+    isLoading: boolean;
+};
+
+class Login extends Component<NavigationScreenProps, LoginState> {
+    constructor(props: NavigationScreenProps) {
         super(props);
         this.state = {
             username: 'test',

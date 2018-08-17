@@ -7,6 +7,7 @@ export interface InputProps {
     readonly value: string;
     readonly placeholder: string;
     readonly onChangeText: (text: string) => any;
+    readonly secureTextEntry?: boolean;
 }
 
 const Input: React.SFC<InputProps> = props => {

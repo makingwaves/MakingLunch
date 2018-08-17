@@ -1,16 +1,10 @@
-import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import Login from '../screens/login/Login';
-import Intro1 from '../screens/login/Intro';
-import Intro2 from '../screens/login/Intro2';
 import { Easing, Animated } from '../../node_modules/@types/react-native';
 
 const AuthNavigator = createStackNavigator(
     {
-        Intro1: { screen: Intro1 },
-        Intro2: { screen: Intro2 },
         Login: { screen: Login }
-        // Registration: { screen: Registration }
     },
     {
         headerMode: 'none',

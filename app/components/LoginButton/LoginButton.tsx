@@ -2,24 +2,27 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 
-export enum socialImageTypes {
-    'Facebook' = './img/facebook.png',
-    'Gmail' = './img/google.png',
-    'Mail' = './img/mail.png'
+export enum socialTypes {
+    facebook = 'Facebook',
+    google = 'Google',
+    mail = 'Mail'
 }
+
+const socialImages = {
+    Facebook: require('./img/facebook.png'),
+    Google: require('./img/google.png'),
+    Mail: require('./img/mail.png')
+};
 
 export interface LoginButtonProps {
     readonly text: string;
     readonly color: string;
     readonly iconContainerColor: string;
     readonly onPress: () => any;
-    readonly type: socialImageTypes;
+    readonly type: socialTypes;
 }
 
 const LoginButton: React.SFC<LoginButtonProps> = props => {
-    // const socialType: keyof typeof socialImageTypes = props.type;
-    // const pathToImage = socialImageTypes[socialType];
-    // const source = require(pathToImage);
     const text = 'Sign up with ';
 
     return (
@@ -31,7 +34,7 @@ const LoginButton: React.SFC<LoginButtonProps> = props => {
         >
             <View style={[styles.loginButtonContainer, { backgroundColor: props.color }]}>
                 <View style={[styles.iconContainer, { backgroundColor: props.iconContainerColor }]}>
-                    <Image source={require('./img/mail.png')} style={styles.icon} resizeMode="contain" />
+                    <Image source={socialImages[props.type]} style={styles.icon} resizeMode="contain" />
                 </View>
 
                 <View style={styles.textContainer}>

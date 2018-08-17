@@ -6,7 +6,7 @@ import { fontSizes } from '../../config/styles';
 export interface BubbleProps {
     readonly title: string;
     readonly text: string;
-    readonly bigTitle: boolean;
+    readonly bigTitle?: boolean;
     readonly color?: string;
 }
 

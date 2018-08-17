@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image } from 'react-native';
 import styles from './style';
 import Swiper from 'react-native-swiper';
-import LoginButton from '../../components/LoginButton/LoginButton';
-import Bubble from '../../components/Bubble/Bubble';
-import Button from '../../components/Button/Button';
+import LoginButton from '../../components/LoginButton';
+import Bubble from '../../components/Bubble';
+import Button from '../../components/Button';
+import { NavigationScreenProps } from 'react-navigation';
+import { socialTypes } from '../../components/LoginButton/LoginButton';
 
 const LOGIN_BACKGROUND_1 = require('./img/intro1.png');
 const LOGIN_BACKGROUND_2 = require('./img/intro2.png');
 const LOGIN_BACKGROUND_3 = require('./img/intro3.png');
 
-class Landing extends Component {
+class Landing extends Component<NavigationScreenProps> {
     onLoginPress = () => {
         this.props.navigation.navigate('Login');
     };
@@ -50,7 +52,7 @@ class Landing extends Component {
                 onPress={() => console.log('Sing up with Facebook')}
                 color={'#4a90e2'}
                 iconContainerColor={'#4280cb'}
-                type={'Facebook'}
+                type={socialTypes.facebook}
             />
 
             <LoginButton
@@ -58,14 +60,14 @@ class Landing extends Component {
                 onPress={() => console.log('Sign up with Google')}
                 color={'#ff5c5c'}
                 iconContainerColor={'#e65252'}
-                type={'Google'}
+                type={socialTypes.google}
             />
             <LoginButton
                 text={'Sing up with email'}
                 onPress={() => console.log('Sign up with email')}
                 color={'#50e3c2'}
                 iconContainerColor={'#48ccae'}
-                type={'Mail'}
+                type={socialTypes.mail}
             />
 
             <Button text={'Log in'} onPress={this.onLoginPress} small />
