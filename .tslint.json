@@ -12,7 +12,7 @@
     "jsx-no-lambda": false,
     "jsx-boolean-value": [true, "always"],
     "quotemark": [true, "single", "jsx-double"],
-    "trailing-comma": [true, {"singleline": "never"}],
+    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
     "interface-name": [true, "never-prefix"]
   },
   "rulesDirectory": []
