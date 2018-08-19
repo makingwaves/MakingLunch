@@ -10,9 +10,9 @@
     "object-literal-sort-keys": false,
     "member-ordering": false,
     "jsx-no-lambda": false,
-    "jsx-boolean-value": false,
+    "jsx-boolean-value": [true, "always"],
     "quotemark": [true, "single", "jsx-double"],
-    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+    "trailing-comma": [true, {"singleline": "never"}],
     "interface-name": [true, "never-prefix"]
   },
   "rulesDirectory": []
