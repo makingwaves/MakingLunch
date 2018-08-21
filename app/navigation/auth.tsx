@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation';
-import Login from '../screens/login/Login';
+import Login from '../screens/Login2/Login';
 import { Easing, Animated } from '../../node_modules/@types/react-native';
 
 const AuthNavigator = createStackNavigator(
