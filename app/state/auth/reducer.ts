@@ -1,30 +1,61 @@
 import {AuthActions, AuthState} from "./types";
 import {ActionUnion} from "../../utils/redux";
-import {AuthActionsMap} from "./actions";
+import {AuthActionsFactory} from "./actions";
 import {Reducer} from "redux";
+import {RequestState} from "../common/types";
 
-const initalState: AuthState = {
-    request: null,
+const initialState: AuthState = {
+    request: {
+        state: RequestState.none,
+        errorMsg: ''
+    },
     profile: null,
     token: '',
 };
 
-type AuthAction = ActionUnion<typeof AuthActionsMap>;
+type AuthAction = ActionUnion<typeof AuthActionsFactory>;
 
-export const authReducer: Reducer<AuthState> = (state = initalState, action: AuthAction) => {
+export const authReducer: Reducer<AuthState> = (state = initialState, action: AuthAction = { type: '' }) => {
     switch (action.type) {
         case AuthActions.SET_PROFILE:
-            return state;
+            return {
+                ...state,
+                profile: action.payload
+            };
         case AuthActions.SET_TOKEN:
-            return state;
+            return {
+                ...state,
+                token: action.payload
+            };
         case AuthActions.INVALIDATE_TOKEN:
-            return state;
+            return {
+                ...state,
+                token: ''
+            };
         case AuthActions.START_REQUEST:
-            return state;
+            return {
+                ...state,
+                request: {
+                    state: RequestState.inProgress,
+                    errorMsg: ''
+                }
+            };
         case AuthActions.REQUEST_SUCCESS:
-            return state;
+            return {
+                ...state,
+                request: {
+                    state: RequestState.succeeded,
+                    errorMsg: ''
+                }
+            };
         case AuthActions.REQUEST_FAIL:
-            return state;
+            return {
+                ...state,
+                request: {
+                    state: RequestState.failed,
+                    errorMsg: action.payload
+                }
+            };
         default:
             return state;
     }

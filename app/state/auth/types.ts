@@ -8,7 +8,7 @@ export interface Profile {
 }
 
 export interface AuthState {
-    request: Request|null;
+    request: Request;
     profile: Profile|null;
     token: string;
 }

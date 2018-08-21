@@ -1,5 +1,11 @@
 export interface Request {
-    didFail: boolean;
-    isLoading: boolean;
-    isLoaded: boolean;
+    state: RequestState;
+    errorMsg: string;
+}
+
+export enum RequestState {
+    none = "NONE",
+    inProgress = "IN_PROGRESS",
+    succeeded = "SUCCEEDED",
+    failed = "FAILED"
 }
