@@ -26,6 +26,36 @@ describe('auth reducer', () => {
         Reducer(authReducer).expect({type: 'NOT_EXISTING'}).toReturnState(initialState);
     });
 
+    describe('action creators', () => {
+        test(AuthActions.SET_PROFILE, () => {
+            const profile: Profile = {
+                id: 'pId',
+                name: 'pName',
+                description: 'pDesc',
+                photo: 'pPhotoUrl'
+            };
+            expect(AuthActionsFactory.setProfile(profile)).toEqual({ type: AuthActions.SET_PROFILE, payload: profile});
+        });
+
+        test(AuthActions.SET_TOKEN, () => {
+            expect(AuthActionsFactory.setToken('abc')).toEqual({ type: AuthActions.SET_TOKEN, payload: 'abc'});
+        });
+
+        test(AuthActions.INVALIDATE_TOKEN, () => {
+            expect(AuthActionsFactory.invalidateToken()).toEqual({ type: AuthActions.INVALIDATE_TOKEN });
+        });
+        test(AuthActions.START_REQUEST, () => {
+            expect(AuthActionsFactory.startRequest()).toEqual({ type: AuthActions.START_REQUEST});
+        });
+        test(AuthActions.REQUEST_SUCCESS, () => {
+            expect(AuthActionsFactory.requestSuccess()).toEqual({ type: AuthActions.REQUEST_SUCCESS});
+        });
+        test(AuthActions.REQUEST_FAIL, () => {
+            const errorMsg = "Shit happens";
+            expect(AuthActionsFactory.requestFail(errorMsg)).toEqual({ type: AuthActions.REQUEST_FAIL, payload: errorMsg});
+        });
+    });
+
     test(`${AuthActions.SET_PROFILE} - should set profile`, () => {
         const profile: Profile = {
             id: 'pId',
