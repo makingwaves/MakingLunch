@@ -78,7 +78,7 @@ describe('auth reducer', () => {
     });
 
     describe('token actions', () => {
-        let token = "someRandomToken1234567890";
+        let token: string;
         beforeAll(() => {
             token = "someRandomToken1234567890";
         });
