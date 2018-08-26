@@ -1,6 +1,6 @@
 import {AuthActions, AuthState} from "./types";
 import {ActionUnion} from "../../utils/redux";
-import {AuthActionsFactory} from "./actions";
+import {authActionsCreator} from "./actions";
 import {Reducer} from "redux";
 import {RequestState} from "../common/types";
 
@@ -13,9 +13,9 @@ const initialState: AuthState = {
     token: '',
 };
 
-type AuthAction = ActionUnion<typeof AuthActionsFactory>;
+type AuthAction = ActionUnion<typeof authActionsCreator>;
 
-export const authReducer: Reducer<AuthState> = (state = initialState, action: AuthAction = { type: '' }) => {
+export const authReducer: Reducer<AuthState> = (state = initialState, action: AuthAction) => {
     switch (action.type) {
         case AuthActions.SET_PROFILE:
             return {
@@ -27,7 +27,7 @@ export const authReducer: Reducer<AuthState> = (state = initialState, action: Au
                 ...state,
                 token: action.payload
             };
-        case AuthActions.INVALIDATE_TOKEN:
+        case AuthActions.CLEAR_TOKEN:
             return {
                 ...state,
                 token: ''
