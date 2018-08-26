@@ -4,8 +4,8 @@ export interface Request {
 }
 
 export enum RequestState {
-    none = "NONE",
-    inProgress = "IN_PROGRESS",
-    succeeded = "SUCCEEDED",
-    failed = "FAILED"
+    none = 'NONE',
+    inProgress = 'IN_PROGRESS',
+    succeeded = 'SUCCEEDED',
+    failed = 'FAILED',
 }

@@ -28,7 +28,7 @@
     "android": "react-native-scripts-ts android",
     "ios": "react-native-scripts-ts ios",
     "test": "jest",
-    "lint": "tslint --project ./tsconfig.json --config ./.tslint.json --force"
+    "lint": "tslint --project ./tsconfig.json --config ./tslint.json --force"
   },
   "jest": {
     "globals": {

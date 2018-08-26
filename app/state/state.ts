@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux';
-import {LunchRequestState} from "./lunchRequest/types";
-import {lunchRequestReducer} from "./lunchRequest/reducer";
+import {LunchRequestState} from './lunchRequest/types';
+import {lunchRequestReducer} from './lunchRequest/reducer';
 
 export interface AppState {
-    lunchRequest: LunchRequestState
+    lunchRequest: LunchRequestState;
 }
 
 export default combineReducers({
-    lunchRequest: lunchRequestReducer
+    lunchRequest: lunchRequestReducer,
 });

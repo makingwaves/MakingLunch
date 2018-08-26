@@ -1,8 +1,8 @@
-import {authReducer} from "./reducer";
-import {AuthActions, AuthState, Profile} from "./types";
-import {RequestState} from "../common/types";
+import {authReducer} from './reducer';
+import {AuthActions, AuthState, Profile} from './types';
+import {RequestState} from '../common/types';
 import {Reducer} from 'redux-testkit';
-import {authActionsCreator} from "./actions";
+import {authActionsCreator} from './actions';
 
 describe('auth reducer', () => {
     let initialState: AuthState;
@@ -11,7 +11,7 @@ describe('auth reducer', () => {
         initialState = {
             request: {
                 state: RequestState.none,
-                errorMsg: ''
+                errorMsg: '',
             },
             profile: null,
             token: '',
@@ -32,7 +32,7 @@ describe('auth reducer', () => {
                 id: 'pId',
                 name: 'pName',
                 description: 'pDesc',
-                photo: 'pPhotoUrl'
+                photo: 'pPhotoUrl',
             };
             expect(authActionsCreator.setProfile(profile)).toEqual({ type: AuthActions.SET_PROFILE, payload: profile});
         });
@@ -51,24 +51,25 @@ describe('auth reducer', () => {
             expect(authActionsCreator.requestSuccess()).toEqual({ type: AuthActions.REQUEST_SUCCESS});
         });
         test(AuthActions.REQUEST_FAIL, () => {
-            const errorMsg = "Shit happens";
-            expect(authActionsCreator.requestFail(errorMsg)).toEqual({ type: AuthActions.REQUEST_FAIL, payload: errorMsg});
+            const errorMsg = 'Shit happens';
+            expect(authActionsCreator.requestFail(errorMsg))
+                .toEqual({ type: AuthActions.REQUEST_FAIL, payload: errorMsg});
         });
     });
 
     test(`${AuthActions.SET_PROFILE} - should set profile`, () => {
         const profile: Profile = {
             id: 'pId',
-            name: "pName",
-            description: "pDescription",
-            photo: "pPhotoUrl"
+            name: 'pName',
+            description: 'pDescription',
+            photo: 'pPhotoUrl',
         };
 
         const changedProfile: Profile = {
-            id: "changedId",
-            name: "changedName",
-            description: "changedDesc",
-            photo: "changedPhotoUrl"
+            id: 'changedId',
+            name: 'changedName',
+            description: 'changedDesc',
+            photo: 'changedPhotoUrl',
         };
 
         const setAction = authActionsCreator.setProfile(profile);
@@ -80,7 +81,7 @@ describe('auth reducer', () => {
     describe('token actions', () => {
         let token: string;
         beforeAll(() => {
-            token = "someRandomToken1234567890";
+            token = 'someRandomToken1234567890';
         });
 
         test(`${AuthActions.SET_TOKEN} - should set token`, () => {
@@ -102,8 +103,8 @@ describe('auth reducer', () => {
                 ...initialState,
                 request: {
                     state: RequestState.inProgress,
-                    errorMsg: ''
-                }
+                    errorMsg: '',
+                },
             };
         });
 
@@ -113,8 +114,8 @@ describe('auth reducer', () => {
                 ...initialState,
                 request: {
                     state: RequestState.inProgress,
-                    errorMsg: ''
-                }
+                    errorMsg: '',
+                },
             });
         });
 
@@ -124,8 +125,8 @@ describe('auth reducer', () => {
                 ...initialState,
                 request: {
                     state: RequestState.succeeded,
-                    errorMsg: ''
-                }
+                    errorMsg: '',
+                },
             });
         });
 
@@ -136,8 +137,8 @@ describe('auth reducer', () => {
                 ...initialState,
                 request: {
                     state: RequestState.failed,
-                    errorMsg: errorMsg
-                }
+                    errorMsg,
+                },
             });
         });
     });
