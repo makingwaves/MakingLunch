@@ -37,12 +37,11 @@ export const membersReducer: Reducer<MembersState> = (state: MembersState = init
                 ...state,
                 data: Object
                     .keys(state.data)
-                    .filter((key: string) => {
-                        return key !== action.payload;
-                    })
-                    .reduce((obj: MembersMap, key: string) => {
-                        obj[key] = state.data[key];
-                        return obj;
+                    .reduce((accumulator: MembersMap, key) => {
+                        if (key !== action.payload) {
+                            accumulator[key] = state.data[key];
+                        }
+                        return accumulator;
                     }, {}),
             };
         case MembersActions.REMOVE_ALL_MEMBERS:
