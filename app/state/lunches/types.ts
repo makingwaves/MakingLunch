@@ -53,9 +53,21 @@ export interface LunchesState {
     data: LunchesMap;
 }
 
+export interface AddLunchMemberPayload {
+    memberId: string;
+    timeSpan: TimeSpan;
+    location: Location;
+}
+
 export enum LunchActions {
     CREATE_LUNCH = '@@lunches/create_lunch',
-
+    SET_LUNCH_STATUS = '@@lunches/set_lunch_status',
+    REMOVE_LUNCH = '@@lunches/remove_lunch',
+    ADD_LUNCH_MEMBER = '@@lunches/add_lunch_member',
+    REMOVE_LUNCH_MEMBER = '@@lunches/remove_lunch_member',
+    SET_LUNCH_LOCATION = '@@lunches/change_lunch_location',
+    SET_LUNCH_TIME = '@@lunches/change_lunch_time',
+    ADD_CHAT_MESSAGE = '@@lunches/add_chat_message',
     START_REQUEST = '@@lunches/start_request',
     REQUEST_SUCCESS = '@@lunches/request_success',
     REQUEST_FAIL = '@@lunches/request_fail',
