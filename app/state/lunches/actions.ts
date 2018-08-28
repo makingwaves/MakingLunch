@@ -1,16 +1,28 @@
 import {makeAction} from '../../utils/redux';
-import {LunchActions, LunchStatus, TimeSpan, Location, AddLunchMemberPayload, Message} from './types';
+import {
+    LunchActions,
+    AddLunchMemberPayload,
+    SetLunchLocationPayload,
+    SetLunchTimePayload,
+    UpdateLunchPayload,
+    CreateLunchPayload,
+    SetLunchStatusPayload,
+    RemoveLunchMemberPayload, AddChatMessagePayload,
+} from './types';
 
 export const lunchesActionsCreator = {
-    createLunch: () => makeAction(LunchActions.CREATE_LUNCH),
-    setLunchStatus: (status: LunchStatus) => makeAction(LunchActions.SET_LUNCH_STATUS, status),
+    createLunch: (lunchPayload: CreateLunchPayload) => makeAction(LunchActions.CREATE_LUNCH, lunchPayload),
+    setLunchStatus: (statusPayload: SetLunchStatusPayload) => makeAction(LunchActions.SET_LUNCH_STATUS, statusPayload),
+    updateLunch: (lunchPayload: UpdateLunchPayload) => makeAction(LunchActions.UPDATE_LUNCH, lunchPayload),
     removeLunch: (lunchId: string) => makeAction(LunchActions.REMOVE_LUNCH, lunchId),
     addLunchMember: (payload: AddLunchMemberPayload) =>
         makeAction(LunchActions.ADD_LUNCH_MEMBER, payload),
-    removeLunchMember: (memberId: string) => makeAction(LunchActions.REMOVE_LUNCH_MEMBER, memberId),
-    setLunchLocation: (location: Location) => makeAction(LunchActions.SET_LUNCH_LOCATION, location),
-    setLunchTime: (time: TimeSpan) => makeAction(LunchActions.SET_LUNCH_TIME, time),
-    addChatMessage: (message: Message) => makeAction(LunchActions.ADD_CHAT_MESSAGE, message),
+    removeLunchMember: (payload: RemoveLunchMemberPayload) => makeAction(LunchActions.REMOVE_LUNCH_MEMBER, payload),
+    setLunchLocation: (locationPayload: SetLunchLocationPayload) =>
+        makeAction(LunchActions.SET_LUNCH_LOCATION, locationPayload),
+    setLunchTime: (timePayload: SetLunchTimePayload) => makeAction(LunchActions.SET_LUNCH_TIME, timePayload),
+    addChatMessage: (messagePayload: AddChatMessagePayload) =>
+        makeAction(LunchActions.ADD_CHAT_MESSAGE, messagePayload),
     startRequest: () => makeAction(LunchActions.START_REQUEST),
     requestSuccess: () => makeAction(LunchActions.REQUEST_SUCCESS),
     requestFail: (errorMsg: string) => makeAction(LunchActions.REQUEST_FAIL, errorMsg),

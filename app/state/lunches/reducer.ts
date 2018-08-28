@@ -18,6 +18,8 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
     switch (action.type) {
         case LunchActions.CREATE_LUNCH:
             return state;
+        case LunchActions.UPDATE_LUNCH:
+            return state;
         case LunchActions.SET_LUNCH_STATUS:
             return state;
         case LunchActions.REMOVE_LUNCH:
