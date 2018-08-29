@@ -1,7 +1,7 @@
 import {Profile, AuthActions} from './types';
 import {makeAction} from '../../utils/redux';
 
-export const authActionsCreator = {
+export const authActionsCreators = {
     setProfile: (profile: Profile) => makeAction(AuthActions.SET_PROFILE, profile),
     setToken: (token: string) => makeAction(AuthActions.SET_TOKEN, token),
     invalidateToken: () => makeAction(AuthActions.CLEAR_TOKEN),
