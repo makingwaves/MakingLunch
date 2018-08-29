@@ -1,8 +1,8 @@
-import { ActionUnion } from '../../utils/redux';
-import { membersActionsCreator } from './actions';
-import { Reducer } from 'redux';
+import {ActionUnion} from '../../utils/redux';
+import {membersActionsCreators} from './actions';
+import {Reducer} from 'redux';
 import {MembersActions, MembersState, MembersMap} from './types';
-import { RequestState } from '../common/types';
+import {RequestState} from '../common/types';
 
 const initialState: MembersState = {
     request: {
@@ -12,7 +12,7 @@ const initialState: MembersState = {
     data: {},
 };
 
-type MembersAction = ActionUnion<typeof membersActionsCreator>;
+type MembersAction = ActionUnion<typeof membersActionsCreators>;
 
 export const membersReducer: Reducer<MembersState> = (state: MembersState = initialState, action: MembersAction) => {
     switch (action.type) {

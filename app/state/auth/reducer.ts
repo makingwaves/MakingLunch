@@ -1,6 +1,6 @@
 import {AuthActions, AuthState} from './types';
 import {ActionUnion} from '../../utils/redux';
-import {authActionsCreator} from './actions';
+import {authActionsCreators} from './actions';
 import {Reducer} from 'redux';
 import {RequestState} from '../common/types';
 
@@ -13,7 +13,7 @@ const initialState: AuthState = {
     token: null,
 };
 
-type AuthAction = ActionUnion<typeof authActionsCreator>;
+type AuthAction = ActionUnion<typeof authActionsCreators>;
 
 export const authReducer: Reducer<AuthState> = (state = initialState, action: AuthAction) => {
     switch (action.type) {

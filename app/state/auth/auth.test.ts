@@ -2,7 +2,7 @@ import {authReducer} from './reducer';
 import {AuthActions, AuthState, Profile} from './types';
 import {RequestState} from '../common/types';
 import {Reducer} from 'redux-testkit';
-import {authActionsCreator} from './actions';
+import {authActionsCreators} from './actions';
 
 describe('auth reducer', () => {
     let initialState: AuthState;
@@ -34,25 +34,25 @@ describe('auth reducer', () => {
                 description: 'pDesc',
                 photo: 'pPhotoUrl',
             };
-            expect(authActionsCreator.setProfile(profile)).toEqual({ type: AuthActions.SET_PROFILE, payload: profile});
+            expect(authActionsCreators.setProfile(profile)).toEqual({ type: AuthActions.SET_PROFILE, payload: profile});
         });
 
         test(AuthActions.SET_TOKEN, () => {
-            expect(authActionsCreator.setToken('abc')).toEqual({ type: AuthActions.SET_TOKEN, payload: 'abc'});
+            expect(authActionsCreators.setToken('abc')).toEqual({ type: AuthActions.SET_TOKEN, payload: 'abc'});
         });
 
         test(AuthActions.CLEAR_TOKEN, () => {
-            expect(authActionsCreator.invalidateToken()).toEqual({ type: AuthActions.CLEAR_TOKEN });
+            expect(authActionsCreators.invalidateToken()).toEqual({ type: AuthActions.CLEAR_TOKEN });
         });
         test(AuthActions.START_REQUEST, () => {
-            expect(authActionsCreator.startRequest()).toEqual({ type: AuthActions.START_REQUEST});
+            expect(authActionsCreators.startRequest()).toEqual({ type: AuthActions.START_REQUEST});
         });
         test(AuthActions.REQUEST_SUCCESS, () => {
-            expect(authActionsCreator.requestSuccess()).toEqual({ type: AuthActions.REQUEST_SUCCESS});
+            expect(authActionsCreators.requestSuccess()).toEqual({ type: AuthActions.REQUEST_SUCCESS});
         });
         test(AuthActions.REQUEST_FAIL, () => {
             const errorMsg = 'Shit happens';
-            expect(authActionsCreator.requestFail(errorMsg))
+            expect(authActionsCreators.requestFail(errorMsg))
                 .toEqual({ type: AuthActions.REQUEST_FAIL, payload: errorMsg});
         });
     });
@@ -72,9 +72,9 @@ describe('auth reducer', () => {
             photo: 'changedPhotoUrl',
         };
 
-        const setAction = authActionsCreator.setProfile(profile);
+        const setAction = authActionsCreators.setProfile(profile);
         Reducer(authReducer).expect(setAction).toReturnState({...initialState, profile});
-        const changeAction = authActionsCreator.setProfile(changedProfile);
+        const changeAction = authActionsCreators.setProfile(changedProfile);
         Reducer(authReducer).expect(changeAction).toReturnState({...initialState, profile: changedProfile});
     });
 
@@ -85,13 +85,13 @@ describe('auth reducer', () => {
         });
 
         test(`${AuthActions.SET_TOKEN} - should set token`, () => {
-            const setAction = authActionsCreator.setToken(token);
+            const setAction = authActionsCreators.setToken(token);
             Reducer(authReducer).expect(setAction).toReturnState({...initialState, token});
         });
 
         test(`${AuthActions.CLEAR_TOKEN} - should invalidate token`, () => {
             const stateWithToken = {...initialState, token };
-            const invalidateAction = authActionsCreator.invalidateToken();
+            const invalidateAction = authActionsCreators.invalidateToken();
             Reducer(authReducer).withState(stateWithToken).expect(invalidateAction).toReturnState({...initialState});
         });
     });
@@ -109,7 +109,7 @@ describe('auth reducer', () => {
         });
 
         test(`${AuthActions.START_REQUEST} - should reflect request start state`, () => {
-            const startAction = authActionsCreator.startRequest();
+            const startAction = authActionsCreators.startRequest();
             Reducer(authReducer).expect(startAction).toReturnState({
                 ...initialState,
                 request: {
@@ -120,7 +120,7 @@ describe('auth reducer', () => {
         });
 
         test(`${AuthActions.REQUEST_SUCCESS} - should reflect request success state`, () => {
-            const successAction = authActionsCreator.requestSuccess();
+            const successAction = authActionsCreators.requestSuccess();
             Reducer(authReducer).withState(requestInProgressState).expect(successAction).toReturnState({
                 ...initialState,
                 request: {
@@ -132,7 +132,7 @@ describe('auth reducer', () => {
 
         test(`${AuthActions.REQUEST_FAIL} - should reflect request failed state`, () => {
             const errorMsg = 'Shit happens';
-            const failAction = authActionsCreator.requestFail(errorMsg);
+            const failAction = authActionsCreators.requestFail(errorMsg);
             Reducer(authReducer).withState(requestInProgressState).expect(failAction).toReturnState({
                 ...initialState,
                 request: {

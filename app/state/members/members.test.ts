@@ -2,7 +2,7 @@ import {Member, MembersActions, MembersMap, MembersState} from './types';
 import {RequestState} from '../common/types';
 import {Reducer} from 'redux-testkit';
 import {membersReducer} from './reducer';
-import {membersActionsCreator} from './actions';
+import {membersActionsCreators} from './actions';
 
 describe('members reducer', () => {
     let initialState: MembersState;
@@ -34,7 +34,8 @@ describe('members reducer', () => {
                 photo: 'mPhotoUrl',
             };
 
-            expect(membersActionsCreator.setMember(member)).toEqual({type: MembersActions.SET_MEMBER, payload: member});
+            expect(membersActionsCreators.setMember(member))
+                .toEqual({type: MembersActions.SET_MEMBER, payload: member});
         });
 
         test(MembersActions.BATCH_SET_MEMBERS, () => {
@@ -53,7 +54,7 @@ describe('members reducer', () => {
                 },
             };
 
-            expect(membersActionsCreator.batchSetMembers(members)).toEqual({
+            expect(membersActionsCreators.batchSetMembers(members)).toEqual({
                 type: MembersActions.BATCH_SET_MEMBERS,
                 payload: members,
             });
@@ -61,24 +62,24 @@ describe('members reducer', () => {
 
         test(MembersActions.REMOVE_MEMBER, () => {
             const id = 'removedId';
-            expect(membersActionsCreator.removeMember(id)).toEqual({type: MembersActions.REMOVE_MEMBER, payload: id});
+            expect(membersActionsCreators.removeMember(id)).toEqual({type: MembersActions.REMOVE_MEMBER, payload: id});
         });
 
         test(MembersActions.REMOVE_ALL_MEMBERS, () => {
-            expect(membersActionsCreator.removeAllMembers()).toEqual({type: MembersActions.REMOVE_ALL_MEMBERS});
+            expect(membersActionsCreators.removeAllMembers()).toEqual({type: MembersActions.REMOVE_ALL_MEMBERS});
         });
 
         test(MembersActions.START_REQUEST, () => {
-            expect(membersActionsCreator.startRequest()).toEqual({type: MembersActions.START_REQUEST});
+            expect(membersActionsCreators.startRequest()).toEqual({type: MembersActions.START_REQUEST});
         });
 
         test(MembersActions.REQUEST_SUCCESS, () => {
-            expect(membersActionsCreator.requestSuccess()).toEqual({type: MembersActions.REQUEST_SUCCESS});
+            expect(membersActionsCreators.requestSuccess()).toEqual({type: MembersActions.REQUEST_SUCCESS});
         });
 
         test(MembersActions.REQUEST_FAIL, () => {
             const errorMsg = 'Shit happens';
-            expect(membersActionsCreator.requestFail(errorMsg)).toEqual({
+            expect(membersActionsCreators.requestFail(errorMsg)).toEqual({
                 type: MembersActions.REQUEST_FAIL,
                 payload: errorMsg,
             });
@@ -130,9 +131,9 @@ describe('members reducer', () => {
                 photo: 'changedMPhotoUrl',
             };
 
-            const setAction = membersActionsCreator.setMember(member);
+            const setAction = membersActionsCreators.setMember(member);
             Reducer(membersReducer).expect(setAction).toReturnState({...initialState, data: { mId: member}});
-            const changeAction = membersActionsCreator.setMember(changedMember);
+            const changeAction = membersActionsCreators.setMember(changedMember);
             Reducer(membersReducer).expect(changeAction).toReturnState({...initialState, data: {mId: changedMember}});
         });
 
@@ -152,13 +153,13 @@ describe('members reducer', () => {
                 },
             };
 
-            const batchSetAction = membersActionsCreator.batchSetMembers(members);
+            const batchSetAction = membersActionsCreators.batchSetMembers(members);
             Reducer(membersReducer).expect(batchSetAction).toReturnState({...initialState, data: members});
         });
 
         test(`${MembersActions.REMOVE_MEMBER} - should remove member`, () => {
             const remId = 'mId1';
-            const removeAction = membersActionsCreator.removeMember(remId);
+            const removeAction = membersActionsCreators.removeMember(remId);
             Reducer(membersReducer).withState(stateWithMembers).expect(removeAction).toReturnState({
                 ...initialState,
                 data: {
@@ -168,7 +169,7 @@ describe('members reducer', () => {
         });
 
         test(`${MembersActions.REMOVE_ALL_MEMBERS} - should remove all members`, () => {
-            const removeAllAction = membersActionsCreator.removeAllMembers();
+            const removeAllAction = membersActionsCreators.removeAllMembers();
             Reducer(membersReducer).withState(stateWithMembers).expect(removeAllAction).toReturnState(initialState);
         });
     });
@@ -186,7 +187,7 @@ describe('members reducer', () => {
         });
 
         test(`${MembersActions.START_REQUEST} - should reflect request start state`, () => {
-            const startAction = membersActionsCreator.startRequest();
+            const startAction = membersActionsCreators.startRequest();
             Reducer(membersReducer).expect(startAction).toReturnState({
                 ...initialState,
                 request: {
@@ -197,7 +198,7 @@ describe('members reducer', () => {
         });
 
         test(`${MembersActions.REQUEST_SUCCESS} - should reflect request success state`, () => {
-            const successAction = membersActionsCreator.requestSuccess();
+            const successAction = membersActionsCreators.requestSuccess();
             Reducer(membersReducer).withState(requestInProgressState).expect(successAction).toReturnState({
                 ...initialState,
                 request: {
@@ -209,7 +210,7 @@ describe('members reducer', () => {
 
         test(`${MembersActions.REQUEST_FAIL} - should reflect request failed state`, () => {
             const errorMsg = 'Shit happens';
-            const failAction = membersActionsCreator.requestFail(errorMsg);
+            const failAction = membersActionsCreators.requestFail(errorMsg);
             Reducer(membersReducer).withState(requestInProgressState).expect(failAction).toReturnState({
                 ...initialState,
                 request: {
