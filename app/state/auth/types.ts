@@ -10,7 +10,7 @@ export interface Profile {
 export interface AuthState {
     request: Request;
     profile: Profile|null;
-    token: string;
+    token: string|null;
 }
 
 export enum AuthActions {

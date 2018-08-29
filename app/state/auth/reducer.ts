@@ -10,7 +10,7 @@ const initialState: AuthState = {
         errorMsg: '',
     },
     profile: null,
-    token: '',
+    token: null,
 };
 
 type AuthAction = ActionUnion<typeof authActionsCreator>;
@@ -30,7 +30,7 @@ export const authReducer: Reducer<AuthState> = (state = initialState, action: Au
         case AuthActions.CLEAR_TOKEN:
             return {
                 ...state,
-                token: '',
+                token: null,
             };
         case AuthActions.START_REQUEST:
             return {

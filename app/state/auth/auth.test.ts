@@ -14,7 +14,7 @@ describe('auth reducer', () => {
                 errorMsg: '',
             },
             profile: null,
-            token: '',
+            token: null,
         };
     });
 
