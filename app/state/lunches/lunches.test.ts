@@ -10,7 +10,7 @@ import {
 import {RequestState} from '../common/types';
 import {Reducer} from 'redux-testkit';
 import {lunchesReducer} from './reducer';
-import {lunchesActionsCreator} from './actions';
+import {lunchesActionsCreators} from './actions';
 
 describe('lunches reducer', () => {
     let initialState: LunchesState;
@@ -49,7 +49,7 @@ describe('lunches reducer', () => {
                 },
             };
 
-            expect(lunchesActionsCreator.createLunch(lunchPayload)).toEqual({
+            expect(lunchesActionsCreators.createLunch(lunchPayload)).toEqual({
                 type: LunchActions.CREATE_LUNCH,
                 payload: lunchPayload,
             });
@@ -59,11 +59,11 @@ describe('lunches reducer', () => {
             const pendingPayload: SetLunchStatusPayload = {lunchId: 'lId', lunchStatus: LunchStatus.pending};
             const runningPayload: SetLunchStatusPayload = {lunchId: 'lId', lunchStatus: LunchStatus.running};
             const finishedPayload: SetLunchStatusPayload = {lunchId: 'lId', lunchStatus: LunchStatus.finished};
-            expect(lunchesActionsCreator.setLunchStatus(pendingPayload))
+            expect(lunchesActionsCreators.setLunchStatus(pendingPayload))
                 .toEqual({type: LunchActions.SET_LUNCH_STATUS, payload: pendingPayload});
-            expect(lunchesActionsCreator.setLunchStatus(runningPayload))
+            expect(lunchesActionsCreators.setLunchStatus(runningPayload))
                 .toEqual({type: LunchActions.SET_LUNCH_STATUS, payload: runningPayload});
-            expect(lunchesActionsCreator.setLunchStatus(finishedPayload))
+            expect(lunchesActionsCreators.setLunchStatus(finishedPayload))
                 .toEqual({type: LunchActions.SET_LUNCH_STATUS, payload: finishedPayload});
         });
 
@@ -97,7 +97,7 @@ describe('lunches reducer', () => {
                 },
             };
 
-            expect(lunchesActionsCreator.updateLunch(lunchUpdate)).toEqual({
+            expect(lunchesActionsCreators.updateLunch(lunchUpdate)).toEqual({
                 type: LunchActions.UPDATE_LUNCH,
                 payload: lunchUpdate,
             });
@@ -105,7 +105,7 @@ describe('lunches reducer', () => {
 
         test(LunchActions.REMOVE_LUNCH, () => {
             const lunchId = 'lId';
-            expect(lunchesActionsCreator.removeLunch(lunchId)).toEqual({
+            expect(lunchesActionsCreators.removeLunch(lunchId)).toEqual({
                 type: LunchActions.REMOVE_LUNCH,
                 payload: lunchId,
             });
@@ -115,7 +115,7 @@ describe('lunches reducer', () => {
             const memberPayload: AddLunchMemberPayload = {
                 lunchId: 'lId',
                 memberId: 'mId',
-                timeSpan: {
+                time: {
                     start: '2018-08-28T09:07:11.566Z',
                     end: '2018-08-28T09:10:11.566Z',
                 },
@@ -126,7 +126,7 @@ describe('lunches reducer', () => {
                 },
             };
 
-            expect(lunchesActionsCreator.addLunchMember(memberPayload)).toEqual({
+            expect(lunchesActionsCreators.addLunchMember(memberPayload)).toEqual({
                 type: LunchActions.ADD_LUNCH_MEMBER,
                 payload: memberPayload,
             });
@@ -137,7 +137,7 @@ describe('lunches reducer', () => {
                 lunchId: 'lId',
                 memberId: 'mId',
             };
-            expect(lunchesActionsCreator.removeLunchMember(removeMemberPayload)).toEqual({
+            expect(lunchesActionsCreators.removeLunchMember(removeMemberPayload)).toEqual({
                 type: LunchActions.REMOVE_LUNCH_MEMBER,
                 payload: removeMemberPayload,
             });
@@ -154,7 +154,7 @@ describe('lunches reducer', () => {
                 },
             };
 
-            expect(lunchesActionsCreator.setLunchLocation(locationPayload)).toEqual({
+            expect(lunchesActionsCreators.setLunchLocation(locationPayload)).toEqual({
                 type: LunchActions.SET_LUNCH_LOCATION,
                 payload: locationPayload,
             });
@@ -170,7 +170,7 @@ describe('lunches reducer', () => {
                 },
             };
 
-            expect(lunchesActionsCreator.setLunchTime(timePayload)).toEqual({
+            expect(lunchesActionsCreators.setLunchTime(timePayload)).toEqual({
                 type: LunchActions.SET_LUNCH_TIME,
                 payload: timePayload,
             });
@@ -189,21 +189,21 @@ describe('lunches reducer', () => {
                 message,
             };
 
-            expect(lunchesActionsCreator.addChatMessage(messagePayload)).toEqual({
+            expect(lunchesActionsCreators.addChatMessage(messagePayload)).toEqual({
                 type: LunchActions.ADD_CHAT_MESSAGE,
                 payload: messagePayload,
             });
         });
 
         test(LunchActions.START_REQUEST, () => {
-            expect(lunchesActionsCreator.startRequest()).toEqual({type: LunchActions.START_REQUEST});
+            expect(lunchesActionsCreators.startRequest()).toEqual({type: LunchActions.START_REQUEST});
         });
         test(LunchActions.REQUEST_SUCCESS, () => {
-            expect(lunchesActionsCreator.requestSuccess()).toEqual({type: LunchActions.REQUEST_SUCCESS});
+            expect(lunchesActionsCreators.requestSuccess()).toEqual({type: LunchActions.REQUEST_SUCCESS});
         });
         test(LunchActions.REQUEST_FAIL, () => {
             const errorMsg = 'Shit happens';
-            expect(lunchesActionsCreator.requestFail(errorMsg))
+            expect(lunchesActionsCreators.requestFail(errorMsg))
                 .toEqual({type: LunchActions.REQUEST_FAIL, payload: errorMsg});
         });
     });
@@ -293,7 +293,7 @@ describe('lunches reducer', () => {
                 time: time1,
             };
 
-            const createAction = lunchesActionsCreator.createLunch(createLunchPayload);
+            const createAction = lunchesActionsCreators.createLunch(createLunchPayload);
             Reducer(lunchesReducer).expect(createAction).toReturnState({
                 ...initialState,
                 data: {
@@ -372,12 +372,12 @@ describe('lunches reducer', () => {
                 },
             };
 
-            const updateAction = lunchesActionsCreator.updateLunch(updatePayload);
+            const updateAction = lunchesActionsCreators.updateLunch(updatePayload);
             Reducer(lunchesReducer).withState(existingLunchState).expect(updateAction).toReturnState({
                 ...existingLunchState,
                 data: {
-                    ...existingLunchState.data,
                     updatedLunch1: updatedLunch,
+                    [lunch2Id]: existingLunchState.data[lunch2Id],
                 },
             });
         });
@@ -386,13 +386,14 @@ describe('lunches reducer', () => {
             const pendingPayload: SetLunchStatusPayload = {lunchId: lunch2Id, lunchStatus: LunchStatus.pending};
             const runningPayload: SetLunchStatusPayload = {lunchId: lunch1Id, lunchStatus: LunchStatus.running};
             const finishedPayload: SetLunchStatusPayload = {lunchId: lunch1Id, lunchStatus: LunchStatus.finished};
-            const setPendingStatusAction = lunchesActionsCreator.setLunchStatus(pendingPayload);
-            const setRunningStatusAction = lunchesActionsCreator.setLunchStatus(runningPayload);
-            const setFinishedStatusAction = lunchesActionsCreator.setLunchStatus(finishedPayload);
+            const setPendingStatusAction = lunchesActionsCreators.setLunchStatus(pendingPayload);
+            const setRunningStatusAction = lunchesActionsCreators.setLunchStatus(runningPayload);
+            const setFinishedStatusAction = lunchesActionsCreators.setLunchStatus(finishedPayload);
 
             Reducer(lunchesReducer).withState(existingLunchState).expect(setPendingStatusAction).toReturnState({
                 ...existingLunchState,
                 data: {
+                    ...existingLunchState.data,
                     [lunch2Id]: {
                         ...existingLunchState.data[lunch2Id],
                         status: LunchStatus.pending,
@@ -403,6 +404,7 @@ describe('lunches reducer', () => {
             Reducer(lunchesReducer).withState(existingLunchState).expect(setRunningStatusAction).toReturnState({
                 ...existingLunchState,
                 data: {
+                    ...existingLunchState.data,
                     [lunch1Id]: {
                         ...existingLunchState.data[lunch1Id],
                         status: LunchStatus.running,
@@ -413,6 +415,7 @@ describe('lunches reducer', () => {
             Reducer(lunchesReducer).withState(existingLunchState).expect(setFinishedStatusAction).toReturnState({
                 ...existingLunchState,
                 data: {
+                    ...existingLunchState.data,
                     [lunch1Id]: {
                         ...existingLunchState.data[lunch1Id],
                         status: LunchStatus.finished,
@@ -422,7 +425,7 @@ describe('lunches reducer', () => {
         });
 
         test(LunchActions.REMOVE_LUNCH, () => {
-            const removeLunch1 = lunchesActionsCreator.removeLunch(lunch1Id);
+            const removeLunch1 = lunchesActionsCreators.removeLunch(lunch1Id);
 
             Reducer(lunchesReducer).withState(existingLunchState).expect(removeLunch1).toReturnState({
                 ...existingLunchState,
@@ -438,7 +441,7 @@ describe('lunches reducer', () => {
                 },
             };
 
-            const removeLunch2 = lunchesActionsCreator.removeLunch(lunch2Id);
+            const removeLunch2 = lunchesActionsCreators.removeLunch(lunch2Id);
             Reducer(lunchesReducer).withState(oneLunchState).expect(removeLunch2).toReturnState({
                 ...initialState,
             });
@@ -448,11 +451,11 @@ describe('lunches reducer', () => {
             const addMemberPayload: AddLunchMemberPayload = {
                 lunchId: lunch1Id,
                 memberId: mem2Id,
-                timeSpan: time2,
+                time: time2,
                 location: location2,
             };
 
-            const addLunchMember = lunchesActionsCreator.addLunchMember(addMemberPayload);
+            const addLunchMember = lunchesActionsCreators.addLunchMember(addMemberPayload);
             Reducer(lunchesReducer).withState(existingLunchState).expect(addLunchMember).toReturnState({
                 ...existingLunchState,
                 data: {
@@ -478,7 +481,7 @@ describe('lunches reducer', () => {
                 lunchId: lunch2Id,
                 memberId: mem2Id,
             };
-            const removeMemberAction = lunchesActionsCreator.removeLunchMember(removePayload);
+            const removeMemberAction = lunchesActionsCreators.removeLunchMember(removePayload);
             Reducer(lunchesReducer).withState(existingLunchState).expect(removeMemberAction).toReturnState({
                 ...existingLunchState,
                 data: {
@@ -510,7 +513,7 @@ describe('lunches reducer', () => {
                 location: changedLocation,
             };
 
-            const setAction = lunchesActionsCreator.setLunchLocation(setLocationPayload);
+            const setAction = lunchesActionsCreators.setLunchLocation(setLocationPayload);
             Reducer(lunchesReducer).withState(existingLunchState).expect(setAction).toReturnState({
                 ...existingLunchState,
                 data: {
@@ -538,7 +541,7 @@ describe('lunches reducer', () => {
                 time: changedTime,
             };
 
-            const setTimeAction = lunchesActionsCreator.setLunchTime(setTimePayload);
+            const setTimeAction = lunchesActionsCreators.setLunchTime(setTimePayload);
             Reducer(lunchesReducer).withState(existingLunchState).expect(setTimeAction).toReturnState({
                 ...existingLunchState,
                 data: {
@@ -593,8 +596,8 @@ describe('lunches reducer', () => {
                 message: message2,
             };
 
-            const addMessage1Action = lunchesActionsCreator.addChatMessage(message1Payload);
-            const addMessage2Action = lunchesActionsCreator.addChatMessage(message2Payload);
+            const addMessage1Action = lunchesActionsCreators.addChatMessage(message1Payload);
+            const addMessage2Action = lunchesActionsCreators.addChatMessage(message2Payload);
 
             Reducer(lunchesReducer)
                 .withState(existingLunchState)
@@ -630,7 +633,7 @@ describe('lunches reducer', () => {
         });
 
         test(`${LunchActions.START_REQUEST} - should reflect request start state`, () => {
-            const startAction = lunchesActionsCreator.startRequest();
+            const startAction = lunchesActionsCreators.startRequest();
             Reducer(lunchesReducer).expect(startAction).toReturnState({
                 ...initialState,
                 request: {
@@ -641,7 +644,7 @@ describe('lunches reducer', () => {
         });
 
         test(`${LunchActions.REQUEST_SUCCESS} - should reflect request success state`, () => {
-            const successAction = lunchesActionsCreator.requestSuccess();
+            const successAction = lunchesActionsCreators.requestSuccess();
             Reducer(lunchesReducer).withState(requestInProgressState).expect(successAction).toReturnState({
                 ...initialState,
                 request: {
@@ -653,7 +656,7 @@ describe('lunches reducer', () => {
 
         test(`${LunchActions.REQUEST_FAIL} - should reflect request failed state`, () => {
             const errorMsg = 'Shit happens';
-            const failAction = lunchesActionsCreator.requestFail(errorMsg);
+            const failAction = lunchesActionsCreators.requestFail(errorMsg);
             Reducer(lunchesReducer).withState(requestInProgressState).expect(failAction).toReturnState({
                 ...initialState,
                 request: {

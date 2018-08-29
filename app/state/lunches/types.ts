@@ -80,7 +80,7 @@ export interface SetLunchStatusPayload {
 export interface AddLunchMemberPayload {
     lunchId: string;
     memberId: string;
-    timeSpan: TimeSpan;
+    time: TimeSpan;
     location: Location;
 }
 

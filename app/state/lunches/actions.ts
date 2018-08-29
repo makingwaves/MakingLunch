@@ -10,7 +10,7 @@ import {
     RemoveLunchMemberPayload, AddChatMessagePayload,
 } from './types';
 
-export const lunchesActionsCreator = {
+export const lunchesActionsCreators = {
     createLunch: (lunchPayload: CreateLunchPayload) => makeAction(LunchActions.CREATE_LUNCH, lunchPayload),
     setLunchStatus: (statusPayload: SetLunchStatusPayload) => makeAction(LunchActions.SET_LUNCH_STATUS, statusPayload),
     updateLunch: (lunchPayload: UpdateLunchPayload) => makeAction(LunchActions.UPDATE_LUNCH, lunchPayload),
