@@ -5,7 +5,7 @@ export interface Location {
 
 export interface Time {
     start: string;
-    end: string
+    end: string;
 }
 
 export interface LunchRequestState  {
@@ -17,6 +17,5 @@ export interface LunchRequestState  {
 export enum ActionTypes {
     SET_RADIUS = '@@lunchRequest/set_radius',
     SET_LOCATION = '@@lunchRequest/set_location',
-    SET_TIME = '@@lunchRequest/set_time'
+    SET_TIME = '@@lunchRequest/set_time',
 }
-

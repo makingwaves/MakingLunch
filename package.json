@@ -7,10 +7,13 @@
     "@types/react": "^16.3.14",
     "@types/react-native": "^0.55.14",
     "@types/react-test-renderer": "^16.0.1",
+    "@types/redux-testkit": "^1.0.2",
+    "jest": "^23.5.0",
     "jest-expo": "~27.0.0",
     "react-native-scripts-ts": "1.15.0",
     "react-native-typescript-transformer": "^1.2.3",
     "react-test-renderer": "16.3.1",
+    "redux-testkit": "^1.0.6",
     "ts-jest": "^22.4.6",
     "tslib": "^1.9.1",
     "tslint": "^5.11.0",
@@ -25,7 +28,7 @@
     "android": "react-native-scripts-ts android",
     "ios": "react-native-scripts-ts ios",
     "test": "jest",
-    "lint": "tslint --project ./tsconfig.json --config ./.tslint.json --force"
+    "lint": "tslint --project ./tsconfig.json --config ./tslint.json --force"
   },
   "jest": {
     "globals": {
@@ -56,6 +59,7 @@
     "expo": "^27.0.1",
     "react": "16.3.1",
     "react-native": "~0.55.2",
-    "react-navigation": "^2.9.3"
+    "react-navigation": "^2.9.3",
+    "redux": "^4.0.0"
   }
 }
