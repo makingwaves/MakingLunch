@@ -8,6 +8,7 @@ interface GenericObject {
  */
 export interface Transformer<T, P> {
     filter: (callback: (key: T, index?: number) => boolean) => Transformer<T, P>;
+    set: (transformed: P) => Transformer<T, P>;
     get: () => P;
 }
 
