@@ -42,7 +42,7 @@ describe('auth reducer', () => {
         });
 
         test(AuthActions.CLEAR_TOKEN, () => {
-            expect(authActionsCreators.invalidateToken()).toEqual({ type: AuthActions.CLEAR_TOKEN });
+            expect(authActionsCreators.clearToken()).toEqual({ type: AuthActions.CLEAR_TOKEN });
         });
         test(AuthActions.START_REQUEST, () => {
             expect(authActionsCreators.startRequest()).toEqual({ type: AuthActions.START_REQUEST});
@@ -91,8 +91,8 @@ describe('auth reducer', () => {
 
         test(`${AuthActions.CLEAR_TOKEN} - should invalidate token`, () => {
             const stateWithToken = {...initialState, token };
-            const invalidateAction = authActionsCreators.invalidateToken();
-            Reducer(authReducer).withState(stateWithToken).expect(invalidateAction).toReturnState({...initialState});
+            const clearAction = authActionsCreators.clearToken();
+            Reducer(authReducer).withState(stateWithToken).expect(clearAction).toReturnState({...initialState});
         });
     });
 
