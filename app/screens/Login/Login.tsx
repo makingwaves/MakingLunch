@@ -39,26 +39,28 @@ class Login extends Component<NavigationScreenProps, LoginState> {
             <SafeAreaView style={styles.container}>
                 <Image source={LOGIN_BACKGROUND_3} style={styles.backgroundImage} blurRadius={30} />
 
-                <View style={{ flex: 0 }}>
-                    <Input
-                        title="Your email"
-                        value={this.state.username}
-                        onChangeText={username => this.setState({ username })}
-                        placeholder={'Username'}
-                    />
+                <View style={styles.content}>
+                    <View style={{ flex: 0 }}>
+                        <Input
+                            title="Your email"
+                            value={this.state.username}
+                            onChangeText={username => this.setState({ username })}
+                            placeholder={'Username'}
+                        />
 
-                    <Input
-                        title="Password"
-                        value={this.state.password}
-                        onChangeText={password => this.setState({ password })}
-                        placeholder={'Username'}
-                        secureTextEntry={true}
-                    />
+                        <Input
+                            title="Password"
+                            value={this.state.password}
+                            onChangeText={password => this.setState({ password })}
+                            placeholder={'Username'}
+                            secureTextEntry={true}
+                        />
+                    </View>
+
+                    {this.state.failureFlag && <InfoBadge infoText={'Error'} />}
+
+                    <Button text={'Login'} onPress={this.onLoginPress} />
                 </View>
-
-                {this.state.failureFlag && <InfoBadge infoText={'Error'} />}
-
-                <Button text={'Login'} onPress={this.onLoginPress} />
             </SafeAreaView>
         );
     }

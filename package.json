@@ -52,6 +52,7 @@
     "expo": "^27.0.1",
     "react": "16.3.1",
     "react-native": "~0.55.2",
+    "react-native-parallax-swiper": "^1.1.7",
     "react-native-swiper": "^1.5.13",
     "react-navigation": "^2.9.3"
   }

@@ -1,4 +1,6 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
     container: {
@@ -9,15 +11,29 @@ export default StyleSheet.create({
         padding: 10,
         borderWidth: 1,
         paddingBottom: 100,
-        paddingTop: 80
+        paddingTop: 80,
+        width,
+        height
     },
 
     backgroundImage: {
         position: 'absolute',
         top: 0,
         bottom: 0,
+        right: 0,
         left: 0,
-        right: 0
+        height
+    },
+
+    content: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        right: 0,
+        left: 0,
+        justifyContent: 'space-between',
+        paddingBottom: 100,
+        paddingTop: 200
     },
 
     socialLoginContainer: {
