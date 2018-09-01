@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Image, SafeAreaView } from 'react-native';
+import { View, Image, Animated } from 'react-native';
 import styles from './style';
-import Swiper from 'react-native-swiper';
+
+import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper';
+
 import LoginButton from '../../components/LoginButton';
 import Bubble from '../../components/Bubble';
 import Button from '../../components/Button';
@@ -18,30 +20,27 @@ class Landing extends Component<NavigationScreenProps> {
     };
 
     renderFirstScreen = () => (
-        <SafeAreaView style={styles.container}>
-            <Image source={LOGIN_BACKGROUND_1} style={styles.backgroundImage} />
+        <View style={styles.container}>
             <Bubble
                 title="Hello there!"
                 text="Making Lunch unde omnis iste natus error sit volup tatem accus antium dolore mque laudantium, totam rem aperiam."
                 bigTitle={true}
             />
-        </SafeAreaView>
+        </View>
     );
 
     renderSecondScreen = () => (
-        <SafeAreaView style={styles.container}>
-            <Image source={LOGIN_BACKGROUND_2} style={styles.backgroundImage} />
+        <View style={styles.container}>
             <View style={{ flex: 1 }} />
             <Bubble
                 title="It’s so nice to meet you!"
                 text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non."
             />
-        </SafeAreaView>
+        </View>
     );
 
     renderFinalScreen = () => (
-        <SafeAreaView style={styles.container}>
-            <Image source={LOGIN_BACKGROUND_3} style={styles.backgroundImage} />
+        <View style={styles.container}>
             <Bubble
                 title="Let's get started now"
                 text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet."
@@ -71,16 +70,30 @@ class Landing extends Component<NavigationScreenProps> {
             />
 
             <Button text={'Log in'} onPress={this.onLoginPress} small />
-        </SafeAreaView>
+        </View>
     );
 
     render() {
         return (
-            <Swiper loop={false}>
-                {this.renderFirstScreen()}
-                {this.renderSecondScreen()}
-                {this.renderFinalScreen()}
-            </Swiper>
+            <ParallaxSwiper
+                speed={0.5}
+                animatedValue={new Animated.Value(0)}
+                showProgressBar={true}
+                progressBarValueBackgroundColor="white"
+            >
+                <ParallaxSwiperPage
+                    BackgroundComponent={<Image style={styles.backgroundImage} source={LOGIN_BACKGROUND_1} />}
+                    ForegroundComponent={this.renderFirstScreen()}
+                />
+                <ParallaxSwiperPage
+                    BackgroundComponent={<Image style={styles.backgroundImage} source={LOGIN_BACKGROUND_2} />}
+                    ForegroundComponent={this.renderSecondScreen()}
+                />
+                <ParallaxSwiperPage
+                    BackgroundComponent={<Image style={styles.backgroundImage} source={LOGIN_BACKGROUND_3} />}
+                    ForegroundComponent={this.renderFinalScreen()}
+                />
+            </ParallaxSwiper>
         );
     }
 }
