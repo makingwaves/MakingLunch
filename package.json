@@ -1,18 +1,24 @@
 {
-  "name": "hungerGames",
+  "name": "makingLunch",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-native-scripts-ts": "1.15.0",
     "@types/jest": "^22.2.3",
     "@types/react": "^16.3.14",
     "@types/react-native": "^0.55.14",
     "@types/react-test-renderer": "^16.0.1",
-    "ts-jest": "^22.4.6",
+    "@types/redux-testkit": "^1.0.2",
+    "jest": "^23.5.0",
     "jest-expo": "~27.0.0",
+    "react-native-scripts-ts": "1.15.0",
     "react-native-typescript-transformer": "^1.2.3",
     "react-test-renderer": "16.3.1",
+    "redux-testkit": "^1.0.6",
+    "ts-jest": "^22.4.6",
     "tslib": "^1.9.1",
+    "tslint": "^5.11.0",
+    "tslint-eslint-rules": "^5.3.1",
+    "tslint-react": "^3.6.0",
     "typescript": "^2.8.3"
   },
   "main": "./node_modules/react-native-scripts-ts/build/bin/crna-entry.js",
@@ -21,7 +27,8 @@
     "eject": "react-native-scripts-ts eject",
     "android": "react-native-scripts-ts android",
     "ios": "react-native-scripts-ts ios",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint --project ./tsconfig.json --config ./tslint.json --force"
   },
   "jest": {
     "globals": {
@@ -54,6 +61,7 @@
     "react-native": "~0.55.2",
     "react-native-parallax-swiper": "^1.1.7",
     "react-native-swiper": "^1.5.13",
-    "react-navigation": "^2.9.3"
+    "react-navigation": "^2.9.3",
+    "redux": "^4.0.0"
   }
 }
