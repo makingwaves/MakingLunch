@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, SafeAreaView } from 'react-native';
 import styles from './style';
 import InfoBadge from '../../components/InfoBadge';
 import Button from '../../components/Button';
@@ -36,7 +36,7 @@ class Login extends Component<NavigationScreenProps, LoginState> {
 
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <Image source={LOGIN_BACKGROUND_3} style={styles.backgroundImage} blurRadius={30} />
 
                 <View style={{ flex: 0 }}>
@@ -59,7 +59,7 @@ class Login extends Component<NavigationScreenProps, LoginState> {
                 {this.state.failureFlag && <InfoBadge infoText={'Error'} />}
 
                 <Button text={'Login'} onPress={this.onLoginPress} />
-            </View>
+            </SafeAreaView>
         );
     }
 }

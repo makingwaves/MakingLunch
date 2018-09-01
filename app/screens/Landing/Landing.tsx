@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, SafeAreaView } from 'react-native';
 import styles from './style';
 import Swiper from 'react-native-swiper';
 import LoginButton from '../../components/LoginButton';
@@ -18,29 +18,29 @@ class Landing extends Component<NavigationScreenProps> {
     };
 
     renderFirstScreen = () => (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Image source={LOGIN_BACKGROUND_1} style={styles.backgroundImage} />
             <Bubble
                 title="Hello there!"
                 text="Making Lunch unde omnis iste natus error sit volup tatem accus antium dolore mque laudantium, totam rem aperiam."
                 bigTitle={true}
             />
-        </View>
+        </SafeAreaView>
     );
 
     renderSecondScreen = () => (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Image source={LOGIN_BACKGROUND_2} style={styles.backgroundImage} />
             <View style={{ flex: 1 }} />
             <Bubble
                 title="It’s so nice to meet you!"
                 text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non."
             />
-        </View>
+        </SafeAreaView>
     );
 
     renderFinalScreen = () => (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Image source={LOGIN_BACKGROUND_3} style={styles.backgroundImage} />
             <Bubble
                 title="Let's get started now"
@@ -71,7 +71,7 @@ class Landing extends Component<NavigationScreenProps> {
             />
 
             <Button text={'Log in'} onPress={this.onLoginPress} small />
-        </View>
+        </SafeAreaView>
     );
 
     render() {
