@@ -3,12 +3,13 @@ import { View, Text } from 'react-native';
 import styles from './style';
 
 export interface InfoBadgeProps {
-    infoText: string;
+    readonly infoText: string;
 }
 
 const InfoBadge: React.SFC<InfoBadgeProps> = props => (
     <View style={styles.container}>
-        <Text>{props.infoText}</Text>
+        <Text style={styles.title}>{props.infoText}</Text>
+        <Text style={styles.text}>try: test/test</Text>
     </View>
 );
 

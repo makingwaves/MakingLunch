@@ -1,27 +1,51 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 
-export interface LoginButtonProps {
-    text: string;
-    color: string;
-    iconContainerColor: string;
-    onPress: () => any;
+export enum socialTypes {
+    facebook = 'Facebook',
+    google = 'Google',
+    mail = 'Mail'
 }
 
-const LoginButton: React.SFC<LoginButtonProps> = props => (
-    <View style={[styles.container]}>
-        <View style={[styles.loginButtonContainer, { backgroundColor: props.color }]}>
-            {/* Facebook icon placeholder */}
-            <View style={[styles.icon, { backgroundColor: props.iconContainerColor }]}>
-                <Text style={{ fontSize: 40, fontWeight: '700', color: 'white' }}>f</Text>
-            </View>
+const socialImages = {
+    Facebook: require('./img/facebook.png'),
+    Google: require('./img/google.png'),
+    Mail: require('./img/mail.png')
+};
 
-            <View style={styles.textContainer}>
-                <Text style={styles.text}>{props.text}</Text>
+export interface LoginButtonProps {
+    readonly text: string;
+    readonly color: string;
+    readonly iconContainerColor: string;
+    readonly onPress: () => any;
+    readonly type: socialTypes;
+}
+
+const LoginButton: React.SFC<LoginButtonProps> = props => {
+    const text = 'Sign up with ';
+
+    return (
+        <TouchableOpacity
+            style={styles.container}
+            onPress={() => {
+                console.log('button press');
+            }}
+        >
+            <View style={[styles.loginButtonContainer, { backgroundColor: props.color }]}>
+                <View style={[styles.iconContainer, { backgroundColor: props.iconContainerColor }]}>
+                    <Image source={socialImages[props.type]} style={styles.icon} resizeMode="contain" />
+                </View>
+
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>
+                        {text}
+                        <Text style={{ fontWeight: '700' }}>{props.type}</Text>
+                    </Text>
+                </View>
             </View>
-        </View>
-    </View>
-);
+        </TouchableOpacity>
+    );
+};
 
 export default LoginButton;
