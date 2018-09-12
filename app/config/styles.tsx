@@ -17,3 +17,12 @@ export enum fontWeights {
     semiBold = Platform.OS === 'ios' ? '600' : '500',
     heavyBold = Platform.OS === 'ios' ? '900' : '900'
 }
+
+export enum colors {
+    backgroundColorLight = '#eee6e4',
+    backgroundColorDark = '#5b4663',
+    fontColor = '#5b4663',
+    fontColorInverted = '#ffffff',
+    colorLight = '#ffffff',
+    colorDark = '#000000'
+}
