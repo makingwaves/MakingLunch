@@ -1,29 +1,40 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View } from 'react-native';
 import styles from './style';
-import { fontSizes } from '../../config/styles';
+import {borderRadius, colors } from '../../config/styles';
 
 export interface BubbleProps {
-    readonly title: string;
-    readonly text: string;
-    readonly bigTitle?: boolean;
-    readonly color?: string;
+    readonly backgroundColor?: string;
+    readonly borderRadius?: number,
+    readonly borderRadiusTopLeft?: number;
+    readonly borderRadiusTopRight?: number;
+    readonly borderRadiusBottomLeft?: number;
+    readonly borderRadiusBottomRight?: number;
 }
+
 
 const Bubble: React.SFC<BubbleProps> = props => {
     return (
-        <View style={[styles.container, { backgroundColor: props.color }]}>
-            <Text style={[styles.title, { fontSize: props.bigTitle ? fontSizes.zetta : fontSizes.peta }]}>
-                {props.title}
-            </Text>
-            <Text style={styles.text}>{props.text}</Text>
+        <View style={
+            [
+                styles.container,
+                {
+                    backgroundColor: props.backgroundColor,
+                    borderRadius: props.borderRadius,
+                    borderTopLeftRadius: props.borderRadiusTopLeft,
+                    borderTopRightRadius: props.borderRadiusTopRight,
+                    borderBottomLeftRadius: props.borderRadiusBottomLeft,
+                    borderBottomRightRadius: props.borderRadiusBottomRight
+                }
+                ]}>
+            {props.children}
         </View>
     );
 };
 
 Bubble.defaultProps = {
-    color: '#5b4663',
-    bigTitle: false
+    backgroundColor: colors.backgroundColorDark,
+    borderRadius: borderRadius.borderRadiusBase
 };
 
 export default Bubble;

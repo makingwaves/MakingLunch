@@ -1,12 +1,20 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../config/styles';
+import { colors, fontSizes, fontWeights} from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         backgroundColor: colors.backgroundColorLight,
-        padding: 50
+        padding: 10
+    },
+
+    title: {
+        fontSize: fontSizes.kilo,
+        fontWeight: fontWeights.semiBold,
+    },
+    text: {
+        color: colors.textColorLight
     }
 });

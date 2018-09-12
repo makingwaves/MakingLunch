@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../config/styles';
+import {borderRadius, colors} from '../../config/styles';
 
 export default StyleSheet.create({
     imageContainer: {
@@ -10,8 +10,11 @@ export default StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: colors.backgroundColorDark,
         position: 'relative',
-        borderRadius: 10,
+        borderRadius: borderRadius.borderRadiusBase,
         overflow: 'hidden',
+        marginHorizontal: 60,
+        marginTop: 80,
+        marginBottom: 35
     },
     fixedRatio: {
         flex: 1,
