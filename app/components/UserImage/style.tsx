@@ -13,7 +13,7 @@ export default StyleSheet.create({
         borderRadius: borderRadius.borderRadiusBase,
         overflow: 'hidden',
         marginHorizontal: 60,
-        marginTop: 80,
+        marginTop: 40,
         marginBottom: 35
     },
     fixedRatio: {

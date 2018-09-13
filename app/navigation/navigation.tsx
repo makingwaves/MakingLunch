@@ -2,14 +2,12 @@ import React from 'react';
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import Login from '../screens/Login';
 import Landing from '../screens/Landing';
-import Guest from '../screens/Guest';
 import AppNavigator from './app';
 
 const AuthStack = createStackNavigator(
     {
         Landing: { screen: Landing },
         Login: { screen: Login },
-        Guest: { screen: Guest }
     },
     { headerMode: 'none' }
 );

@@ -1,14 +1,18 @@
-import React, {Component} from 'react';
-import { View, Text } from 'react-native';
+import React, { Component } from 'react';
+import { ScrollView, Text } from 'react-native';
 import styles from './style';
 import UserImage from "../../components/UserImage/UserImage";
 import Bubble from "../../components/Bubble/Bubble";
-import {borderRadius, fontSizes} from "../../config/styles";
+import { borderRadius } from "../../config/styles";
+import BackButton from "../../components/BackButton/BackButton";
+import { NavigationScreenProps } from 'react-navigation';
 
-class Guest extends Component {
+class Guest extends Component<NavigationScreenProps> {
     render() {
+        const { navigation } = this.props;
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
+                <BackButton navigation={navigation}></BackButton>
                 <UserImage/>
                 <Bubble borderRadiusBottomLeft={borderRadius.borderRadiusNone} borderRadiusTopRight={borderRadius.borderRadiusNone}>
                     <Text style={[styles.title, styles.text]}>Guest name</Text>
@@ -17,10 +21,9 @@ class Guest extends Component {
                     <Text style={styles.text}>Sed ut perspiciatis undeom nis iste natus error sit volup tatem accusantium.</Text>
                 </Bubble>
 
-            </View>
+            </ScrollView>
         );
     }
 }
 
 export default Guest;
-
