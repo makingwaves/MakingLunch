@@ -28,6 +28,7 @@ export enum colors {
 }
 
 export enum borderRadius {
-    borderRadiusBase = 15,
-    borderRadiusNone = 0
+    borderRadiusBase = 25,
+    borderRadiusNone = 0,
+    borderRadiusLarge = 40
 }

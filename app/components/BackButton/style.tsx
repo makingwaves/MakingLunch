@@ -9,6 +9,7 @@ export default StyleSheet.create({
         justifyContent: 'flex-start',
         marginTop: 40,
         marginLeft: 20,
+        marginBottom: 20,
         padding: 5
     },
     triangle: {

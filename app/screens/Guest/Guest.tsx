@@ -14,10 +14,16 @@ class Guest extends Component<NavigationScreenProps> {
             <ScrollView style={styles.container}>
                 <BackButton navigation={navigation}></BackButton>
                 <UserImage/>
-                <Bubble borderRadiusBottomLeft={borderRadius.borderRadiusNone} borderRadiusTopRight={borderRadius.borderRadiusNone}>
+                <Bubble
+                    borderRadiusBottomLeft={borderRadius.borderRadiusNone}
+                    borderRadiusTopRight={borderRadius.borderRadiusNone}
+                    hasTriangleBottomLeft={true}>
                     <Text style={[styles.title, styles.text]}>Guest name</Text>
                 </Bubble>
-                <Bubble borderRadiusTopLeft={borderRadius.borderRadiusNone} borderRadiusBottomRight={borderRadius.borderRadiusNone}>
+                <Bubble
+                    borderRadiusTopLeft={borderRadius.borderRadiusNone}
+                    borderRadiusBottomRight={borderRadius.borderRadiusNone}
+                    hasTriangleBottomRight={true}>
                     <Text style={styles.text}>Sed ut perspiciatis undeom nis iste natus error sit volup tatem accusantium.</Text>
                 </Bubble>
 
