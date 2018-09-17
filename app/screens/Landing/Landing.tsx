@@ -8,8 +8,7 @@ import LoginButton from '../../components/LoginButton';
 import Bubble from '../../components/Bubble';
 import Button from '../../components/Button';
 import {NavigationScreenProps} from 'react-navigation';
-import {socialTypes} from '../../components/LoginButton/LoginButton';
-import {SignUpType} from '../SignUp';
+import {socialTypes} from '../SignUp';
 
 const LOGIN_BACKGROUND_1 = require('./img/intro1.png');
 const LOGIN_BACKGROUND_2 = require('./img/intro2.png');
@@ -20,7 +19,7 @@ class Landing extends Component<NavigationScreenProps> {
         this.props.navigation.navigate('Login');
     }
 
-    private onSignUpPress = (signUpType: SignUpType) => {
+    private onSignUpPress = (signUpType: socialTypes) => {
         this.props.navigation.navigate('SignUp', {type: signUpType });
     }
 
@@ -54,23 +53,23 @@ class Landing extends Component<NavigationScreenProps> {
             />
 
             <LoginButton
-                text={'Sing up with Facebook'}
-                onPress={() => this.onSignUpPress(SignUpType.Facebook)}
+                text={'Start with Facebook'}
+                onPress={() => this.onSignUpPress(socialTypes.facebook)}
                 color={'#4a90e2'}
                 iconContainerColor={'#4280cb'}
                 type={socialTypes.facebook}
             />
 
             <LoginButton
-                text={'Sing up with Google'}
-                onPress={() => this.onSignUpPress(SignUpType.Google)}
+                text={'Start with Google'}
+                onPress={() => this.onSignUpPress(socialTypes.google)}
                 color={'#ff5c5c'}
                 iconContainerColor={'#e65252'}
                 type={socialTypes.google}
             />
             <LoginButton
-                text={'Sing up with email'}
-                onPress={() => this.onSignUpPress(SignUpType.Email)}
+                text={'Start with email'}
+                onPress={() => this.onSignUpPress(socialTypes.mail)}
                 color={'#50e3c2'}
                 iconContainerColor={'#48ccae'}
                 type={socialTypes.mail}

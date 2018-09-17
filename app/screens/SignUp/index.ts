@@ -1,2 +1,2 @@
 export {default} from './SignUp';
-export {SignUpType} from './SignUp';
+export {socialTypes} from './SignUp';

@@ -1,12 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
-
-export enum socialTypes {
-    facebook = 'Facebook',
-    google = 'Google',
-    mail = 'Mail',
-}
+import {socialTypes} from '../../screens/SignUp';
 
 const socialImages = {
     Facebook: require('./img/facebook.png'),
@@ -23,7 +18,7 @@ export interface LoginButtonProps {
 }
 
 const LoginButton: React.SFC<LoginButtonProps> = (props) => {
-    const text = 'Sign up with ';
+    const text = 'Start with ';
 
     return (
         <TouchableOpacity
