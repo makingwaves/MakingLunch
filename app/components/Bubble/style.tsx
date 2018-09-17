@@ -9,7 +9,6 @@ export default StyleSheet.create({
         flex: 0,
         flexDirection: 'column',
         marginHorizontal: 60,
-        marginBottom: 35
     },
     bubble: {
         flex: 0,
@@ -23,22 +22,32 @@ export default StyleSheet.create({
         width: 0,
         height: 0,
         backgroundColor: 'transparent',
-        borderStyle: 'solid',
+        borderStyle: 'solid'
     },
     triangleBottomLeft: {
-        borderTopColor: colors.backgroundColorDark,
         borderRightColor: 'transparent',
-        borderTopWidth: 30,
-        borderRightWidth: 30,
+        borderLeftWidth: 0,
+        borderBottomWidth: 0,
         top: '100%',
         left: 0
     },
     triangleBottomRight: {
-        borderTopColor: colors.backgroundColorDark,
         borderLeftColor: 'transparent',
-        borderTopWidth: 30,
-        borderLeftWidth: 30,
+        borderBottomWidth: 0,
+        borderRightWidth: 0,
         top: '100%',
-        right: 0,
+        right: 0
+    },
+    triangleTopLeft: {
+        borderRightColor: 'transparent',
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+        left: 0
+    },
+    triangleTopRight: {
+        borderLeftColor: 'transparent',
+        borderTopWidth: 0,
+        borderRightWidth: 0,
+        right: 0
     }
 });
