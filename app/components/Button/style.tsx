@@ -1,5 +1,5 @@
-import { StyleSheet, Platform } from 'react-native';
-import { fontWeights } from '../../config/styles';
+import {StyleSheet, Platform} from 'react-native';
+import {fontWeights} from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
@@ -7,25 +7,25 @@ export default StyleSheet.create({
         marginHorizontal: 60,
         marginVertical: 20,
         height: 60,
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
     },
 
     ButtonContainer: {
         flex: 0,
         flexDirection: 'row',
         borderRadius: 30,
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     textContainer: {
         flex: 1,
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
 
     text: {
         fontSize: 16,
         fontWeight: fontWeights.heavyBold,
-        color: 'white'
-    }
+        color: 'white',
+    },
 });

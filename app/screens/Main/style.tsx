@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -6,25 +6,25 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: 'white',
-        padding: 100
+        padding: 100,
     },
 
     title: {
         fontSize: 24,
         color: 'black',
-        fontWeight: '900'
+        fontWeight: '900',
     },
 
     logo: {
         width: 100,
         height: 100,
-        borderWidth: 3
+        borderWidth: 3,
     },
 
     loginContainer: {
         flex: 0,
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
 
     input: {
@@ -33,6 +33,6 @@ export default StyleSheet.create({
         padding: 10,
         borderWidth: 1,
         borderColor: 'black',
-        marginBottom: 10
-    }
+        marginBottom: 10,
+    },
 });

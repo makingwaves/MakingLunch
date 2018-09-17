@@ -10,7 +10,7 @@ export interface ButtonProps {
     readonly onPress: () => any;
 }
 
-const Button: React.SFC<ButtonProps> = props => {
+const Button: React.SFC<ButtonProps> = (props) => {
     return (
         <TouchableOpacity style={styles.container} onPress={props.onPress}>
             {props.small && <View style={{ flex: 1 }} />}
@@ -25,7 +25,7 @@ const Button: React.SFC<ButtonProps> = props => {
 
 Button.defaultProps = {
     color: '#5b4663',
-    small: false
+    small: false,
 };
 
 export default Button;

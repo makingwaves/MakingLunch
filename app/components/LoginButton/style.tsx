@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -11,7 +11,7 @@ export default StyleSheet.create({
         marginHorizontal: 60,
         marginBottom: 5,
         height: 60,
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
     },
 
     loginButtonContainer: {
@@ -19,23 +19,23 @@ export default StyleSheet.create({
         flexDirection: 'row',
         borderRadius: 5,
         alignItems: 'center',
-        paddingHorizontal: 8
+        paddingHorizontal: 8,
     },
 
     spacer: {
-        flex: 1
+        flex: 1,
     },
 
     textContainer: {
         flex: 1,
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
 
     text: {
         fontSize: 16,
         // fontWeight: '700',
-        color: 'white'
+        color: 'white',
     },
 
     iconContainer: {
@@ -43,12 +43,12 @@ export default StyleSheet.create({
         height: 50,
         borderRadius: 5,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
         // backgroundColor: '#000000',
         // opacity: 0.1
     },
     icon: {
         width: 25,
-        height: 25
-    }
+        height: 25,
+    },
 });

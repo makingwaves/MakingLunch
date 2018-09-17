@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import {View, Text, Button} from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import styles from './style';
 
@@ -8,12 +8,17 @@ class Main extends Component<NavigationScreenProps> {
         super(props);
     }
 
-    render() {
+    public render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Making Lunch</Text>
+                <Text style={styles.title}>Main</Text>
+                <Button title={'LunchesList'} onPress={() => this.props.navigation.navigate('LunchesList')}/>
+                <Button title={'Profile'} onPress={() => this.props.navigation.navigate('Profile')}/>
+                <Button title={'Chat'} onPress={() => this.props.navigation.navigate('Chat')}/>
+                <Button title={'Settings'} onPress={() => this.props.navigation.navigate('Settings')}/>
+                <Button title={'Logout'} onPress={() => this.props.navigation.navigate('Auth')}/>
             </View>
-        )
+        );
     }
 }
 

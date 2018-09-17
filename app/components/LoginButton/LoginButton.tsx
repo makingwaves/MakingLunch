@@ -5,13 +5,13 @@ import styles from './style';
 export enum socialTypes {
     facebook = 'Facebook',
     google = 'Google',
-    mail = 'Mail'
+    mail = 'Mail',
 }
 
 const socialImages = {
     Facebook: require('./img/facebook.png'),
     Google: require('./img/google.png'),
-    Mail: require('./img/mail.png')
+    Mail: require('./img/mail.png'),
 };
 
 export interface LoginButtonProps {
@@ -22,15 +22,13 @@ export interface LoginButtonProps {
     readonly type: socialTypes;
 }
 
-const LoginButton: React.SFC<LoginButtonProps> = props => {
+const LoginButton: React.SFC<LoginButtonProps> = (props) => {
     const text = 'Sign up with ';
 
     return (
         <TouchableOpacity
             style={styles.container}
-            onPress={() => {
-                console.log('button press');
-            }}
+            onPress={props.onPress}
         >
             <View style={[styles.loginButtonContainer, { backgroundColor: props.color }]}>
                 <View style={[styles.iconContainer, { backgroundColor: props.iconContainerColor }]}>

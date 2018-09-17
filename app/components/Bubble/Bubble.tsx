@@ -10,7 +10,7 @@ export interface BubbleProps {
     readonly color?: string;
 }
 
-const Bubble: React.SFC<BubbleProps> = props => {
+const Bubble: React.SFC<BubbleProps> = (props) => {
     return (
         <View style={[styles.container, { backgroundColor: props.color }]}>
             <Text style={[styles.title, { fontSize: props.bigTitle ? fontSizes.zetta : fontSizes.peta }]}>
@@ -23,7 +23,7 @@ const Bubble: React.SFC<BubbleProps> = props => {
 
 Bubble.defaultProps = {
     color: '#5b4663',
-    bigTitle: false
+    bigTitle: false,
 };
 
 export default Bubble;
