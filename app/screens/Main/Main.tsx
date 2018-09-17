@@ -13,7 +13,7 @@ class Main extends Component<NavigationScreenProps> {
             <View style={styles.container}>
                 <Text style={styles.title}>Making Lunch</Text>
                 <TouchableOpacity onPress={()=> {
-                    this.props.navigation.navigate('Guest');
+                    this.props.navigation.navigate('Guests');
                 }}>
                     <Text>Guests screen</Text>
                 </TouchableOpacity>

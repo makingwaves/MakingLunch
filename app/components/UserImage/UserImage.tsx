@@ -4,15 +4,20 @@ import styles from './style';
 import Bubble from "../Bubble/Bubble";
 import { borderRadius } from "../../config/styles";
 
-class UserImage extends Component {
+export interface UserImageProps {
+    readonly imageUri: string;
+}
+
+class UserImage extends Component<UserImageProps> {
     render() {
+        const { imageUri } = this.props;
         return (
         <Bubble borderRadius={borderRadius.borderRadiusLarge}
                 borderRadiusBottomRight={borderRadius.borderRadiusNone}
                 hasTriangleBottomRight={true}>
             <View style={styles.imageContainer}>
                 <View style={styles.fixedRatio}>
-                    <Image source={{uri: 'https://picsum.photos/500/400?image=64'}} style={styles.image} />
+                    <Image source={{uri: imageUri}} style={styles.image} />
                 </View>
             </View>
         </Bubble>

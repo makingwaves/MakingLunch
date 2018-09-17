@@ -5,26 +5,32 @@ import UserImage from "../../components/UserImage/UserImage";
 import Bubble from "../../components/Bubble/Bubble";
 import { borderRadius } from "../../config/styles";
 import BackButton from "../../components/BackButton/BackButton";
-import { NavigationScreenProps } from 'react-navigation';
 
-class Guest extends Component<NavigationScreenProps> {
+export interface GuestProps {
+    readonly navigation: object;
+    readonly name: string;
+    readonly description: string;
+    readonly imageUri: string;
+}
+
+class Guest extends Component<GuestProps> {
     render() {
-        const { navigation } = this.props;
+        const { navigation, name, description, imageUri } = this.props;
         return (
             <ScrollView style={styles.container}>
                 <BackButton navigation={navigation}></BackButton>
-                <UserImage/>
+                <UserImage imageUri={imageUri}/>
                 <Bubble
                     borderRadiusBottomLeft={borderRadius.borderRadiusNone}
                     borderRadiusTopRight={borderRadius.borderRadiusNone}
                     hasTriangleBottomLeft={true}>
-                    <Text style={[styles.title, styles.text]}>Guest name</Text>
+                    <Text style={[styles.title, styles.text]}>{name}</Text>
                 </Bubble>
                 <Bubble
                     borderRadiusTopLeft={borderRadius.borderRadiusNone}
                     borderRadiusBottomRight={borderRadius.borderRadiusNone}
                     hasTriangleBottomRight={true}>
-                    <Text style={styles.text}>Sed ut perspiciatis undeom nis iste natus error sit volup tatem accusantium.</Text>
+                    <Text style={styles.text}>{description}</Text>
                 </Bubble>
 
             </ScrollView>
