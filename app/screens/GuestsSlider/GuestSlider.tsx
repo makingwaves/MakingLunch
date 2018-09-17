@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
+import { ScrollView } from 'react-native';
 import Guest from "../Guest/Guest";
 import {NavigationScreenProps} from "react-navigation";
 import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper';
 import {colors} from "../../config/styles";
+import BackButton from "../../components/BackButton/BackButton";
+import styles from './style';
 
 class GuestSlider extends Component<NavigationScreenProps> {
 
@@ -33,20 +36,22 @@ class GuestSlider extends Component<NavigationScreenProps> {
         const { navigation } = this.props;
         const { guests } = this.state;
         return (
-
+            <ScrollView style={styles.container}>
+            <BackButton navigation={navigation} />
             <ParallaxSwiper
-        speed={0.5}
-        showProgressBar={true}
-        dividerWidth={0}
-        bacgroundColor={colors.backgroundColorLight}
-        progressBarValueBackgroundColor="white"
+                style={styles.slider}
+                speed={0.5}
+                showProgressBar={true}
+                dividerWidth={0}
+                bacgroundColor={colors.backgroundColorLight}
+                progressBarValueBackgroundColor="white"
             >
                 {guests.map(guest => (
                     <ParallaxSwiperPage
                         key={guest.id}
+                        style={styles.slide}
                         BackgroundComponent={
                             <Guest
-                                navigation={navigation}
                                 name={guest.name}
                                 description={guest.description}
                                 imageUri={guest.imageUri}
@@ -56,6 +61,7 @@ class GuestSlider extends Component<NavigationScreenProps> {
                 ))}
 
     </ParallaxSwiper>
+            </ScrollView>
         );
     }
 }

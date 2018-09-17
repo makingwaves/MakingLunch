@@ -4,10 +4,8 @@ import styles from './style';
 import UserImage from "../../components/UserImage/UserImage";
 import Bubble from "../../components/Bubble/Bubble";
 import { borderRadius } from "../../config/styles";
-import BackButton from "../../components/BackButton/BackButton";
 
 export interface GuestProps {
-    readonly navigation: object;
     readonly name: string;
     readonly description: string;
     readonly imageUri: string;
@@ -15,10 +13,9 @@ export interface GuestProps {
 
 class Guest extends Component<GuestProps> {
     render() {
-        const { navigation, name, description, imageUri } = this.props;
+        const { name, description, imageUri } = this.props;
         return (
             <ScrollView style={styles.container}>
-                <BackButton navigation={navigation}></BackButton>
                 <UserImage imageUri={imageUri}/>
                 <Bubble
                     borderRadiusBottomLeft={borderRadius.borderRadiusNone}
@@ -32,7 +29,6 @@ class Guest extends Component<GuestProps> {
                     hasTriangleBottomRight={true}>
                     <Text style={styles.text}>{description}</Text>
                 </Bubble>
-
             </ScrollView>
         );
     }
