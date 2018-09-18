@@ -4,10 +4,12 @@ import { colors } from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
-      backgroundColor: colors.backgroundColorLight
+      backgroundColor: colors.backgroundColorLight,
+       flex: 1
     },
-    slider: {
+    list: {
     },
-    slide: {
+    listItem: {
+
     }
 });

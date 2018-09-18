@@ -8,7 +8,7 @@ export default StyleSheet.create({
         width: 250,
         flex: 0,
         flexDirection: 'column',
-        marginHorizontal: 60,
+        marginHorizontal: 15,
     },
     bubble: {
         flex: 0,

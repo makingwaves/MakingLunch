@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { ScrollView } from 'react-native';
+import {ScrollView, View} from 'react-native';
 import Guest from "../Guest/Guest";
 import {NavigationScreenProps} from "react-navigation";
 import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper';
@@ -36,32 +36,36 @@ class GuestSlider extends Component<NavigationScreenProps> {
         const { navigation } = this.props;
         const { guests } = this.state;
         return (
-            <ScrollView style={styles.container}>
-            <BackButton navigation={navigation} />
-            <ParallaxSwiper
-                style={styles.slider}
-                speed={0.5}
-                showProgressBar={true}
-                dividerWidth={0}
-                bacgroundColor={colors.backgroundColorLight}
-                progressBarValueBackgroundColor="white"
+            <View
+                style={styles.container}
             >
-                {guests.map(guest => (
-                    <ParallaxSwiperPage
-                        key={guest.id}
-                        style={styles.slide}
-                        BackgroundComponent={
+                <BackButton navigation={navigation} />
+                <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    style={styles.list}
+                >
+                    {guests.map((guest, index, list) => (
+
+                        <ScrollView
+                            key={guest.id}
+                            showsVerticalScrollIndicator={false}
+                            style={
+                                [styles.listItem,
+                                    {
+                                        marginLeft: (index === 0) ? 30 : 0,
+                                        marginRight: (index === list.length - 1) ? 30 : 0
+                                    }
+                            ]}>
                             <Guest
                                 name={guest.name}
                                 description={guest.description}
                                 imageUri={guest.imageUri}
                             />
-                        }
-                    />
-                ))}
-
-    </ParallaxSwiper>
-            </ScrollView>
+                        </ScrollView>
+                    ))}
+                </ScrollView>
+            </View>
         );
     }
 }
