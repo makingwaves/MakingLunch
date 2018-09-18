@@ -7,7 +7,7 @@ import {colors} from "../../config/styles";
 import BackButton from "../../components/BackButton/BackButton";
 import styles from './style';
 
-class GuestSlider extends Component<NavigationScreenProps> {
+class GuestsList extends Component<NavigationScreenProps> {
 
     state = {
         guests: [
@@ -56,7 +56,7 @@ class GuestSlider extends Component<NavigationScreenProps> {
                                         marginLeft: (index === 0) ? 30 : 0,
                                         marginRight: (index === list.length - 1) ? 30 : 0
                                     }
-                            ]}>
+                                ]}>
                             <Guest
                                 name={guest.name}
                                 description={guest.description}
@@ -70,4 +70,4 @@ class GuestSlider extends Component<NavigationScreenProps> {
     }
 }
 
-export default GuestSlider;
+export default GuestsList;
