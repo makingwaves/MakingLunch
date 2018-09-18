@@ -1,7 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import styles from './style';
-import {borderRadius, colors } from '../../config/styles';
+import { borderRadius, colors } from '../../config/styles';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export interface BubbleProps {
     readonly color?: string;
@@ -55,7 +56,7 @@ const Bubble: React.SFC<BubbleProps> = props => {
                         top: ( props.hasTriangleBottomLeft || props.hasTriangleBottomRight ) ? '100%' : -props.size
                     }
                 ]
-                }></View>
+                } />
                 ) : null
             }
         </View>
@@ -65,7 +66,7 @@ const Bubble: React.SFC<BubbleProps> = props => {
 Bubble.defaultProps = {
     color: colors.backgroundColorDark,
     borderRadius: borderRadius.borderRadiusBase,
-    size: 40
+    size: wp('10%')
 };
 
 export default Bubble;

@@ -3,9 +3,9 @@ import {ScrollView, View} from 'react-native';
 import Guest from "../Guest/Guest";
 import {NavigationScreenProps} from "react-navigation";
 import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper';
-import {colors} from "../../config/styles";
 import BackButton from "../../components/BackButton/BackButton";
 import styles from './style';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 class GuestsList extends Component<NavigationScreenProps> {
 
@@ -53,8 +53,8 @@ class GuestsList extends Component<NavigationScreenProps> {
                             style={
                                 [styles.listItem,
                                     {
-                                        marginLeft: (index === 0) ? 30 : 0,
-                                        marginRight: (index === list.length - 1) ? 30 : 0
+                                        marginLeft: (index === 0) ? wp('8%') : 0,
+                                        marginRight: (index === list.length - 1) ? wp('8%') : 0
                                     }
                                 ]}>
                             <Guest

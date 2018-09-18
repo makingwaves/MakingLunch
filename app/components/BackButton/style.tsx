@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../config/styles';
+import {colors, spacing } from '../../config/styles';
+import {widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
     container: {
@@ -7,26 +8,25 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginTop: 40,
-        marginLeft: 20,
-        marginBottom: 20,
-        padding: 5
+        marginTop: spacing.gutterLarge,
+        marginLeft: spacing.gutter,
+        marginBottom: spacing.gutterSmall,
     },
     triangle: {
         width: 0,
         height: 0,
         backgroundColor: 'transparent',
         borderStyle: 'solid',
-        borderBottomWidth: 18,
-        borderTopWidth: 18,
-        borderRightWidth: 20,
+        borderBottomWidth: wp('4.8%'),
+        borderTopWidth: wp('4.8%'),
+        borderRightWidth: wp('5%'),
         borderTopColor: 'transparent',
         borderRightColor: colors.backgroundColorDark,
         borderBottomColor: 'transparent'
     },
     square: {
-        width: 15,
-        height: 15,
+        width: wp('4%'),
+        height: wp('4%'),
         backgroundColor: colors.backgroundColorDark
     }
 });

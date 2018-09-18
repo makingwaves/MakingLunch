@@ -1,16 +1,15 @@
 import { StyleSheet } from 'react-native';
-import { fontSizes, fontWeights } from '../../config/styles';
+import { fontSizes, fontWeights, spacing, colors } from '../../config/styles';
 
 export default StyleSheet.create({
     title: {
         fontWeight: fontWeights.heavyBold,
-        color: 'white',
-        paddingBottom: 15,
-        width: 150
+        color: colors.textColorLight,
+        paddingBottom: spacing.gutterSmall,
     },
 
     text: {
         fontSize: fontSizes.base,
-        color: 'white'
+        color: colors.textColorLight
     }
 });

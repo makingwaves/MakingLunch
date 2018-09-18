@@ -1,20 +1,19 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../config/styles';
-
+import { spacing, widths } from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
       position: 'relative',
-        width: 250,
+        width: widths.twoThirds,
         flex: 0,
         flexDirection: 'column',
-        marginHorizontal: 15,
+        marginHorizontal: spacing.gutterSmall
     },
     bubble: {
         flex: 0,
         flexDirection: 'column',
-        padding: 30,
-        width: 250,
+        padding: spacing.gutter,
+        width: '100%',
         overflow: 'hidden'
     },
     triangle: {
@@ -28,14 +27,12 @@ export default StyleSheet.create({
         borderRightColor: 'transparent',
         borderLeftWidth: 0,
         borderBottomWidth: 0,
-        top: '100%',
         left: 0
     },
     triangleBottomRight: {
         borderLeftColor: 'transparent',
         borderBottomWidth: 0,
         borderRightWidth: 0,
-        top: '100%',
         right: 0
     },
     triangleTopLeft: {

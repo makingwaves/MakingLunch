@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { spacing } from '../../config/styles';
 
 export default StyleSheet.create({
     imageContainer: {
         position: 'relative',
-        margin: -30
+        margin: -spacing.gutter
     },
     fixedRatio: {
         flex: 1,
