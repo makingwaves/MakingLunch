@@ -1,13 +1,16 @@
-import { StyleSheet } from 'react-native';
-import { colors } from '../../config/styles';
+import {Dimensions, StyleSheet} from 'react-native';
+import { spacing } from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: colors.backgroundColorLight,
-        flex: 1
+      flex: 1
     },
     list: {
+        overflow: 'visible'
     },
     listItem: {
+        margin: spacing.gutterSmall,
+        marginTop: 0,
+        overflow: 'visible'
     }
 });

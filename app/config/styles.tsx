@@ -41,6 +41,5 @@ export enum spacing {
 }
 
 export enum widths {
-    oneThird = wp('33.3%'),
-    twoThirds = wp('66.67%')
+    baseSize = wp('68%')
 }

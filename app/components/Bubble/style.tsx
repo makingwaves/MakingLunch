@@ -3,11 +3,10 @@ import { spacing, widths } from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
-      position: 'relative',
-        width: widths.twoThirds,
+        position: 'relative',
+        width: widths.baseSize,
         flex: 0,
-        flexDirection: 'column',
-        marginHorizontal: spacing.gutterSmall
+        flexDirection: 'column'
     },
     bubble: {
         flex: 0,

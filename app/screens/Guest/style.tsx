@@ -1,13 +1,11 @@
-import {Dimensions, StyleSheet} from 'react-native';
-import { colors, fontSizes, fontWeights} from '../../config/styles';
-
-const { height } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
+import { colors, fontSizes, fontWeights } from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: colors.backgroundColorLight,
-        padding: 10,
-        minHeight: height
+        backgroundColor: 'transparent',
+        flex: 1,
+        alignItems: 'center'
     },
 
     title: {

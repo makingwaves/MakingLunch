@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, View} from 'react-native';
+import {Dimensions, ScrollView, View} from 'react-native';
 import Guest from "../Guest/Guest";
 import {NavigationScreenProps} from "react-navigation";
 import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper';
@@ -14,7 +14,7 @@ class GuestsList extends Component<NavigationScreenProps> {
             {
                 id: 0,
                 name: 'Guest name',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac laoreet metus. Maecenas a mattis ex, malesuada aliquet tortor. Praesent eget libero et quam aliquet semper sed a neque.',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac laoreet metus. Maecenas a mattis ex, malesuada aliquet tortor. Praesent eget libero et quam aliquet semper sed a neque.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac laoreet metus. Maecenas a mattis ex, malesuada aliquet tortor. Praesent eget libero et quam aliquet semper sed a neque.',
                 imageUri: 'https://picsum.photos/500/400?image=64'
             },
             {
@@ -32,31 +32,35 @@ class GuestsList extends Component<NavigationScreenProps> {
         ]
     };
 
+    componentDidMount() {
+        setTimeout(() => {this.scrollView.scrollTo({x: - wp('12%')}) }, 1) // scroll view position fix
+    }
+
     render() {
         const { navigation } = this.props;
         const { guests } = this.state;
         return (
-            <View
-                style={styles.container}
-            >
-                <BackButton navigation={navigation} />
+            <View style={styles.container}>
+            <BackButton navigation={navigation} />
                 <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
+                    ref={(scrollView) => { this.scrollView = scrollView; }}
                     style={styles.list}
-                >
-                    {guests.map((guest, index, list) => (
+                    horizontal= {true}
+                    decelerationRate={0}
+                    snapToInterval={wp('76%')}
+                    snapToAlignment={"center"}
+                    contentInset={{
+                        top: 0,
+                        left: wp('12%'),
+                        bottom: 0,
+                        right: wp('12%'),
+                    }}>
 
+                    {guests.map(guest => (
                         <ScrollView
                             key={guest.id}
                             showsVerticalScrollIndicator={false}
-                            style={
-                                [styles.listItem,
-                                    {
-                                        marginLeft: (index === 0) ? wp('8%') : 0,
-                                        marginRight: (index === list.length - 1) ? wp('8%') : 0
-                                    }
-                                ]}>
+                            style={styles.listItem}>
                             <Guest
                                 name={guest.name}
                                 description={guest.description}
