@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { View, Image } from 'react-native';
 import styles from './style';
-import Bubble, {triangleSides} from "../Bubble/Bubble";
+import Bubble from "../Bubble/Bubble";
 import { borderRadius } from "../../config/styles";
+import {triangleSides} from "../Triangle/Triangle";
 
 export interface UserImageProps {
     readonly imageUri: string;

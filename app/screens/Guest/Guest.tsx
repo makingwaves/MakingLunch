@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import styles from './style';
 import UserImage from "../../components/UserImage/UserImage";
-import Bubble, { triangleSides } from "../../components/Bubble/Bubble";
+import Bubble from "../../components/Bubble/Bubble";
 import { borderRadius } from "../../config/styles";
+import {triangleSides} from "../../components/Triangle/Triangle";
 
 export interface GuestProps {
     readonly name: string;
