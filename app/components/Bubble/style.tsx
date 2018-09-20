@@ -17,33 +17,11 @@ export default StyleSheet.create({
     },
     triangle: {
         position: 'absolute',
-        width: 0,
-        height: 0,
-        backgroundColor: 'transparent',
-        borderStyle: 'solid'
     },
-    triangleBottomLeft: {
-        borderRightColor: 'transparent',
-        borderLeftWidth: 0,
-        borderBottomWidth: 0,
+    triangleLeft: {
         left: 0
     },
-    triangleBottomRight: {
-        borderLeftColor: 'transparent',
-        borderBottomWidth: 0,
-        borderRightWidth: 0,
-        right: 0
-    },
-    triangleTopLeft: {
-        borderRightColor: 'transparent',
-        borderLeftWidth: 0,
-        borderTopWidth: 0,
-        left: 0
-    },
-    triangleTopRight: {
-        borderLeftColor: 'transparent',
-        borderTopWidth: 0,
-        borderRightWidth: 0,
+    triangleRight: {
         right: 0
     }
 });

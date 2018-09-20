@@ -22,11 +22,13 @@ export enum fontWeights {
 export enum colors {
     backgroundColorLight = '#eee6e4',
     backgroundColorDark = '#5b4663',
+    backgroundColorDarkSecondary = '#412b4a',
     textColorDark = '#5b4663',
     textColorLight = '#ffffff',
     colorLight = '#ffffff',
     colorDark = '#000000'
 }
+
 
 export enum borderRadius {
     borderRadiusBase = 25,
