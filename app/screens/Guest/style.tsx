@@ -4,13 +4,11 @@ import { colors, fontSizes, fontWeights } from '../../config/styles';
 export default StyleSheet.create({
     container: {
         backgroundColor: 'transparent',
-        flex: 1,
-        alignItems: 'center'
+        flex: 1
     },
-
     title: {
         fontSize: fontSizes.kilo,
-        fontWeight: fontWeights.semiBold,
+        fontWeight: fontWeights.semiBold
     },
     text: {
         color: colors.textColorLight

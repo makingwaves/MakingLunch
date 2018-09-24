@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import styles from './style';
 import UserImage from "../../components/UserImage/UserImage";
 import Bubble from "../../components/Bubble/Bubble";
@@ -16,7 +16,11 @@ class Guest extends Component<GuestProps> {
     render() {
         const { name, description, imageUri } = this.props;
         return (
-            <View style={styles.container}>
+            <ScrollView
+                style={styles.container}
+                contentContainerStyle={{alignItems: 'stretch'}}
+                showsVerticalScrollIndicator={false}
+            >
                 <UserImage imageUri={imageUri}/>
                 <Bubble
                     borderRadiusBottomLeft={borderRadius.borderRadiusNone}
@@ -30,7 +34,7 @@ class Guest extends Component<GuestProps> {
                     triangleSide={triangleSides.bottomRight}>
                     <Text style={styles.text}>{description}</Text>
                 </Bubble>
-            </View>
+            </ScrollView>
         );
     }
 }

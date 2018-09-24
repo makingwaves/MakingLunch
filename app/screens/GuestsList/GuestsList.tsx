@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Dimensions, ScrollView, View} from 'react-native';
+import React, { Component } from 'react';
+import { ScrollView, View } from 'react-native';
 import Guest from "../Guest/Guest";
-import {NavigationScreenProps} from "react-navigation";
+import { NavigationScreenProps } from "react-navigation";
 import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper';
 import BackButton from "../../components/BackButton/BackButton";
 import styles from './style';
@@ -54,19 +54,20 @@ class GuestsList extends Component<NavigationScreenProps> {
                         left: wp('12%'),
                         bottom: 0,
                         right: wp('12%'),
-                    }}>
+                    }}
+                    contentContainerStyle={styles.contentContainer}
+                    >
 
                     {guests.map(guest => (
-                        <ScrollView
+                        <View
                             key={guest.id}
-                            showsVerticalScrollIndicator={false}
                             style={styles.listItem}>
                             <Guest
                                 name={guest.name}
                                 description={guest.description}
                                 imageUri={guest.imageUri}
                             />
-                        </ScrollView>
+                        </View>
                     ))}
                 </ScrollView>
             </View>

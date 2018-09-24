@@ -18,7 +18,7 @@ class UserImage extends Component<UserImageProps> {
                 triangleSide={triangleSides.bottomRight}>
             <View style={styles.imageContainer}>
                 <View style={styles.fixedRatio}>
-                    <Image source={{uri: imageUri}} style={styles.image} />
+                    <Image source={{uri: imageUri}} style={styles.image} resizeMode={'cover'} />
                 </View>
             </View>
         </Bubble>
