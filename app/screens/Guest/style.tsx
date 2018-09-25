@@ -6,6 +6,9 @@ export default StyleSheet.create({
         backgroundColor: 'transparent',
         flex: 1
     },
+    containerWithOverflow: {
+      overflow: 'visible'
+    },
     title: {
         fontSize: fontSizes.kilo,
         fontWeight: fontWeights.semiBold

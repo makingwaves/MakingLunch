@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, Platform } from 'react-native';
 import styles from './style';
 import UserImage from "../../components/UserImage/UserImage";
 import Bubble from "../../components/Bubble/Bubble";
@@ -17,7 +17,9 @@ class Guest extends Component<GuestProps> {
         const { name, description, imageUri } = this.props;
         return (
             <ScrollView
-                style={styles.container}
+                style={[styles.container,
+                    Platform.OS === 'ios' ? styles.containerWithOverflow : null
+                ]}
                 contentContainerStyle={{alignItems: 'stretch'}}
                 showsVerticalScrollIndicator={false}
             >

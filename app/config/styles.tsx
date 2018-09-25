@@ -42,6 +42,6 @@ export enum spacing {
     gutterLarge = wp('16%')
 }
 
-export enum widths {
+export enum sizes {
     baseSize = wp('68%')
 }

@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { spacing, widths } from '../../config/styles';
+import { spacing, sizes } from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
         position: 'relative',
-        width: widths.baseSize,
+        width: sizes.baseSize,
         flex: 0,
         flexDirection: 'column'
     },
