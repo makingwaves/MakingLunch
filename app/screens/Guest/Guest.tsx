@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, Platform } from 'react-native';
+import { View, Text } from 'react-native';
 import styles from './style';
 import UserImage from "../../components/UserImage/UserImage";
 import Bubble from "../../components/Bubble/Bubble";
@@ -16,10 +16,8 @@ class Guest extends Component<GuestProps> {
     render() {
         const { name, description, imageUri } = this.props;
         return (
-            <ScrollView
-                style={[styles.container,
-                    Platform.OS === 'ios' ? styles.containerWithOverflow : null
-                ]}
+            <View
+                style={styles.container}
                 contentContainerStyle={{alignItems: 'stretch'}}
                 showsVerticalScrollIndicator={false}
             >
@@ -36,7 +34,7 @@ class Guest extends Component<GuestProps> {
                     triangleSide={triangleSides.bottomRight}>
                     <Text style={styles.text}>{description}</Text>
                 </Bubble>
-            </ScrollView>
+            </View>
         );
     }
 }

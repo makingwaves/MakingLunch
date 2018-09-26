@@ -57,17 +57,18 @@ class GuestsList extends Component<NavigationScreenProps> {
                     }}
                     contentContainerStyle={styles.contentContainer}
                     >
-
                     {guests.map(guest => (
-                        <View
+                        <ScrollView
                             key={guest.id}
-                            style={styles.listItem}>
+                            style={styles.listItem}
+                            showsVerticalScrollIndicator={false}
+                        >
                             <Guest
                                 name={guest.name}
                                 description={guest.description}
                                 imageUri={guest.imageUri}
                             />
-                        </View>
+                        </ScrollView>
                     ))}
                 </ScrollView>
             </View>

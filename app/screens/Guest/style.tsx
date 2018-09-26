@@ -1,13 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { colors, fontSizes, fontWeights } from '../../config/styles';
+import {colors, fontSizes, fontWeights } from '../../config/styles';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
     container: {
         backgroundColor: 'transparent',
-        flex: 1
-    },
-    containerWithOverflow: {
-      overflow: 'visible'
+        paddingTop: wp('20%')
     },
     title: {
         fontSize: fontSizes.kilo,
@@ -17,3 +15,4 @@ export default StyleSheet.create({
         color: colors.textColorLight
     }
 });
+

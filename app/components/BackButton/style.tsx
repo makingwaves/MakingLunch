@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native';
-import { spacing } from '../../config/styles';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
     container: {
+        position: 'absolute',
+        zIndex: 1,
+        top: wp('12%'),
+        left: wp('6.4%'),
         flex: 0,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        marginTop: spacing.gutterLarge,
-        marginLeft: spacing.gutter,
-        marginBottom: spacing.gutterSmall,
+        justifyContent: 'flex-start'
     }
 });

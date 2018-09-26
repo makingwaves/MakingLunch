@@ -39,7 +39,7 @@ export enum borderRadius {
 export enum spacing {
     gutterSmall = wp('4%'),
     gutter = wp('8%'),
-    gutterLarge = wp('16%')
+    gutterLarge = wp('16%'),
 }
 
 export enum sizes {
