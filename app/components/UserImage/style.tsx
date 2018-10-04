@@ -1,19 +1,21 @@
-import { StyleSheet } from 'react-native';
-import { spacing } from '../../config/styles';
+import {StyleSheet} from 'react-native';
+import {spacing} from '../../config/styles';
 
 export default StyleSheet.create({
     imageContainer: {
         position: 'relative',
-        margin: -spacing.gutter
+        margin: -spacing.gutter,
     },
+
     fixedRatio: {
         flex: 1,
-        aspectRatio: 1
+        aspectRatio: 1,
     },
+
     image: {
         width: undefined,
         height: undefined,
         resizeMode: 'cover',
-        flex: 1
-    }
+        flex: 1,
+    },
 });

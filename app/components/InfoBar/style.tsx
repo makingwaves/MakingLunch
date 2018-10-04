@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { borderRadius, colors, fontSizes, fontWeights, spacing } from '../../config/styles';
+import {StyleSheet} from 'react-native';
+import {borderRadius, colors, fontSizes, fontWeights, spacing} from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
@@ -13,20 +13,23 @@ export default StyleSheet.create({
         borderRadius: borderRadius.borderRadiusBase,
         borderTopRightRadius: borderRadius.borderRadiusNone,
     },
+
     counterContainer: {
         backgroundColor: colors.brandColorSecondary,
         padding: spacing.gutterSmall,
-        flex: 0
+        flex: 0,
     },
+
     text: {
         color: colors.brandColorSecondary,
         fontWeight: fontWeights.semiBold,
         fontSize: fontSizes.base,
-        margin: spacing.gutterSmall
+        margin: spacing.gutterSmall,
     },
+
     counter: {
         color: colors.brandColorPrimary,
         fontWeight: fontWeights.semiBold,
-        fontSize: fontSizes.base
-    }
+        fontSize: fontSizes.base,
+    },
 });

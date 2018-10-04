@@ -1,1 +1,1 @@
-export { default } from './Guest';
+export {default} from './Guest';

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 import styles from './style';
-import { borderRadius, colors } from '../../config/styles';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { Svg } from 'expo';
+import {borderRadius, colors} from '../../config/styles';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Svg} from 'expo';
 
 export interface TriangleProps {
     readonly triangleSide?: string;
@@ -14,15 +14,14 @@ export enum triangleSides {
     bottomLeft = 'bottomLeft',
     bottomRight = 'bottomRight',
     topLeft = 'topLeft',
-    topRight = 'topRight'
+    topRight = 'topRight',
 }
 
 class Triangle extends Component<TriangleProps> {
 
-
-    createTriangleShape(side: string) {
+    private createTriangleShape(side: string) {
         const { Polygon } = Svg;
-        switch(side) {
+        switch (side) {
             case triangleSides.bottomLeft:
                 return <Polygon points="0 0, 0 100, 100 0" fill="url(#grad)" />;
             case triangleSides.bottomRight:
@@ -32,11 +31,11 @@ class Triangle extends Component<TriangleProps> {
             case triangleSides.topLeft:
                 return <Polygon points="0 0, 100 100, 0 100" fill="url(#grad)" />;
             default:
-                return "";
+                return '';
         }
     }
 
-    render() {
+    public render() {
         const { Defs, LinearGradient, Stop } = Svg;
         const { size, triangleSide } = this.props;
         const triangle = triangleSide ? this.createTriangleShape(triangleSide) : null;
@@ -47,14 +46,17 @@ class Triangle extends Component<TriangleProps> {
                         styles.triangle,
                         {
                             left: (triangleSide === triangleSides.topLeft || triangleSide === triangleSides.bottomLeft) ? 0 : 'auto',
-                            right: (triangleSide === triangleSides.topRight || triangleSide === triangleSides.bottomRight) ? 0 :'auto',
-                            top: (triangleSide === triangleSides.bottomRight || triangleSide === triangleSides.bottomLeft) ? '100%' : -size
-                        }
+                            right: (triangleSide === triangleSides.topRight || triangleSide === triangleSides.bottomRight) ? 0 : 'auto',
+                            top: (triangleSide === triangleSides.bottomRight || triangleSide === triangleSides.bottomLeft) ? '100%' : -size,
+                        },
                     ]
-                }>
-                <Svg height={size}
-                     width={size}
-                     viewBox="0 0 100 100">
+                }
+            >
+                <Svg
+                    height={size}
+                    width={size}
+                    viewBox="0 0 100 100"
+                >
                     <Defs>
                         <LinearGradient id="grad" x1="0" y1="0" x2="170" y2="0">
                             <Stop offset="1" stopColor="#412b4a" stopOpacity="1"/>
@@ -69,9 +71,9 @@ class Triangle extends Component<TriangleProps> {
 }
 
 Triangle.defaultProps = {
-    color: colors.backgroundColorDark,
+    color: colors.brandColorPrimary,
     borderRadius: borderRadius.borderRadiusBase,
-    size: wp('10%')
+    size: wp('10%'),
 };
 
 export default Triangle;

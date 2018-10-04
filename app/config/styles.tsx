@@ -10,31 +10,27 @@ export enum fontSizes {
     kilo = hp('2.5%') >= 18 ? hp('2.5%') : 18,
     base = hp('2%') >= 14 ? hp('2%') : 14,
     mini = hp('1.5%') >= 12 ? hp('1.5%') : 12,
-    piko = hp('1%') >= 9 ? hp('1%') : 9
+    piko = hp('1%') >= 9 ? hp('1%') : 9,
 }
 
 export enum fontWeights {
     medium = Platform.OS === 'ios' ? '500' : '400',
     semiBold = Platform.OS === 'ios' ? '600' : '500',
-    heavyBold = Platform.OS === 'ios' ? '900' : '900'
+    heavyBold = Platform.OS === 'ios' ? '900' : '900',
 }
 
 export enum colors {
     brandColorPrimary = '#5b4663',
     brandColorSecondary = '#50e3c2',
-    backgroundColorLight = '#eee6e4',
-    backgroundColorDark = '#5b4663',
-    textColorDark = '#5b4663',
-    textColorLight = '#ffffff',
-    colorLight = '#ffffff',
-    colorDark = '#000000'
+    brandColorTetriary = '#ff5c5c',
+    colorLight = '#eee6e4',
+    colorLightest = '#ffffff',
 }
-
 
 export enum borderRadius {
     borderRadiusBase = 25,
     borderRadiusNone = 0,
-    borderRadiusLarge = 40
+    borderRadiusLarge = 40,
 }
 
 export enum spacing {
@@ -44,5 +40,5 @@ export enum spacing {
 }
 
 export enum sizes {
-    baseSize = wp('68%')
+    baseSize = wp('68%'),
 }

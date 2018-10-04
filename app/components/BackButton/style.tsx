@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {StyleSheet} from 'react-native';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
     container: {
@@ -10,6 +10,6 @@ export default StyleSheet.create({
         flex: 0,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-start'
-    }
+        justifyContent: 'flex-start',
+    },
 });
