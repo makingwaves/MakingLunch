@@ -20,9 +20,10 @@ export enum fontWeights {
 }
 
 export enum colors {
+    brandColorPrimary = '#5b4663',
+    brandColorSecondary = '#50e3c2',
     backgroundColorLight = '#eee6e4',
     backgroundColorDark = '#5b4663',
-    backgroundColorDarkSecondary = '#412b4a',
     textColorDark = '#5b4663',
     textColorLight = '#ffffff',
     colorLight = '#ffffff',

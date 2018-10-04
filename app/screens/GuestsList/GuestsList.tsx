@@ -15,19 +15,22 @@ class GuestsList extends Component<NavigationScreenProps> {
                 id: 0,
                 name: 'Guest name',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac laoreet metus. Maecenas a mattis ex, malesuada aliquet tortor. Praesent eget libero et quam aliquet semper sed a neque.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac laoreet metus. Maecenas a mattis ex, malesuada aliquet tortor. Praesent eget libero et quam aliquet semper sed a neque.',
-                imageUri: 'https://picsum.photos/500/400?image=64'
+                imageUri: 'https://picsum.photos/500/400?image=64',
+                meetings: 5
             },
             {
                 id: 1,
                 name: 'Guest name 1',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac laoreet metus.',
-                imageUri: 'https://picsum.photos/400/600?image=1005'
+                imageUri: 'https://picsum.photos/400/600?image=1005',
+                meetings: 15
             },
             {
                 id: 2,
                 name: 'Guest name 2',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                imageUri: 'https://picsum.photos/300/300?image=823'
+                imageUri: 'https://picsum.photos/300/300?image=823',
+                meetings: 1
             }
         ]
     };
@@ -44,7 +47,6 @@ class GuestsList extends Component<NavigationScreenProps> {
             <BackButton navigation={navigation} />
                 <ScrollView
                     ref={(scrollView) => { this.scrollView = scrollView; }}
-                    style={styles.list}
                     horizontal= {true}
                     decelerationRate={0}
                     snapToInterval={wp('76%')}
@@ -67,6 +69,7 @@ class GuestsList extends Component<NavigationScreenProps> {
                                 name={guest.name}
                                 description={guest.description}
                                 imageUri={guest.imageUri}
+                                meetings={guest.meetings}
                             />
                         </ScrollView>
                     ))}

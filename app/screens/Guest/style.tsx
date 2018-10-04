@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {colors, fontSizes, fontWeights } from '../../config/styles';
+import { colors, fontSizes, fontWeights } from '../../config/styles';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
@@ -15,4 +15,3 @@ export default StyleSheet.create({
         color: colors.textColorLight
     }
 });
-

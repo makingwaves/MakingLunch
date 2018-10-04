@@ -5,20 +5,21 @@ import UserImage from "../../components/UserImage/UserImage";
 import Bubble from "../../components/Bubble/Bubble";
 import { borderRadius } from "../../config/styles";
 import {triangleSides} from "../../components/Triangle/Triangle";
+import InfoBar from "../../components/InfoBar/InfoBar";
 
 export interface GuestProps {
     readonly name: string;
     readonly description: string;
     readonly imageUri: string;
+    readonly meetings: number;
 }
 
 class Guest extends Component<GuestProps> {
     render() {
-        const { name, description, imageUri } = this.props;
+        const { name, description, imageUri, meetings } = this.props;
         return (
             <View
                 style={styles.container}
-                contentContainerStyle={{alignItems: 'stretch'}}
                 showsVerticalScrollIndicator={false}
             >
                 <UserImage imageUri={imageUri}/>
@@ -34,6 +35,7 @@ class Guest extends Component<GuestProps> {
                     triangleSide={triangleSides.bottomRight}>
                     <Text style={styles.text}>{description}</Text>
                 </Bubble>
+               <InfoBar number={meetings}/>
             </View>
         );
     }
