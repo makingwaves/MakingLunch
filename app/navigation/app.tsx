@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createStackNavigator } from 'react-navigation';
+import {createStackNavigator} from 'react-navigation';
 import Main from '../screens/Main';
-import GuestsList from "../screens/GuestsList";
+import GuestsList from '../screens/GuestsList';
 
 const AppNavigator = createStackNavigator({
     Main: { screen: Main },

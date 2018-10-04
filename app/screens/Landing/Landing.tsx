@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { View, Image, Animated } from 'react-native';
+import React, {Component} from 'react';
+import {View, Image, Animated} from 'react-native';
 import styles from './style';
 
-import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper';
+import {ParallaxSwiper, ParallaxSwiperPage} from 'react-native-parallax-swiper';
 
 import LoginButton from '../../components/LoginButton';
 import Bubble from '../../components/Bubble';
 import Button from '../../components/Button';
-import { NavigationScreenProps } from 'react-navigation';
-import { socialTypes } from '../../components/LoginButton/LoginButton';
-import Intro from "../../components/Intro/Intro";
+import {NavigationScreenProps} from 'react-navigation';
+import {socialTypes} from '../../components/LoginButton/LoginButton';
+import Intro from '../../components/Intro/Intro';
 
 const LOGIN_BACKGROUND_1 = require('./img/intro1.png');
 const LOGIN_BACKGROUND_2 = require('./img/intro2.png');

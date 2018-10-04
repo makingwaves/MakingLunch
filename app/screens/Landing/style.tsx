@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
@@ -10,11 +10,11 @@ export default StyleSheet.create({
         paddingHorizontal: 10,
         paddingBottom: 100,
         paddingTop: 80,
-        borderWidth: 3
+        borderWidth: 3,
     },
 
     backgroundImage: {
         width,
-        height
-    }
+        height,
+    },
 });

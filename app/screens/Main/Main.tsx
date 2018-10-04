@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { NavigationScreenProps } from 'react-navigation';
+import React, {Component} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {NavigationScreenProps} from 'react-navigation';
 import styles from './style';
 
 class Main extends Component<NavigationScreenProps> {
