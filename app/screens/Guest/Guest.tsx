@@ -38,7 +38,7 @@ class Guest extends Component<GuestProps> {
                 >
                     <Text style={styles.text}>{description}</Text>
                 </Bubble>
-               <InfoBar number={meetings}/>
+               <InfoBar value={meetings}/>
             </View>
         );
     }

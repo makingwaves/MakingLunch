@@ -31,7 +31,22 @@ class Triangle extends Component<TriangleProps> {
             case triangleSides.topLeft:
                 return <Polygon points="0 0, 100 100, 0 100" fill="url(#grad)" />;
             default:
-                return '';
+                return null;
+        }
+    }
+
+    private setTriangleProperties(triangleSide: any) {
+        switch (triangleSide) {
+            case triangleSides.topLeft:
+                return {left: 0, top: -this.props.size};
+            case triangleSides.topRight:
+                return {right: 0, top: -this.props.size};
+            case triangleSides.bottomLeft:
+                return {left: 0, top: '100%'};
+            case triangleSides.bottomRight:
+                return {right: 0, top: '100%'};
+            default:
+                return {};
         }
     }
 
@@ -40,18 +55,7 @@ class Triangle extends Component<TriangleProps> {
         const { size, triangleSide } = this.props;
         const triangle = triangleSide ? this.createTriangleShape(triangleSide) : null;
         return (
-            <View
-                style={
-                    [
-                        styles.triangle,
-                        {
-                            left: (triangleSide === triangleSides.topLeft || triangleSide === triangleSides.bottomLeft) ? 0 : 'auto',
-                            right: (triangleSide === triangleSides.topRight || triangleSide === triangleSides.bottomRight) ? 0 : 'auto',
-                            top: (triangleSide === triangleSides.bottomRight || triangleSide === triangleSides.bottomLeft) ? '100%' : -size,
-                        },
-                    ]
-                }
-            >
+            <View style={[styles.triangle, this.setTriangleProperties(triangleSide)]}>
                 <Svg
                     height={size}
                     width={size}

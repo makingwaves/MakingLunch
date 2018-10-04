@@ -9,7 +9,7 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 class GuestsList extends Component<NavigationScreenProps> {
 
-    protected state = {
+    private state = {
         guests: [
             {
                 id: 0,
@@ -39,6 +39,23 @@ class GuestsList extends Component<NavigationScreenProps> {
         setTimeout(() => { this.scrollView.scrollTo({x: - wp('12%')}); }, 1); // scroll view position fix
     }
 
+    private createGuestsList(guests: any[]) {
+        return guests.map((guest) => (
+            <ScrollView
+                key={guest.id}
+                style={styles.listItem}
+                showsVerticalScrollIndicator={false}
+            >
+                <Guest
+                    name={guest.name}
+                    description={guest.description}
+                    imageUri={guest.imageUri}
+                    meetings={guest.meetings}
+                />
+            </ScrollView>
+        ));
+    }
+
     public render() {
         const { navigation } = this.props;
         const { guests } = this.state;
@@ -51,28 +68,10 @@ class GuestsList extends Component<NavigationScreenProps> {
                     decelerationRate={0}
                     snapToInterval={wp('76%')}
                     snapToAlignment={'center'}
-                    contentInset={{
-                        top: 0,
-                        left: wp('12%'),
-                        bottom: 0,
-                        right: wp('12%'),
-                    }}
+                    contentInset={{top: 0, left: wp('12%'), bottom: 0, right: wp('12%')}}
                     contentContainerStyle={styles.contentContainer}
                 >
-                    {guests.map((guest) => (
-                        <ScrollView
-                            key={guest.id}
-                            style={styles.listItem}
-                            showsVerticalScrollIndicator={false}
-                        >
-                            <Guest
-                                name={guest.name}
-                                description={guest.description}
-                                imageUri={guest.imageUri}
-                                meetings={guest.meetings}
-                            />
-                        </ScrollView>
-                    ))}
+                    {this.createGuestsList(guests)}
                 </ScrollView>
             </View>
         );

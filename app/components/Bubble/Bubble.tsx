@@ -19,51 +19,48 @@ export interface BubbleProps {
 
 class Bubble extends Component<BubbleProps> {
 
-    private createTriangle(triangleSide: any, size: number) {
-        return (triangleSide !== '' && triangleSide !== undefined) ? <Triangle size={size} triangleSide={triangleSide}/> : null;
+    private createTriangle() {
+        if (this.props.triangleSide !== '' && this.props.triangleSide !== undefined) {
+            return <Triangle size={this.props.size} triangleSide={this.props.triangleSide}/>;
+        }
+        return null;
+    }
+
+    private setMarginProperty() {
+        if (
+            this.props.triangleSide === triangleSides.topLeft ||
+            this.props.triangleSide === triangleSides.topRight
+        ) {
+            return {marginTop: this.props.size};
+        } else if (
+            this.props.triangleSide === triangleSides.bottomLeft ||
+            this.props.triangleSide === triangleSides.bottomRight
+        ) {
+            return {marginBottom: this.props.size};
+        }
+        return {};
+    }
+
+    private setBubbleProperties() {
+        return {
+            backgroundColor: this.props.color,
+            borderRadius: this.props.baseBorderRadius,
+            borderTopLeftRadius: this.props.borderRadiusTopLeft,
+            borderTopRightRadius: this.props.borderRadiusTopRight,
+            borderBottomLeftRadius: this.props.borderRadiusBottomLeft,
+            borderBottomRightRadius: this.props.borderRadiusBottomRight,
+        };
     }
 
     public render() {
-        const {
-            size,
-            color,
-            baseBorderRadius,
-            borderRadiusTopLeft,
-            borderRadiusTopRight,
-            borderRadiusBottomLeft,
-            borderRadiusBottomRight,
-            triangleSide,
-            children,
-        } = this.props;
+        const {children} = this.props;
 
         return (
-            <View
-                style={
-                [
-                    styles.container,
-                    {
-                        marginBottom: (triangleSide === triangleSides.bottomLeft  || triangleSide === triangleSides.bottomRight) ? size : 0,
-                        marginTop: (triangleSide === triangleSides.topLeft  || triangleSide === triangleSides.topRight) ? size : 0,
-                    },
-                ]}
-            >
-                <View
-                    style={
-                    [
-                        styles.bubble,
-                        {
-                            backgroundColor: color,
-                            borderRadius: baseBorderRadius,
-                            borderTopLeftRadius: borderRadiusTopLeft,
-                            borderTopRightRadius: borderRadiusTopRight,
-                            borderBottomLeftRadius: borderRadiusBottomLeft,
-                            borderBottomRightRadius: borderRadiusBottomRight,
-                        },
-                    ]}
-                >
+            <View style={[styles.container, this.setMarginProperty()]}>
+                <View style={[styles.bubble, this.setBubbleProperties()]}>
                     {children}
                 </View>
-                {this.createTriangle(triangleSide, size)}
+                {this.createTriangle()}
             </View>
         );
     }

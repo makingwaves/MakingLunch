@@ -13,7 +13,6 @@ export default StyleSheet.create({
         flex: 0,
         flexDirection: 'column',
         padding: spacing.gutter,
-        width: '100%',
         overflow: 'hidden',
     },
 });

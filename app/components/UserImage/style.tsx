@@ -15,7 +15,6 @@ export default StyleSheet.create({
     image: {
         width: undefined,
         height: undefined,
-        resizeMode: 'cover',
         flex: 1,
     },
 });
