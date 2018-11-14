@@ -2,9 +2,16 @@ import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
     container: {
+        // flexDirection: 'row',
+        // // marginVertical: 20,
+        // marginTop: 5,
+        // height: 60,
+        // width: 250
         flexDirection: 'row',
-        marginVertical: 20,
-        height: 80
+        marginHorizontal: 60,
+        marginBottom: 5,
+        height: 60,
+        justifyContent: 'flex-end'
     },
 
     loginButtonContainer: {
@@ -27,15 +34,21 @@ export default StyleSheet.create({
 
     text: {
         fontSize: 16,
-        fontWeight: '700',
+        // fontWeight: '700',
         color: 'white'
     },
 
-    icon: {
-        width: 60,
-        height: 60,
+    iconContainer: {
+        width: 50,
+        height: 50,
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center'
+        // backgroundColor: '#000000',
+        // opacity: 0.1
+    },
+    icon: {
+        width: 25,
+        height: 25
     }
 });

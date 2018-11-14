@@ -42,7 +42,7 @@ describe('auth reducer', () => {
         });
 
         test(AuthActions.CLEAR_TOKEN, () => {
-            expect(authActionsCreators.invalidateToken()).toEqual({ type: AuthActions.CLEAR_TOKEN });
+            expect(authActionsCreators.clearToken()).toEqual({ type: AuthActions.CLEAR_TOKEN });
         });
         test(AuthActions.START_REQUEST, () => {
             expect(authActionsCreators.startRequest()).toEqual({ type: AuthActions.START_REQUEST});
