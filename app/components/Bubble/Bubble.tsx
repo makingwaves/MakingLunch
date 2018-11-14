@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import styles from './style';
 import {borderRadius, colors} from '../../config/styles';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {Svg} from 'expo';
 import Triangle,  {triangleSides} from '../Triangle/Triangle';
 
 export interface BubbleProps {

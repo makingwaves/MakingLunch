@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import {ScrollView, View} from 'react-native';
-import Guest from '../Guest/Guest';
+import Guest, {GuestProps} from '../Guest/Guest';
 import {NavigationScreenProps} from 'react-navigation';
 import {ParallaxSwiper, ParallaxSwiperPage} from 'react-native-parallax-swiper';
 import BackButton from '../../components/BackButton/BackButton';
 import styles from './style';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
+
+
 class GuestsList extends Component<NavigationScreenProps> {
 
-    private state = {
+    public state = {
         guests: [
             {
                 id: 0,
@@ -35,11 +37,11 @@ class GuestsList extends Component<NavigationScreenProps> {
         ],
     };
 
-    private componentDidMount() {
+    public componentDidMount() {
         setTimeout(() => { this.scrollView.scrollTo({x: - wp('12%')}); }, 1); // scroll view position fix
     }
 
-    private createGuestsList(guests: any[]) {
+    private createGuestsList(guests : GuestProps[]) {
         return guests.map((guest) => (
             <ScrollView
                 key={guest.id}
@@ -47,6 +49,7 @@ class GuestsList extends Component<NavigationScreenProps> {
                 showsVerticalScrollIndicator={false}
             >
                 <Guest
+                    id={guest.id}
                     name={guest.name}
                     description={guest.description}
                     imageUri={guest.imageUri}

@@ -8,6 +8,7 @@ import {triangleSides} from '../../components/Triangle/Triangle';
 import InfoBar from '../../components/InfoBar/InfoBar';
 
 export interface GuestProps {
+    readonly id: number;
     readonly name: string;
     readonly description: string;
     readonly imageUri: string;
