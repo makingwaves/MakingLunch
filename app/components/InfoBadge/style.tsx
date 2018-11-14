@@ -1,5 +1,5 @@
-import { StyleSheet, Platform } from 'react-native';
-import { fontSizes, fontWeights } from '../../config/styles';
+import {StyleSheet, Platform} from 'react-native';
+import {fontSizes, fontWeights} from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
@@ -7,17 +7,17 @@ export default StyleSheet.create({
         backgroundColor: 'red',
         borderRadius: 30,
         padding: 10,
-        paddingHorizontal: 50
+        paddingHorizontal: 50,
     },
 
     title: {
         color: 'white',
         fontSize: fontSizes.giga,
-        fontWeight: fontWeights.semiBold
+        fontWeight: fontWeights.semiBold,
     },
 
     text: {
         color: 'white',
-        fontWeight: fontWeights.semiBold
-    }
+        fontWeight: fontWeights.semiBold,
+    },
 });

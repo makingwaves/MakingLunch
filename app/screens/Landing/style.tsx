@@ -10,11 +10,11 @@ export default StyleSheet.create({
         padding: 10,
         paddingBottom: 100,
         paddingTop: 80,
-        borderWidth: 3
+        borderWidth: 3,
     },
 
     backgroundImage: {
         width,
-        height
-    }
+        height,
+    },
 });

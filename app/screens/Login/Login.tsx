@@ -8,12 +8,12 @@ import { NavigationScreenProps } from 'react-navigation';
 
 const LOGIN_BACKGROUND_3 = require('./img/intro3.png');
 
-type LoginState = {
+interface LoginState {
     username: string;
     password: string;
     failureFlag: boolean;
     isLoading: boolean;
-};
+}
 
 class Login extends Component<NavigationScreenProps, LoginState> {
     constructor(props: NavigationScreenProps) {
@@ -22,19 +22,19 @@ class Login extends Component<NavigationScreenProps, LoginState> {
             username: 'test',
             password: '',
             failureFlag: false,
-            isLoading: false
+            isLoading: false,
         };
     }
 
-    onLoginPress = () => {
+    public onLoginPress = () => {
         if (this.state.username === 'test' && this.state.password === 'test') {
             this.props.navigation.navigate('App');
         } else {
             this.setState({ failureFlag: true });
         }
-    };
+    }
 
-    render() {
+    public render() {
         return (
             <SafeAreaView style={styles.container}>
                 <Image source={LOGIN_BACKGROUND_3} style={styles.backgroundImage} blurRadius={30} />
@@ -44,14 +44,14 @@ class Login extends Component<NavigationScreenProps, LoginState> {
                         <Input
                             title="Your email"
                             value={this.state.username}
-                            onChangeText={username => this.setState({ username })}
+                            onChangeText={(username) => this.setState({ username })}
                             placeholder={'Username'}
                         />
 
                         <Input
                             title="Password"
                             value={this.state.password}
-                            onChangeText={password => this.setState({ password })}
+                            onChangeText={(password) => this.setState({ password })}
                             placeholder={'Username'}
                             secureTextEntry={true}
                         />

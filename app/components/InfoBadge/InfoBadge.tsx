@@ -6,7 +6,7 @@ export interface InfoBadgeProps {
     readonly infoText: string;
 }
 
-const InfoBadge: React.SFC<InfoBadgeProps> = props => (
+const InfoBadge: React.SFC<InfoBadgeProps> = (props) => (
     <View style={styles.container}>
         <Text style={styles.title}>{props.infoText}</Text>
         <Text style={styles.text}>try: test/test</Text>

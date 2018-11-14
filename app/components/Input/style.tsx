@@ -1,19 +1,19 @@
-import { StyleSheet, Platform } from 'react-native';
-import { fontWeights, fontSizes } from '../../config/styles';
+import {StyleSheet, Platform} from 'react-native';
+import {fontWeights, fontSizes} from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
         flexDirection: 'column',
         marginHorizontal: 60,
         marginTop: 20,
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
     },
 
     title: {
         fontWeight: fontWeights.heavyBold,
         color: 'white',
         fontSize: fontSizes.mini,
-        paddingBottom: 5
+        paddingBottom: 5,
     },
 
     input: {
@@ -21,6 +21,6 @@ export default StyleSheet.create({
         height: 50,
         backgroundColor: 'white',
         borderRadius: 30,
-        padding: 10
-    }
+        padding: 10,
+    },
 });
