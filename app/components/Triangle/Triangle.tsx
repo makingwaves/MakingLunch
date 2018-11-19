@@ -3,7 +3,8 @@ import {View} from 'react-native';
 import styles from './style';
 import {borderRadius, colors} from '../../config/styles';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {Svg} from 'expo';
+import Image from 'react-native-remote-svg';
+
 
 export interface TriangleProps {
     readonly triangleSide?: string;
@@ -19,56 +20,29 @@ export enum triangleSides {
 
 class Triangle extends Component<TriangleProps> {
 
-    private createTriangleShape(side: string) {
-        const { Polygon } = Svg;
-        switch (side) {
-            case triangleSides.bottomLeft:
-                return <Polygon points="0 0, 0 100, 100 0" fill="url(#grad)" />;
-            case triangleSides.bottomRight:
-                return <Polygon points="0 0, 100 0, 100 100" fill="url(#grad)" />;
-            case triangleSides.topRight:
-                return <Polygon points="0 100, 100 0, 100 100" fill="url(#grad)" />;
-            case triangleSides.topLeft:
-                return <Polygon points="0 0, 100 100, 0 100" fill="url(#grad)" />;
-            default:
-                return null;
-        }
-    }
-
-    private setTriangleProperties(triangleSide: any) {
+    private getTriangleProperties(triangleSide: triangleSides) {
         switch (triangleSide) {
             case triangleSides.topLeft:
-                return {left: 0, top: -this.props.size};
+                return {left: 0, top: -this.props.size, transform: [{rotate: '-270deg'}]};
             case triangleSides.topRight:
-                return {right: 0, top: -this.props.size};
+                return {right: 0, top: -this.props.size, transform: [{rotate: '180deg'}]};
             case triangleSides.bottomLeft:
                 return {left: 0, top: '100%'};
             case triangleSides.bottomRight:
-                return {right: 0, top: '100%'};
+                return {right: 0, top: '100%', transform: [{rotate: '90deg'}]};
             default:
                 return {};
         }
     }
 
     public render() {
-        const { Defs, LinearGradient, Stop } = Svg;
         const { size, triangleSide } = this.props;
-        const triangle = triangleSide ? this.createTriangleShape(triangleSide) : null;
         return (
-            <View style={[styles.triangle, this.setTriangleProperties(triangleSide)]}>
-                <Svg
-                    height={size}
-                    width={size}
-                    viewBox="0 0 100 100"
-                >
-                    <Defs>
-                        <LinearGradient id="grad" x1="0" y1="0" x2="170" y2="0">
-                            <Stop offset="1" stopColor="#412b4a" stopOpacity="1"/>
-                            <Stop offset="0" stopColor="#5b4663" stopOpacity="1"/>
-                        </LinearGradient>
-                    </Defs>
-                    {triangle}
-                </Svg>
+            <View style={[styles.triangle, this.getTriangleProperties(triangleSide)]}>
+                <Image
+                    source={require('./triangle.svg')}
+                    style={{width: size, height: size}}
+                />
             </View>
         );
     }

@@ -12,20 +12,13 @@ export interface BubbleProps {
     readonly borderRadiusTopRight?: number;
     readonly borderRadiusBottomLeft?: number;
     readonly borderRadiusBottomRight?: number;
-    readonly triangleSide?: string;
+    readonly triangleSide?: triangleSides;
     readonly size?: number;
 }
 
 class Bubble extends Component<BubbleProps> {
 
-    private createTriangle() {
-        if (this.props.triangleSide !== '' && this.props.triangleSide !== undefined) {
-            return <Triangle size={this.props.size} triangleSide={this.props.triangleSide}/>;
-        }
-        return null;
-    }
-
-    private setMarginProperty() {
+    private getMarginProperty() {
         if (
             this.props.triangleSide === triangleSides.topLeft ||
             this.props.triangleSide === triangleSides.topRight
@@ -40,7 +33,7 @@ class Bubble extends Component<BubbleProps> {
         return {};
     }
 
-    private setBubbleProperties() {
+    private getBubbleProperties() {
         return {
             backgroundColor: this.props.color,
             borderRadius: this.props.baseBorderRadius,
@@ -55,11 +48,11 @@ class Bubble extends Component<BubbleProps> {
         const {children} = this.props;
 
         return (
-            <View style={[styles.container, this.setMarginProperty()]}>
-                <View style={[styles.bubble, this.setBubbleProperties()]}>
+            <View style={[styles.container, this.getMarginProperty()]}>
+                <View style={[styles.bubble, this.getBubbleProperties()]}>
                     {children}
                 </View>
-                {this.createTriangle()}
+                {this.props.triangleSide && <Triangle size={this.props.size} triangleSide={this.props.triangleSide}/>}
             </View>
         );
     }
