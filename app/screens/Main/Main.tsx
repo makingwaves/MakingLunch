@@ -17,12 +17,7 @@ class Main extends Component<NavigationScreenProps> {
                 <Button title={'Chat'} onPress={() => this.props.navigation.navigate('Chat')}/>
                 <Button title={'Settings'} onPress={() => this.props.navigation.navigate('Settings')}/>
                 <Button title={'Logout'} onPress={() => this.props.navigation.navigate('Auth')}/>
-
-                <TouchableOpacity onPress={()=> {
-                    this.props.navigation.navigate('Guests');
-                }}>
-                    <Text>Guests screen</Text>
-                </TouchableOpacity>
+                <Button title={'Guests screen'} onPress={() => this.props.navigation.navigate('Guests')}/>
             </View>
         );
     }

@@ -7,9 +7,11 @@ import BackButton from '../../components/BackButton/BackButton';
 import styles from './style';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-
-
 class GuestsList extends Component<NavigationScreenProps> {
+
+    static navigationOptions = {
+        header: null,
+    }
 
     public state = {
         guests: [
