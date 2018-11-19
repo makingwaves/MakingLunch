@@ -10,7 +10,7 @@ export interface InputProps {
     readonly secureTextEntry?: boolean;
 }
 
-const Input: React.SFC<InputProps> = props => {
+const Input: React.SFC<InputProps> = (props) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{props.title}</Text>

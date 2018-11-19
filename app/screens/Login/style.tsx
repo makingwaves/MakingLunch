@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 export default StyleSheet.create({
     container: {
@@ -13,7 +13,7 @@ export default StyleSheet.create({
         paddingBottom: 100,
         paddingTop: 80,
         width,
-        height
+        height,
     },
 
     backgroundImage: {
@@ -22,7 +22,7 @@ export default StyleSheet.create({
         bottom: 0,
         right: 0,
         left: 0,
-        height
+        height,
     },
 
     content: {
@@ -33,24 +33,24 @@ export default StyleSheet.create({
         left: 0,
         justifyContent: 'space-between',
         paddingBottom: 100,
-        paddingTop: 200
+        paddingTop: 200,
     },
 
     socialLoginContainer: {
         flex: 0,
-        borderWidth: 1
+        borderWidth: 1,
     },
 
     title: {
         fontSize: 24,
         color: 'black',
-        fontWeight: '900'
+        fontWeight: '900',
     },
 
     logo: {
         width: 100,
         height: 100,
-        borderWidth: 3
+        borderWidth: 3,
     },
 
     input: {
@@ -59,6 +59,6 @@ export default StyleSheet.create({
         padding: 10,
         borderWidth: 1,
         borderColor: 'black',
-        marginBottom: 10
-    }
+        marginBottom: 10,
+    },
 });
