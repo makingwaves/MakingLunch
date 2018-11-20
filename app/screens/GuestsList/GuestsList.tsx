@@ -9,9 +9,9 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 class GuestsList extends Component<NavigationScreenProps> {
 
-    static navigationOptions = {
+    private static navigationOptions = {
         header: null,
-    }
+    };
 
     public state = {
         guests: [
@@ -43,7 +43,7 @@ class GuestsList extends Component<NavigationScreenProps> {
         setTimeout(() => { this.scrollView.scrollTo({x: - wp('12%')}); }, 1); // scroll view position fix
     }
 
-    private createGuestsList(guests : GuestProps[]) {
+    private createGuestsList(guests: GuestProps[]) {
         return guests.map((guest) => (
             <ScrollView
                 key={guest.id}

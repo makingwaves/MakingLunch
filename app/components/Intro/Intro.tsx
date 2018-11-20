@@ -6,25 +6,20 @@ import {fontSizes} from '../../config/styles';
 export interface BubbleProps {
     readonly title: string;
     readonly text: string;
-    readonly bigTitle?: boolean;
-    readonly color?: string;
+    readonly isTitleLarge: boolean;
 }
 
-const Intro: React.SFC<BubbleProps> = (props) => {
+const Intro: React.SFC<BubbleProps> = ({title, text, children, isTitleLarge = false}) => {
 
     return (
         <View>
-            {props.children}
-            <Text style={[styles.title, { fontSize: props.bigTitle ? fontSizes.zetta : fontSizes.peta }]}>
-                {props.title}
+            {children}
+            <Text style={[styles.title, { fontSize: isTitleLarge ? fontSizes.zetta : fontSizes.peta }]}>
+                {title}
             </Text>
-            <Text style={styles.text}>{props.text}</Text>
+            <Text style={styles.text}>{text}</Text>
         </View>
     );
-};
-
-Intro.defaultProps = {
-    bigTitle: false,
 };
 
 export default Intro;

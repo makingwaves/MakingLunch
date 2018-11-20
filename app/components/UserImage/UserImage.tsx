@@ -15,7 +15,7 @@ class UserImage extends Component<UserImageProps> {
         const { imageUri } = this.props;
         return (
         <Bubble
-            borderRadius={borderRadius.borderRadiusLarge}
+            baseBorderRadius={borderRadius.borderRadiusLarge}
             borderRadiusBottomRight={borderRadius.borderRadiusNone}
             triangleSide={triangleSides.bottomRight}
         >
