@@ -9,6 +9,7 @@ import Bubble from '../../components/Bubble';
 import Button from '../../components/Button';
 import {NavigationScreenProps} from 'react-navigation';
 import {socialTypes} from '../SignUp';
+import Intro from '../../components/Intro/Intro';
 
 const LOGIN_BACKGROUND_1 = require('./img/intro1.png');
 const LOGIN_BACKGROUND_2 = require('./img/intro2.png');
@@ -25,32 +26,38 @@ class Landing extends Component<NavigationScreenProps> {
 
     private renderFirstScreen = () => (
         <View style={styles.container}>
-            <Bubble
-                title="Hello there!"
-                text="Making Lunch unde omnis iste natus error sit volup tatem accus antium dolore mque laudantium,
-                totam rem aperiam."
-                bigTitle={true}
-            />
+            <Bubble>
+                <Intro
+                    title="Hello there!"
+                    text="Making Lunch unde omnis iste natus error sit volup tatem accus antium dolore mque laudantium,
+                    totam rem aperiam."
+                    bigTitle={true}
+                />
+            </Bubble>
         </View>
     )
 
     private renderSecondScreen = () => (
         <View style={styles.container}>
             <View style={{flex: 1}}/>
-            <Bubble
-                title="It’s so nice to meet you!"
-                text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-                sed quia non."
-            />
+            <Bubble>
+                <Intro
+                    title="It’s so nice to meet you!"
+                    text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
+                    sed quia non."
+                />
+            </Bubble>
         </View>
     )
 
     private renderFinalScreen = () => (
         <View style={styles.container}>
-            <Bubble
-                title="Let's get started now"
-                text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet."
-            />
+            <Bubble>
+                <Intro
+                    title="Let's get started now"
+                    text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet."
+                />
+            </Bubble>
 
             <LoginButton
                 text={'Start with Facebook'}
