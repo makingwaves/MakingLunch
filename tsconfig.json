@@ -1,17 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "es2015",
-    "outDir": "build/dist",
-    "sourceMap": true,
-    "experimentalDecorators": true,
-    "jsx": "react-native",
-    "lib": ["dom", "es2015", "es2016"],
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react-native",
+    "lib": ["es6"],
     "moduleResolution": "node",
-    "noEmitHelpers": true,
-    "importHelpers": true,
-    "strict": true,
-    "noImplicitReturns": true
-  }
+    "noEmit": true,
+    "target": "esnext",
+    "noImplicitAny": false
+  },
+  "exclude": ["node_modules"],
 }

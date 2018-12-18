@@ -42,7 +42,7 @@ const Bubble: React.SFC<BubbleProps> = (
         }
         return {};
     };
-
+ 
     const getBubbleProperties = () => {
         return {
             backgroundColor: color,

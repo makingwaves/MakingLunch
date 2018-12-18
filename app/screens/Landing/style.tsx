@@ -6,7 +6,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between',
         paddingHorizontal: 10,
         paddingBottom: 100,
         paddingTop: 80,

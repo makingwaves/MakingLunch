@@ -1,9 +1,10 @@
 import React from 'react';
+import Image from 'react-native-remote-svg'; 
 import {TouchableOpacity} from 'react-native';
-import styles from './style';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import Image from 'react-native-remote-svg';
 import {NavigationScreenProps} from 'react-navigation';
+
+import styles from './style';
 
 const BackButton = (props: NavigationScreenProps) => {
     const { navigation } = props;

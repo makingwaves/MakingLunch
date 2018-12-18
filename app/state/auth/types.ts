@@ -3,8 +3,9 @@ import {Request} from '../common/types';
 export interface Profile {
     id: string;
     name: string;
-    description: string;
     photo: string;
+    isNewUser: boolean;
+    description?: string;
 }
 
 export interface AuthState {
@@ -20,4 +21,6 @@ export enum AuthActions {
     START_REQUEST = '@@auth/start_request',
     REQUEST_SUCCESS = '@@auth/request_success',
     REQUEST_FAIL = '@@auth/request_fail',
+    FACEBOOK_LOGIN = '@@auth/facebook_login',
+    GOOGLE_LOGIN = '@@auth/google_login'
 }

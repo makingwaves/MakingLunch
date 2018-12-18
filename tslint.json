@@ -1,5 +1,6 @@
 {
   "defaultSeverity": "error",
+  "editor.formatOnSave": true,
   "extends": [
     "tslint:recommended",
     "tslint-eslint-rules",
@@ -13,7 +14,8 @@
     "jsx-boolean-value": [true, "always"],
     "quotemark": [true, "single", "jsx-double"],
     "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
-    "interface-name": [true, "never-prefix"]
+    "interface-name": [true, "never-prefix"],
+    "space-in-brackets": ["error", "always"]
   },
   "rulesDirectory": []
 }

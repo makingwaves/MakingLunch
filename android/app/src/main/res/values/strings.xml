@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">makingLunch</string>
+    <string name="facebook_app_id">@string/FACEBOOK_APP_ID</string>
+</resources>

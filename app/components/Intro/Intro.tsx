@@ -6,7 +6,7 @@ import {fontSizes} from '../../config/styles';
 export interface BubbleProps {
     readonly title: string;
     readonly text: string;
-    readonly isTitleLarge: boolean;
+    readonly isTitleLarge?: boolean;
 }
 
 const Intro: React.SFC<BubbleProps> = ({title, text, children, isTitleLarge = false}) => {

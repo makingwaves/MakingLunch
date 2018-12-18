@@ -21,7 +21,7 @@ const Triangle: React.SFC<TriangleProps> = ({size = wp('10%'),  triangleSide}) =
     const getTriangleProperties = (side: triangleSides) => {
         switch (side) {
             case triangleSides.topLeft:
-                return {left: 0, top: -size, transform: [{rotate: '-270deg'}]};
+                return {left: 0, top: -size, transform: [{rotate: '270deg'}]};   
             case triangleSides.topRight:
                 return {right: 0, top: -size, transform: [{rotate: '180deg'}]};
             case triangleSides.bottomLeft:
