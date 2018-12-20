@@ -6,7 +6,7 @@ import { NavigationScreenProps } from 'react-navigation';
 import styles from './style';
 import { colors } from '../../config/styles';
 
-import { Profile, AuthActions } from '../../state/auth/types';
+import { Profile, AuthSagaActions } from '../../state/auth/types';
 import { AppState } from './../../state/state';
 import CustomButton from '../../components/CustomButton';
 import { RequestState } from '../../state/common/types';
@@ -81,8 +81,8 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getUserData: () => dispatch({ type: AuthActions.GET_USER_DATA }),
-    logOut: () => dispatch({ type: AuthActions.LOGOUT })
+    getUserData: () => dispatch({ type: AuthSagaActions.GET_USER_DATA }),
+    logOut: () => dispatch({ type: AuthSagaActions.LOGOUT })
 });
 
 export default connect(

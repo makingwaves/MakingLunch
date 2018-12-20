@@ -6,7 +6,7 @@ import { NavigationScreenProps } from 'react-navigation';
 import styles from './style';
 
 import BackButton from '../../components/BackButton';
-import { Profile, AuthActions } from '../../state/auth/types';
+import { Profile, AuthSagaActions } from '../../state/auth/types';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import { AppState } from './../../state/state';
 import CustomButton from '../../components/CustomButton';
@@ -84,7 +84,7 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateUser: (userData: Profile) => dispatch({ type: AuthActions.UPDATE_USER_DATA, userData })
+    updateUser: (userData: Profile) => dispatch({ type: AuthSagaActions.UPDATE_USER_DATA, userData })
 });
 
 export default connect(

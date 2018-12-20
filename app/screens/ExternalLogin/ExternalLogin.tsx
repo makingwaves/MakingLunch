@@ -7,7 +7,7 @@ import styles from './style';
 import { AppState } from './../../state/state';
 import CustomButton from '../../components/CustomButton/CustomButton'; 
 import ScreenLoader from '../../components/ScreenLoader/ScreenLoader';
-import { AuthActions } from '../../state/auth/types';
+import { AuthSagaActions } from '../../state/auth/types';
 import { RequestState } from '../../state/common/types';
 
 export enum socialTypes {
@@ -15,7 +15,7 @@ export enum socialTypes {
     google = 'Google',
 };
 
-type ServiceType = AuthActions.FACEBOOK_LOGIN | AuthActions.GOOGLE_LOGIN;
+type ServiceType = AuthSagaActions.FACEBOOK_LOGIN | AuthSagaActions.GOOGLE_LOGIN;
 
 interface ExternalLoginProps {
     readonly errorMsg: string;
@@ -28,14 +28,14 @@ const ExternalLogin: React.SFC<ExternalLoginProps> = ({ externalServiceLogin, lo
         <ScreenLoader isVisible={loading} text={'Authorizing the user..'} />
         <CustomButton 
             text={'Start with Facebook'}
-            onPress={() => externalServiceLogin(AuthActions.FACEBOOK_LOGIN)}
+            onPress={() => externalServiceLogin(AuthSagaActions.FACEBOOK_LOGIN)}
             iconContainerColor={'#4280cb'}
             buttonStyles={styles.fbButtonStyle}
             imageType={socialTypes.facebook}
         />
         <CustomButton
             text={'Start with Google'}
-            onPress={() => externalServiceLogin(AuthActions.GOOGLE_LOGIN)}
+            onPress={() => externalServiceLogin(AuthSagaActions.GOOGLE_LOGIN)}
             iconContainerColor={'#e65252'}
             buttonStyles={styles.googleButtonStyle} 
             imageType={socialTypes.google}

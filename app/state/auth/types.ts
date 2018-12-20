@@ -21,6 +21,9 @@ export enum AuthActions {
     START_REQUEST = '@@auth/start_request',
     REQUEST_SUCCESS = '@@auth/request_success',
     REQUEST_FAIL = '@@auth/request_fail',
+}
+
+export enum AuthSagaActions {
     FACEBOOK_LOGIN = '@@auth/facebook_login',
     GOOGLE_LOGIN = '@@auth/google_login',
     GET_USER_DATA = '@@auth/get_user_data',

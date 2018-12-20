@@ -3,7 +3,7 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { GoogleSignin } from 'react-native-google-signin';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 
-import { AuthActions } from '../../state/auth/types';
+import { AuthSagaActions } from '../../state/auth/types';
 import { authActionsCreators } from '../../state/auth/actions';
 import { navigationService } from '../../services';
 
@@ -35,5 +35,5 @@ export function* logoutFlow() {
 }
 
 export function* logoutSaga() {
-    yield takeLatest(AuthActions.LOGOUT, logoutFlow);
+    yield takeLatest(AuthSagaActions.LOGOUT, logoutFlow);
 }

@@ -4,7 +4,7 @@ import { GoogleSignin, User } from 'react-native-google-signin';
 import Config from 'react-native-config';
 import { Platform } from 'react-native';
 
-import { AuthActions } from '../../state/auth/types';
+import { AuthSagaActions } from '../../state/auth/types';
 import { authActionsCreators } from '../../state/auth/actions';
 
 import { navigationService } from '../../services';
@@ -110,6 +110,6 @@ export function* googleLoginFlow() {
 }
 
 export function* loginSaga() {
-    yield takeLatest(AuthActions.FACEBOOK_LOGIN, facebookLoginFlow);
-    yield takeLatest(AuthActions.GOOGLE_LOGIN, googleLoginFlow);
+    yield takeLatest(AuthSagaActions.FACEBOOK_LOGIN, facebookLoginFlow);
+    yield takeLatest(AuthSagaActions.GOOGLE_LOGIN, googleLoginFlow);
 }

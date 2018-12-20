@@ -1,7 +1,7 @@
 
 import { takeLatest, put, call } from 'redux-saga/effects';
 
-import { AuthActions, Profile } from '../../state/auth/types';
+import { AuthSagaActions, Profile } from '../../state/auth/types';
 import { authActionsCreators } from '../../state/auth/actions';
 import { accountService } from './../../api';
 
@@ -39,6 +39,6 @@ export function* updateUserDataFlow({ userData }: { type: string, userData: Prof
 }
 
 export function* userAccountSaga() {
-    yield takeLatest(AuthActions.GET_USER_DATA, getUserDataFlow);
-    yield takeLatest(AuthActions.UPDATE_USER_DATA, updateUserDataFlow);
+    yield takeLatest(AuthSagaActions.GET_USER_DATA, getUserDataFlow);
+    yield takeLatest(AuthSagaActions.UPDATE_USER_DATA, updateUserDataFlow);
 }
