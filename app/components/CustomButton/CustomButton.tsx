@@ -1,7 +1,9 @@
 import React, { memo, ReactNode }  from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, RegisteredStyle } from 'react-native';
+import { View, Text, Image, TouchableOpacity, RegisteredStyle } from 'react-native';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import styles from './style';
+import Triangle, { triangleSides } from '../Triangle/Triangle';
 
 const images = {
     Facebook: require('./img/facebook.png'),
@@ -13,17 +15,19 @@ const images = {
 
 export interface CustomButtonProps {
     readonly text: string;
-    readonly color: string;
-    readonly iconContainerColor: string;
     readonly onPress: () => void;
+    readonly iconContainerColor?: string; 
     readonly textAlignment?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
+    readonly triangleSide?: triangleSides;
+    readonly size?: number;
     readonly containerStyles?: RegisteredStyle<{[key: string]: string | number}>
+    readonly buttonStyles?: RegisteredStyle<{[key: string]: string | number}>;
     readonly imageType?: string;
     readonly children?: ReactNode;
 } 
 
 const CustomButton: React.SFC<CustomButtonProps> = ({
-    text, color, iconContainerColor, onPress, imageType, children, containerStyles = {}, textAlignment = 'center'
+    text, iconContainerColor, onPress, imageType, triangleSide, children, size = wp('5%'), containerStyles = {}, buttonStyles = {}, textAlignment = 'center'
 }) => {
 
     const getImage = (): ReactNode | React.ReactElement<View> => {
@@ -39,7 +43,7 @@ const CustomButton: React.SFC<CustomButtonProps> = ({
             style={[styles.container, containerStyles]}
             onPress={onPress}
         >
-            <View style={[styles.customButtonContainer, { backgroundColor: color }]}>
+            <View style={[styles.customButtonContainer, buttonStyles]}>
                 {getImage()} 
 
                 <View style={[styles.textContainer, { alignItems: textAlignment }]}>
@@ -48,8 +52,9 @@ const CustomButton: React.SFC<CustomButtonProps> = ({
                     </Text>
                 </View>
             </View>
+            {triangleSide && <Triangle size={size} triangleSide={triangleSide}/>}
         </TouchableOpacity>
     );
 };
 
-export default CustomButton;
+export default memo(CustomButton);

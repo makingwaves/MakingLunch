@@ -4,40 +4,22 @@ import { GoogleSignin, User } from 'react-native-google-signin';
 import Config from 'react-native-config';
 import { Platform } from 'react-native';
 
-import { AuthActions, Profile } from '../../state/auth/types';
+import { AuthActions } from '../../state/auth/types';
 import { authActionsCreators } from '../../state/auth/actions';
 
 import { navigationService } from '../../services';
 import { FacebookDataResult } from '../../api/facebookLoginService/facebookLoginService';
-import { UserDataResponse, UserDataRequest } from '../../api/accountService/accountService';
+import { UserDataResponse } from '../../api/accountService/accountService';
 import { facebookLoginService, accountService } from '../../api';
 
-interface UserData {
+import { keyToString, mapDataToResponse, hasKey } from '../utils/pureFn/pureFn';
+
+export interface UserData {
     name: string;
     photo: string;
     id: string;
     description?: string;
 };
-
-export const hasKey = <T>(str: T, key: string): boolean => !!(str && str[key]);
-export const keyToString = <T>(str: T, key: string): string => str && str[key] && str[key].toString();
-
-export const mapDataToResponse = (userData: UserData, provider: 'facebook' | 'google', token: string): UserDataRequest => ({
-    name: userData.name || '',
-    photo: userData.photo || '',
-    description: userData.description || '',
-    loginProvider: provider,
-    loginProviderToken: token,
-    id: userData.id || ''
-});
-
-export const getProfileData = <T extends UserData>(data: T, userResponse: UserDataResponse): Profile => ({
-    id: data.id,
-    name: data.name,
-    photo: data.photo,
-    description: data.description,
-    isNewUser: userResponse.isNewUser
-});
 
 export const configureGoogle: { [key in 'android' | 'ios']: () => Iterable<CallEffect> } = {
     ios: function* () {
@@ -79,15 +61,17 @@ export function* facebookLoginFlow() {
                 [facebookLoginService, facebookLoginService.getFacebookData]
             );
 
+            yield put(authActionsCreators.startRequest());
+
             const userDataResponse: UserDataResponse = yield call(
                 [accountService, accountService.sendUserData],
                 mapDataToResponse(facebookUserData, 'facebook', accessToken)
             );
 
-            yield put(authActionsCreators.setProfile(getProfileData(facebookUserData, userDataResponse)));
             yield put(authActionsCreators.setToken(userDataResponse.token));
+            yield put(authActionsCreators.requestSuccess());
 
-            yield navigationService.navigate('App');
+            yield navigationService.navigate(userDataResponse.isNewUser ? 'UserProfile' : 'App');
         }
     } catch(err) {
         yield put(authActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when loggin in to Facebook.'));
@@ -107,18 +91,19 @@ export function* googleLoginFlow() {
         const userInfo: User = yield call(
             [GoogleSignin, GoogleSignin.signIn]
         );
-
         const token = yield keyToString(userInfo, 'idToken');
+
+        yield put(authActionsCreators.startRequest());
 
         const userDataResponse: UserDataResponse = yield call(
             [accountService, accountService.sendUserData],
             mapDataToResponse(userInfo.user, 'google', token)
         );
 
-        yield put(authActionsCreators.setProfile(getProfileData(userInfo.user, userDataResponse)));
         yield put(authActionsCreators.setToken(userDataResponse.token));
+        yield put(authActionsCreators.requestSuccess());
 
-        yield navigationService.navigate('App');
+        yield navigationService.navigate(userDataResponse.isNewUser ? 'UserProfile' : 'App');
     } catch(err) {
         yield put(authActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when loggin in to Google Account.'));
     } 

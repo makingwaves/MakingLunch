@@ -4,6 +4,7 @@ import { colors } from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
+        position: 'relative',
         flexDirection: 'row',
         marginHorizontal: 60,
         marginBottom: 5,
@@ -29,6 +30,7 @@ export default StyleSheet.create({
 
     text: {
         fontSize: 16,
+        fontWeight: '900',
         color: colors.colorLightest,
     },
 

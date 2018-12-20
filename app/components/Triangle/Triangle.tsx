@@ -1,8 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
-import styles from './style';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Image from 'react-native-remote-svg';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+
+import styles from './style';
 
 export interface TriangleProps {
     readonly triangleSide: triangleSides;
@@ -15,6 +16,8 @@ export enum triangleSides {
     topLeft = 'topLeft',
     topRight = 'topRight',
 }
+
+const triangle = require('./triangle.svg');
 
 const Triangle: React.SFC<TriangleProps> = ({size = wp('10%'),  triangleSide}) => {
 
@@ -36,8 +39,8 @@ const Triangle: React.SFC<TriangleProps> = ({size = wp('10%'),  triangleSide}) =
     return (
         <View style={[styles.triangle, getTriangleProperties(triangleSide)]}>
             <Image
-                source={require('./triangle.svg')}
-                style={{width: size, height: size}}
+                source={triangle}
+                style={{ width: size, height: size }}
             />
         </View>
     );

@@ -14,6 +14,7 @@ export default StyleSheet.create({
         marginBottom: 0,
         borderTopWidth: 1,
         borderTopColor: 'rgba(255, 255, 255, .25)',
+        backgroundColor: colors.brandColorPrimary
     },
     userPhotoContainer: {
         width: 50,

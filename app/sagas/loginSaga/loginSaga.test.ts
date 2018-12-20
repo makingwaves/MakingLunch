@@ -12,6 +12,7 @@ import { navigationService } from '../../services';
 import { facebookLoginService, accountService } from '../../api';
 import { FacebookDataResult } from '../../api/facebookLoginService/facebookLoginService';
 import { UserDataResponse } from '../../api/accountService/accountService';
+import { mapDataToResponse, keyToString } from '../utils/pureFn/pureFn';
 
 jest.mock('react-native-google-signin', () => ({
     GoogleSignin: {
@@ -21,76 +22,6 @@ jest.mock('react-native-google-signin', () => ({
 }));
 
 describe('loginSaga', () => {
-
-    describe('Utils', () => {
-        const correctObject = {
-            name: 'MyName',
-            surname: 123
-        };
-        const inCorrectObject = 'MyName';
-
-        describe('hasKey Function', () => {
-            it('should return true, when given object has key', () => {
-                expect(loginSaga.hasKey(correctObject, 'name'))
-                    .toBeTruthy();
-            });
-
-            it('should return false, when given object does not have key', () => {
-                expect(loginSaga.hasKey(correctObject, 'notMyName'))
-                    .toBeFalsy();
-                expect(loginSaga.hasKey(correctObject, (123 as any)))
-                    .toBeFalsy();
-            });
-
-            it('should return false, when args are incorrect', () => {
-                expect(loginSaga.hasKey(inCorrectObject, 'notMyName'))
-                    .toBeFalsy();
-                expect(loginSaga.hasKey(inCorrectObject, (123 as any)))
-                    .toBeFalsy();
-                expect(loginSaga.hasKey(inCorrectObject, (true as any)))
-                    .toBeFalsy();
-            });
-        });
-
-        describe('keyToString Function', () => {
-            it('should transform key value to string', () => {
-                expect(typeof loginSaga.keyToString(correctObject, 'name'))
-                    .toBe('string');
-                expect(typeof loginSaga.keyToString(correctObject, 'surname'))
-                    .toBe('string');
-            });
-
-            it('should return undefined if given object does not have key', () => {
-                expect(loginSaga.keyToString(correctObject, 'notMySurname'))
-                    .toBeUndefined();
-            });
-
-            it('should return undefined, when args are incorrect', () => {
-                expect(loginSaga.keyToString(inCorrectObject, 'notMyName'))
-                    .toBeUndefined();
-                expect(loginSaga.keyToString(undefined, null))
-                    .toBeUndefined();
-            });
-        });
-
-        describe('mapDataToResponse Function', () => {
-            it('should return object with empty string values', () => {
-                const data = {};
-                const expected = {
-                    name: '',
-                    photo: '',
-                    description: '',
-                    loginProvider: 'facebook',
-                    loginProviderToken: '123',
-                    id: ''
-                };
-
-                expect(loginSaga.mapDataToResponse(data as any, 'facebook', expected.loginProviderToken))
-                    .toEqual(expected);
-            });
-        });
-    });
-    
     describe('facebookLoginFlow', () => {
         let facebookFlowGen: IterableIterator<any>;
 
@@ -200,31 +131,38 @@ describe('loginSaga', () => {
                     );
             });
 
-            it('should call sendUserData with success', () => {
+            it('should start request action', () => {
                 expect(facebookFlowGen.next(facebookUserData).value)
+                    .toEqual(
+                        put(authActionsCreators.startRequest())
+                    );
+            })
+
+            it('should call sendUserData with success ', () => {
+                expect(facebookFlowGen.next().value)
                     .toEqual(
                         call(
                             [accountService, accountService.sendUserData],
-                            loginSaga.mapDataToResponse(facebookUserData, 'facebook', accessTokenResponse.accessToken)
+                            mapDataToResponse(facebookUserData, 'facebook', accessTokenResponse.accessToken)
                         )
                     );
             });
 
-            it('should call reducer and setProfile to state', () => {
-                expect(facebookFlowGen.next(userDataResponse).value)
-                    .toEqual(
-                        put(authActionsCreators.setProfile(loginSaga.getProfileData(facebookUserData, userDataResponse)))
-                    );
-            });
-
             it('should call reducer and setToken to state', () => {
-                expect(facebookFlowGen.next().value)
+                expect(facebookFlowGen.next(userDataResponse).value)
                     .toEqual(
                         put(authActionsCreators.setToken(userDataResponse.token))
                     );
             });
 
-            it('should redirect to App route after successful authorization', () => {
+            it('should stop request action with success', () => {
+                expect(facebookFlowGen.next().value)
+                    .toEqual(
+                        put(authActionsCreators.requestSuccess())
+                    );
+            })
+
+            it('should redirect to App ( when user is not a newUser ) route after successful authorization', () => {
                 navigationService.navigate = jest.fn((route) => ({ }));
 
                 const navigateGen = facebookFlowGen.next().value;
@@ -313,41 +251,47 @@ describe('loginSaga', () => {
                     );
                 expect(googleFlowGen.next(userData).value)
                     .toEqual(
-                        loginSaga.keyToString(userData, 'idToken')
+                        keyToString(userData, 'idToken')
                     )
             });
 
-            it('should call sendUserData with success', () => {
+            it('should start request action', () => {
                 expect(googleFlowGen.next(userData.idToken).value)
+                    .toEqual(
+                        put(authActionsCreators.startRequest())
+                    );
+            });
+
+            it('should call sendUserData with success', () => {
+                expect(googleFlowGen.next().value)
                     .toEqual(
                         call(
                             [accountService, accountService.sendUserData],
-                            loginSaga.mapDataToResponse(userData.user, 'google', userData.idToken)
+                            mapDataToResponse(userData.user, 'google', userData.idToken)
                         )
                     );
             });
 
-            it('should put profile data in to state', () => {
+            it('should put user token in to state', () => {
                 const userDataResponse: UserDataResponse = {
                     isNewUser: false,
                     token: userData.idToken
                 };
-
                 expect(googleFlowGen.next(userDataResponse).value)
-                    .toEqual(
-                        put(authActionsCreators.setProfile(loginSaga.getProfileData(userData.user, userDataResponse)))
-                    );
-            });
-
-            it('should put user data in to state', () => {
-                expect(googleFlowGen.next().value)
                     .toEqual(
                         put(authActionsCreators.setToken(userData.idToken))
                     );
             });
 
-            it('should redirect to App route after successful authorization', () => {
-                navigationService.navigate = jest.fn((route) => ({ }));
+            it('should stop request action with success', () => {
+                expect(googleFlowGen.next().value)
+                    .toEqual(
+                        put(authActionsCreators.requestSuccess())
+                    );
+            });
+
+            it('should redirect to App route ( when user is not a newUser ) after successful authorization', () => {
+                navigationService.navigate = jest.fn((route: string) => ({ }));
 
                 const navigateGen = googleFlowGen.next().value;
 

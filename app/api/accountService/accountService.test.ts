@@ -12,7 +12,7 @@ const error = {
     message: 'Error From Server.'
 };
 
-jest.mock('../httpClient', () => ({
+jest.mock('./../../config/axios', () => ({
     post: <T>(url: string, req: RequestMock<T>): Promise<T> => {
         if(req.res)
             return Promise.resolve(req.res);

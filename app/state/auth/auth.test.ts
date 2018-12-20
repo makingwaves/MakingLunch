@@ -33,7 +33,7 @@ describe('auth reducer', () => {
                 name: 'pName',
                 description: 'pDesc',
                 photo: 'pPhotoUrl',
-                isNewUser: true
+                meetingsNumber: 0
             };
             expect(authActionsCreators.setProfile(profile)).toEqual({ type: AuthActions.SET_PROFILE, payload: profile});
         });
@@ -64,7 +64,7 @@ describe('auth reducer', () => {
             name: 'pName',
             description: 'pDescription',
             photo: 'pPhotoUrl',
-            isNewUser: true
+            meetingsNumber: 0
         };
 
         const changedProfile: Profile = {
@@ -72,7 +72,7 @@ describe('auth reducer', () => {
             name: 'changedName',
             description: 'changedDesc',
             photo: 'changedPhotoUrl',
-            isNewUser: true
+            meetingsNumber: 0
         };
 
         const setAction = authActionsCreators.setProfile(profile);

@@ -1,10 +1,13 @@
-import { all, fork } from "redux-saga/effects";
+import { fork } from "redux-saga/effects";
 
 import { loginSaga } from "./loginSaga/loginSaga";
-
+import { logoutSaga } from "./logoutSaga/logoutSaga";
+import { userAccountSaga } from "./userAccountSaga/userAccountSaga";
 
 export default function* () {
-    yield all([
-        fork(loginSaga)
-    ])
+    yield [
+        fork(loginSaga),
+        fork(userAccountSaga),
+        fork(logoutSaga)
+    ];
 }

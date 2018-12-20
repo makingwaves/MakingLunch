@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Image from 'react-native-remote-svg'; 
-import {TouchableOpacity} from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {NavigationScreenProps} from 'react-navigation';
+import { NavigationScreenProps } from 'react-navigation';
 
 import styles from './style';
 
-const BackButton = (props: NavigationScreenProps) => {
-    const { navigation } = props;
+interface BackButtonProps extends NavigationScreenProps {
+    backgroundColor?: string;
+}
 
-    return (
-        <TouchableOpacity style={styles.container} onPress={() => { navigation.goBack(); }}>
+const backButton = require('./backArrow.svg');
+
+const BackButton: React.SFC<BackButtonProps> = ({
+    navigation, backgroundColor = 'transparent'
+}) => (
+    <View style={[styles.container, { backgroundColor: backgroundColor }]}>
+        <TouchableOpacity onPress={() => { navigation.goBack(); }}>
             <Image
-                source={require('./backArrow.svg')}
+                source={backButton}
                 style={{ width: wp('8%'), height: wp('8%')}}
             />
         </TouchableOpacity>
-    );
-};
+    </View>
+);
 
-export default BackButton;
+export default memo(BackButton);

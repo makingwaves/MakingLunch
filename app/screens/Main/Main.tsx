@@ -6,12 +6,17 @@ import { NavigationScreenProps } from 'react-navigation';
 import styles from './style';
 import { colors } from '../../config/styles';
 
-import { Profile } from '../../state/auth/types';
+import { Profile, AuthActions } from '../../state/auth/types';
 import { AppState } from './../../state/state';
 import CustomButton from '../../components/CustomButton';
+import { RequestState } from '../../state/common/types';
+import ScreenLoader from '../../components/ScreenLoader/ScreenLoader';
 
 export interface MainProps extends NavigationScreenProps {
     userData: Profile;
+    loading: boolean;
+    getUserData: () => void;
+    logOut: () => void;
 }
 
 class Main extends PureComponent<MainProps> {
@@ -19,27 +24,30 @@ class Main extends PureComponent<MainProps> {
         super(props);
     }
 
+    public componentDidMount(): void {
+        this.props.getUserData();
+    }
+
     public render() {
-        const { userData: { photo } } = this.props;
+        const { userData, loading } = this.props;
 
         return (
             <View style={styles.container}>
+                <ScreenLoader isVisible={loading} text={'Fetching User Data..'} />
                 <CustomButton 
                     text={'Your profile'} 
-                    color={colors.brandColorPrimary} 
                     iconContainerColor={colors.brandColorPrimary}
-                    onPress={() => this.props.navigation.navigate('Profile')}
+                    onPress={() => this.props.navigation.navigate('UserProfile')}
                     imageType={'Settings'}
                     containerStyles={styles.buttonStyles}
                     textAlignment={'flex-start'}  
                 >
                     <View style={styles.userPhotoContainer}>  
-                        <Image style={styles.userPhotoStyles} source={{uri: photo}} resizeMode={'cover'} />
+                        {userData && userData.photo && <Image style={styles.userPhotoStyles} source={{uri: userData.photo}} resizeMode={'cover'} />}
                     </View>
                 </CustomButton>
                 <CustomButton
                     text={'Your lunches'} 
-                    color={colors.brandColorPrimary}
                     iconContainerColor={colors.brandColorPrimary}
                     onPress={() => this.props.navigation.navigate('LunchesList')} 
                     imageType={'Lunch'}
@@ -48,7 +56,6 @@ class Main extends PureComponent<MainProps> {
                 />
                 <CustomButton
                     text={'Account settings'} 
-                    color={colors.brandColorPrimary}
                     iconContainerColor={colors.brandColorPrimary}
                     onPress={() => this.props.navigation.navigate('Settings')}
                     imageType={'Settings'}
@@ -57,9 +64,8 @@ class Main extends PureComponent<MainProps> {
                 />
                 <CustomButton 
                     text={'Log out'} 
-                    color={colors.brandColorPrimary}
                     iconContainerColor={colors.brandColorPrimary}
-                    onPress={() => this.props.navigation.navigate('Auth')}
+                    onPress={() => this.props.logOut()}
                     imageType={'Logout'}
                     containerStyles={styles.buttonStyles}
                     textAlignment={'flex-start'}
@@ -70,9 +76,16 @@ class Main extends PureComponent<MainProps> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    userData: state.auth.profile
+    userData: state.auth.profile,
+    loading: state.auth.request.state === RequestState.inProgress
+});
+
+const mapDispatchToProps = dispatch => ({
+    getUserData: () => dispatch({ type: AuthActions.GET_USER_DATA }),
+    logOut: () => dispatch({ type: AuthActions.LOGOUT })
 });
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Main);

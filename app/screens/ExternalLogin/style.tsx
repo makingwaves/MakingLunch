@@ -1,5 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
+import { colors } from '../../config/styles';
+
 const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -14,4 +16,12 @@ export default StyleSheet.create({
         width,
         height,
     },
+
+    fbButtonStyle: {
+        backgroundColor: '#4a90e2'
+    },
+
+    googleButtonStyle: {
+        backgroundColor: '#ff5c5c'
+    }
 });
