@@ -1,8 +1,7 @@
-import { View, Image } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { NavigationScreenProps } from 'react-navigation';
-import { widthPercentageToDP  as wp } from 'react-native-responsive-screen';
 
 import styles from './style';
 
@@ -11,7 +10,8 @@ import { Profile, AuthActions } from '../../state/auth/types';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import { AppState } from './../../state/state';
 import CustomButton from '../../components/CustomButton';
-import Triangle, { triangleSides } from '../../components/Triangle/Triangle';
+import { triangleSides } from '../../components/Triangle/Triangle';
+import Avatar from '../../components/Avatar/Avatar';
 
 export interface UserProfileProps extends NavigationScreenProps {
     userData: Profile;
@@ -49,10 +49,7 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
             <View style={styles.userProfileContainer}>
                 <BackButton navigation={navigation} />
                 <View style={styles.formContainer}>
-                    <View style={styles.imageContainer}>
-                        <Image style={styles.imageStyles} source={{ uri: userData.photo }} resizeMode={'cover'} /> 
-                        <Triangle size={wp('8%')} triangleSide={triangleSides.bottomRight} />
-                    </View>
+                    <Avatar photo={userData.photo} imageContainer={styles.imageContainer} imageStyles={styles.imageStyles} triangleSide={triangleSides.bottomRight} />
                     <CustomInput 
                         value={userData.name}
                         type={'name'}

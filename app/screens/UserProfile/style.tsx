@@ -12,13 +12,10 @@ export default StyleSheet.create({
         marginHorizontal: 60, 
     },
     imageContainer: {
-        position: 'relative',
         height: 250,
+        width: '100%'
     },
     imageStyles: {
-        flex: 1,
-        width: '100%',
-        borderRadius: 25,
         borderBottomRightRadius: 0
     },
     nameInput: {
