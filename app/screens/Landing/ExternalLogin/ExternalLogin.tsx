@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 
 import styles from './style';
 
-import { AppState } from './../../state/state';
-import CustomButton from '../../components/CustomButton/CustomButton'; 
-import ScreenLoader from '../../components/ScreenLoader/ScreenLoader';
-import { AuthSagaActions } from '../../state/auth/types';
-import { RequestState } from '../../state/common/types';
+import { AppState } from './../../../state/state';
+import CustomButton from '../../../components/CustomButton'; 
+import HocFetchData from '../../../components/HocFetchData';
+import { RequestState } from '../../../state/common/types';
+import { AuthSagaActions } from '../../../state/auth/types';
 
 export enum socialTypes {
     facebook = 'Facebook',
@@ -18,14 +18,11 @@ export enum socialTypes {
 type ServiceType = AuthSagaActions.FACEBOOK_LOGIN | AuthSagaActions.GOOGLE_LOGIN;
 
 interface ExternalLoginProps {
-    readonly errorMsg: string;
-    readonly loading: boolean;
     readonly externalServiceLogin: (serviceType: ServiceType) => void;
 };
 
-const ExternalLogin: React.SFC<ExternalLoginProps> = ({ externalServiceLogin, loading, errorMsg }) => (
+const ExternalLogin: React.SFC<ExternalLoginProps> = ({ externalServiceLogin }) => (
     <View style={styles.container}>
-        <ScreenLoader isVisible={loading} text={'Authorizing the user..'} />
         <CustomButton 
             text={'Start with Facebook'}
             onPress={() => externalServiceLogin(AuthSagaActions.FACEBOOK_LOGIN)}
@@ -45,7 +42,7 @@ const ExternalLogin: React.SFC<ExternalLoginProps> = ({ externalServiceLogin, lo
 
 const mapStateToProps = (state: AppState) => ({  
     errorMsg: state.auth.request.errorMsg,
-    loading: state.auth.request.state === RequestState.inProgress
+    isLoading: state.auth.request.state === RequestState.inProgress
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -55,4 +52,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(memo(ExternalLogin));
+)(HocFetchData(memo(ExternalLogin), 'Authorizing the user..'));

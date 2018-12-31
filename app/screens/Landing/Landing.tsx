@@ -7,7 +7,7 @@ import styles from './style';
 
 import Bubble from '../../components/Bubble';
 import Intro from '../../components/Intro/Intro';
-import ExternalLogin from './../ExternalLogin/ExternalLogin';
+import ExternalLogin from './ExternalLogin';
 import { triangleSides } from '../../components/Triangle/Triangle';
 
 

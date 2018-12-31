@@ -19,6 +19,11 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
     const transformer = new ObjTransformer();
 
     switch (action.type) {
+        case LunchActions.SET_LUNCHES:
+            return {
+                ...state,
+                data: action.payload
+            };
         case LunchActions.CREATE_LUNCH:
             return {
                 ...state,

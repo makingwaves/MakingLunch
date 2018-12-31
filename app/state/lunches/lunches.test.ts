@@ -39,13 +39,13 @@ describe('lunches reducer', () => {
                 lunchId: 'lId',
                 creatorId: 'cId',
                 time: {
-                    start: '2018-08-28T09:07:11.566Z',
+                    begin: '2018-08-28T09:07:11.566Z',
                     end: '2018-08-28T09:10:11.566Z',
                 },
                 location: {
                     latitude: 25.25,
                     longitude: 53.53,
-                    range: 300,
+                    radiusInMeters: 300,
                 },
             };
 
@@ -75,11 +75,11 @@ describe('lunches reducer', () => {
                 members: ['mem1', 'mem2'],
                 times: {
                     mem1: {
-                        start: '2018-08-28T09:07:11.566Z',
+                        begin: '2018-08-28T09:07:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                     mem2: {
-                        start: '2018-08-28T09:08:11.566Z',
+                        begin: '2018-08-28T09:08:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                 },
@@ -87,12 +87,12 @@ describe('lunches reducer', () => {
                     mem1: {
                         latitude: 25.25,
                         longitude: 53.53,
-                        range: 300,
+                        radiusInMeters: 300,
                     },
                     mem2: {
                         latitude: 26.25,
                         longitude: 52.53,
-                        range: 200,
+                        radiusInMeters: 200,
                     },
                 },
             };
@@ -116,13 +116,13 @@ describe('lunches reducer', () => {
                 lunchId: 'lId',
                 memberId: 'mId',
                 time: {
-                    start: '2018-08-28T09:07:11.566Z',
+                    begin: '2018-08-28T09:07:11.566Z',
                     end: '2018-08-28T09:10:11.566Z',
                 },
                 location: {
                     latitude: 25.25,
                     longitude: 53.53,
-                    range: 300,
+                    radiusInMeters: 300,
                 },
             };
 
@@ -150,7 +150,7 @@ describe('lunches reducer', () => {
                 location: {
                     latitude: 25.25,
                     longitude: 53.53,
-                    range: 300,
+                    radiusInMeters: 300,
                 },
             };
 
@@ -165,7 +165,7 @@ describe('lunches reducer', () => {
                 lunchId: 'lId',
                 memberId: 'mId',
                 time: {
-                    start: '2018-08-28T09:07:11.566Z',
+                    begin: '2018-08-28T09:07:11.566Z',
                     end: '2018-08-28T09:10:11.566Z',
                 },
             };
@@ -195,8 +195,8 @@ describe('lunches reducer', () => {
             });
         });
 
-        test(LunchActions.START_REQUEST, () => {
-            expect(lunchesActionsCreators.startRequest()).toEqual({type: LunchActions.START_REQUEST});
+        test(LunchActions.begin_REQUEST, () => {
+            expect(lunchesActionsCreators.beginRequest()).toEqual({type: LunchActions.begin_REQUEST});
         });
         test(LunchActions.REQUEST_SUCCESS, () => {
             expect(lunchesActionsCreators.requestSuccess()).toEqual({type: LunchActions.REQUEST_SUCCESS});
@@ -223,22 +223,22 @@ describe('lunches reducer', () => {
             location1 = {
                 latitude: 25.25,
                 longitude: 53.53,
-                range: 300,
+                radiusInMeters: 300,
             };
 
             location2 = {
                 latitude: 26.25,
                 longitude: 52.53,
-                range: 450,
+                radiusInMeters: 450,
             };
 
             time1 = {
-                start: '2018-08-28T09:07:11.566Z',
+                begin: '2018-08-28T09:07:11.566Z',
                 end: '2018-08-28T09:10:11.566Z',
             };
 
             time2 = {
-                start: '2018-08-28T09:08:31.566Z',
+                begin: '2018-08-28T09:08:31.566Z',
                 end: '2018-08-28T09:09:11.566Z',
             };
 
@@ -320,11 +320,11 @@ describe('lunches reducer', () => {
                 members: ['mem1', 'mem2'],
                 times: {
                     mem1: {
-                        start: '2018-08-28T09:07:11.566Z',
+                        begin: '2018-08-28T09:07:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                     mem2: {
-                        start: '2018-08-28T09:08:11.566Z',
+                        begin: '2018-08-28T09:08:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                 },
@@ -332,12 +332,12 @@ describe('lunches reducer', () => {
                     mem1: {
                         latitude: 25.25,
                         longitude: 53.53,
-                        range: 300,
+                        radiusInMeters: 300,
                     },
                     mem2: {
                         latitude: 26.25,
                         longitude: 52.53,
-                        range: 200,
+                        radiusInMeters: 200,
                     },
                 },
                 chat: {},
@@ -350,11 +350,11 @@ describe('lunches reducer', () => {
                 members: ['mem1', 'mem2'],
                 times: {
                     mem1: {
-                        start: '2018-08-28T09:07:11.566Z',
+                        begin: '2018-08-28T09:07:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                     mem2: {
-                        start: '2018-08-28T09:08:11.566Z',
+                        begin: '2018-08-28T09:08:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                 },
@@ -362,12 +362,12 @@ describe('lunches reducer', () => {
                     mem1: {
                         latitude: 25.25,
                         longitude: 53.53,
-                        range: 300,
+                        radiusInMeters: 300,
                     },
                     mem2: {
                         latitude: 26.25,
                         longitude: 52.53,
-                        range: 200,
+                        radiusInMeters: 200,
                     },
                 },
             };
@@ -504,7 +504,7 @@ describe('lunches reducer', () => {
             const changedLocation = {
                 latitude: 10.12,
                 longitude: 18.10,
-                range: 100,
+                radiusInMeters: 100,
             };
 
             const setLocationPayload: SetLunchLocationPayload = {
@@ -531,7 +531,7 @@ describe('lunches reducer', () => {
 
         test(LunchActions.SET_LUNCH_TIME, () => {
             const changedTime = {
-                start: '2018-09-21T09:08:11.566Z',
+                begin: '2018-09-21T09:08:11.566Z',
                 end: '2018-09-21T09:11:11.566Z',
             };
 
@@ -632,9 +632,9 @@ describe('lunches reducer', () => {
             };
         });
 
-        test(`${LunchActions.START_REQUEST} - should reflect request start state`, () => {
-            const startAction = lunchesActionsCreators.startRequest();
-            Reducer(lunchesReducer).expect(startAction).toReturnState({
+        test(`${LunchActions.begin_REQUEST} - should reflect request begin state`, () => {
+            const beginAction = lunchesActionsCreators.beginRequest();
+            Reducer(lunchesReducer).expect(beginAction).toReturnState({
                 ...initialState,
                 request: {
                     state: RequestState.inProgress,

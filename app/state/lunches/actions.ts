@@ -1,6 +1,7 @@
 import {makeAction} from '../../utils/redux';
 import {
     LunchActions,
+    LunchesMap,
     AddLunchMemberPayload,
     SetLunchLocationPayload,
     SetLunchTimePayload,
@@ -11,6 +12,7 @@ import {
 } from './types';
 
 export const lunchesActionsCreators = {
+    setLunches: (lunchesPayload: LunchesMap) => makeAction(LunchActions.SET_LUNCHES, lunchesPayload),
     createLunch: (lunchPayload: CreateLunchPayload) => makeAction(LunchActions.CREATE_LUNCH, lunchPayload),
     setLunchStatus: (statusPayload: SetLunchStatusPayload) => makeAction(LunchActions.SET_LUNCH_STATUS, statusPayload),
     updateLunch: (lunchPayload: UpdateLunchPayload) => makeAction(LunchActions.UPDATE_LUNCH, lunchPayload),

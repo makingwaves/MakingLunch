@@ -13,7 +13,7 @@ export interface Chat {
 }
 
 export interface TimeSpan {
-    start: string;
+    begin: string;
     end: string;
 }
 
@@ -30,7 +30,7 @@ export enum LunchStatus {
 export interface Location {
     latitude: number;
     longitude: number;
-    range: number;
+    radiusInMeters: number;
 }
 
 export interface LunchLocationMap {
@@ -108,6 +108,7 @@ export interface AddChatMessagePayload {
 
 // --- Actions
 export enum LunchActions {
+    SET_LUNCHES = '@@lunches/set_lunches',
     CREATE_LUNCH = '@@lunches/create_lunch',
     UPDATE_LUNCH = '@@lunches/update_lunch',
     SET_LUNCH_STATUS = '@@lunches/set_lunch_status',
@@ -120,4 +121,8 @@ export enum LunchActions {
     START_REQUEST = '@@lunches/start_request',
     REQUEST_SUCCESS = '@@lunches/request_success',
     REQUEST_FAIL = '@@lunches/request_fail',
+}
+
+export enum LunchSagaActions {
+    GET_LUNCHES = '@@lunches/get_lunches'
 }

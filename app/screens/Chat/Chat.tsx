@@ -1,16 +1,30 @@
-import React, {Component} from 'react';
-import {NavigationScreenProps} from 'react-navigation';
-import {Text, View} from 'react-native';
+import React, { PureComponent } from 'react';
+import { NavigationScreenProps } from 'react-navigation';
+import { Text, View } from 'react-native';
 
-class Chat extends Component<NavigationScreenProps> {
-    constructor(props: NavigationScreenProps) {
+import { colors } from '../../config/styles';
+
+import { Lunch } from '../../state/lunches/types';
+import BackButton from '../../components/BackButton';
+
+export interface ChatProps extends NavigationScreenProps {
+    lunch: Lunch
+};
+
+class Chat extends PureComponent<ChatProps> {
+    constructor(props: ChatProps) {
         super(props);
     }
 
     public render() {
+        const {
+            lunch,
+            navigation
+        } = this.props;
+
         return (
             <View>
-                <Text>Chat screen</Text>
+                <BackButton navigation={navigation} screenTitle={'Chat'} backgroundColor={colors.brandColorSecondary} />
             </View>
         );
     }

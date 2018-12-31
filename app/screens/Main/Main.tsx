@@ -6,15 +6,14 @@ import { NavigationScreenProps } from 'react-navigation';
 import styles from './style';
 import { colors } from '../../config/styles';
 
-import { Profile, AuthSagaActions } from '../../state/auth/types';
 import { AppState } from './../../state/state';
 import CustomButton from '../../components/CustomButton';
+import HocFetchData from './../../components/HocFetchData';
 import { RequestState } from '../../state/common/types';
-import ScreenLoader from '../../components/ScreenLoader/ScreenLoader';
+import { Profile, AuthSagaActions } from '../../state/auth/types';
 
 export interface MainProps extends NavigationScreenProps {
     userData: Profile;
-    loading: boolean;
     getUserData: () => void;
     logOut: () => void;
 }
@@ -29,11 +28,10 @@ class Main extends PureComponent<MainProps> {
     }
 
     public render() {
-        const { userData, loading } = this.props;
+        const { userData } = this.props;
 
         return (
             <View style={styles.container}>
-                <ScreenLoader isVisible={loading} text={'Fetching User Data..'} />
                 <CustomButton 
                     text={'Your profile'} 
                     iconContainerColor={colors.brandColorPrimary}
@@ -77,7 +75,7 @@ class Main extends PureComponent<MainProps> {
 
 const mapStateToProps = (state: AppState) => ({
     userData: state.auth.profile,
-    loading: state.auth.request.state === RequestState.inProgress
+    isLoading: state.auth.request.state === RequestState.inProgress
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -88,4 +86,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Main);
+)(HocFetchData(Main));

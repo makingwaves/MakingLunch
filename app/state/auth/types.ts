@@ -1,12 +1,16 @@
 import { Request } from '../common/types';
 
-export interface Profile {
+export interface BasicProfile {
     id: string;
     name: string;
     photo: string;
-    meetingsNumber: number;
     description: string;
 }
+
+export interface Profile extends BasicProfile {
+    meetingsNumber: number;
+}
+
 
 export interface AuthState {
     request: Request;

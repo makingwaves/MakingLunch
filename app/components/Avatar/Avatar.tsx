@@ -19,7 +19,7 @@ const Avatar: React.SFC<AvatarProps> = ({
     photo, triangleSide, size = wp('8%'), imageContainer = {}, imageStyles = {}
 }) => (
     <View style={[styles.imageContainer, imageContainer]}>
-        <Image style={[styles.imageStyles, imageStyles]} source={{ uri: photo }} resizeMode={'cover'} /> 
+        {photo && <Image style={[styles.imageStyles, imageStyles]} source={{ uri: photo }} resizeMode={'cover'} />}
         {triangleSide && <Triangle size={size} triangleSide={triangleSide} />}
     </View>
 );

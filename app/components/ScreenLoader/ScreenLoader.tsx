@@ -12,7 +12,7 @@ export interface LoaderProps {
 };
 
 const Loader: React.SFC<LoaderProps> = ({
-    isVisible, text = 'Loading...', indicatorColor = colors.brandColorPrimary, loaderInner = {}
+    isVisible = false, text = 'Loading...', indicatorColor = colors.brandColorPrimary, loaderInner = {}
 }) => (
     <Modal
         visible={isVisible} 
