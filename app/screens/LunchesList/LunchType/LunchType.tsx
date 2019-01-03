@@ -7,22 +7,26 @@ import { Lunch } from '../../../state/lunches/types';
 import SingleLunch from '../SingleLunch';
 
 export interface LunchTypeProps {
-    title: string;
+    titles: {
+        title: string;
+        subTitle: string;
+    };
     lunches: Lunch[];
 };
 
 const LunchType: SFC<LunchTypeProps> = ({
-    title, lunches
+    titles, lunches
 }) => {
     return (
         <View>
             {!!lunches.length && 
                 <View style={styles.container}>
-                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.title}>{titles.title}</Text>
                     {lunches.map(l => (
                         <SingleLunch 
                             key={l.id}
                             lunch={l}
+                            subTitle={titles.subTitle}
                         />
                     ))}
                 </View>

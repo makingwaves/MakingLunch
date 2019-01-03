@@ -13,10 +13,11 @@ import { navigationService } from '../../../services';
 export interface SingleLunchProps {
     lunch: Lunch;
     userId: string;
+    subTitle: string;
 };
 
 const SingleLunch: SFC<SingleLunchProps> = ({
-    lunch, userId
+    lunch, userId, subTitle
 }) => {
     const date = lunch.times[userId];
     const isActive = lunch.status === LunchStatus.running;
@@ -28,7 +29,7 @@ const SingleLunch: SFC<SingleLunchProps> = ({
                 <GuestList guestsId={lunch.members} />
             </View>
             <View style={[styles.bottomBar, isActive ? styles.activeBottomBar : {}]}>
-                <Text style={styles.bottomBarText}>Finished</Text>
+                <Text style={styles.bottomBarText}>{subTitle}</Text>
             </View>
         </TouchableOpacity>
     );

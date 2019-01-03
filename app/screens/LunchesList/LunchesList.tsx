@@ -18,11 +18,27 @@ export interface LunchesListProps extends NavigationScreenProps {
     getLunches: () => void;
 };
 
+export type LunchType = {
+    [key in LunchStatus]: {
+        title: string;
+        subTitle: string;
+    };
+}
+
 class LunchesList extends PureComponent<LunchesListProps> {
-    private lunchTypesTitle: { [key in LunchStatus]: string } = {
-        [LunchStatus.pending]: 'Pending',
-        [LunchStatus.running]: 'Current',
-        [LunchStatus.finished]: 'Lunch history'
+    private lunchTypesTitles: LunchType = {
+        [LunchStatus.pending]: {
+            title: 'Pending',
+            subTitle: 'Pending'
+        },
+        [LunchStatus.running]: {
+            title: 'Current',
+            subTitle: 'Searching'
+        },
+        [LunchStatus.finished]: {
+            title: 'Lunch history',
+            subTitle: 'Finished'
+        }
     };
 
     public componentDidMount(): void {
@@ -45,7 +61,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
                         .map(type => (
                             <LunchType 
                                 key={type}
-                                title={this.lunchTypesTitle[type]}
+                                titles={this.lunchTypesTitles[type]}
                                 lunches={lunchTypes[type]}
                             />
                         ))
