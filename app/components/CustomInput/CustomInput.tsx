@@ -1,5 +1,5 @@
-import React, { memo, ReactText } from 'react';
-import { View, Text, TextInput, RegisteredStyle } from 'react-native';
+import React, { memo, ReactText, FunctionComponent } from 'react';
+import { View, Text, TextInput, StyleProp, ViewStyle } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import styles from './style';
@@ -22,11 +22,11 @@ export interface CustomInputProps {
     readonly placeholder?: string;
     readonly triangleSide?: triangleSides;
     readonly size?: number;
-    readonly containerStyles?: RegisteredStyle<{ [key: string]: ReactText }>; 
-    readonly inputStyles?: RegisteredStyle<{ [key: string]: ReactText }>;
+    readonly containerStyles?: StyleProp<ViewStyle>;
+    readonly inputStyles?: StyleProp<ViewStyle>;
 };
 
-const CustomInput: React.SFC<CustomInputProps> = ({
+const CustomInput: FunctionComponent<CustomInputProps> = ({
     label, value, type, onChangeText, triangleSide, size = wp('8%'), placeholder = '', containerStyles = {}, inputStyles = {}
 }) => (
     <View style={[styles.container, containerStyles]}>

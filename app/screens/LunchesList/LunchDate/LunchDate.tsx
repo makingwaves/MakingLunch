@@ -1,4 +1,4 @@
-import React, { SFC } from "react";
+import React, { FunctionComponent } from "react";
 import { View, Image, Text } from "react-native";
 import dayjs from 'dayjs';
 
@@ -14,7 +14,7 @@ export interface LunchDataProps {
 
 const CLOCK_SVG = require('./img/clock.png');
 
-const LunchDate: SFC<LunchDataProps> = ({
+const LunchDate: FunctionComponent<LunchDataProps> = ({
     isActive, date
 }) => {
     const getLargeDataText = (isActive: boolean) => {

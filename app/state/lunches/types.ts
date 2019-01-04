@@ -101,6 +101,11 @@ export interface SetLunchTimePayload {
     time: TimeSpan;
 }
 
+export interface SetLunchChatPayload {
+    lunchId: string;
+    chat: Chat;
+}
+
 export interface AddChatMessagePayload {
     lunchId: string;
     message: Message;
@@ -117,6 +122,7 @@ export enum LunchActions {
     REMOVE_LUNCH_MEMBER = '@@lunches/remove_lunch_member',
     SET_LUNCH_LOCATION = '@@lunches/set_lunch_location',
     SET_LUNCH_TIME = '@@lunches/set_lunch_time',
+    SET_LUNCH_CHAT = '@@lunches/set_chat',
     ADD_CHAT_MESSAGE = '@@lunches/add_chat_message',
     START_REQUEST = '@@lunches/start_request',
     REQUEST_SUCCESS = '@@lunches/request_success',
@@ -124,5 +130,6 @@ export enum LunchActions {
 }
 
 export enum LunchSagaActions {
-    GET_LUNCHES = '@@lunches/get_lunches'
+    GET_LUNCHES = '@@lunches/get_lunches',
+    GET_LUNCH_CHAT = '@@lunches/get_lunch_chat'
 }

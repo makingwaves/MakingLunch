@@ -76,7 +76,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
             .reduce((statusObject, lunchId) => {
                 const lunch = lunches[lunchId];
                 return (statusObject[lunch.status].push(lunch), statusObject);
-        }, this.getDefaultStatusObject());
+            }, this.getDefaultStatusObject());
     }
 
     private getDefaultStatusObject(): { [key in LunchStatus]: Lunch[] } {

@@ -1,11 +1,11 @@
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { View, Text, TouchableOpacity } from "react-native";
 import { connect } from 'react-redux';
 
 import styles from './style';
 
-import GuestList from '../GuestList';
 import LunchDate from '../LunchDate';
+import GuestList from '../../../components/GuestList';
 import { Lunch, LunchStatus } from '../../../state/lunches/types';
 import { AppState } from './../../../state/state';
 import { navigationService } from '../../../services';
@@ -16,7 +16,7 @@ export interface SingleLunchProps {
     subTitle: string;
 };
 
-const SingleLunch: SFC<SingleLunchProps> = ({
+const SingleLunch: FunctionComponent<SingleLunchProps> = ({
     lunch, userId, subTitle
 }) => {
     const date = lunch.times[userId];

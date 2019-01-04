@@ -1,4 +1,4 @@
-import React, { SFC } from 'react'
+import React, { FunctionComponent } from 'react'
 import { View, Text } from 'react-native';
 
 import styles from './style';
@@ -14,7 +14,7 @@ export interface LunchTypeProps {
     lunches: Lunch[];
 };
 
-const LunchType: SFC<LunchTypeProps> = ({
+const LunchType: FunctionComponent<LunchTypeProps> = ({
     titles, lunches
 }) => {
     return (
@@ -22,13 +22,14 @@ const LunchType: SFC<LunchTypeProps> = ({
             {!!lunches.length && 
                 <View style={styles.container}>
                     <Text style={styles.title}>{titles.title}</Text>
-                    {lunches.map(l => (
-                        <SingleLunch 
-                            key={l.id}
-                            lunch={l}
-                            subTitle={titles.subTitle}
-                        />
-                    ))}
+                    {lunches
+                        .map(l => (
+                            <SingleLunch 
+                                key={l.id}
+                                lunch={l}
+                                subTitle={titles.subTitle}
+                            />
+                        ))}
                 </View>
             }
         </View>

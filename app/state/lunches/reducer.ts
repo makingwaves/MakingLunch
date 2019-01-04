@@ -146,6 +146,17 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                     },
                 },
             };
+        case LunchActions.SET_LUNCH_CHAT:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.lunchId]: {
+                        ...state.data[action.payload.lunchId],
+                        chat: action.payload.chat
+                    },
+                },
+            };
         case LunchActions.ADD_CHAT_MESSAGE:
             return {
                 ...state,

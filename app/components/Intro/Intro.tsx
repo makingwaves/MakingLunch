@@ -1,7 +1,9 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, { FunctionComponent } from 'react';
+import { View, Text } from 'react-native';
+
 import styles from './style';
-import {fontSizes} from '../../config/styles';
+
+import { fontSizes } from '../../config/styles';
 
 export interface BubbleProps {
     readonly title: string;
@@ -9,7 +11,7 @@ export interface BubbleProps {
     readonly isTitleLarge?: boolean;
 }
 
-const Intro: React.SFC<BubbleProps> = ({title, text, children, isTitleLarge = false}) => {
+const Intro: FunctionComponent<BubbleProps> = ({title, text, children, isTitleLarge = false}) => {
 
     return (
         <View>

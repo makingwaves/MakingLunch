@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import { View, Image, RegisteredStyle } from "react-native";
+import React, { memo, FunctionComponent } from "react";
+import { View, Image, StyleProp, ViewStyle, ImageStyle } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 import styles from './style';
@@ -11,11 +11,11 @@ export interface AvatarProps {
     readonly photo: string;
     readonly triangleSide?: triangleSides;
     readonly size?: number;
-    readonly imageContainer?: RegisteredStyle<{[key: string]: string | number}>
-    readonly imageStyles?: RegisteredStyle<{[key: string]: string | number}>;
+    readonly imageContainer?: StyleProp<ViewStyle>;
+    readonly imageStyles?: StyleProp<ImageStyle>;
 };
 
-const Avatar: React.SFC<AvatarProps> = ({
+const Avatar: FunctionComponent<AvatarProps> = ({
     photo, triangleSide, size = wp('8%'), imageContainer = {}, imageStyles = {}
 }) => (
     <View style={[styles.imageContainer, imageContainer]}>

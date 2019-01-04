@@ -1,28 +1,43 @@
-import React, { memo } from 'react';
-import { View, Image } from 'react-native';
+
+import React, { FunctionComponent, memo, Fragment } from 'react'
+import { View, Image, StyleProp, ViewStyle, ImageStyle } from 'react-native';
+import { connect } from 'react-redux';
 
 import styles from './style';
-import { borderRadius } from '../../config/styles';
 
-import Bubble from '../Bubble/Bubble';
-import { triangleSides } from '../Triangle/Triangle';
+import Avatar from '../Avatar';
+import { AppState } from '../../state/state';
+import { MembersMap } from '../../state/members/types';
 
 export interface UserImageProps {
-    readonly imageUri: string;
+    userId: string;
+    members: MembersMap;
+    imageContainerStyles?: StyleProp<ViewStyle>;
+    imageStyles?: StyleProp<ImageStyle>;
 };
 
-const UserImage: React.SFC<UserImageProps> = ({ imageUri }) => (
-    <Bubble
-        baseBorderRadius={borderRadius.borderRadiusLarge}
-        borderRadiusBottomRight={borderRadius.borderRadiusNone}
-        triangleSide={triangleSides.bottomRight}
-    >
-        <View style={styles.imageContainer}>
-            <View style={styles.fixedRatio}>
-                <Image source={{uri: imageUri}} style={styles.image} resizeMode={'cover'} />
-            </View>
-        </View>
-    </Bubble>
-);
+const QUESTION_MARK = require('./img/question_mark.png');
 
-export default memo(UserImage);
+const UserImage: FunctionComponent<UserImageProps> = ({
+    members, userId, imageContainerStyles = {}, imageStyles = {}
+}) => {
+    return (
+        <Fragment>
+            {userId && members[userId] ? (
+                <Avatar photo={members[userId].photo} imageStyles={[styles.avatarImageStyles, imageStyles]} imageContainer={[styles.imageContainer, imageContainerStyles]} />
+             ) : (
+                <View style={[styles.imageContainer, styles.imageContainerPlaceholder, imageContainerStyles]}>
+                    <Image style={styles.imagePlaceholder} source={QUESTION_MARK} />
+                </View>
+            )}
+        </Fragment>
+    );
+};
+
+const mapStateToProps = (state: AppState) => ({
+    members: state.members.data
+})
+
+export default connect(
+    mapStateToProps
+)(memo(UserImage));

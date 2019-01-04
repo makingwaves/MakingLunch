@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { View, Modal, ActivityIndicator, Text, RegisteredStyle } from 'react-native';
+import React, { memo, FunctionComponent } from 'react';
+import { View, Modal, ActivityIndicator, Text, StyleProp, ViewStyle } from 'react-native';
 
 import styles from './style';
 import { colors } from '../../config/styles';
@@ -7,11 +7,11 @@ import { colors } from '../../config/styles';
 export interface LoaderProps {
     isVisible: boolean;
     text?: String;
-    loaderInner?: RegisteredStyle<{[key: string]: string | number}>;
+    loaderInner?: StyleProp<ViewStyle>;
     indicatorColor?: string;
 };
 
-const Loader: React.SFC<LoaderProps> = ({
+const Loader: FunctionComponent<LoaderProps> = ({
     isVisible = false, text = 'Loading...', indicatorColor = colors.brandColorPrimary, loaderInner = {}
 }) => (
     <Modal

@@ -1,9 +1,10 @@
-import React, { memo, ReactNode }  from 'react';
-import { View, Text, Image, TouchableOpacity, RegisteredStyle } from 'react-native';
+import React, { memo, ReactNode, FunctionComponent }  from 'react';
+import { View, Text, Image, TouchableOpacity, StyleProp } from 'react-native';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import styles from './style';
 import Triangle, { triangleSides } from '../Triangle/Triangle';
+import { ViewStyle } from 'react-native';
 
 const images = {
     Facebook: require('./img/facebook.png'),
@@ -20,13 +21,13 @@ export interface CustomButtonProps {
     readonly textAlignment?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
     readonly triangleSide?: triangleSides;
     readonly size?: number;
-    readonly containerStyles?: RegisteredStyle<{[key: string]: string | number}>
-    readonly buttonStyles?: RegisteredStyle<{[key: string]: string | number}>;
+    readonly containerStyles?: StyleProp<ViewStyle>;
+    readonly buttonStyles?: StyleProp<ViewStyle>;
     readonly imageType?: string;
     readonly children?: ReactNode;
 } 
 
-const CustomButton: React.SFC<CustomButtonProps> = ({
+const CustomButton: FunctionComponent<CustomButtonProps> = ({
     text, iconContainerColor, onPress, imageType, triangleSide, children, size = wp('5%'), containerStyles = {}, buttonStyles = {}, textAlignment = 'center'
 }) => {
 

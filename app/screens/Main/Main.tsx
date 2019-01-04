@@ -52,14 +52,6 @@ class Main extends PureComponent<MainProps> {
                     containerStyles={styles.buttonStyles}
                     textAlignment={'flex-start'}
                 />
-                <CustomButton
-                    text={'Account settings'} 
-                    iconContainerColor={colors.brandColorPrimary}
-                    onPress={() => this.props.navigation.navigate('Settings')}
-                    imageType={'Settings'}
-                    containerStyles={styles.buttonStyles} 
-                    textAlignment={'flex-start'} 
-                />
                 <CustomButton 
                     text={'Log out'} 
                     iconContainerColor={colors.brandColorPrimary}

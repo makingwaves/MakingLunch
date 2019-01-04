@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { View } from 'react-native';
 
 import ScreenLoader from '../ScreenLoader/ScreenLoader';
 

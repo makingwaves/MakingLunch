@@ -195,8 +195,8 @@ describe('lunches reducer', () => {
             });
         });
 
-        test(LunchActions.begin_REQUEST, () => {
-            expect(lunchesActionsCreators.beginRequest()).toEqual({type: LunchActions.begin_REQUEST});
+        test(LunchActions.START_REQUEST, () => {
+            expect(lunchesActionsCreators.startRequest()).toEqual({type: LunchActions.START_REQUEST});
         });
         test(LunchActions.REQUEST_SUCCESS, () => {
             expect(lunchesActionsCreators.requestSuccess()).toEqual({type: LunchActions.REQUEST_SUCCESS});
@@ -632,8 +632,8 @@ describe('lunches reducer', () => {
             };
         });
 
-        test(`${LunchActions.begin_REQUEST} - should reflect request begin state`, () => {
-            const beginAction = lunchesActionsCreators.beginRequest();
+        test(`${LunchActions.START_REQUEST} - should reflect request begin state`, () => {
+            const beginAction = lunchesActionsCreators.startRequest();
             Reducer(lunchesReducer).expect(beginAction).toReturnState({
                 ...initialState,
                 request: {

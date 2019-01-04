@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, FunctionComponent } from 'react';
 import Image from 'react-native-remote-svg'; 
 import { TouchableOpacity, View, Text } from 'react-native';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -13,8 +13,8 @@ interface BackButtonProps extends NavigationScreenProps {
 
 const backButton = require('./backArrow.svg');
 
-const BackButton: React.SFC<BackButtonProps> = ({
-    navigation, backgroundColor = 'transparent', screenTitle = null
+const BackButton: FunctionComponent<BackButtonProps> = ({
+    navigation, children, backgroundColor = 'transparent', screenTitle = null
 }) => (
     <View style={[styles.container, { backgroundColor: backgroundColor }]}>
         <TouchableOpacity style={styles.imageStyles} onPress={() => { navigation.goBack(); }}>
@@ -24,6 +24,7 @@ const BackButton: React.SFC<BackButtonProps> = ({
             />
         </TouchableOpacity>
         {screenTitle && <Text style={styles.screenTitle}>{screenTitle}</Text>}
+        {children}
     </View>
 );
 

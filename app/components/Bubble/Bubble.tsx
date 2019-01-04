@@ -1,9 +1,9 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, { FunctionComponent } from 'react';
+import { View } from 'react-native';
 import styles from './style';
-import {borderRadius, colors} from '../../config/styles';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import Triangle, {triangleSides} from '../Triangle/Triangle';
+import { borderRadius, colors } from '../../config/styles';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import Triangle, { triangleSides } from '../Triangle/Triangle';
 
 export interface BubbleProps {
     readonly color?: string;
@@ -16,7 +16,7 @@ export interface BubbleProps {
     readonly size?: number;
 }
 
-const Bubble: React.SFC<BubbleProps> = (
+const Bubble: FunctionComponent<BubbleProps> = (
     {   color = colors.brandColorPrimary,
         baseBorderRadius = borderRadius.borderRadiusBase,
         borderRadiusTopLeft = borderRadius.borderRadiusBase,

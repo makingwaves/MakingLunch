@@ -8,6 +8,7 @@ import {
     UpdateLunchPayload,
     CreateLunchPayload,
     SetLunchStatusPayload,
+    SetLunchChatPayload,
     RemoveLunchMemberPayload, AddChatMessagePayload,
 } from './types';
 
@@ -23,6 +24,7 @@ export const lunchesActionsCreators = {
     setLunchLocation: (locationPayload: SetLunchLocationPayload) =>
         makeAction(LunchActions.SET_LUNCH_LOCATION, locationPayload),
     setLunchTime: (timePayload: SetLunchTimePayload) => makeAction(LunchActions.SET_LUNCH_TIME, timePayload),
+    setLunchChat: (chatPayload: SetLunchChatPayload) => makeAction(LunchActions.SET_LUNCH_CHAT, chatPayload),
     addChatMessage: (messagePayload: AddChatMessagePayload) =>
         makeAction(LunchActions.ADD_CHAT_MESSAGE, messagePayload),
     startRequest: () => makeAction(LunchActions.START_REQUEST),

@@ -2,9 +2,8 @@ import { createStackNavigator } from 'react-navigation';
 
 import Main from '../screens/Main';
 import UserProfile from '../screens/UserProfile';
-import Settings from '../screens/Settings';
-import LunchesList from '../screens/LunchesList/LunchesList';
-import Chat from '../screens/Chat';
+import LunchesList from '../screens/LunchesList';
+import ChatMessages from '../screens/ChatMessages';
 
 
 const AppStack = createStackNavigator(
@@ -12,8 +11,7 @@ const AppStack = createStackNavigator(
         Main: { screen: Main },
         LunchesList: { screen: LunchesList },
         UserProfile: { screen: UserProfile },
-        Settings: { screen: Settings },
-        Chat: { screen: Chat }
+        Chat: { screen: ChatMessages }
     },
     {
         initialRouteName: 'Main',

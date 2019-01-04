@@ -5,7 +5,7 @@ import { ErrorHandleService } from "../../services";
 import { BasicProfile } from './../../state/auth/types';
 import { LunchesMap } from "../../state/lunches/types";
 import { ErrorResponse } from '../../services/errorHandleService/errorHandleService';
-import { mapAndExtendLunches, mapId, mapStatus, mapLocations, mapTimes, mapMembers, mapChat } from './helpers/processedLunch';
+import { mapAndExtendLunches, mapId, mapStatus, mapLocations, mapTimes, mapMembers, mapChat } from '../helpers/processedLunch';
 
 export interface LunchBasicResponse {
     id: string;

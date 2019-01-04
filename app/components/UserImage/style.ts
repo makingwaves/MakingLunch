@@ -1,18 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-import { colors } from '../../../config/styles';
+import { colors } from '../../config/styles';
 
 export default StyleSheet.create({
-    guestListContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: 130
-    },
-    imageContainerStyles: {
+    imageContainer: {
         width: 40,
         height: 40,
-        borderRadius: 8
+        borderRadius: 8,
     },
     avatarImageStyles: {
         borderRadius: 8
@@ -20,10 +14,10 @@ export default StyleSheet.create({
     imageContainerPlaceholder: {
         backgroundColor: colors.brandColorSecondary,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     imagePlaceholder: {
-        width: 30,
-        height: 30,
+        width: 25,
+        height: 25,
     }
 });

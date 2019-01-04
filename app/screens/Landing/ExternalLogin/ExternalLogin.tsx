@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, FunctionComponent } from 'react'
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -21,7 +21,7 @@ interface ExternalLoginProps {
     readonly externalServiceLogin: (serviceType: ServiceType) => void;
 };
 
-const ExternalLogin: React.SFC<ExternalLoginProps> = ({ externalServiceLogin }) => (
+const ExternalLogin: FunctionComponent<ExternalLoginProps> = ({ externalServiceLogin }) => (
     <View style={styles.container}>
         <CustomButton 
             text={'Start with Facebook'}

@@ -1,5 +1,5 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, { FunctionComponent } from 'react';
+import { View } from 'react-native';
 import Image from 'react-native-remote-svg';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
@@ -19,7 +19,7 @@ export enum triangleSides {
 
 const triangle = require('./triangle.svg');
 
-const Triangle: React.SFC<TriangleProps> = ({size = wp('10%'),  triangleSide}) => {
+const Triangle: FunctionComponent<TriangleProps> = ({size = wp('10%'),  triangleSide}) => {
 
     const getTriangleProperties = (side: triangleSides) => {
         switch (side) {

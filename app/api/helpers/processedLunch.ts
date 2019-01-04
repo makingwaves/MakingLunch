@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
 
-import { LunchResponseDto, GuestResponseDto } from "../lunchesService";
-import { LunchStatus, LunchLocationMap, LunchTimeMap, Chat, LunchesMap } from "../../../state/lunches/types";
+import { LunchResponseDto, GuestResponseDto } from "../lunchesService/lunchesService";
+import { LunchStatus, LunchLocationMap, LunchTimeMap, Chat, LunchesMap } from "../../state/lunches/types";
+import { MapperFn } from './utils';
 
-export type LunchesMapFn<T> = (lunch: LunchResponseDto) => T;
+export type LunchesMapFn<T> = MapperFn<LunchResponseDto, T>;
 
 export const stringToDayJS = (dateString?: string) => dateString && typeof dateString === 'string' ? dayjs(dateString) : dayjs();
 export const getGivenKeysFromGuest = (guest: GuestResponseDto, keys: (keyof GuestResponseDto)[]) => (
