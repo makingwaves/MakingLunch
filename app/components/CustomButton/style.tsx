@@ -11,7 +11,6 @@ export default StyleSheet.create({
         height: 60,
         justifyContent: 'flex-end',
     },
-
     customButtonContainer: {
         flex: 1,
         flexDirection: 'row',
@@ -19,21 +18,14 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 8,
     },
-
-    spacer: {
-        flex: 1,
-    },
-
     textContainer: {
         flex: 1,
     },
-
     text: {
         fontSize: fontSizes.base,
         fontWeight: '900',
         color: colors.colorLightest,
     },
-
     iconContainer: {
         width: 50,
         height: 50,

@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from 'react';
-import { Keyboard, EmitterSubscription, Animated, StyleProp, ViewStyle, Text, RegisteredStyle, StyleSheet } from 'react-native';
+import { Keyboard, EmitterSubscription, Animated, StyleProp, ViewStyle } from 'react-native';
 
 export interface KeyboardAnimationViewProps {
     duration: number;

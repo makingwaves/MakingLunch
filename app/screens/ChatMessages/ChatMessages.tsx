@@ -13,6 +13,7 @@ import { RequestState } from '../../state/common/types';
 import HocFetchData from '../../components/HocFetchData';
 import LunchInformation from './LunchInformation';
 import Messages from './Messages';
+import ChatMessageInput from './ChatMessageInput';
 
 export interface ChatProps extends NavigationScreenProps {
     lunch: Lunch;
@@ -45,6 +46,7 @@ class ChatMessages extends Component<ChatProps> {
                 <Messages 
                     messages={lunch.chat}
                 />
+                <ChatMessageInput />
         </View>
         );
     }
