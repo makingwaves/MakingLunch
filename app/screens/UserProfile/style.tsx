@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import { colors } from '../../config/styles';
 
@@ -8,18 +9,26 @@ export default StyleSheet.create({
         backgroundColor: colors.colorLight
     },
     formContainer: {
-        flex: 1,
-        marginHorizontal: 60, 
+        marginHorizontal: 60
+    },
+    keyboardHideStyles: {
+        height: hp('30%'),
+        opacity: 1,
+    },
+    keyboardShowStyles: {
+        height: 0,
+        opacity: 0
     },
     imageContainer: {
-        height: 250,
-        width: '100%'
+        width: '100%',
+        height: '100%'
     },
     imageStyles: {
         borderBottomRightRadius: 0
     },
     nameInput: {
-        borderBottomRightRadius: 0
+        borderBottomRightRadius: 0,
+        marginTop: 0
     },
     descriptionInput: {
         height: 80,

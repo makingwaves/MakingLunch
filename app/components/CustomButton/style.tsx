@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { colors } from '../../config/styles';
+import { colors, fontSizes } from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
@@ -29,7 +29,7 @@ export default StyleSheet.create({
     },
 
     text: {
-        fontSize: 16,
+        fontSize: fontSizes.base,
         fontWeight: '900',
         color: colors.colorLightest,
     },

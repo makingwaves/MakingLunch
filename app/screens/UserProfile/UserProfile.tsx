@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { NavigationScreenProps } from 'react-navigation';
@@ -12,6 +12,7 @@ import { AppState } from './../../state/state';
 import CustomButton from '../../components/CustomButton';
 import { triangleSides } from '../../components/Triangle/Triangle';
 import Avatar from '../../components/Avatar/Avatar';
+import KeyboardAnimationView from '../../components/KeyboardAnimationView';
 
 export interface UserProfileProps extends NavigationScreenProps {
     userData: Profile;
@@ -46,10 +47,15 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
         const { userData } = this.state; 
 
         return ( 
-            <View style={styles.userProfileContainer}>
+            <SafeAreaView style={styles.userProfileContainer}>
                 <BackButton navigation={navigation} />
-                <View style={styles.formContainer}>
-                    <Avatar photo={userData.photo} imageContainer={styles.imageContainer} imageStyles={styles.imageStyles} triangleSide={triangleSides.bottomRight} />
+                <KeyboardAvoidingView style={styles.formContainer} behavior={'padding'}> 
+                    <KeyboardAnimationView
+                        keyboardHideStyles={styles.keyboardHideStyles}
+                        keyboardShowStyles={styles.keyboardShowStyles}
+                    >
+                        <Avatar photo={userData.photo} imageContainer={styles.imageContainer} imageStyles={styles.imageStyles} triangleSide={triangleSides.bottomRight} />
+                    </KeyboardAnimationView>
                     <CustomInput 
                         value={userData.name}
                         type={'name'}
@@ -73,8 +79,8 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
                         buttonStyles={styles.buttonStyles}
                         triangleSide={triangleSides.bottomLeft}
                     />
-                </View>
-            </View>
+                </KeyboardAvoidingView>
+            </SafeAreaView>
         ); 
     }
 }
