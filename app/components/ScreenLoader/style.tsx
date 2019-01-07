@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { colors } from "../../config/styles";
+import { colors, fontSizes } from "../../config/styles";
 
 export default StyleSheet.create({
     container: {
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     },
     textStyles: {
         marginTop: 20,
-        fontSize: 16,
+        fontSize: fontSizes.kilo,
         fontWeight: '900',
     }
 });
