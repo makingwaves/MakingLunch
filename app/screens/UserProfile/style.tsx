@@ -27,16 +27,18 @@ export default StyleSheet.create({
         borderBottomRightRadius: 0
     },
     nameInput: {
+        height: hp('7%'),
+        marginTop: 0,
         borderBottomRightRadius: 0,
-        marginTop: 0
     },
     descriptionInput: {
-        height: 80,
+        height: hp('12%'),
         borderBottomLeftRadius: 0,
         textAlignVertical: 'top',
     },
     buttonContainerStyles: {
         width: 150,
+        height: hp('7%'),
         marginTop: 20,
         marginHorizontal: 0,
         marginLeft: 'auto',

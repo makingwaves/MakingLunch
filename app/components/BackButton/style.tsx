@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import { colors, fontSizes, fontWeights } from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
         position: 'relative',
-        height: 80,
+        height: hp('10%'),
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
