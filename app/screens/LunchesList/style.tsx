@@ -7,8 +7,13 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: colors.colorLight
     },
-    lunchTypesContainer: {
-        flex: 1,
-        marginTop: 30
+    sectionList: {
+        marginHorizontal: 30,
+        marginTop: 30,
+        marginBottom: 10,
+    },
+    sectionTitle: {
+        color: colors.brandColorPrimary,
+        fontWeight: '900'
     }
 });

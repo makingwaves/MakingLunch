@@ -1,17 +1,17 @@
 import React, { PureComponent }  from 'react';
 import { NavigationScreenProps } from 'react-navigation';
-import { View } from 'react-native';
+import { SectionList, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 
 import styles from './style';
 import { colors } from '../../config/styles';
 
-import LunchType from './LunchType/LunchType';
 import BackButton from '../../components/BackButton';
 import { AppState } from './../../state/state';
 import HocFetchData from './../../components/HocFetchData';
 import { RequestState } from '../../state/common/types';
 import { LunchesMap, LunchSagaActions, LunchStatus, Lunch } from '../../state/lunches/types';
+import SingleLunch from './SingleLunch';
 
 export interface LunchesListProps extends NavigationScreenProps {
     lunches: LunchesMap;
@@ -56,35 +56,41 @@ class LunchesList extends PureComponent<LunchesListProps> {
         return (
             <View style={styles.lunchesListContainer}>
                 <BackButton navigation={navigation} screenTitle={'Your lunches'} backgroundColor={colors.brandColorSecondary} />
-                <View style={styles.lunchTypesContainer}>
-                    {lunchTypes && Object.keys(lunchTypes)
-                        .map(type => (
-                            <LunchType 
-                                key={type}
-                                titles={this.lunchTypesTitles[type]}
-                                lunches={lunchTypes[type]}
-                            />
-                        ))
-                    }
-                </View>
+                <SectionList
+                    style={styles.sectionList}
+                    renderSectionHeader={({ section: { title, data } }) => (
+                        <View>
+                            {data && !!data.length && <Text style={styles.sectionTitle}>{title}</Text>}
+                        </View>
+                    )}
+                    renderItem={({ item, section }) => (
+                        <SingleLunch lunch={item} subTitle={this.lunchTypesTitles[section.title].subTitle} />
+                    )}
+                    sections={lunchTypes}
+                    keyExtractor={(item, index) => item + index}
+                />
             </View>
         );
     }
 
-    private splitLunchesByStatus(lunches: LunchesMap): { [key in LunchStatus]: Lunch[] } {
+    private splitLunchesByStatus(lunches: LunchesMap): { title: LunchStatus, data: Lunch[] }[] {
         return lunches && Object.keys(lunches)
-            .reduce((statusObject, lunchId) => {
+            .reduce((statusArray, lunchId) => {
                 const lunch = lunches[lunchId];
-                return (statusObject[lunch.status].push(lunch), statusObject);
-        }, this.getDefaultStatusObject());
+                return statusArray.map(statusType => {
+                    if(statusType.title === lunch.status)
+                        return { title: statusType.title, data: (statusType.data.push(lunch), statusType.data) };
+                    return statusType;
+                });
+            }, this.getDefaultStatusObject());
     }
 
-    private getDefaultStatusObject(): { [key in LunchStatus]: Lunch[] } {
-        return {
-            [LunchStatus.pending]: [],
-            [LunchStatus.running]: [],
-            [LunchStatus.finished]: []
-        }
+    private getDefaultStatusObject(): { title: LunchStatus, data: Lunch[] }[] {
+        return [
+            { title: LunchStatus.pending, data: [] },
+            { title: LunchStatus.running, data: [] },
+            { title: LunchStatus.finished, data: [] }
+        ]
     }
 }
 
