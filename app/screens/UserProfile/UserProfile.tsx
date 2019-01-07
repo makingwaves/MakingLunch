@@ -51,6 +51,7 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
                 <BackButton navigation={navigation} />
                 <KeyboardAvoidingView style={styles.formContainer} behavior={'padding'}> 
                     <KeyboardAnimationView
+                        duration={250}
                         keyboardHideStyles={styles.keyboardHideStyles}
                         keyboardShowStyles={styles.keyboardShowStyles}
                     >
