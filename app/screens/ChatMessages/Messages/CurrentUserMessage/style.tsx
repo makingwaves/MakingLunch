@@ -17,6 +17,9 @@ export default StyleSheet.create({
         borderRadius: 25,
         backgroundColor: colors.colorLightest,
     },
+    pendingMessage: {
+        opacity: .35
+    },
     messageText: {
         paddingVertical: 10,
         paddingHorizontal: 18,

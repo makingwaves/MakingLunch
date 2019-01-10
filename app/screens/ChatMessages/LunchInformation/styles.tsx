@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors, fontSizes } from '../../../config/styles';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 
 
@@ -9,7 +10,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginLeft: 40
+        marginLeft: wp('15%')
     },
     dateContainer: {
         flexDirection: 'row',

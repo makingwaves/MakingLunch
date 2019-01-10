@@ -171,6 +171,38 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                     },
                 },
             };
+        case LunchActions.UPDATE_CHAT_MESSAGE:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.lunchId]: {
+                        ...state.data[action.payload.lunchId],
+                        chat: {
+                            ...state.data[action.payload.lunchId].chat,
+                            [action.payload.message.messageId]: {
+                                ...state.data[action.payload.lunchId].chat[action.payload.message.messageId],
+                                status: action.payload.message.status
+                            },
+                        },
+                    },
+                }
+            };
+        case LunchActions.REMOVE_CHAT_MESSAGE:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.lunchId]: {
+                        ...state.data[action.payload.lunchId],
+                        chat: {
+                            ...transformer.set(state.data[action.payload.lunchId].chat)
+                            .filter((key) => (key !== action.payload.message.messageId))
+                            .get(),
+                        }
+                    }
+                }
+            }
         case LunchActions.START_REQUEST:
             return {
                 ...state,
@@ -195,6 +227,14 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                     errorMsg: action.payload,
                 },
             };
+        case LunchActions.CLEAR_ERROR_MESSAGE:
+            return {
+                ...state,
+                request: {
+                    ...state.request,
+                    errorMsg: ''
+                }
+            }
         default:
             return state;
     }

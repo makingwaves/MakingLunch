@@ -1,7 +1,7 @@
 import { MapperFn } from "./utils";
-import { ChatResponseDto } from "api/chatService/chatService";
-import { Chat, AddChatMessagePayload } from "state/lunches/types";
 
+import { ChatResponseDto } from "../chatService/chatService";
+import { Chat, AddChatMessagePayload, MessageStatus } from "../../state/lunches/types";
 
 export type ChatMessageMapFn<T> = MapperFn<ChatResponseDto, T>;
 
@@ -17,7 +17,8 @@ export const mapAndExtendChatMessages = (
             messageId: messageIdMapFn(message),
             memberId: memberIdMapFn(message),
             time: timeMapFn(message),
-            message: messageContentMapFn(message)
+            message: messageContentMapFn(message),
+            status: MessageStatus.finished
         }))
         .reduce((chatMessageMappedObject, message) => (
             chatMessageMappedObject[message.messageId] = message, chatMessageMappedObject
@@ -38,7 +39,8 @@ export const mapMessageToPayload = (
             messageId: messageIdMapFn(chatMessage),
             memberId: memberIdMapFn(chatMessage),
             time: timeMapFn(chatMessage),
-            message: messageContentMapFn(chatMessage)
+            message: messageContentMapFn(chatMessage),
+            status: MessageStatus.finished
         }
     };
 }

@@ -6,10 +6,16 @@ export interface Message {
     memberId: string;
     time: string;
     message: string;
+    status: MessageStatus;
 }
 
 export interface Chat {
     [messageId: string]: Message;
+}
+
+export enum MessageStatus {
+    pending = 'PENDING',
+    finished = 'FINISHED'
 }
 
 export interface TimeSpan {
@@ -111,6 +117,21 @@ export interface AddChatMessagePayload {
     message: Message;
 }
 
+export interface UpdateChatMessagePayload {
+    lunchId: string;
+    message: {
+        messageId: string;
+        status: MessageStatus;
+    };
+}
+
+export interface RemoveChatMessagePayload {
+    lunchId: string;
+    message: {
+        messageId: string;
+    };
+}
+
 // --- Actions
 export enum LunchActions {
     SET_LUNCHES = '@@lunches/set_lunches',
@@ -124,9 +145,12 @@ export enum LunchActions {
     SET_LUNCH_TIME = '@@lunches/set_lunch_time',
     SET_LUNCH_CHAT = '@@lunches/set_chat',
     ADD_CHAT_MESSAGE = '@@lunches/add_chat_message',
+    UPDATE_CHAT_MESSAGE = '@@lunches/UPDATE_CHAT_MESSAGE',
+    REMOVE_CHAT_MESSAGE = '@@lunches/remove_chat_message',
     START_REQUEST = '@@lunches/start_request',
     REQUEST_SUCCESS = '@@lunches/request_success',
     REQUEST_FAIL = '@@lunches/request_fail',
+    CLEAR_ERROR_MESSAGE = '@@lunches/clear_error_message'
 }
 
 export enum LunchSagaActions {

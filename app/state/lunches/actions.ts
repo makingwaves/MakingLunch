@@ -9,7 +9,10 @@ import {
     CreateLunchPayload,
     SetLunchStatusPayload,
     SetLunchChatPayload,
-    RemoveLunchMemberPayload, AddChatMessagePayload,
+    RemoveLunchMemberPayload, 
+    AddChatMessagePayload, 
+    UpdateChatMessagePayload,
+    RemoveChatMessagePayload
 } from './types';
 
 export const lunchesActionsCreators = {
@@ -27,7 +30,10 @@ export const lunchesActionsCreators = {
     setLunchChat: (chatPayload: SetLunchChatPayload) => makeAction(LunchActions.SET_LUNCH_CHAT, chatPayload),
     addChatMessage: (messagePayload: AddChatMessagePayload) =>
         makeAction(LunchActions.ADD_CHAT_MESSAGE, messagePayload),
+    updateChatMessage: (messagePayload: UpdateChatMessagePayload) => makeAction(LunchActions.UPDATE_CHAT_MESSAGE, messagePayload),
+    removeChatMessage: (messagePayload: RemoveChatMessagePayload) => makeAction(LunchActions.REMOVE_CHAT_MESSAGE, messagePayload),
     startRequest: () => makeAction(LunchActions.START_REQUEST),
     requestSuccess: () => makeAction(LunchActions.REQUEST_SUCCESS),
     requestFail: (errorMsg: string) => makeAction(LunchActions.REQUEST_FAIL, errorMsg),
+    clearErrorMessage: () => makeAction(LunchActions.CLEAR_ERROR_MESSAGE)
 };

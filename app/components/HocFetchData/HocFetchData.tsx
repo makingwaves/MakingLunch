@@ -29,7 +29,7 @@ const HocFetchData = <P extends object>(
         }
 
         public componentDidUpdate(prevProps: HocFetchDataProps): void {
-            if(prevProps.errorMsg !== this.props.errorMsg) 
+            if(prevProps.errorMsg !== this.props.errorMsg && !this.state.showErrorPopup) 
                 this.setState(prevState => ({ showErrorPopup: this.isValidString(this.props.errorMsg) }));
         }
 

@@ -25,5 +25,6 @@ export default StyleSheet.create({
     userPhotoStyles: {
         width: '50%',
         height: '50%',
+        borderRadius: hp('25%') / 6
     }
 });
