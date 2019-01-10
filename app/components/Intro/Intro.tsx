@@ -1,18 +1,19 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, memo } from 'react';
 import { View, Text } from 'react-native';
 
 import styles from './style';
 
 import { fontSizes } from '../../config/styles';
 
-export interface BubbleProps {
+export interface IntroProps {
     readonly title: string;
     readonly text: string;
     readonly isTitleLarge?: boolean;
 }
 
-const Intro: FunctionComponent<BubbleProps> = ({title, text, children, isTitleLarge = false}) => {
-
+const Intro: FunctionComponent<IntroProps> = ({
+    title, text, children, isTitleLarge = false
+}) => {
     return (
         <View>
             {children}
@@ -24,4 +25,4 @@ const Intro: FunctionComponent<BubbleProps> = ({title, text, children, isTitleLa
     );
 };
 
-export default Intro;
+export default memo(Intro);

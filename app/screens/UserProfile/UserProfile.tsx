@@ -13,6 +13,8 @@ import CustomButton from '../../components/CustomButton';
 import { triangleSides } from '../../components/Triangle/Triangle';
 import Avatar from '../../components/Avatar/Avatar';
 import KeyboardAnimationView from '../../components/KeyboardAnimationView';
+import HocFetchData from '../../components/HocFetchData';
+import { RequestState } from '../../state/common/types';
 
 export interface UserProfileProps extends NavigationScreenProps {
     userData: Profile;
@@ -87,7 +89,8 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    userData: state.auth.profile
+    userData: state.auth.profile,
+    isLoading: state.auth.request.state === RequestState.inProgress
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -97,4 +100,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps, 
     mapDispatchToProps
-)(UserProfile);
+)(HocFetchData(UserProfile, 'Updating user data..'))

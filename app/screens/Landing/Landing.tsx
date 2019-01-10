@@ -20,7 +20,7 @@ class Landing extends PureComponent<NavigationScreenProps> {
         <View style={styles.container}>  
             <Bubble
                 triangleSide={triangleSides.topLeft}
-                borderRadiusTopLeft={0}
+                bubbleStyles={styles.firstBubble}
             >
                 <Intro
                     title="Hello there!"
@@ -36,7 +36,7 @@ class Landing extends PureComponent<NavigationScreenProps> {
             <View style={{flex: 1}}/>
             <Bubble
                 triangleSide={triangleSides.bottomLeft}
-                borderRadiusBottomLeft={0}
+                bubbleStyles={styles.secondBubble}
             >
                 <Intro
                     title="It’s so nice to meet you!"
@@ -51,7 +51,7 @@ class Landing extends PureComponent<NavigationScreenProps> {
         <View style={styles.container}>
             <Bubble
                 triangleSide={triangleSides.topRight}
-                borderRadiusTopRight={0}
+                bubbleStyles={styles.thirdBubble}
             >
                 <Intro
                     title="Let's get started now"

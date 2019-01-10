@@ -39,7 +39,7 @@ class KeyboardAnimationView extends Component<KeyboardAnimationViewProps> {
 
     private getAnimatedObjectValues(animatedKeys: string[], initialStyles: StyleProp<ViewStyle>): { [key: string]: Animated.Value } {
         return animatedKeys && animatedKeys
-            .reduce((animatedObject, key) => (animatedObject[key] = new Animated.Value(initialStyles[key]),animatedObject ), {});
+            .reduce((animatedObject, key) => (animatedObject[key] = new Animated.Value(initialStyles[key]), animatedObject), {});
     }
 
     private getAnimatedKeysStyles(keyboardShowStyles: StyleProp<ViewStyle>, keyboardHideStyles: StyleProp<ViewStyle>): string[] {

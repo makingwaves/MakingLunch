@@ -5,6 +5,7 @@ import Landing from '../screens/Landing';
 import AppStack from './app';
  
 import { navigationService } from '../services';
+import InitialScreen from '../screens/InitialScreen';
 
 const RootNavigation  = createStackNavigator(
     {
@@ -13,11 +14,14 @@ const RootNavigation  = createStackNavigator(
         },
         Auth: {
             screen: Landing
+        },
+        Initial: {
+            screen: InitialScreen
         }
     },
     { 
         headerMode: 'none',
-        initialRouteName: 'Auth'
+        initialRouteName: 'Initial'
     }
 );
 

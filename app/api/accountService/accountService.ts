@@ -33,13 +33,19 @@ class AccountService extends ErrorHandleService {
             .catch(err => this.getErrorMessage(err, 'An error occured while trying to fetch User Data.'));
     }
 
+    public getUserDataWithToken(token: string): Promise<Profile | ErrorResponse> {
+        return httpClient.get<Profile>('/api/Account', {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(res => res.data)
+            .catch(err => this.getErrorMessage(err, 'An error occured while trying to fetch User Data.'));
+    }
+
     public updateUserData(name: string, description: string): Promise<Profile | ErrorResponse> {
-        return httpClient.put<Profile>('/api/Account', 
-                {  
+        return httpClient.put<Profile>('/api/Account', {  
                     name, 
                     description
-                }
-            )
+        })
             .then(res => res.data)
             .catch(err => this.getErrorMessage(err, 'An error occured while trying to update User Data.'));
     }

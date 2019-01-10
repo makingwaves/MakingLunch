@@ -8,7 +8,6 @@ export default StyleSheet.create({
         flexDirection: 'row',
         marginHorizontal: 60,
         marginBottom: 5,
-        height: 60,
         justifyContent: 'flex-end',
     },
     customButtonContainer: {
@@ -27,14 +26,14 @@ export default StyleSheet.create({
         color: colors.colorLightest,
     },
     iconContainer: {
-        width: 50,
-        height: 50,
+        aspectRatio: 1,
+        height: '100%',
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center'
     },
     icon: {
-        width: 25,
-        height: 25,
-    },
+        width: '50%',
+        height: '50%',
+    }
 });

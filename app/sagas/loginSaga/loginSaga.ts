@@ -3,6 +3,7 @@ import { LoginManager, AccessToken, LoginResult } from "react-native-fbsdk";
 import { GoogleSignin, User } from 'react-native-google-signin';
 import Config from 'react-native-config';
 import { Platform } from 'react-native';
+import RNSecureKeyStore, { ACCESSIBLE } from "react-native-secure-key-store";
 
 import { AuthSagaActions } from '../../state/auth/types';
 import { authActionsCreators } from '../../state/auth/actions';
@@ -13,6 +14,8 @@ import { UserDataResponse } from '../../api/accountService/accountService';
 import { facebookLoginService, accountService } from '../../api';
 
 import { keyToString, mapDataToResponse, hasKey } from '../utils/pureFn/pureFn';
+
+export const TOKEN_KEY: string = 'USER_TOKEN'; 
 
 export interface UserData {
     name: string;
@@ -44,6 +47,17 @@ export const configureGoogle: { [key in 'android' | 'ios']: () => Iterable<CallE
     }
 };
 
+export function* setSecureStoredKey(key: string, token: string) {
+    try {
+        yield call(
+            [RNSecureKeyStore, RNSecureKeyStore.set],
+            key, token, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }
+        );
+    } catch(err) {
+        return err;
+    }
+}
+
 export function* facebookLoginFlow() {
     try {
         const facebookLoginResponse: LoginResult = yield call(
@@ -68,6 +82,7 @@ export function* facebookLoginFlow() {
                 mapDataToResponse(facebookUserData, 'facebook', accessToken)
             );
 
+            yield call(setSecureStoredKey, TOKEN_KEY, userDataResponse.token);
             yield put(authActionsCreators.setToken(userDataResponse.token));
             yield put(authActionsCreators.requestSuccess());
 
@@ -80,10 +95,6 @@ export function* facebookLoginFlow() {
 
 export function* googleLoginFlow() {
     try {
-        yield call(
-            configureGoogle[Platform.OS]
-        );
-
         yield call(
             [GoogleSignin, GoogleSignin.hasPlayServices]
         );
@@ -100,6 +111,7 @@ export function* googleLoginFlow() {
             mapDataToResponse(userInfo.user, 'google', token)
         );
 
+        yield call(setSecureStoredKey, TOKEN_KEY, userDataResponse.token);
         yield put(authActionsCreators.setToken(userDataResponse.token));
         yield put(authActionsCreators.requestSuccess());
 

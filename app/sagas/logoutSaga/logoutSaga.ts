@@ -2,12 +2,25 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { GoogleSignin } from 'react-native-google-signin';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
+import RNSecureKeyStore from "react-native-secure-key-store";
 
 import { AuthSagaActions } from '../../state/auth/types';
 import { authActionsCreators } from '../../state/auth/actions';
 import { navigationService } from '../../services';
 
 import { hasKey } from '../utils/pureFn/pureFn';
+import { TOKEN_KEY } from './../loginSaga/loginSaga';
+
+export function* removeSecureStoredKey(key: string) {
+    try {
+        yield call(
+            [RNSecureKeyStore, RNSecureKeyStore.remove],
+            key
+        );
+    } catch(err) {
+        return err;
+    }
+}
 
 export function* logoutFlow() {
     try {
@@ -15,6 +28,8 @@ export function* logoutFlow() {
             loggedInFb: call([AccessToken, AccessToken.getCurrentAccessToken]),
             loggedInGoogle: call([GoogleSignin, GoogleSignin.isSignedIn])
         });
+
+        yield call(removeSecureStoredKey, TOKEN_KEY);
 
         if(loggedInFb)
             yield call(

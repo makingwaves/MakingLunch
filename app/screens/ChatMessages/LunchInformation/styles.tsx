@@ -9,7 +9,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginLeft: 60
+        marginLeft: 40
     },
     dateContainer: {
         flexDirection: 'row',
@@ -25,7 +25,14 @@ export default StyleSheet.create({
         fontWeight: '900',
         fontSize: fontSizes.kilo
     },
+    imageContainerStyles: {
+        width: 30,
+        height: 30
+    },
     imageStyles: {
-        borderRadius: 20
+        borderRadius: 15
+    },
+    guestListContainerStyles: {
+        width: 100
     }
 });

@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 
 import styles from './style';
 
-import { Chat, Message } from '../../../state/lunches/types';
+import { Message } from '../../../state/lunches/types';
 import { AppState } from './../../../state/state';
 import CurrentUserMessage from './CurrentUserMessage';
 import OtherUserMessage from './OtherUserMessage';
 
 export interface MessagesProps {
-    messages: Chat;
+    messages: Message[];
     userId: string;
 };
 
@@ -34,22 +34,16 @@ const Messages: FunctionComponent<MessagesProps> = ({
     };
     const FlatListFooter: ReactElement<Element> = <View style={{ marginBottom: 50 }}></View>;
 
-    const getArrayFromChatMessages = (): Message[] => {
-        return messages && Object.keys(messages)
-            .reduce((messagesArray, key) => (messagesArray.push(messages[key]), messagesArray), [] as Message[])
-            .sort((a, b) => a.time > b.time ? 1 : a.time < b.time ? -1 : 0);
-    }
-
     const renderMessageItem: ListRenderItem<Message> = ({ item }) => {
         const isCurrentUser: number = Number(item.memberId === userId);
-        return item && messageType[isCurrentUser](item, userId);
+        return item && messageType[isCurrentUser](item, item.memberId);
     };
 
     const keyExtractor = (item: Message, index: number): string => item.messageId;
 
     return (
         <FlatList style={styles.messagesViewContainer}
-            data={getArrayFromChatMessages()}
+            data={messages}
             renderItem={renderMessageItem}
             keyExtractor={keyExtractor}
             ListFooterComponent={FlatListFooter}

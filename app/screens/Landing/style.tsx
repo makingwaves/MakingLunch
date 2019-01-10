@@ -11,9 +11,17 @@ export default StyleSheet.create({
         paddingTop: 80,
         borderWidth: 3,
     },
-
     backgroundImage: {
         width,
         height,
     },
+    firstBubble: {
+        borderTopLeftRadius: 0
+    },
+    secondBubble: {
+        borderBottomLeftRadius: 0
+    },
+    thirdBubble: {
+        borderTopRightRadius: 0
+    }
 });

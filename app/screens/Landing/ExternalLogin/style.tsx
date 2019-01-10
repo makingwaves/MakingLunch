@@ -11,16 +11,17 @@ export default StyleSheet.create({
         marginTop: 40,
         marginBottom: 40
     },
-
     backgroundImage: {
         width,
         height,
     },
-
+    buttonStyles: {
+        height: 60,
+        paddingVertical: 6
+    },
     fbButtonStyle: {
         backgroundColor: '#4a90e2'
     },
-
     googleButtonStyle: {
         backgroundColor: '#ff5c5c'
     }

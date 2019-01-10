@@ -1,5 +1,5 @@
 import React, { memo, ReactNode, FunctionComponent }  from 'react';
-import { View, Text, Image, TouchableOpacity, StyleProp } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleProp, TextStyle } from 'react-native';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import styles from './style';
@@ -23,12 +23,13 @@ export interface CustomButtonProps {
     readonly size?: number;
     readonly containerStyles?: StyleProp<ViewStyle>;
     readonly buttonStyles?: StyleProp<ViewStyle>;
+    readonly textButtonStyles?: StyleProp<TextStyle>;
     readonly imageType?: string;
     readonly children?: ReactNode;
 } 
 
 const CustomButton: FunctionComponent<CustomButtonProps> = ({
-    text, iconContainerColor, onPress, imageType, triangleSide, children, size = wp('5%'), containerStyles = {}, buttonStyles = {}, textAlignment = 'center'
+    text, iconContainerColor, onPress, imageType, triangleSide, children, size = wp('5%'), containerStyles = {}, buttonStyles = {}, textButtonStyles = {}, textAlignment = 'center'
 }) => {
 
     const getImage = (): ReactNode | React.ReactElement<View> => {
@@ -48,7 +49,7 @@ const CustomButton: FunctionComponent<CustomButtonProps> = ({
                 {getImage()} 
 
                 <View style={[styles.textContainer, { alignItems: textAlignment }]}>
-                    <Text style={styles.text}>
+                    <Text style={[styles.text, textButtonStyles]}>
                         {text}
                     </Text>
                 </View>

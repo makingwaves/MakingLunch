@@ -10,11 +10,17 @@ import BackButton from '../../components/BackButton';
 import { AppState } from './../../state/state';
 import HocFetchData from './../../components/HocFetchData';
 import { RequestState } from '../../state/common/types';
-import { LunchesMap, LunchSagaActions, LunchStatus, Lunch } from '../../state/lunches/types';
+import { LunchSagaActions, LunchStatus, Lunch } from '../../state/lunches/types';
 import SingleLunch from './SingleLunch';
+import { mapLunchesToArray } from './lunchesListSelectors';
+
+export interface LunchesListDto {
+    title: LunchStatus;
+    data: Lunch[];
+};
 
 export interface LunchesListProps extends NavigationScreenProps {
-    lunches: LunchesMap;
+    lunches: LunchesListDto[];
     getLunches: () => void;
 };
 
@@ -51,8 +57,6 @@ class LunchesList extends PureComponent<LunchesListProps> {
             navigation
         } = this.props;
 
-        const lunchTypes = this.splitLunchesByStatus(lunches);
-
         return (
             <View style={styles.lunchesListContainer}>
                 <BackButton navigation={navigation} screenTitle={'Your lunches'} backgroundColor={colors.brandColorSecondary} />
@@ -66,36 +70,16 @@ class LunchesList extends PureComponent<LunchesListProps> {
                     renderItem={({ item, section }) => (
                         <SingleLunch lunch={item} subTitle={this.lunchTypesTitles[section.title].subTitle} />
                     )}
-                    sections={lunchTypes}
+                    sections={lunches}
                     keyExtractor={(item, index) => item + index}
                 />
             </View>
         );
     }
-
-    private splitLunchesByStatus(lunches: LunchesMap): { title: LunchStatus, data: Lunch[] }[] {
-        return lunches && Object.keys(lunches)
-            .reduce((statusArray, lunchId) => {
-                const lunch = lunches[lunchId];
-                return statusArray.map(statusType => {
-                    if(statusType.title === lunch.status)
-                        return { title: statusType.title, data: (statusType.data.push(lunch), statusType.data) };
-                    return statusType;
-                });
-            }, this.getDefaultStatusObject());
-    }
-
-    private getDefaultStatusObject(): { title: LunchStatus, data: Lunch[] }[] {
-        return [
-            { title: LunchStatus.pending, data: [] },
-            { title: LunchStatus.running, data: [] },
-            { title: LunchStatus.finished, data: [] }
-        ]
-    }
 }
 
 const mapStateToProps = (state: AppState) => ({
-    lunches: state.lunches.data,
+    lunches: mapLunchesToArray(state),
     isLoading: state.lunches.request.state === RequestState.inProgress,
     errorMsg: state.lunches.request.errorMsg
 });

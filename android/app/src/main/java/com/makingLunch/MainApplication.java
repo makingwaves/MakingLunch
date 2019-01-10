@@ -1,7 +1,7 @@
 package com.makingLunch;
 
 import android.app.Application;
-
+import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
 import com.facebook.react.ReactApplication;
 import com.horcrux.svg.SvgPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -54,7 +54,8 @@ public class MainApplication extends Application implements ReactApplication {
           new ReactNativeConfigPackage(),
           new FBSDKPackage(mCallbackManager),
           new SvgPackage(),
-          new RNGestureHandlerPackage()
+          new RNGestureHandlerPackage(),
+          new RNSecureKeyStorePackage()
       );
     }
 

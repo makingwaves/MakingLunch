@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 import { colors, fontSizes } from "../../config/styles";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 export default StyleSheet.create({
     container: {
@@ -15,8 +16,11 @@ export default StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, .7)' 
     },
     containerInnerStyles: {
-        paddingVertical: 30,
-        paddingHorizontal: 50,
+        width: wp('70%'),
+        height: hp('25%'),
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 14,
         borderRadius: 10,
         backgroundColor: colors.colorLightest,
     },

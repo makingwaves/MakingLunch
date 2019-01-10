@@ -7,7 +7,7 @@ import CustomInput from '../../../components/CustomInput';
 import CustomButton from '../../../components/CustomButton';
 
 export interface ChatMessageInputProps {
-
+    sendMessage: (messageContent: string) => void;
 };
 
 export interface ChatMessageInputState {
@@ -26,7 +26,12 @@ class ChatMessageInput extends PureComponent<ChatMessageInputProps, ChatMessageI
     }
 
     private onSendClick = () => {
-        this.setState(prevState => ({ chatMessage: '' }));
+        const { chatMessage } = this.state;
+        
+        if(chatMessage !== '') {
+            this.props.sendMessage(chatMessage);
+            this.setState(prevState => ({ chatMessage: '' }));
+        }
     };
 
     private onMessageInputChange = (chatMessage: string) => {

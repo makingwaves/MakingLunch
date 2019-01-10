@@ -1,25 +1,22 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, memo } from 'react'
 import { View, Text, TouchableOpacity } from "react-native";
-import { connect } from 'react-redux';
 
 import styles from './style';
 
 import LunchDate from '../LunchDate';
 import GuestList from '../../../components/GuestList';
 import { Lunch, LunchStatus } from '../../../state/lunches/types';
-import { AppState } from './../../../state/state';
 import { navigationService } from '../../../services';
 
 export interface SingleLunchProps {
     lunch: Lunch;
-    userId: string;
     subTitle: string;
 };
 
 const SingleLunch: FunctionComponent<SingleLunchProps> = ({
-    lunch, userId, subTitle
+    lunch, subTitle
 }) => {
-    const date = lunch.times[userId];
+    const date = lunch.times[lunch.id];
     const isActive = lunch.status === LunchStatus.running;
 
     return (
@@ -35,10 +32,5 @@ const SingleLunch: FunctionComponent<SingleLunchProps> = ({
     );
 }
 
-const mapStateToProps = (state: AppState) => ({
-    userId: state.auth.profile.id
-});
 
-export default connect(
-    mapStateToProps
-)(SingleLunch);
+export default memo(SingleLunch);

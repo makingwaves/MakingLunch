@@ -131,5 +131,7 @@ export enum LunchActions {
 
 export enum LunchSagaActions {
     GET_LUNCHES = '@@lunches/get_lunches',
-    GET_LUNCH_CHAT = '@@lunches/get_lunch_chat'
+    POST_LUNCH = '@@lunches/post_lunch',
+    GET_LUNCH_CHAT = '@@lunches/get_lunch_chat',
+    SEND_CHAT_MESSAGE = '@@lunches/send_chat_message'
 }

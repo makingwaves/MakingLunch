@@ -9,7 +9,6 @@ export default StyleSheet.create({
         height: hp('10%'),
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
         paddingHorizontal: 20
     },
     screenTitle: {

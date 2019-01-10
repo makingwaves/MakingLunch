@@ -9,14 +9,15 @@ import styles from './style';
 interface BackButtonProps extends NavigationScreenProps {
     screenTitle?: string;
     backgroundColor?: string;
+    alignmentHorizontal?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-arround';
 }
 
 const backButton = require('./backArrow.svg');
 
 const BackButton: FunctionComponent<BackButtonProps> = ({
-    navigation, children, backgroundColor = 'transparent', screenTitle = null
+    navigation, children, backgroundColor = 'transparent',  alignmentHorizontal = 'center', screenTitle = null
 }) => (
-    <View style={[styles.container, { backgroundColor: backgroundColor }]}>
+    <View style={[styles.container, { backgroundColor: backgroundColor, justifyContent: alignmentHorizontal }]}>
         <TouchableOpacity style={styles.imageStyles} onPress={() => { navigation.goBack(); }}>
             <Image
                 source={backButton}

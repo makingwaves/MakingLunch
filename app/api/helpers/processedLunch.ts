@@ -1,16 +1,20 @@
 import dayjs from 'dayjs';
 
 import { LunchResponseDto, GuestResponseDto } from "../lunchesService/lunchesService";
-import { LunchStatus, LunchLocationMap, LunchTimeMap, Chat, LunchesMap } from "../../state/lunches/types";
+import { LunchStatus, LunchLocationMap, LunchTimeMap, Chat, LunchesMap, Location } from "../../state/lunches/types";
 import { MapperFn } from './utils';
 
 export type LunchesMapFn<T> = MapperFn<LunchResponseDto, T>;
 
 export const stringToDayJS = (dateString?: string) => dateString && typeof dateString === 'string' ? dayjs(dateString) : dayjs();
-export const getGivenKeysFromGuest = (guest: GuestResponseDto, keys: (keyof GuestResponseDto)[]) => (
+export const getGivenKeysFromGuest = <T>(guest: GuestResponseDto, keys: (keyof GuestResponseDto)[]): T => (
     keys && keys
         .reduce((keysObject, key) => (keysObject[key] = guest[key], keysObject), {})
-);
+) as T;
+export const getDefaultLunchObject = <T extends object>(lunch: LunchResponseDto, keys: (keyof GuestResponseDto)[]): T => ({
+    [lunch.id]: keys && keys
+        .reduce((keysObject, key) => (keysObject[key] = lunch[key], keysObject), {})
+} as T);
 export const mapAndExtendLunches = (
     lunches: LunchResponseDto[],
     idMapFn: LunchesMapFn<string>,
@@ -52,11 +56,15 @@ export const mapStatus = (lunch: LunchResponseDto): LunchStatus => {
 }
 export const mapLocations = (lunch: LunchResponseDto): LunchLocationMap => {
     return lunch && lunch.guests
-        .reduce((locationsObject, guest) => (locationsObject[guest.user.id] = getGivenKeysFromGuest(guest, ['latitude', 'longitude', 'radiusInMeters']), locationsObject), {});
+        .reduce((locationsObject, guest) => (
+            locationsObject[guest.user.id] = getGivenKeysFromGuest(guest, ['latitude', 'longitude', 'radiusInMeters']), locationsObject
+        ), getDefaultLunchObject<LunchLocationMap>(lunch, ['longitude', 'latitude', 'radiusInMeters']));
 }
 export const mapTimes = (lunch: LunchResponseDto): LunchTimeMap => {
     return lunch && lunch.guests
-        .reduce((timesObject, guest) => (timesObject[guest.user.id] = getGivenKeysFromGuest(guest, ['begin', 'end']), timesObject) , {});
+        .reduce((timesObject, guest) => (
+            timesObject[guest.user.id] = getGivenKeysFromGuest(guest, ['begin', 'end']), timesObject
+        ), getDefaultLunchObject<LunchTimeMap>(lunch, ['begin', 'end']));
 };
 export const mapMembers = (lunch: LunchResponseDto): string[] => {
     return lunch && lunch.guests
@@ -65,4 +73,3 @@ export const mapMembers = (lunch: LunchResponseDto): string[] => {
 export const mapChat = (lunch: LunchResponseDto): Chat => {
     return {};
 }
-

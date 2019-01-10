@@ -1,4 +1,4 @@
-import React, { memo, FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -27,14 +27,14 @@ const ExternalLogin: FunctionComponent<ExternalLoginProps> = ({ externalServiceL
             text={'Start with Facebook'}
             onPress={() => externalServiceLogin(AuthSagaActions.FACEBOOK_LOGIN)}
             iconContainerColor={'#4280cb'}
-            buttonStyles={styles.fbButtonStyle}
+            buttonStyles={[styles.fbButtonStyle, styles.buttonStyles]}
             imageType={socialTypes.facebook}
         />
         <CustomButton
             text={'Start with Google'}
             onPress={() => externalServiceLogin(AuthSagaActions.GOOGLE_LOGIN)}
             iconContainerColor={'#e65252'}
-            buttonStyles={styles.googleButtonStyle} 
+            buttonStyles={[styles.googleButtonStyle, styles.buttonStyles]} 
             imageType={socialTypes.google}
         /> 
     </View>
@@ -52,4 +52,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(HocFetchData(memo(ExternalLogin), 'Authorizing the user..'));
+)(HocFetchData(ExternalLogin, 'Authorizing the user..'));

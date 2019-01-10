@@ -12,7 +12,11 @@ const httpClient = axios.create({
 });
 
 httpClient.interceptors.request.use(
-    config => (config.headers['Authorization'] = 'Bearer ' + store.getState().auth.token, config),
+    config => {
+        if(!config.headers['Authorization'])
+            return (config.headers['Authorization'] = 'Bearer ' + store.getState().auth.token, config);
+        return config;
+    },
     error => error
 );
 

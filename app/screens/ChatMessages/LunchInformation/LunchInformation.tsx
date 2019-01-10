@@ -6,19 +6,28 @@ import styles from './styles';
 import GuestList from '../../../components/GuestList';
 
 export interface LunchInformationProps {
-    membersId: string[]
+    membersId: string[];
+    lunchDate: {
+        date: string;
+        hour: string;
+    };
 }
 
 const LunchInformation: FunctionComponent<LunchInformationProps> = ({
-    membersId
+    membersId, lunchDate
 }) => {
     return (
         <View style={styles.lunchInformationContainer}>
             <View style={styles.dateContainer}>
-                <Text style={styles.dateText}>13.05.18</Text>
-                <Text style={styles.hourText}>14:00</Text>
+                <Text style={styles.dateText}>{lunchDate.date}</Text>
+                <Text style={styles.hourText}>{lunchDate.hour}</Text>
             </View>
-            <GuestList guestsId={membersId} imageStyles={styles.imageStyles} />
+            <GuestList 
+                guestsId={membersId} 
+                imageStyles={styles.imageStyles} 
+                imageContainerStyles={styles.imageContainerStyles} 
+                guestListContainerStyles={styles.guestListContainerStyles}
+            />
         </View>
     );
 };

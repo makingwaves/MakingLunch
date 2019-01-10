@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {spacing, sizes} from '../../config/styles';
+import {spacing, sizes, borderRadius, colors} from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
@@ -8,11 +8,12 @@ export default StyleSheet.create({
         flex: 0,
         flexDirection: 'column',
     },
-
     bubble: {
         flex: 0,
         flexDirection: 'column',
         padding: spacing.gutter,
+        borderRadius: borderRadius.borderRadiusBase,
+        backgroundColor: colors.brandColorPrimary,
         overflow: 'hidden',
     },
 });
