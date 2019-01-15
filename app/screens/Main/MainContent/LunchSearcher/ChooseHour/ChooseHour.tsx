@@ -3,9 +3,9 @@ import { View, Text, Image, TimePickerAndroid } from 'react-native';
 import dayjs, { Dayjs } from 'dayjs';
 
 import styles from './style';
-import CustomButton from '../../../../components/CustomButton';
-import { triangleSides } from '../../../../components/Triangle/Triangle';
-import Bubble from '../../../../components/Bubble';
+import CustomButton from '../../../../../components/CustomButton';
+import { triangleSides } from '../../../../../components/Triangle/Triangle';
+import Bubble from '../../../../../components/Bubble';
 import TimePickerType from './TimePickerType';
 
 const CLOCK = require('./img/clock.png');

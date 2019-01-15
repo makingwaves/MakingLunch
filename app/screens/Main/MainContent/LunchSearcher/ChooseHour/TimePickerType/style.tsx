@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { fontSizes } from "../../../../../config/styles";
+import { fontSizes } from "../../../../../../config/styles";
 
 export default StyleSheet.create({
     timePickerContainer: {

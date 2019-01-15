@@ -28,6 +28,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
 
+import com.mapbox.rctmgl.RCTMGLPackage;
+
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 
 import java.util.Arrays;
@@ -57,7 +59,8 @@ public class MainApplication extends Application implements ReactApplication {
           new SvgPackage(),
           new RNGestureHandlerPackage(),
           new RNSecureKeyStorePackage(),
-          new RNUUIDGeneratorPackage()
+          new RNUUIDGeneratorPackage(),
+          new RCTMGLPackage()
       );
     }
 
@@ -75,6 +78,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    FacebookSdk.sdkInitialize(getApplicationContext());
     AppEventsLogger.activateApp(this);
     SoLoader.init(this, /* native exopackage */ false);
   }

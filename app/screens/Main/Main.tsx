@@ -4,19 +4,15 @@ import { View } from 'react-native';
 import styles from './style';
 
 import Menu from './Menu';
-import LunchSearcher from './LunchSearcher';
+import MainContent from './MainContent';
 
-export interface MainProps {
-    
-};
-
-const Main: FunctionComponent<MainProps> = ({
+const Main: FunctionComponent = ({
 
 }) => {
     return (
-        <View style={styles.mainContainer}>
+        <View style={styles.mainContainer}> 
             <Menu />
-            <LunchSearcher />
+            <MainContent />
         </View>
     );
 }

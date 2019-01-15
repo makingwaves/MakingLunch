@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo } from 'react';
+import React, { FunctionComponent, memo, Fragment } from 'react';
 import { View, Image } from 'react-native';
 
 import styles from './style';
@@ -17,7 +17,7 @@ const MenuItems: FunctionComponent<MenuItemsProps> = ({
     userData, logOut
 }) => {
     return (
-        <View style={styles.container}>
+        <Fragment>
             <CustomButton 
                 text={'Your profile'} 
                 iconContainerColor={colors.brandColorPrimary}
@@ -46,7 +46,7 @@ const MenuItems: FunctionComponent<MenuItemsProps> = ({
                 containerStyles={styles.buttonStyles}
                 textAlignment={'flex-start'}
             />
-        </View>
+        </Fragment>
     );
 };
 

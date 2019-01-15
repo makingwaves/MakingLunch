@@ -4,10 +4,6 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { colors } from '../../../../config/styles';
 
 export default StyleSheet.create({
-    container: {
-        height: hp('25%'),
-        backgroundColor: colors.brandColorPrimary
-    },
     buttonStyles: {
         marginHorizontal: 0,
         marginBottom: 0,

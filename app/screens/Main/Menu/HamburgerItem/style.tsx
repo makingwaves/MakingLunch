@@ -5,12 +5,13 @@ import { colors } from "../../../../config/styles";
 
 export default StyleSheet.create({
     hamburgerContainer: {
-        position: 'absolute',
+        position: 'absolute', 
         right: 20,
         top: hp('3%'),
+        alignSelf: 'flex-end',
         justifyContent: 'space-between',
         width: wp('8%'),
-        height: hp('3%')
+        height: hp('3%'),
     },
     beams: {
         height: 4,

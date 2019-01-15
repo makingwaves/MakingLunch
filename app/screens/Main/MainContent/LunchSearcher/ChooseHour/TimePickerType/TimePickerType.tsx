@@ -2,7 +2,7 @@ import React, { FunctionComponent, memo } from 'react';
 
 import styles from './style';
 
-import CustomButton from '../../../../../components/CustomButton';
+import CustomButton from '../../../../../../components/CustomButton';
 
 export type LunchTimeType = 'lunchStart' | 'lunchEnd';
 

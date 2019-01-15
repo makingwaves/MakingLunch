@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -22,7 +22,7 @@ export interface MenuState {
     menuItemsVisible: boolean;
 };
 
-class Menu extends Component<MenuProps, MenuState> {
+class Menu extends PureComponent<MenuProps, MenuState> {
     public state: MenuState;
 
     constructor(props: MenuProps) {
@@ -39,6 +39,7 @@ class Menu extends Component<MenuProps, MenuState> {
 
     private toggleMenuVisibility = () => {
         this.setState(prevState => ({ menuItemsVisible: !prevState.menuItemsVisible }));
+        console.log('clicked');
     }
 
     public render() {
@@ -51,10 +52,11 @@ class Menu extends Component<MenuProps, MenuState> {
         } = this.state;
 
         return (
-            <View style={styles.menuContainer}>
+            <Fragment>
                 <ConditionalAnimation
                     condition={menuItemsVisible}
-                    duration={150}
+                    duration={200}
+                    animationViewStyles={styles.animationViewStyles}
                     showAnimationStyles={styles.showMenuStyles}
                     hideAnimatioStyles={styles.hideMenuStyles}
                 >
@@ -64,7 +66,7 @@ class Menu extends Component<MenuProps, MenuState> {
                     isClicked={menuItemsVisible}
                     onHamburgerClick={this.toggleMenuVisibility}
                 />
-            </View>
+            </Fragment>
         )
     }
 }
