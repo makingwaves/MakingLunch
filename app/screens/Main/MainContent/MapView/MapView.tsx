@@ -1,8 +1,6 @@
-import React, { PureComponent, RefObject, createRef, Fragment } from 'react';
+import React, { PureComponent, RefObject, createRef } from 'react';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import circle from '@turf/circle';
-import { Text } from 'react-native';
-
 
 import styles from './style';
 
@@ -61,39 +59,43 @@ class MapView extends PureComponent<object, MapViewState> {
         } catch(err) {}
     };
 
+    private changeCircleCoord = ({ geometry }) => {
+        const [lng, lat] = geometry.coordinates;
+        this.setState(prevState => ({ lng, lat })); 
+    };
+
     public render() {
         const {
             lng, 
             lat,
-            circleRadius,
+            circleRadius
         } = this.state;
 
         const shape = this.getCircleShape(lng, lat, circleRadius); 
 
         return (
-            <Fragment>
-                <Mapbox.MapView 
-                    animated={true}
-                    styleURL={Mapbox.StyleURL.Street}
-                    style={styles.absoluteContainer}
-                    compassEnabled={false} 
-                    ref={this.mapboxRef}
-                    showUserLocation={true}
-                    onRegionIsChanging={this.onRegionChange}
-                >
-                    <Mapbox.ShapeSource 
-                        id={'circle'}
-                        shape={shape}
-                        >
-                        <Mapbox.FillLayer  
-                            id={'circleLayer'}
-                            style={{
-                                fillOpacity: .25,
-                            }} 
-                        />
-                    </Mapbox.ShapeSource>
-                </Mapbox.MapView>
-            </Fragment>
+            <Mapbox.MapView 
+                animated={true}
+                styleURL={Mapbox.StyleURL.Street}
+                style={styles.absoluteContainer}
+                compassEnabled={false} 
+                ref={this.mapboxRef}
+                showUserLocation={true}
+                onPress={this.changeCircleCoord}
+                onRegionIsChanging={this.onRegionChange}
+            >
+                <Mapbox.ShapeSource 
+                    id={'circle'}
+                    shape={shape}
+                    >
+                    <Mapbox.FillLayer  
+                        id={'circleLayer'}
+                        style={{
+                            fillOpacity: .25,
+                        }} 
+                    />
+                </Mapbox.ShapeSource>
+            </Mapbox.MapView>
         )
     }
 }
