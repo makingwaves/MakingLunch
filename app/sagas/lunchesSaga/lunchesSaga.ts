@@ -5,14 +5,19 @@ import { LunchSagaActions } from '../../state/lunches/types';
 import { lunchesActionsCreators } from '../../state/lunches/actions';
 import { hasKey } from '../utils/pureFn/pureFn';
 import lunchesService, { LunchBasicResponse } from '../../api/lunchesService/lunchesService';
+import { membersActionsCreators } from '../../state/members/actions';
 
 export function* getLunchesFlow() {
     try {
         yield put(lunchesActionsCreators.startRequest());
-        const lunches = yield call(
-            [lunchesService, lunchesService.getLunches]
+        const [lunches, members] = yield call(
+            [lunchesService, lunchesService.getLunchesAndMembers]
         );
 
+        console.log(members);
+        console.log(lunches);
+
+        yield put(membersActionsCreators.batchSetMembers(members));
         yield put(lunchesActionsCreators.setLunches(lunches));
         yield put(lunchesActionsCreators.requestSuccess());
     } catch(err) {

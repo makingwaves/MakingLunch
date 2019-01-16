@@ -16,7 +16,7 @@ export default StyleSheet.create({
     },
     beams: {
         height: 4,
-        borderRadius: 10,
+        borderRadius: 10, 
         backgroundColor: colors.brandColorSecondary
     }
 });

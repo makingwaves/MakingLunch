@@ -3,8 +3,8 @@ import { Request } from '../common/types';
 export interface Member {
     id: string;
     name: string;
-    description: string;
     photo: string;
+    description: string;
 }
 
 export interface MembersMap {

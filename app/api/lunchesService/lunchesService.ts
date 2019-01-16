@@ -2,9 +2,11 @@ import httpClient from './../../config/axios';
 
 import { ErrorHandleService } from "../../services";
 
-import { BasicProfile } from './../../state/auth/types';
+import { MembersMap } from '../../state/members/types';
 import { LunchesMap } from "../../state/lunches/types";
+import { BasicProfile } from './../../state/auth/types';
 import { ErrorResponse } from '../../services/errorHandleService/errorHandleService';
+import { mapAndExtendGuests, flattenGuestFn } from '../helpers/processedMember';
 import { mapAndExtendLunches, mapId, mapStatus, mapLocations, mapTimes, mapMembers, mapChat } from '../helpers/processedLunch';
 
 export interface LunchBasicResponse {
@@ -26,10 +28,16 @@ export interface LunchResponseDto extends LunchBasicResponse {
 
 class LunchesService extends ErrorHandleService {
 
-    public getLunches(): Promise<LunchesMap | ErrorResponse> {
+    public getLunchesAndMembers(): Promise<(LunchesMap | MembersMap)[] | ErrorResponse> {
         return httpClient.get<LunchResponseDto[]>('/api/Lunches')
-            .then(res => this.mapLunchesResponse(res.data))
+            .then(res => [this.mapLunchesResponse(res.data), this.mapMembersFromResponse(res.data)])
             .catch(err => this.getErrorMessage(err, 'An error occured while trying to get Lunches.'))
+    } 
+
+    private mapMembersFromResponse(res: LunchResponseDto[]): MembersMap {
+        return mapAndExtendGuests(res, 
+            lunches => flattenGuestFn(lunches)
+        );
     }
 
     private mapLunchesResponse(res: LunchResponseDto[]): LunchesMap {
