@@ -53,15 +53,17 @@ class Menu extends PureComponent<MenuProps, MenuState> {
 
         return (
             <Fragment>
-                <ConditionalAnimation
-                    condition={menuItemsVisible}
-                    duration={200}
-                    animationViewStyles={styles.animationViewStyles}
-                    showAnimationStyles={styles.showMenuStyles}
-                    hideAnimatioStyles={styles.hideMenuStyles}
-                >
-                    <MenuItems logOut={logOut} userData={userData} />
-                </ConditionalAnimation>
+                <View style={styles.viewContainer}>
+                    <ConditionalAnimation 
+                        condition={menuItemsVisible}
+                        duration={200}
+                        animationViewStyles={styles.animationViewStyles}
+                        showAnimationStyles={styles.showMenuStyles}
+                        hideAnimatioStyles={styles.hideMenuStyles}
+                    >
+                        <MenuItems logOut={logOut} userData={userData} /> 
+                    </ConditionalAnimation>
+                </View>
                 <HamburgerItem
                     isClicked={menuItemsVisible}
                     onHamburgerClick={this.toggleMenuVisibility}

@@ -10,8 +10,9 @@ export default StyleSheet.create({
         top: hp('3%'),
         alignSelf: 'flex-end',
         justifyContent: 'space-between',
-        width: wp('8%'),
+        width: wp('10%'),
         height: hp('3%'),
+        zIndex: 123213213231
     },
     beams: {
         height: 4,
