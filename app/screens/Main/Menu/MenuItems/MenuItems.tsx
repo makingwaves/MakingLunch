@@ -26,7 +26,7 @@ const MenuItems: FunctionComponent<MenuItemsProps> = ({
                 containerStyles={styles.buttonStyles}
                 textAlignment={'flex-start'}  
             >
-                <Avatar photo={userData.photo} imageStyles={styles.userPhotoStyles} imageContainer={styles.userPhotoContainer} />
+                <Avatar photo={userData && userData.photo} imageStyles={styles.userPhotoStyles} imageContainer={styles.userPhotoContainer} />
             </CustomButton>
             <CustomButton
                 text={'Your lunches'} 

@@ -8,7 +8,6 @@ import { AuthSagaActions } from '../../state/auth/types';
 import { authActionsCreators } from '../../state/auth/actions';
 import { navigationService } from '../../services';
 
-import { hasKey } from '../utils/pureFn/pureFn';
 import { TOKEN_KEY } from './../loginSaga/loginSaga';
 
 export function* removeSecureStoredKey(key: string) {

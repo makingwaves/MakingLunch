@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import { lunchesActionsCreators } from "../../state/lunches/actions";
 import { Chat, AddChatMessagePayload, LunchSagaActions, MessageStatus, UpdateChatMessagePayload, RemoveChatMessagePayload } from "../../state/lunches/types";
 import { chatService } from "../../api";
-import { hasKey } from "../utils/pureFn/pureFn";
 import { PostChatMessageDto } from "../../api/chatService/chatService";
 import { AppState } from "../../state/state";
 

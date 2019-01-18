@@ -6,7 +6,6 @@ import { AuthSagaActions, Profile } from '../../state/auth/types';
 import { authActionsCreators } from '../../state/auth/actions';
 import { accountService } from './../../api';
 
-import { hasKey } from '../utils/pureFn/pureFn';
 import { TOKEN_KEY, configureGoogle } from '../loginSaga/loginSaga';
 import { AppState } from '../../state/state';
 import { Platform } from 'react-native';

@@ -3,7 +3,6 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 
 import { LunchSagaActions } from '../../state/lunches/types';
 import { lunchesActionsCreators } from '../../state/lunches/actions';
-import { hasKey } from '../utils/pureFn/pureFn';
 import lunchesService, { LunchBasicResponse } from '../../api/lunchesService/lunchesService';
 import { membersActionsCreators } from '../../state/members/actions';
 import { delay } from 'redux-saga';

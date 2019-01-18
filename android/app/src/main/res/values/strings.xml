@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">makingLunch</string>
     <string name="facebook_app_id">@string/FACEBOOK_APP_ID</string>
+    <string name="google_maps_id">@string/GOOGLE_MAPS_ID</string>
 </resources>
