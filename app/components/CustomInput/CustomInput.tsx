@@ -19,6 +19,7 @@ export interface CustomInputProps {
     readonly onChangeText: (text: string, type: string) => void; 
     readonly type: string;
     readonly label?: string;
+    readonly multiLine?: boolean;
     readonly placeholder?: string;
     readonly triangleSide?: triangleSides;
     readonly size?: number;
@@ -27,13 +28,14 @@ export interface CustomInputProps {
 };
 
 const CustomInput: FunctionComponent<CustomInputProps> = ({
-    value, type, onChangeText, triangleSide, label, size = wp('8%'), placeholder = '', containerStyles = {}, inputStyles = {}
+    value, type, multiLine = false, onChangeText, triangleSide, label, size = wp('8%'), placeholder = '', containerStyles = {}, inputStyles = {}
 }) => (
     <View style={[styles.container, containerStyles]}>
         {label && <Text style={styles.label}>{label}</Text>}
         <TextInput 
             style={[styles.input, inputStyles]}
             value={value}
+            multiline={multiLine}
             onChangeText={(text) => onChangeText(text, type)}
             placeholder={placeholder}
         />

@@ -6,6 +6,7 @@ import { lunchesActionsCreators } from '../../state/lunches/actions';
 import { hasKey } from '../utils/pureFn/pureFn';
 import lunchesService, { LunchBasicResponse } from '../../api/lunchesService/lunchesService';
 import { membersActionsCreators } from '../../state/members/actions';
+import { delay } from 'redux-saga';
 
 export function* getLunchesFlow() {
     try {
@@ -14,14 +15,12 @@ export function* getLunchesFlow() {
             [lunchesService, lunchesService.getLunchesAndMembers]
         );
 
-        console.log(members);
-        console.log(lunches);
-
         yield put(membersActionsCreators.batchSetMembers(members));
+        yield delay(2000);
         yield put(lunchesActionsCreators.setLunches(lunches));
         yield put(lunchesActionsCreators.requestSuccess());
     } catch(err) {
-        yield put(lunchesActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when trying to fetch lunches.'));
+        yield put(lunchesActionsCreators.requestFail('Error when trying to fetch lunches.'));
     }
 }
 
@@ -30,7 +29,7 @@ export function* postLunchFlow({ data }: { type: string, data: LunchBasicRespons
         yield put(lunchesActionsCreators.startRequest());
         console.log(data);
     } catch(err) {
-        yield put(lunchesActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when trying to search for lunch.'));
+        yield put(lunchesActionsCreators.requestFail('Error when trying to search for lunch.'));
     }
 }
 

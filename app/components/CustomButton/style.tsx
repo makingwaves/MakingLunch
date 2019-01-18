@@ -26,8 +26,8 @@ export default StyleSheet.create({
         color: colors.colorLightest,
     },
     iconContainer: {
-        aspectRatio: 1,
         height: '100%',
+        aspectRatio: 1,
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center'

@@ -1,27 +1,20 @@
 import { StyleSheet } from 'react-native';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import { colors } from '../../config/styles';
 
 export default StyleSheet.create({
     userProfileContainer: {
         flex: 1,
-        backgroundColor: colors.colorLight
+        backgroundColor: colors.colorLight 
     },
     formContainer: {
-        marginHorizontal: 60
-    },
-    keyboardHideStyles: {
-        height: hp('30%'),
-        opacity: 1,
-    },
-    keyboardShowStyles: {
-        height: 0,
-        opacity: 0
+        marginHorizontal: 60,
+        flex: 1, 
     },
     imageContainer: {
         width: '100%',
-        height: '100%'
+        height: hp('30%'),
     },
     imageStyles: {
         borderBottomRightRadius: 0
@@ -36,11 +29,12 @@ export default StyleSheet.create({
         borderBottomLeftRadius: 0,
         textAlignVertical: 'top',
     },
-    buttonContainerStyles: {
+    buttonContainerStyles: { 
         width: 150,
-        height: hp('7%'),
+        height: hp('7%'), 
         marginTop: 20,
         marginHorizontal: 0,
+        marginBottom: wp('5%'), 
         marginLeft: 'auto',
     },
     buttonStyles: {

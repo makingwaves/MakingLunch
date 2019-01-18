@@ -12,7 +12,8 @@ export default StyleSheet.create({
         height: hp('7%'),
         flexDirection: 'row',
         borderTopWidth: 2,
-        borderTopColor: colors.brandColorPrimary
+        borderTopColor: colors.brandColorPrimary,
+        zIndex: 10
     },
     inputContainerStyles: {
         marginTop: 0,

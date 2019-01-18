@@ -5,10 +5,8 @@ import { connect } from 'react-redux';
 import styles from './style';
 
 import MenuItems from './MenuItems';
-import HocFetchData from '../../../components/HocFetchData';
 import HamburgerItem from './HamburgerItem';
 import { AppState } from '../../../state/state';
-import { RequestState } from '../../../state/common/types';
 import { AuthSagaActions, Profile } from '../../../state/auth/types';
 import ConditionalAnimation from '../../../components/ConditionalAnimation';
 
@@ -39,7 +37,6 @@ class Menu extends PureComponent<MenuProps, MenuState> {
 
     private toggleMenuVisibility = () => {
         this.setState(prevState => ({ menuItemsVisible: !prevState.menuItemsVisible }));
-        console.log('clicked');
     }
 
     public render() {
@@ -74,9 +71,7 @@ class Menu extends PureComponent<MenuProps, MenuState> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    userData: state.auth.profile,
-    isLoading: state.auth.request.state === RequestState.inProgress,
-    errorMsg: state.auth.request.errorMsg
+    userData: state.auth.profile
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -87,6 +82,6 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(HocFetchData(Menu));
+)(Menu);
 
  

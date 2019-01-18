@@ -1,9 +1,10 @@
-import { KeyboardAvoidingView, SafeAreaView } from 'react-native';
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { NavigationScreenProps } from 'react-navigation';
+import { KeyboardAvoidingView, ScrollView } from 'react-native';
 
 import styles from './style';
+import { colors } from '../../config/styles';
 
 import BackButton from '../../components/BackButton';
 import { Profile, AuthSagaActions } from '../../state/auth/types';
@@ -12,7 +13,6 @@ import { AppState } from './../../state/state';
 import CustomButton from '../../components/CustomButton';
 import { triangleSides } from '../../components/Triangle/Triangle';
 import Avatar from '../../components/Avatar/Avatar';
-import KeyboardAnimationView from '../../components/KeyboardAnimationView';
 import HocFetchData from '../../components/HocFetchData';
 import { RequestState } from '../../state/common/types';
 
@@ -49,16 +49,10 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
         const { userData } = this.state; 
 
         return ( 
-            <SafeAreaView style={styles.userProfileContainer}>
-                <BackButton navigation={navigation} />
-                <KeyboardAvoidingView style={styles.formContainer} behavior={'padding'}> 
-                    <KeyboardAnimationView
-                        duration={250}
-                        keyboardHideStyles={styles.keyboardHideStyles}
-                        keyboardShowStyles={styles.keyboardShowStyles}
-                    >
-                        <Avatar photo={userData.photo} imageContainer={styles.imageContainer} imageStyles={styles.imageStyles} triangleSide={triangleSides.bottomRight} />
-                    </KeyboardAnimationView>
+            <ScrollView style={styles.userProfileContainer}>
+                <BackButton navigation={navigation} backgroundColor={colors.colorLight} /> 
+                <KeyboardAvoidingView style={styles.formContainer} behavior={'padding'}>  
+                    <Avatar photo={userData.photo} imageContainer={styles.imageContainer} imageStyles={styles.imageStyles} triangleSide={triangleSides.bottomRight} />
                     <CustomInput 
                         value={userData.name}
                         type={'name'}
@@ -70,7 +64,8 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
                     <CustomInput 
                         value={userData.description}
                         type={'description'}
-                        onChangeText={this.onInputChange}
+                        onChangeText={this.onInputChange} 
+                        multiLine={true}
                         label={'Something about you'} 
                         triangleSide={triangleSides.bottomLeft}
                         inputStyles={styles.descriptionInput}
@@ -83,14 +78,15 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
                         triangleSide={triangleSides.bottomLeft}
                     />
                 </KeyboardAvoidingView>
-            </SafeAreaView>
+            </ScrollView>
         ); 
     }
 }
 
 const mapStateToProps = (state: AppState) => ({
     userData: state.auth.profile,
-    isLoading: state.auth.request.state === RequestState.inProgress
+    isLoading: state.auth.request.state === RequestState.inProgress,
+    errorMsg: state.auth.request.errorMsg
 });
 
 const mapDispatchToProps = dispatch => ({

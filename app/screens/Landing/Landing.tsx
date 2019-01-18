@@ -58,7 +58,7 @@ class Landing extends PureComponent<NavigationScreenProps> {
                     text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet."
                 />
             </Bubble>
-            <ExternalLogin />
+            <ExternalLogin /> 
         </View>
     )
 

@@ -8,19 +8,20 @@ import { colors } from '../../config/styles';
 
 import BackButton from '../../components/BackButton';
 import { AppState } from './../../state/state';
-import HocFetchData from './../../components/HocFetchData';
 import { RequestState } from '../../state/common/types';
 import { LunchSagaActions, LunchStatus, Lunch } from '../../state/lunches/types';
 import SingleLunch from './SingleLunch';
 import { mapLunchesToArray } from './lunchesListSelectors';
+import LunchesPlaceholder from './LunchesPlaceholder';
 
 export interface LunchesListDto {
-    title: LunchStatus;
     data: Lunch[];
+    title: LunchStatus;
 };
 
 export interface LunchesListProps extends NavigationScreenProps {
     lunches: LunchesListDto[];
+    isLoading: boolean;
     getLunches: () => void;
 };
 
@@ -54,25 +55,30 @@ class LunchesList extends PureComponent<LunchesListProps> {
     public render() {
         const {
             lunches,
+            isLoading,
             navigation
         } = this.props;
 
         return (
             <View style={styles.lunchesListContainer}>
                 <BackButton navigation={navigation} screenTitle={'Your lunches'} backgroundColor={colors.brandColorSecondary} />
-                <SectionList
-                    style={styles.sectionList}
-                    renderSectionHeader={({ section: { title, data } }) => (
-                        <View>
-                            {data && !!data.length && <Text style={styles.sectionTitle}>{title}</Text>}
-                        </View>
-                    )}
-                    renderItem={({ item, section }) => (
-                        <SingleLunch lunch={item} subTitle={this.lunchTypesTitles[section.title].subTitle} />
-                    )}
-                    sections={lunches}
-                    keyExtractor={(item, index) => item + index}
-                />
+                <LunchesPlaceholder 
+                    onReady={!isLoading}
+                >
+                    <SectionList
+                        style={styles.sectionList}
+                        renderSectionHeader={({ section: { title, data } }) => (
+                            <View>
+                                {data && !!data.length && <Text style={styles.sectionTitle}>{title}</Text>}
+                            </View>
+                        )}
+                        renderItem={({ item, section }) => (
+                            <SingleLunch lunch={item} subTitle={this.lunchTypesTitles[section.title].subTitle} />
+                        )}
+                        sections={lunches}
+                        keyExtractor={(item, index) => item + index}
+                    />
+                </LunchesPlaceholder>
             </View>
         );
     }
@@ -80,8 +86,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
 
 const mapStateToProps = (state: AppState) => ({
     lunches: mapLunchesToArray(state),
-    isLoading: state.lunches.request.state === RequestState.inProgress,
-    errorMsg: state.lunches.request.errorMsg
+    isLoading: state.lunches.request.state === RequestState.inProgress
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -91,4 +96,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(HocFetchData(LunchesList, 'Fetching lunches data..'));
+)(LunchesList);

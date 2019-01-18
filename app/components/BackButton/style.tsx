@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { colors, fontSizes, fontWeights } from '../../config/styles';
+import { colors, fontSizes } from '../../config/styles';
 
 export default StyleSheet.create({
     container: {
@@ -9,7 +9,8 @@ export default StyleSheet.create({
         height: hp('10%'),
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        zIndex: 9
     },
     screenTitle: {
         color: colors.brandColorPrimary,

@@ -5,14 +5,12 @@ import { AppState } from '../../../state/state';
 import { ChatProps } from '../ChatMessages';
 import { Chat, Message } from '../../../state/lunches/types';
 
-
-
 const getLunch = (state: AppState, props: ChatProps) => state.lunches.data[props.navigation.getParam('lunch').id];
 
 const getChatMessages = (chatMessages: Chat): Message[] => {
     return chatMessages && Object.keys(chatMessages)
         .reduce((messagesArray, key) => (messagesArray.push(chatMessages[key]), messagesArray), [])
-        .sort((a, b) => a.time > b.time ? 1 : a.time < b.time ? -1 : 0);
+        .sort((a, b) => a.time < b.time ? 1 : a.time > b.time ? -1 : 0);
 };
 
 const getMembers = (members: string[]): string[] => members;

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, memo } from 'react'
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import styles from './styles';
 
@@ -11,10 +11,11 @@ export interface LunchInformationProps {
         date: string;
         hour: string;
     };
+    onGuestListClick: () => void;
 }
 
 const LunchInformation: FunctionComponent<LunchInformationProps> = ({
-    membersId, lunchDate
+    membersId, lunchDate, onGuestListClick
 }) => {
     return (
         <View style={styles.lunchInformationContainer}>
@@ -22,12 +23,14 @@ const LunchInformation: FunctionComponent<LunchInformationProps> = ({
                 <Text style={styles.dateText}>{lunchDate.date}</Text>
                 <Text style={styles.hourText}>{lunchDate.hour}</Text>
             </View>
-            <GuestList 
-                guestsId={membersId} 
-                imageStyles={styles.imageStyles} 
-                imageContainerStyles={styles.imageContainerStyles} 
-                guestListContainerStyles={styles.guestListContainerStyles}
-            />
+            <TouchableOpacity onPress={onGuestListClick}>
+                <GuestList 
+                    guestsId={membersId} 
+                    imageStyles={styles.imageStyles} 
+                    imageContainerStyles={styles.imageContainerStyles} 
+                    guestListContainerStyles={styles.guestListContainerStyles}
+                />
+            </TouchableOpacity>
         </View>
     );
 };

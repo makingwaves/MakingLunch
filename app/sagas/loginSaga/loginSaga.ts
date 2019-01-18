@@ -2,12 +2,12 @@ import { takeLatest, call, put, CallEffect } from 'redux-saga/effects';
 import { LoginManager, AccessToken, LoginResult } from "react-native-fbsdk";
 import { GoogleSignin, User } from 'react-native-google-signin';
 import Config from 'react-native-config';
-import { Platform } from 'react-native';
 import RNSecureKeyStore, { ACCESSIBLE } from "react-native-secure-key-store";
 
 import { AuthSagaActions } from '../../state/auth/types';
 import { authActionsCreators } from '../../state/auth/actions';
 
+import { getUserDataFlow } from '../userAccountSaga/userAccountSaga';
 import { navigationService } from '../../services';
 import { FacebookDataResult } from '../../api/facebookLoginService/facebookLoginService';
 import { UserDataResponse } from '../../api/accountService/accountService';
@@ -81,7 +81,9 @@ export function* facebookLoginFlow() {
                 [accountService, accountService.sendUserData],
                 mapDataToResponse(facebookUserData, 'facebook', accessToken)
             );
-
+            
+            yield call(getUserDataFlow);
+            
             yield call(setSecureStoredKey, TOKEN_KEY, userDataResponse.token);
             yield put(authActionsCreators.setToken(userDataResponse.token));
             yield put(authActionsCreators.requestSuccess());
@@ -89,7 +91,7 @@ export function* facebookLoginFlow() {
             yield navigationService.navigate(userDataResponse.isNewUser ? 'UserProfile' : 'App');
         }
     } catch(err) {
-        yield put(authActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when loggin in to Facebook.'));
+        yield put(authActionsCreators.requestFail('Error when loggin in to Facebook.'));
     }
 }
 
@@ -111,13 +113,19 @@ export function* googleLoginFlow() {
             mapDataToResponse(userInfo.user, 'google', token)
         );
 
-        yield call(setSecureStoredKey, TOKEN_KEY, userDataResponse.token);
-        yield put(authActionsCreators.setToken(userDataResponse.token));
-        yield put(authActionsCreators.requestSuccess());
+        try {
+            yield call(getUserDataFlow); 
 
-        yield navigationService.navigate(userDataResponse.isNewUser ? 'UserProfile' : 'App');
+            yield call(setSecureStoredKey, TOKEN_KEY, userDataResponse.token);
+            yield put(authActionsCreators.setToken(userDataResponse.token));
+            // yield put(authActionsCreators.requestSuccess());
+    
+            // // yield navigationService.navigate(userDataResponse.isNewUser ? 'UserProfile' : 'App');
+        } catch(err) {
+            yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
+        }
     } catch(err) {
-        yield put(authActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when loggin in to Google Account.'));
+        yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
     } 
 }
 

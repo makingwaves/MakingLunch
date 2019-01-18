@@ -51,7 +51,7 @@ const CustomButton: FunctionComponent<CustomButtonProps> = ({
                 <View style={[styles.textContainer, { alignItems: textAlignment }]}>
                     <Text style={[styles.text, textButtonStyles]}>
                         {text}
-                    </Text>
+                    </Text> 
                 </View>
             </View>
             {triangleSide && <Triangle size={size} triangleSide={triangleSide}/>}

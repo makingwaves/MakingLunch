@@ -1,5 +1,4 @@
 import React, { FunctionComponent, memo, Fragment } from 'react';
-import { View, Image } from 'react-native';
 
 import styles from './style';
 
@@ -7,6 +6,7 @@ import { Profile } from '../../../../state/auth/types';
 import { colors } from '../../../../config/styles';
 import CustomButton from '../../../../components/CustomButton';
 import { navigationService } from '../../../../services';
+import Avatar from '../../../../components/Avatar';
 
 export interface MenuItemsProps {
     logOut: () => void;
@@ -26,21 +26,17 @@ const MenuItems: FunctionComponent<MenuItemsProps> = ({
                 containerStyles={styles.buttonStyles}
                 textAlignment={'flex-start'}  
             >
-                <View style={styles.userPhotoContainer}>  
-                    {userData && userData.photo && <Image style={styles.userPhotoStyles} source={{uri: userData.photo}} resizeMode={'cover'} />}
-                </View>
+                <Avatar photo={userData.photo} imageStyles={styles.userPhotoStyles} imageContainer={styles.userPhotoContainer} />
             </CustomButton>
             <CustomButton
                 text={'Your lunches'} 
-                iconContainerColor={colors.brandColorPrimary}
                 onPress={() => navigationService.navigate('LunchesList')} 
                 imageType={'Lunch'}
-                containerStyles={styles.buttonStyles}
+                containerStyles={styles.buttonStyles}  
                 textAlignment={'flex-start'}
             />
             <CustomButton 
                 text={'Log out'} 
-                iconContainerColor={colors.brandColorPrimary}
                 onPress={() => logOut()}
                 imageType={'Logout'}
                 containerStyles={styles.buttonStyles}

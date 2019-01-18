@@ -41,7 +41,7 @@ export function* getUserDataFlow() {
         yield put(authActionsCreators.setProfile(userData));
         yield put(authActionsCreators.requestSuccess());
     } catch(err) {
-        yield put(authActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when trying to fetch user data.'));
+        yield put(authActionsCreators.requestFail('Error when trying to fetch user data.'));
     }
 }
 
@@ -57,7 +57,7 @@ export function* updateUserDataFlow({ userData }: { type: string, userData: Prof
         yield put(authActionsCreators.setProfile(updatedUserData));
         yield put(authActionsCreators.requestSuccess());
     } catch(err) {
-        yield put(authActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when trying to update user data.'));
+        yield put(authActionsCreators.requestFail('Error when trying to update user data.'));
     }
 }
 

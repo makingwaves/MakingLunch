@@ -56,14 +56,16 @@ export const getUserId = (store: AppState) => store.auth.profile.id;
 
 export function* getLunchChatFlow({ lunchId }: { type: string, lunchId: string }) {
     try {
+        yield put(lunchesActionsCreators.startRequest());
         const chat: Chat = yield call(
             [chatService, chatService.getChatMessages],
             lunchId
         );
 
+        yield put(lunchesActionsCreators.requestSuccess());
         yield put(lunchesActionsCreators.setLunchChat({ lunchId, chat }));
     } catch(err) {
-        yield put(lunchesActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when trying to fetch chat messages.'));
+        yield put(lunchesActionsCreators.requestFail('Error when trying to fetch chat messages.'));
     }
 }
 
@@ -96,7 +98,7 @@ export function* postChatMessage({ payload }: { type: string, payload: PostChatM
             payload.lunchId, uuid
         );
         yield put(lunchesActionsCreators.removeChatMessage(deletedMessage));
-        yield put(lunchesActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when trying to post message.'));
+        yield put(lunchesActionsCreators.requestFail('Error when trying to post message.'));
     }
 }
 

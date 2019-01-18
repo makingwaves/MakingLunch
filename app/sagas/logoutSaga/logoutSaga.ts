@@ -45,7 +45,7 @@ export function* logoutFlow() {
 
         yield navigationService.navigate('Auth');
     } catch(err) {
-        yield put(authActionsCreators.requestFail(hasKey(err, 'message') ? err.message : 'Error when trying to logout.'));
+        yield put(authActionsCreators.requestFail('Error when trying to logout.'));
     }
 }
 

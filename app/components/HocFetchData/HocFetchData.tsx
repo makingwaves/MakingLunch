@@ -15,7 +15,6 @@ export interface HocFeatchDataState {
 const HocFetchData = <P extends object>(
     WrappedComponent: React.ComponentType<P>,
     loadingText: string = 'Loading',
-    
 ) => (
     class extends Component<P & HocFetchDataProps, HocFeatchDataState> {
         public state: HocFeatchDataState;

@@ -28,8 +28,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
 
-import com.mapbox.rctmgl.RCTMGLPackage;
-
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 
 import java.util.Arrays;
@@ -59,8 +57,7 @@ public class MainApplication extends Application implements ReactApplication {
           new SvgPackage(),
           new RNGestureHandlerPackage(),
           new RNSecureKeyStorePackage(),
-          new RNUUIDGeneratorPackage(),
-          new RCTMGLPackage()
+          new RNUUIDGeneratorPackage()
       );
     }
 

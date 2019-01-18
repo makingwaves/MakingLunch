@@ -13,7 +13,6 @@ import BackButton from '../../components/BackButton';
 import { Message, LunchSagaActions } from '../../state/lunches/types';
 import { colors } from '../../config/styles';
 import { RequestState } from '../../state/common/types';
-import HocFetchData from '../../components/HocFetchData';
 import { AppState } from '../../state/state';
 
 export interface ChatProps extends NavigationScreenProps {
@@ -24,6 +23,7 @@ export interface ChatProps extends NavigationScreenProps {
         date: string;
         hour: string;
     };
+    isLoading: boolean;
     getChatMessages: (lunchId: string) => void;
     sendMessage: (messageContent: string, lunchId: string) => void;
 };
@@ -42,12 +42,17 @@ class ChatMessages extends Component<ChatProps> {
         this.props.sendMessage(messageContent, this.props.id);
     }
 
+    private onGuestListClick = () => {
+        this.props.navigation.navigate('GuestsSwiper', { membersId: this.props.members });
+    };
+
     public render() {
         const {
             members,
+            isLoading,
             lunchDate,
             navigation,
-            chatMessages,
+            chatMessages, 
         } = this.props;
 
         return (
@@ -56,10 +61,12 @@ class ChatMessages extends Component<ChatProps> {
                     <LunchInformation 
                         membersId={members} 
                         lunchDate={lunchDate}
+                        onGuestListClick={this.onGuestListClick}
                     />
                 </BackButton>
                 <Messages 
                     messages={chatMessages}
+                    refreshing={isLoading}
                 />
                 <ChatMessageInput 
                     sendMessage={this.onMessageSend}
@@ -82,4 +89,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(HocFetchData(ChatMessages, 'Fetching chat messages..'));
+)(ChatMessages);

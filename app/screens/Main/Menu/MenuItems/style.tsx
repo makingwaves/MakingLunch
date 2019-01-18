@@ -13,14 +13,14 @@ export default StyleSheet.create({
         backgroundColor: colors.brandColorPrimary
     },
     userPhotoContainer: {
-        aspectRatio: 1,
         height: '100%',
+        aspectRatio: 1,
         alignItems: 'center', 
         justifyContent: 'center'
     },
     userPhotoStyles: {
         width: '50%',
-        height: '50%',
-        borderRadius: hp('25%') / 6
+        height: '50%', 
+        borderRadius: hp('25%') / 6 
     }
 });
