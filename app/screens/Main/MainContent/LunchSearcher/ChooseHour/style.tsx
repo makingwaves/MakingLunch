@@ -4,9 +4,6 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { colors, fontSizes } from "../../../../../config/styles";
 
 export default StyleSheet.create({
-    chooseHourContainer: {
-        marginHorizontal: 30,
-    },
     searchButtonContainer: {
         width: '60%',
         height: hp('8%'),

@@ -7,12 +7,13 @@ import CustomButton from '../../../../../components/CustomButton';
 import { triangleSides } from '../../../../../components/Triangle/Triangle';
 import Bubble from '../../../../../components/Bubble';
 import TimePickerType from './TimePickerType';
+import { TimeSpan } from '../../../../../state/lunches/types';
 
 const CLOCK = require('./img/clock.png');
 const ARROW = require('./img/arrow.png');
 
 export interface ChooseHourProps {
-
+    onSearchClick: (timeSpan: TimeSpan) => void;
 };
 
 export interface ChoouseHourState {
@@ -33,14 +34,28 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
     }
 
     private onSearchLunchClick = () => {
-
+        this.props.onSearchClick(this.getTimespan());
     };
+
+    private getTimespan(): TimeSpan {
+        return {
+            begin: this.getMappedDate(this.getTimeFromGivenString(this.splitBy(this.state.lunchStart))),
+            end: this.getMappedDate(this.getTimeFromGivenString(this.splitBy(this.state.lunchEnd)))
+        }
+    }
+
+    private getMappedDate(str: number[]): string {
+        return dayjs()
+            .set('hour', str[0] + 1)
+            .set('minute', str[1])
+            .toString();
+    }
 
     private openTimePicker = async (type: 'lunchStart') => {
         const { [type]: timeType } = this.state;
 
         try {
-            const [hourType, minuteType] = this.getTimeFromGivenString(timeType);
+            const [hourType, minuteType] = this.getTimeFromGivenString(this.splitBy(timeType));
 
             const { action, hour, minute } = await TimePickerAndroid.open({
                 hour: hourType,
@@ -60,10 +75,14 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
             .join(suffix);
     }
 
-    private getTimeFromGivenString(str: string, suffix: string = ':'): number[] {
+    private getTimeFromGivenString(str: string[]): number[] {
+        return str
+            .map(timeType => parseInt(timeType));
+    }
+
+    private splitBy(str: string, suffix: string = ':'): string[] {
         return str && str
             .split(suffix)
-            .map(timeType => parseInt(timeType));
     }
 
     public render() {
@@ -73,7 +92,7 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
         } = this.state;
 
         return (
-            <View style={styles.chooseHourContainer}>
+            <View>
                 <Bubble 
                     triangleSide={triangleSides.bottomLeft}
                     bubbleContainerStyles={styles.bubbleContainer}

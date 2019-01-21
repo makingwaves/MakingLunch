@@ -20,8 +20,9 @@ export interface LunchesListDto {
 };
 
 export interface LunchesListProps extends NavigationScreenProps {
-    lunches: LunchesListDto[];
     isLoading: boolean;
+    userId: string;
+    lunches: LunchesListDto[];
     getLunches: () => void;
 };
 
@@ -54,6 +55,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
 
     public render() {
         const {
+            userId,
             lunches,
             isLoading,
             navigation
@@ -73,7 +75,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
                             </View>
                         )}
                         renderItem={({ item, section }) => (
-                            <SingleLunch lunch={item} subTitle={this.lunchTypesTitles[section.title].subTitle} />
+                            <SingleLunch lunch={item} userId={userId} subTitle={this.lunchTypesTitles[section.title].subTitle} />
                         )}
                         sections={lunches}
                         keyExtractor={(item, index) => item + index}
@@ -86,6 +88,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
 
 const mapStateToProps = (state: AppState) => ({
     lunches: mapLunchesToArray(state),
+    userId: state.auth.profile.id,
     isLoading: state.lunches.request.state === RequestState.inProgress
 });
 

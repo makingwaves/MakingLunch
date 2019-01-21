@@ -10,13 +10,14 @@ import { navigationService } from '../../../services';
 
 export interface SingleLunchProps {
     lunch: Lunch;
+    userId: string;
     subTitle: string;
 };
 
 const SingleLunch: FunctionComponent<SingleLunchProps> = ({
-    lunch, subTitle
+    lunch, subTitle, userId
 }) => {
-    const date = lunch.times[lunch.id];
+    const date = lunch.times[lunch.id] || lunch.times[userId];
     const isActive = lunch.status === LunchStatus.running;
 
     return (

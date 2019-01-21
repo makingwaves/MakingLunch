@@ -3,6 +3,7 @@ import GoogleMapView, { PROVIDER_GOOGLE, Circle, Region, Marker } from 'react-na
 
 import styles from './style';
 import { colors } from '../../../../config/styles';
+import { Location } from '../../../../state/lunches/types';
 
 export interface MapViewState {
     lng: number;
@@ -47,13 +48,7 @@ class MapView extends PureComponent<object, MapViewState> {
         };
     }
 
-    public componentDidMount(): void {
-        setTimeout(() => {
-            this.navigateToUserLocation();
-        }, 1000);
-    }
-
-    public navigateToUserLocation(): void {  
+    public navigateToUserLocation = (): void => {  
         this.getUserLocation((lng, lat) => {
             this.googleMapsRef.current.animateToRegion({ 
                 longitude: lng, 
@@ -63,6 +58,14 @@ class MapView extends PureComponent<object, MapViewState> {
             }, 300);    
             this.setState(prevState => ({ lng, lat }));    
         });  
+    }
+
+    public getSelectedUserLocation(): Location {
+        return {
+            latitude: this.state.lat,
+            longitude: this.state.lng,
+            radiusInMeters: Math.floor(this.state.radius)
+        }
     }
 
     public onRegionChange = (evt: Region) => {
@@ -128,6 +131,7 @@ class MapView extends PureComponent<object, MapViewState> {
                 initialRegion={this.initialRegion}
                 ref={this.googleMapsRef}
                 onRegionChange={this.onRegionChange}
+                // onMapReady={this.navigateToUserLocation}
                 showsTraffic={false}
                 showsBuildings={false}
                 loadingEnabled={true} 
