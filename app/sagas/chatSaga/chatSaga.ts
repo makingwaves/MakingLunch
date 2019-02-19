@@ -1,12 +1,16 @@
-import { put, call, takeLatest, select, takeEvery } from "redux-saga/effects";
-import UUIDGenerator from 'react-native-uuid-generator';
 import dayjs from 'dayjs';
+import UUIDGenerator from 'react-native-uuid-generator';
+import { put, call, takeLatest, select, takeEvery } from "redux-saga/effects";
 
-import { lunchesActionsCreators } from "../../state/lunches/actions";
-import { Chat, AddChatMessagePayload, LunchSagaActions, MessageStatus, UpdateChatMessagePayload, RemoveChatMessagePayload } from "../../state/lunches/types";
-import { chatService } from "../../api";
-import { PostChatMessageDto } from "../../api/chatService/chatService";
-import { AppState } from "../../state/state";
+import { AppState } from "@app/state/state";
+import { lunchesActionsCreators } from "@app/state/lunches/actions";
+import chatService, { PostChatMessageDto } from "@app/api/chatService/chatService";
+import { AddChatMessagePayload, MessageStatus, UpdateChatMessagePayload, RemoveChatMessagePayload, LunchSagaActions, Chat } from "@app/state/lunches/types";
+
+export interface GetLunchChatData {
+    lunchId: string;
+    currentPage: number;
+};
 
 export function* generateUUID() {
     try {
@@ -14,7 +18,7 @@ export function* generateUUID() {
             [UUIDGenerator, UUIDGenerator.getRandomUUID]
         );
         return uuid;
-    } catch(err) {
+    } catch (err) {
         return err;
     }
 };
@@ -40,7 +44,7 @@ export const getFinishedMessageData = (lunchId: string, uuid: string): UpdateCha
             status: MessageStatus.finished
         }
     };
-};  
+};
 
 export const getRemovedMessageData = (lunchId: string, uuid: string): RemoveChatMessagePayload => {
     return {
@@ -49,21 +53,21 @@ export const getRemovedMessageData = (lunchId: string, uuid: string): RemoveChat
             messageId: uuid
         }
     };
-}
+};
 
 export const getUserId = (store: AppState) => store.auth.profile.id;
 
-export function* getLunchChatFlow({ lunchId }: { type: string, lunchId: string }) {
+export function* getLunchChatFlow({ payload }: { type: string, payload: GetLunchChatData }) {
     try {
         yield put(lunchesActionsCreators.startRequest());
         const chat: Chat = yield call(
             [chatService, chatService.getChatMessages],
-            lunchId
+            payload.lunchId, payload.currentPage
         );
 
         yield put(lunchesActionsCreators.requestSuccess());
-        yield put(lunchesActionsCreators.setLunchChat({ lunchId, chat }));
-    } catch(err) {
+        yield put(lunchesActionsCreators.setLunchChat({ lunchId: payload.lunchId, chat: chat }));
+    } catch (err) {
         yield put(lunchesActionsCreators.requestFail('Error when trying to fetch chat messages.'));
     }
 }
@@ -91,7 +95,7 @@ export function* postChatMessage({ payload }: { type: string, payload: PostChatM
             payload.lunchId, uuid
         );
         yield put(lunchesActionsCreators.updateChatMessage(finishedMessage));
-    } catch(err) {
+    } catch (err) {
         const deletedMessage: RemoveChatMessagePayload = yield call(
             getRemovedMessageData,
             payload.lunchId, uuid

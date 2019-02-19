@@ -1,4 +1,5 @@
-import {makeAction} from '../../utils/redux';
+import { makeAction } from '@app/utils/redux';
+
 import {
     LunchActions,
     LunchesMap,
@@ -9,8 +10,8 @@ import {
     CreateLunchPayload,
     SetLunchStatusPayload,
     SetLunchChatPayload,
-    RemoveLunchMemberPayload, 
-    AddChatMessagePayload, 
+    RemoveLunchMemberPayload,
+    AddChatMessagePayload,
     UpdateChatMessagePayload,
     RemoveChatMessagePayload
 } from './types';

@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-import { colors } from "../../../../config/styles";
+import { colors } from "@app/config/styles";
 
 export default StyleSheet.create({
     hamburgerContainer: {
-        position: 'absolute', 
+        position: 'absolute',
         right: 20,
         top: hp('3%'),
         alignSelf: 'flex-end',
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     },
     beams: {
         height: 4,
-        borderRadius: 10, 
+        borderRadius: 10,
         backgroundColor: colors.brandColorSecondary
     }
 });

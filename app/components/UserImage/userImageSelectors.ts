@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-import { AppState } from '../../state/state';
-import { Member } from '../../state/members/types';
+import { Member } from '@app/state/members/types';
+import { AppState } from '@app/state/state';
 
 const getMembers = (state: AppState, userId: string) => state.members.data[userId];
 

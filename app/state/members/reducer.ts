@@ -1,8 +1,9 @@
-import {ActionUnion} from '../../utils/redux';
-import {membersActionsCreators} from './actions';
-import {Reducer} from 'redux';
-import {MembersActions, MembersState, MembersMap} from './types';
-import {RequestState} from '../common/types';
+import { Reducer } from 'redux';
+
+import { ActionUnion } from '@app/utils/redux';
+import { RequestState } from '../common/types';
+import { membersActionsCreators } from './actions';
+import { MembersActions, MembersState, MembersMap } from './types';
 
 const initialState: MembersState = {
     request: {

@@ -1,8 +1,8 @@
-import {authReducer} from './reducer';
-import {AuthActions, AuthState, Profile} from './types';
-import {RequestState} from '../common/types';
-import {Reducer} from 'redux-testkit';
-import {authActionsCreators} from './actions';
+import { authReducer } from './reducer';
+import { AuthActions, AuthState, Profile } from './types';
+import { RequestState } from '../common/types';
+import { Reducer } from 'redux-testkit';
+import { authActionsCreators } from './actions';
 
 describe('auth reducer', () => {
     let initialState: AuthState;
@@ -19,11 +19,11 @@ describe('auth reducer', () => {
     });
 
     test(`should have initial state`, () => {
-        Reducer(authReducer).expect({type: ''}).toReturnState(initialState);
+        Reducer(authReducer).expect({ type: '' }).toReturnState(initialState);
     });
 
     test('should not change state when action does not exist', () => {
-        Reducer(authReducer).expect({type: 'NOT_EXISTING'}).toReturnState(initialState);
+        Reducer(authReducer).expect({ type: 'NOT_EXISTING' }).toReturnState(initialState);
     });
 
     describe('action creators', () => {
@@ -35,26 +35,26 @@ describe('auth reducer', () => {
                 photo: 'pPhotoUrl',
                 meetingsNumber: 0
             };
-            expect(authActionsCreators.setProfile(profile)).toEqual({ type: AuthActions.SET_PROFILE, payload: profile});
+            expect(authActionsCreators.setProfile(profile)).toEqual({ type: AuthActions.SET_PROFILE, payload: profile });
         });
 
         test(AuthActions.SET_TOKEN, () => {
-            expect(authActionsCreators.setToken('abc')).toEqual({ type: AuthActions.SET_TOKEN, payload: 'abc'});
+            expect(authActionsCreators.setToken('abc')).toEqual({ type: AuthActions.SET_TOKEN, payload: 'abc' });
         });
 
         test(AuthActions.CLEAR_TOKEN, () => {
             expect(authActionsCreators.clearToken()).toEqual({ type: AuthActions.CLEAR_TOKEN });
         });
         test(AuthActions.START_REQUEST, () => {
-            expect(authActionsCreators.startRequest()).toEqual({ type: AuthActions.START_REQUEST});
+            expect(authActionsCreators.startRequest()).toEqual({ type: AuthActions.START_REQUEST });
         });
         test(AuthActions.REQUEST_SUCCESS, () => {
-            expect(authActionsCreators.requestSuccess()).toEqual({ type: AuthActions.REQUEST_SUCCESS});
+            expect(authActionsCreators.requestSuccess()).toEqual({ type: AuthActions.REQUEST_SUCCESS });
         });
         test(AuthActions.REQUEST_FAIL, () => {
             const errorMsg = 'Shit happens';
             expect(authActionsCreators.requestFail(errorMsg))
-                .toEqual({ type: AuthActions.REQUEST_FAIL, payload: errorMsg});
+                .toEqual({ type: AuthActions.REQUEST_FAIL, payload: errorMsg });
         });
     });
 
@@ -76,9 +76,9 @@ describe('auth reducer', () => {
         };
 
         const setAction = authActionsCreators.setProfile(profile);
-        Reducer(authReducer).expect(setAction).toReturnState({...initialState, profile});
+        Reducer(authReducer).expect(setAction).toReturnState({ ...initialState, profile });
         const changeAction = authActionsCreators.setProfile(changedProfile);
-        Reducer(authReducer).expect(changeAction).toReturnState({...initialState, profile: changedProfile});
+        Reducer(authReducer).expect(changeAction).toReturnState({ ...initialState, profile: changedProfile });
     });
 
     describe('token actions', () => {
@@ -89,13 +89,13 @@ describe('auth reducer', () => {
 
         test(`${AuthActions.SET_TOKEN} - should set token`, () => {
             const setAction = authActionsCreators.setToken(token);
-            Reducer(authReducer).expect(setAction).toReturnState({...initialState, token});
+            Reducer(authReducer).expect(setAction).toReturnState({ ...initialState, token });
         });
 
         test(`${AuthActions.CLEAR_TOKEN} - should invalidate token`, () => {
-            const stateWithToken = {...initialState, token };
+            const stateWithToken = { ...initialState, token };
             const clearAction = authActionsCreators.clearToken();
-            Reducer(authReducer).withState(stateWithToken).expect(clearAction).toReturnState({...initialState});
+            Reducer(authReducer).withState(stateWithToken).expect(clearAction).toReturnState({ ...initialState });
         });
     });
 

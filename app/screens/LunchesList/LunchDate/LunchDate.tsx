@@ -18,7 +18,7 @@ const LunchDate: FunctionComponent<LunchDataProps> = ({
     isActive, date
 }) => {
     const getLargeDataText = (isActive: boolean) => {
-        if(isActive)
+        if (isActive)
             return (
                 <Text style={styles.activeLargeDataText}>
                     {dayjs(date.begin).format('HH:mm')} - {dayjs(date.end).format('HH:mm')}

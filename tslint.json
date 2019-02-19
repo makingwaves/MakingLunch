@@ -15,7 +15,8 @@
     "quotemark": [true, "single", "jsx-double"],
     "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
     "interface-name": [true, "never-prefix"],
-    "space-in-brackets": ["error", "always"]
+    "space-in-brackets": ["error", "always"],
+    "whitespace": [true, "check-module"]
   },
   "rulesDirectory": []
 }

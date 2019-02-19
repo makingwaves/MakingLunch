@@ -1,11 +1,11 @@
+import { View, Text } from 'react-native';
 import React, { memo, FunctionComponent } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
 
 import styles from './style';
-import CustomButton from '../../../../../components/CustomButton';
-import { triangleSides } from '../../../../../components/Triangle/Triangle';
-import Bubble from '../../../../../components/Bubble';
-import { colors } from '../../../../../config/styles';
+
+import Bubble from '@app/components/Bubble';
+import CustomButton from '@app/components/CustomButton';
+import { triangleSides } from '@app/components/Triangle/Triangle';
 
 export interface SearchingLunchProps {
     onCancelClick: () => void;
@@ -21,7 +21,6 @@ const SearchingLunch: FunctionComponent<SearchingLunchProps> = ({
                 bubbleStyles={styles.bubbleStyles}
                 triangleSide={triangleSides.topRight}
             >
-                <ActivityIndicator color={colors.colorLightest} style={styles.indicatorStyles} size={'large'} />
                 <Text style={styles.bubbleTitle}>Searching for your best match</Text>
                 <Text style={styles.bubbleText}>It may take up to 15 minutes. Come back later to check results.</Text>
             </Bubble>

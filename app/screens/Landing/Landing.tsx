@@ -5,10 +5,11 @@ import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper
 
 import styles from './style';
 
-import Bubble from '../../components/Bubble';
-import Intro from '../../components/Intro/Intro';
+import Intro from '@app/components/Intro';
+import Bubble from '@app/components/Bubble';
 import ExternalLogin from './ExternalLogin';
-import { triangleSides } from '../../components/Triangle/Triangle';
+import { triangleSides } from '@app/components/Triangle/Triangle';
+
 
 
 const LOGIN_BACKGROUND_1 = require('./img/intro1.png');

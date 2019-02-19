@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import { NavigationScreenProps } from 'react-navigation';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
+import React, { Component } from 'react';
+import { NavigationScreenProps } from 'react-navigation';
 
 import styles from './style';
 
-import { AppState } from '../../state/state';
-import { Profile, AuthSagaActions } from '../../state/auth/types';
+import { AppState } from '@app/state/state';
+import { Profile, AuthSagaActions } from '@app/state/auth/types';
+
 
 export interface InitialScreenProps extends NavigationScreenProps {
     userData: Profile;
@@ -23,7 +24,7 @@ class InitialScreen extends Component<InitialScreenProps> {
     }
 
     public componentDidUpdate(prevProps: InitialScreenProps): void {
-        if(prevProps.userData !== this.props.userData) {
+        if (prevProps.userData !== this.props.userData) {
             this.props.navigation.navigate(
                 this.isUserLogged(this.props.userData) ? 'App' : 'Auth'
             );

@@ -10,6 +10,7 @@ import SearchingLunch from './SearchingLunch';
 
 export interface LunchSearcherProps {
     stage: LunchStage;
+    onStageChange: (stage: LunchStage) => void;
     onSearchClick: (timeSpan: TimeSpan) => void;
     onCancelClick: () => void;
 };
@@ -34,11 +35,20 @@ class LunchSearcher extends PureComponent<LunchSearcherProps, LunchSearcherState
         };
     }
 
+    public componentDidUpdate(prevProps: LunchSearcherProps): void {
+        if (prevProps.stage !== this.props.stage && this.props.stage === 'searching')
+            setTimeout(this.changeStage, 3000);
+    }
+
+    private changeStage = () => {
+        this.props.onStageChange('chooseData');
+    }
+
     public render() {
         const {
             stage
         } = this.props;
-        
+
         return (
             <View style={styles.lunchSearcherContainer}>
                 {this.stageView[stage]()}

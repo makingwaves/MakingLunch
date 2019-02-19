@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {spacing, sizes, borderRadius, colors} from '../../config/styles';
+import { StyleSheet } from 'react-native';
+
+import { spacing, sizes, colors, borderRadius } from '@app/config/styles';
 
 export default StyleSheet.create({
     container: {

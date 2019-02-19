@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { colors, fontSizes } from '../../config/styles';
+import { fontSizes, colors } from '@app/config/styles';
 
 export default StyleSheet.create({
     container: {
@@ -16,6 +16,9 @@ export default StyleSheet.create({
         borderRadius: 5,
         alignItems: 'center',
         paddingHorizontal: 8,
+    },
+    buttonLoading: {
+        justifyContent: 'center'
     },
     textContainer: {
         flex: 1,

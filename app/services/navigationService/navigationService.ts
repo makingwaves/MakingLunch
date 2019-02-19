@@ -1,10 +1,10 @@
-import { NavigationScreenProp, NavigationParams, NavigationActions, StackActions } from "react-navigation";
+import { NavigationScreenProp, NavigationParams, NavigationActions } from "react-navigation";
 
 class NavigationService {
     private navigation: NavigationScreenProp<NavigationParams>;
 
     public setNavigation(navigationRef: NavigationScreenProp<NavigationParams>): void {
-        if(!this.navigation)
+        if (!this.navigation)
             this.navigation = navigationRef;
     }
 

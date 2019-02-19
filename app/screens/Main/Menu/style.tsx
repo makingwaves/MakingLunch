@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { colors } from '../../../config/styles';
+import { colors } from '@app/config/styles';
 
 export default StyleSheet.create({
     viewContainer: {
@@ -16,10 +16,10 @@ export default StyleSheet.create({
     },
     showMenuStyles: {
         height: hp('25%'),
-        opacity: 1, 
-    }, 
-    hideMenuStyles: { 
-        height: 0,   
-        opacity: 0, 
+        opacity: 1,
+    },
+    hideMenuStyles: {
+        height: 0,
+        opacity: 0,
     }
 });

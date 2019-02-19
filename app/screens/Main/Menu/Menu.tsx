@@ -1,14 +1,14 @@
-import React, { PureComponent, Fragment } from 'react'
 import { View } from 'react-native';
 import { connect } from 'react-redux';
+import React, { PureComponent, Fragment } from 'react';
 
 import styles from './style';
 
 import MenuItems from './MenuItems';
+import { AppState } from '@app/state/state';
 import HamburgerItem from './HamburgerItem';
-import { AppState } from '../../../state/state';
-import { AuthSagaActions, Profile } from '../../../state/auth/types';
-import ConditionalAnimation from '../../../components/ConditionalAnimation';
+import ConditionalAnimation from '@app/components/ConditionalAnimation';
+import { Profile, AuthSagaActions } from '@app/state/auth/types';
 
 export interface MenuProps {
     logOut: () => void;
@@ -51,18 +51,17 @@ class Menu extends PureComponent<MenuProps, MenuState> {
         return (
             <Fragment>
                 <View style={styles.viewContainer}>
-                    <ConditionalAnimation 
+                    <ConditionalAnimation
                         condition={menuItemsVisible}
                         duration={200}
                         animationViewStyles={styles.animationViewStyles}
                         showAnimationStyles={styles.showMenuStyles}
                         hideAnimatioStyles={styles.hideMenuStyles}
                     >
-                        <MenuItems logOut={logOut} userData={userData} /> 
+                        <MenuItems logOut={logOut} userData={userData} />
                     </ConditionalAnimation>
                 </View>
                 <HamburgerItem
-                    isClicked={menuItemsVisible}
                     onHamburgerClick={this.toggleMenuVisibility}
                 />
             </Fragment>
@@ -84,4 +83,3 @@ export default connect(
     mapDispatchToProps
 )(Menu);
 
- 

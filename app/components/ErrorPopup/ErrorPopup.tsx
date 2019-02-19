@@ -1,8 +1,9 @@
+import { Modal, View, Text } from 'react-native';
 import React, { FunctionComponent, memo } from 'react';
-import { Modal, View, Image, Text } from 'react-native';
 
-import styles from './style'
-import CustomButton from '../CustomButton';
+import styles from './style';
+
+import CustomButton from '@app/components/CustomButton';
 
 export interface ErrorPopupProps {
     closePopup: () => void;
@@ -17,9 +18,9 @@ const ErrorPopup: FunctionComponent<ErrorPopupProps> = ({
 }) => {
     return (
         <Modal
-            visible={errorOccured} 
+            visible={errorOccured}
             transparent={true}
-            onRequestClose={() => {}}
+            onRequestClose={() => { }}
         >
             <View style={styles.container}>
                 <View style={styles.containerInnerStyles}>
@@ -33,7 +34,7 @@ const ErrorPopup: FunctionComponent<ErrorPopupProps> = ({
                         textButtonStyles={styles.textButtonStyles}
                     />
                 </View>
-            </View> 
+            </View>
         </Modal>
     );
 }

@@ -1,12 +1,12 @@
-import {Platform} from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { Platform } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export enum fontSizes {
-    yotta = wp('8%')  >= 48 ? wp('10%') : 48,
-    zetta = wp('6%')  >= 40 ? wp('6%') : 40,
-    exa = wp('5%')  >= 32 ? wp('5%') : 32,
-    peta = wp('4%')  >= 28 ? wp('4%') : 28,
-    giga = wp('3%')  >= 24 ? wp('3%') : 24,
+    yotta = wp('8%') >= 48 ? wp('10%') : 48,
+    zetta = wp('6%') >= 40 ? wp('6%') : 40,
+    exa = wp('5%') >= 32 ? wp('5%') : 32,
+    peta = wp('4%') >= 28 ? wp('4%') : 28,
+    giga = wp('3%') >= 24 ? wp('3%') : 24,
     kilo = wp('2.5%') >= 18 ? wp('2.5%') : 18,
     base = wp('2%') >= 14 ? wp('2%') : 14,
     mini = wp('1.5%') >= 12 ? wp('1.5%') : 12,

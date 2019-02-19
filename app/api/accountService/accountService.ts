@@ -1,9 +1,10 @@
 
-import httpClient from './../../config/axios';
+import httpClient from '@app/config/axios';
 
-import { ErrorHandleService } from '../../services';
-import { ErrorResponse } from '../../services/errorHandleService/errorHandleService';
-import { Profile } from '../../state/auth/types';
+import { Profile } from '@app/state/auth/types';
+import { ErrorResponse } from '@app/services/errorHandleService/errorHandleService';
+import { ErrorHandleService } from '@app/services';
+
 
 export interface UserDataRequest {
     name: string;
@@ -42,9 +43,9 @@ class AccountService extends ErrorHandleService {
     }
 
     public updateUserData(name: string, description: string): Promise<Profile | ErrorResponse> {
-        return httpClient.put<Profile>('/api/Account', {  
-                    name, 
-                    description
+        return httpClient.put<Profile>('/api/Account', {
+            name,
+            description
         })
             .then(res => res.data)
             .catch(err => this.getErrorMessage(err, 'An error occured while trying to update User Data.'));

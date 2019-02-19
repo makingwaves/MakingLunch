@@ -1,12 +1,12 @@
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import React, { FunctionComponent, memo } from 'react'
-import { View, Text, TouchableOpacity } from "react-native";
 
 import styles from './style';
 
 import LunchDate from '../LunchDate';
-import GuestList from '../../../components/GuestList';
-import { Lunch, LunchStatus } from '../../../state/lunches/types';
-import { navigationService } from '../../../services';
+import GuestList from '@app/components/GuestList';
+import { navigationService } from '@app/services';
+import { LunchStatus, Lunch } from '@app/state/lunches/types';
 
 export interface SingleLunchProps {
     lunch: Lunch;
@@ -18,10 +18,23 @@ const SingleLunch: FunctionComponent<SingleLunchProps> = ({
     lunch, subTitle, userId
 }) => {
     const date = lunch.times[lunch.id] || lunch.times[userId];
-    const isActive = lunch.status === LunchStatus.running;
+    const isActive = lunch.status === LunchStatus.pending;
+
+    const onLunchClick = (): void => {
+        if (lunch.status !== LunchStatus.pending)
+            navigationService.navigate('Chat', { lunch });
+        else
+            Alert.alert(
+                'Pending lunch',
+                'Cannot open pending chat screen',
+                [
+                    { text: 'Ok' }
+                ]
+            );
+    }
 
     return (
-        <TouchableOpacity style={styles.singleLunchContainer} onPress={() => navigationService.navigate('Chat', { lunch })}>
+        <TouchableOpacity style={styles.singleLunchContainer} onPress={onLunchClick}>
             <View style={styles.topBar}>
                 <LunchDate isActive={isActive} date={date} />
                 <GuestList guestsId={lunch.members} />

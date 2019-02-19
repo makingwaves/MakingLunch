@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-
-import { colors, fontSizes } from "../../config/styles";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
+import { colors } from "@app/config/styles";
 
 export default StyleSheet.create({
     container: {
@@ -11,9 +11,9 @@ export default StyleSheet.create({
         top: 0,
         bottom: 0,
         alignItems: 'center',
-        justifyContent: 'center', 
-        zIndex: 10, 
-        backgroundColor: 'rgba(0, 0, 0, .7)' 
+        justifyContent: 'center',
+        zIndex: 10,
+        backgroundColor: 'rgba(0, 0, 0, .7)'
     },
     containerInnerStyles: {
         position: 'relative',

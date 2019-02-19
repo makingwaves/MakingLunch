@@ -1,10 +1,10 @@
-import React, { FunctionComponent, memo } from 'react';
-import { View, StyleProp, ViewStyle } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { View, StyleProp, ViewStyle } from 'react-native';
+import React, { FunctionComponent, memo } from 'react';
 
 import styles from './style';
 
-import Triangle, { triangleSides } from '../Triangle/Triangle';
+import Triangle, { triangleSides } from "@app/components/Triangle/Triangle";
 
 export interface BubbleProps {
     readonly bubbleContainerStyles?: StyleProp<ViewStyle>;
@@ -21,7 +21,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({
             <View style={[styles.bubble, bubbleStyles]}>
                 {children}
             </View>
-            {triangleSide && <Triangle size={size} triangleSide={triangleSide}/>}
+            {triangleSide && <Triangle size={size} triangleSide={triangleSide} />}
         </View>
     );
 };

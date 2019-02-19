@@ -1,5 +1,5 @@
-import {Profile, AuthActions} from './types';
-import {makeAction} from '../../utils/redux';
+import { makeAction } from '@app/utils/redux';
+import { Profile, AuthActions } from './types';
 
 export const authActionsCreators = {
     setProfile: (profile: Profile) => makeAction(AuthActions.SET_PROFILE, profile),

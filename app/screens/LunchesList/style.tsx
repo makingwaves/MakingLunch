@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { colors } from '../../config/styles';
+import { colors } from '@app/config/styles';
 
 export default StyleSheet.create({
     lunchesListContainer: {
@@ -8,11 +8,12 @@ export default StyleSheet.create({
         backgroundColor: colors.colorLight
     },
     sectionList: {
-        marginHorizontal: 30,
+        paddingHorizontal: 30,
         marginTop: 30,
         marginBottom: 10,
     },
     sectionTitle: {
+        marginTop: 30,
         color: colors.brandColorPrimary,
         fontWeight: '900'
     }

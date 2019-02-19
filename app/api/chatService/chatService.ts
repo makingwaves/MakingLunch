@@ -1,11 +1,10 @@
-import httpClient from "../../config/axios";
+import httpClient from "@app/config/axios";
 
-import { BasicProfile } from "../../state/auth/types";
-import { ErrorHandleService } from "../../services";
-import { Chat, AddChatMessagePayload } from "../../state/lunches/types";
-import { ErrorResponse } from "../../services/errorHandleService/errorHandleService";
-import { mapMessageToPayload, mapMessageId, mapMemberId, mapTime, mapMessageContent, mapAndExtendChatMessages } from "../helpers/processedChat";
-
+import { BasicProfile } from "@app/state/auth/types";
+import { ErrorHandleService } from "@app/services";
+import { ErrorResponse } from "@app/services/errorHandleService/errorHandleService";
+import { Chat, AddChatMessagePayload } from "@app/state/lunches/types";
+import { mapMessageToPayload, mapMessageId, mapMemberId, mapTime, mapMessageContent, mapAndExtendChatMessages } from "@app/api/helpers/processedChat";
 
 export interface PostChatMessageDto {
     lunchId: string;
@@ -22,11 +21,11 @@ export interface ChatResponseDto {
     timeStamp: string;
     account: AccountChat;
 };
-  
+
 class ChatService extends ErrorHandleService {
 
-    public getChatMessages(lunchId: string): Promise<Chat | ErrorResponse> {
-        return httpClient.get<ChatResponseDto[]>('/api/Messages/' + lunchId + '/0/32')
+    public getChatMessages(lunchId: string, currentPage: number): Promise<Chat | ErrorResponse> {
+        return httpClient.get<ChatResponseDto[]>('/api/Messages/' + lunchId + '/' + currentPage + '/16')
             .then(res => this.mapChatMessageResponse(res.data))
             .catch(err => this.getErrorMessage(err, 'An Error occurred while trying to fetch chat messages.'))
     }
@@ -41,7 +40,7 @@ class ChatService extends ErrorHandleService {
     }
 
     private mapAddedMessage(messageResponse: ChatResponseDto, lunchId: string): AddChatMessagePayload {
-        return mapMessageToPayload(messageResponse, lunchId, 
+        return mapMessageToPayload(messageResponse, lunchId,
             message => mapMessageId(message),
             message => mapMemberId(message),
             message => mapTime(message),

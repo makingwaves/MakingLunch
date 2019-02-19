@@ -3,7 +3,7 @@ import { View, StyleProp, ImageStyle, ViewStyle } from 'react-native';
 
 import styles from './style';
 
-import UserImage from '../UserImage';
+import UserImage from '@app/components/UserImage';
 
 export interface GuestListProps {
     guestsId: string[],

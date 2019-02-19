@@ -1,41 +1,45 @@
-import React, { Component } from 'react';
-import { NavigationScreenProps } from 'react-navigation';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import { NavigationScreenProps } from 'react-navigation';
 
 import styles from './style';
 
-import LunchInformation from './LunchInformation';
 import Messages from './Messages';
-import ChatMessageInput from './ChatMessageInput';
+import { colors } from '@app/config/styles';
+import BackButton from '@app/components/BackButton';
+import { AppState } from '@app/state/state';
 import { mapLunchData } from './selectors/chatMessagesSelectors';
-import BackButton from '../../components/BackButton';
-import { Message, LunchSagaActions } from '../../state/lunches/types';
-import { colors } from '../../config/styles';
-import { RequestState } from '../../state/common/types';
-import { AppState } from '../../state/state';
+import { RequestState } from '@app/state/common/types';
+import ChatMessageInput from './ChatMessageInput';
+import LunchInformation from './LunchInformation';
+import { GetLunchChatData } from '@app/sagas/chatSaga/chatSaga';
+import { Message, LunchSagaActions } from '@app/state/lunches/types';
 
 export interface ChatProps extends NavigationScreenProps {
     id: string;
     members: string[];
     chatMessages: Message[];
-    lunchDate: { 
+    lunchDate: {
         date: string;
         hour: string;
     };
     isLoading: boolean;
-    getChatMessages: (lunchId: string) => void;
+    getChatMessages: (payload: GetLunchChatData) => void;
     sendMessage: (messageContent: string, lunchId: string) => void;
 };
 
 class ChatMessages extends Component<ChatProps> {
-    public componentDidMount(): void {
-        const {
-            id,
-            getChatMessages
-        } = this.props;
+    private currentPage: number;
 
-        getChatMessages(id);
+    constructor(props: ChatProps) {
+        super(props);
+
+        this.currentPage = 0;
+    }
+
+    public componentDidMount(): void {
+        this.props.getChatMessages({ lunchId: this.props.id, currentPage: this.currentPage });
     }
 
     private onMessageSend = (messageContent: string): void => {
@@ -46,32 +50,38 @@ class ChatMessages extends Component<ChatProps> {
         this.props.navigation.navigate('GuestsSwiper', { membersId: this.props.members });
     };
 
+    private lazyLoadChatMessages = () => {
+        this.currentPage += 1;
+        this.props.getChatMessages({ lunchId: this.props.id, currentPage: this.currentPage });
+    }
+
     public render() {
         const {
             members,
             isLoading,
             lunchDate,
             navigation,
-            chatMessages, 
+            chatMessages,
         } = this.props;
 
         return (
             <View style={styles.chatMessagesContainer}>
                 <BackButton navigation={navigation} backgroundColor={colors.brandColorSecondary} alignmentHorizontal={'space-between'}>
-                    <LunchInformation 
-                        membersId={members} 
+                    <LunchInformation
+                        membersId={members}
                         lunchDate={lunchDate}
                         onGuestListClick={this.onGuestListClick}
                     />
                 </BackButton>
-                <Messages 
+                <Messages
                     messages={chatMessages}
                     refreshing={isLoading}
+                    onEndReach={this.lazyLoadChatMessages}
                 />
-                <ChatMessageInput 
+                <ChatMessageInput
                     sendMessage={this.onMessageSend}
                 />
-        </View>
+            </View>
         );
     }
 }
@@ -82,7 +92,7 @@ const mapStateToProps = (state: AppState, ownProps: ChatProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getChatMessages: (lunchId: string) => dispatch({ type: LunchSagaActions.GET_LUNCH_CHAT, lunchId }),
+    getChatMessages: (payload: GetLunchChatData) => dispatch({ type: LunchSagaActions.GET_LUNCH_CHAT, payload }),
     sendMessage: (messageContent: string, lunchId: string) => dispatch({ type: LunchSagaActions.SEND_CHAT_MESSAGE, payload: { messageContent, lunchId } })
 });
 

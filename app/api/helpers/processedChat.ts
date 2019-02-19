@@ -1,7 +1,6 @@
 import { MapperFn } from "./utils";
-
-import { ChatResponseDto } from "../chatService/chatService";
-import { Chat, AddChatMessagePayload, MessageStatus } from "../../state/lunches/types";
+import { ChatResponseDto } from "@app/api/chatService/chatService";
+import { Chat, MessageStatus, AddChatMessagePayload } from "@app/state/lunches/types";
 
 export type ChatMessageMapFn<T> = MapperFn<ChatResponseDto, T>;
 
@@ -55,6 +54,6 @@ export const mapMemberId = (message: ChatResponseDto): string => {
 export const mapTime = (message: ChatResponseDto): string => {
     return message && message.timeStamp;
 }
-export const mapMessageContent =  (message: ChatResponseDto): string => {
+export const mapMessageContent = (message: ChatResponseDto): string => {
     return message && message.content;
 }

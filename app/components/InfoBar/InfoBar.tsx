@@ -1,12 +1,13 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
+
 import styles from './style';
 
 interface InfoBarProps {
     value: number;
-}
+};
 
-const InfoBar = (props: InfoBarProps) =>  {
+const InfoBar = (props: InfoBarProps) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Nº of meetings</Text>

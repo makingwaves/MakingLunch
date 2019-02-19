@@ -6,11 +6,9 @@ import styles from './style';
 import Menu from './Menu';
 import MainContent from './MainContent';
 
-const Main: FunctionComponent = ({
-
-}) => {
+const Main: FunctionComponent = () => {
     return (
-        <View style={styles.mainContainer}> 
+        <View style={styles.mainContainer}>
             <Menu />
             <MainContent />
         </View>

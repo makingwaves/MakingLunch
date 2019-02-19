@@ -1,5 +1,5 @@
-import { UserData } from "../../loginSaga/loginSaga";
-import { UserDataRequest } from "../../../api/accountService/accountService";
+import { UserData } from "@app/sagas/loginSaga/loginSaga";
+import { UserDataRequest } from "@app/api/accountService/accountService";
 
 export const hasKey = <T>(str: T, key: string): boolean => !!(str && str[key]);
 export const keyToString = <T>(str: T, key: string): string => str && str[key] && str[key].toString();

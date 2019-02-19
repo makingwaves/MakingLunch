@@ -2,15 +2,13 @@ import React, { FunctionComponent, memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import styles from './style';
-import ConditionalAnimation from '../../../../components/ConditionalAnimation';
 
 export interface HamburgerItemProps {
-    isClicked: boolean;
     onHamburgerClick: () => void;
 };
 
 const HamburgerItem: FunctionComponent<HamburgerItemProps> = ({
-    isClicked, onHamburgerClick
+    onHamburgerClick
 }) => {
     return (
         <TouchableOpacity

@@ -7,10 +7,10 @@ import {
     LunchStatus, Message, RemoveLunchMemberPayload,
     SetLunchLocationPayload, SetLunchStatusPayload, SetLunchTimePayload, TimeSpan, UpdateLunchPayload,
 } from './types';
-import {RequestState} from '../common/types';
-import {Reducer} from 'redux-testkit';
-import {lunchesReducer} from './reducer';
-import {lunchesActionsCreators} from './actions';
+import { RequestState } from '../common/types';
+import { Reducer } from 'redux-testkit';
+import { lunchesReducer } from './reducer';
+import { lunchesActionsCreators } from './actions';
 
 describe('lunches reducer', () => {
     let initialState: LunchesState;
@@ -26,11 +26,11 @@ describe('lunches reducer', () => {
     });
 
     test(`should have initial state`, () => {
-        Reducer(lunchesReducer).expect({type: ''}).toReturnState(initialState);
+        Reducer(lunchesReducer).expect({ type: '' }).toReturnState(initialState);
     });
 
     test('should not change state when action does not exist', () => {
-        Reducer(lunchesReducer).expect({type: 'NOT_EXISTING'}).toReturnState(initialState);
+        Reducer(lunchesReducer).expect({ type: 'NOT_EXISTING' }).toReturnState(initialState);
     });
 
     describe('action creators', () => {
@@ -56,15 +56,15 @@ describe('lunches reducer', () => {
         });
 
         test(LunchActions.SET_LUNCH_STATUS, () => {
-            const pendingPayload: SetLunchStatusPayload = {lunchId: 'lId', lunchStatus: LunchStatus.pending};
-            const runningPayload: SetLunchStatusPayload = {lunchId: 'lId', lunchStatus: LunchStatus.running};
-            const finishedPayload: SetLunchStatusPayload = {lunchId: 'lId', lunchStatus: LunchStatus.finished};
+            const pendingPayload: SetLunchStatusPayload = { lunchId: 'lId', lunchStatus: LunchStatus.pending };
+            const runningPayload: SetLunchStatusPayload = { lunchId: 'lId', lunchStatus: LunchStatus.running };
+            const finishedPayload: SetLunchStatusPayload = { lunchId: 'lId', lunchStatus: LunchStatus.finished };
             expect(lunchesActionsCreators.setLunchStatus(pendingPayload))
-                .toEqual({type: LunchActions.SET_LUNCH_STATUS, payload: pendingPayload});
+                .toEqual({ type: LunchActions.SET_LUNCH_STATUS, payload: pendingPayload });
             expect(lunchesActionsCreators.setLunchStatus(runningPayload))
-                .toEqual({type: LunchActions.SET_LUNCH_STATUS, payload: runningPayload});
+                .toEqual({ type: LunchActions.SET_LUNCH_STATUS, payload: runningPayload });
             expect(lunchesActionsCreators.setLunchStatus(finishedPayload))
-                .toEqual({type: LunchActions.SET_LUNCH_STATUS, payload: finishedPayload});
+                .toEqual({ type: LunchActions.SET_LUNCH_STATUS, payload: finishedPayload });
         });
 
         test(LunchActions.UPDATE_LUNCH, () => {
@@ -196,15 +196,15 @@ describe('lunches reducer', () => {
         });
 
         test(LunchActions.START_REQUEST, () => {
-            expect(lunchesActionsCreators.startRequest()).toEqual({type: LunchActions.START_REQUEST});
+            expect(lunchesActionsCreators.startRequest()).toEqual({ type: LunchActions.START_REQUEST });
         });
         test(LunchActions.REQUEST_SUCCESS, () => {
-            expect(lunchesActionsCreators.requestSuccess()).toEqual({type: LunchActions.REQUEST_SUCCESS});
+            expect(lunchesActionsCreators.requestSuccess()).toEqual({ type: LunchActions.REQUEST_SUCCESS });
         });
         test(LunchActions.REQUEST_FAIL, () => {
             const errorMsg = 'Shit happens';
             expect(lunchesActionsCreators.requestFail(errorMsg))
-                .toEqual({type: LunchActions.REQUEST_FAIL, payload: errorMsg});
+                .toEqual({ type: LunchActions.REQUEST_FAIL, payload: errorMsg });
         });
     });
 
@@ -383,9 +383,9 @@ describe('lunches reducer', () => {
         });
 
         test(LunchActions.SET_LUNCH_STATUS, () => {
-            const pendingPayload: SetLunchStatusPayload = {lunchId: lunch2Id, lunchStatus: LunchStatus.pending};
-            const runningPayload: SetLunchStatusPayload = {lunchId: lunch1Id, lunchStatus: LunchStatus.running};
-            const finishedPayload: SetLunchStatusPayload = {lunchId: lunch1Id, lunchStatus: LunchStatus.finished};
+            const pendingPayload: SetLunchStatusPayload = { lunchId: lunch2Id, lunchStatus: LunchStatus.pending };
+            const runningPayload: SetLunchStatusPayload = { lunchId: lunch1Id, lunchStatus: LunchStatus.running };
+            const finishedPayload: SetLunchStatusPayload = { lunchId: lunch1Id, lunchStatus: LunchStatus.finished };
             const setPendingStatusAction = lunchesActionsCreators.setLunchStatus(pendingPayload);
             const setRunningStatusAction = lunchesActionsCreators.setLunchStatus(runningPayload);
             const setFinishedStatusAction = lunchesActionsCreators.setLunchStatus(finishedPayload);

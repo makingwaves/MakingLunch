@@ -1,9 +1,11 @@
-import {LunchActions, LunchesState, LunchStatus} from './types';
-import {RequestState} from '../common/types';
-import {Reducer} from 'redux';
-import {ActionUnion} from '../../utils/redux';
-import {lunchesActionsCreators} from './actions';
-import {ObjTransformer} from '../../utils/common';
+import { Reducer } from 'redux';
+
+
+import { ActionUnion } from '@app/utils/redux';
+import { RequestState } from '../common/types';
+import { ObjTransformer } from '@app/utils/common';
+import { lunchesActionsCreators } from './actions';
+import { LunchActions, LunchesState, LunchStatus } from './types';
 
 const initialState: LunchesState = {
     request: {
@@ -153,7 +155,10 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                     ...state.data,
                     [action.payload.lunchId]: {
                         ...state.data[action.payload.lunchId],
-                        chat: action.payload.chat
+                        chat: {
+                            ...state.data[action.payload.lunchId].chat,
+                            ...action.payload.chat
+                        }
                     },
                 },
             };
@@ -197,8 +202,8 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                         ...state.data[action.payload.lunchId],
                         chat: {
                             ...transformer.set(state.data[action.payload.lunchId].chat)
-                            .filter((key) => (key !== action.payload.message.messageId))
-                            .get(),
+                                .filter((key) => (key !== action.payload.message.messageId))
+                                .get(),
                         }
                     }
                 }

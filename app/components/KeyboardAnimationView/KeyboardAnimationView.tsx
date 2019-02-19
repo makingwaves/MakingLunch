@@ -23,7 +23,7 @@ class KeyboardAnimationView extends Component<KeyboardAnimationViewProps> {
 
     constructor(props: KeyboardAnimationViewProps) {
         super(props);
-        
+
         this.animatedKeysStyles = this.getAnimatedKeysStyles(this.props.keyboardShowStyles, this.props.keyboardHideStyles);
         this.animatedStylesValues = this.getAnimatedObjectValues(this.animatedKeysStyles, this.props.keyboardHideStyles);
     }
@@ -47,7 +47,7 @@ class KeyboardAnimationView extends Component<KeyboardAnimationViewProps> {
             Object.keys(keyboardShowStyles),
             Object.keys(keyboardHideStyles)
         ];
-        if(!this.areKeysTheSame(showKeys, hideKeys))
+        if (!this.areKeysTheSame(showKeys, hideKeys))
             throw new Error('KeyboardAnimationView - Given props object keys are not the same. Fix it.');
         return showKeys;
     }

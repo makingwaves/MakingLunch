@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { View } from 'react-native';
 import Image from 'react-native-remote-svg';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { View } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import React, { FunctionComponent } from 'react';
 
 import styles from './style';
 
@@ -17,20 +17,20 @@ export enum triangleSides {
     topRight = 'topRight',
 }
 
-const triangle = require('./triangle.svg');
+const triangle = require('./assets/triangle.png');
 
-const Triangle: FunctionComponent<TriangleProps> = ({size = wp('10%'),  triangleSide}) => {
+const Triangle: FunctionComponent<TriangleProps> = ({ size = wp('10%'), triangleSide }) => {
 
     const getTriangleProperties = (side: triangleSides) => {
         switch (side) {
             case triangleSides.topLeft:
-                return {left: 0, top: -size, transform: [{rotate: '270deg'}]};   
+                return { left: 0, top: -size, transform: [{ rotate: '270deg' }] };
             case triangleSides.topRight:
-                return {right: 0, top: -size, transform: [{rotate: '180deg'}]};
+                return { right: 0, top: -size, transform: [{ rotate: '180deg' }] };
             case triangleSides.bottomLeft:
-                return {left: 0, top: '100%'};
+                return { left: 0, top: '100%' };
             case triangleSides.bottomRight:
-                return {right: 0, top: '100%', transform: [{rotate: '90deg'}]};
+                return { right: 0, top: '100%', transform: [{ rotate: '90deg' }] };
             default:
                 return {};
         }

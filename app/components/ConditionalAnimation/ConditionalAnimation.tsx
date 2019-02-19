@@ -30,7 +30,7 @@ class ConditionalAnimation extends Component<ConditionalAnimationProps> {
     }
 
     public componentDidUpdate(prevProps: ConditionalAnimationProps): void {
-        if(prevProps.condition !== this.props.condition) 
+        if (prevProps.condition !== this.props.condition)
             this.animationType[Number(this.props.condition)]();
     }
 
@@ -44,7 +44,7 @@ class ConditionalAnimation extends Component<ConditionalAnimationProps> {
             Object.keys(keyboardShowStyles),
             Object.keys(keyboardHideStyles)
         ];
-        if(!this.areKeysTheSame(showKeys, hideKeys))
+        if (!this.areKeysTheSame(showKeys, hideKeys))
             throw new Error('ConditionalAnimation - Given props object keys are not the same. Fix it.');
         return showKeys;
     }

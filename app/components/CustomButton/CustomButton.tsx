@@ -1,10 +1,12 @@
-import React, { memo, ReactNode, FunctionComponent }  from 'react';
+import { ViewStyle, ActivityIndicator } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import React, { memo, ReactNode, FunctionComponent, Fragment } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleProp, TextStyle } from 'react-native';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import styles from './style';
-import Triangle, { triangleSides } from '../Triangle/Triangle';
-import { ViewStyle } from 'react-native';
+
+import { colors } from '@app/config/styles';
+import Triangle, { triangleSides } from "@app/components/Triangle/Triangle";
 
 const images = {
     Facebook: require('./img/facebook.png'),
@@ -17,7 +19,9 @@ const images = {
 export interface CustomButtonProps {
     readonly text: string;
     readonly onPress: () => void;
-    readonly iconContainerColor?: string; 
+    readonly isLoading?: boolean;
+    readonly activeOpacity?: number;
+    readonly iconContainerColor?: string;
     readonly textAlignment?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
     readonly triangleSide?: triangleSides;
     readonly size?: number;
@@ -26,10 +30,10 @@ export interface CustomButtonProps {
     readonly textButtonStyles?: StyleProp<TextStyle>;
     readonly imageType?: string;
     readonly children?: ReactNode;
-} 
+}
 
 const CustomButton: FunctionComponent<CustomButtonProps> = ({
-    text, iconContainerColor, onPress, imageType, triangleSide, children, size = wp('5%'), containerStyles = {}, buttonStyles = {}, textButtonStyles = {}, textAlignment = 'center'
+    text, iconContainerColor, onPress, imageType, triangleSide, children, isLoading = false, size = wp('5%'), activeOpacity = 0.2, containerStyles = {}, buttonStyles = {}, textButtonStyles = {}, textAlignment = 'center'
 }) => {
 
     const getImage = (): ReactNode | React.ReactElement<View> => {
@@ -44,17 +48,24 @@ const CustomButton: FunctionComponent<CustomButtonProps> = ({
         <TouchableOpacity
             style={[styles.container, containerStyles]}
             onPress={onPress}
+            activeOpacity={activeOpacity}
         >
-            <View style={[styles.customButtonContainer, buttonStyles]}>
-                {getImage()} 
+            <View style={[styles.customButtonContainer, buttonStyles, isLoading ? styles.buttonLoading : {}]}>
+                {isLoading ? (
+                    <ActivityIndicator color={colors.brandColorPrimary} />
+                ) : (
+                        <Fragment>
+                            {getImage()}
 
-                <View style={[styles.textContainer, { alignItems: textAlignment }]}>
-                    <Text style={[styles.text, textButtonStyles]}>
-                        {text}
-                    </Text> 
-                </View>
+                            <View style={[styles.textContainer, { alignItems: textAlignment }]}>
+                                <Text style={[styles.text, textButtonStyles]}>
+                                    {text}
+                                </Text>
+                            </View>
+                        </Fragment>
+                    )}
             </View>
-            {triangleSide && <Triangle size={size} triangleSide={triangleSide}/>}
+            {triangleSide && <Triangle size={size} triangleSide={triangleSide} />}
         </TouchableOpacity>
     );
 };

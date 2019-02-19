@@ -14,8 +14,8 @@ export interface Profile extends BasicProfile {
 
 export interface AuthState {
     request: Request;
-    profile: Profile|null;
-    token: string|null;
+    profile: Profile | null;
+    token: string | null;
 }
 
 export enum AuthActions {

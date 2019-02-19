@@ -1,14 +1,15 @@
-import React, { FunctionComponent } from 'react'
 import { View } from 'react-native';
 import { connect } from 'react-redux';
+import React, { FunctionComponent } from 'react'
 
 import styles from './style';
 
-import { AppState } from './../../../state/state';
-import CustomButton from '../../../components/CustomButton'; 
-import HocFetchData from '../../../components/HocFetchData';
-import { RequestState } from '../../../state/common/types';
-import { AuthSagaActions } from '../../../state/auth/types';
+import { AppState } from '@app/state/state';
+import CustomButton from '@app/components/CustomButton';
+import HocFetchData from '@app/components/HocFetchData';
+import { RequestState } from '@app/state/common/types';
+import { AuthSagaActions } from '@app/state/auth/types';
+
 
 export enum socialTypes {
     facebook = 'Facebook',
@@ -23,7 +24,7 @@ interface ExternalLoginProps {
 
 const ExternalLogin: FunctionComponent<ExternalLoginProps> = ({ externalServiceLogin }) => (
     <View style={styles.container}>
-        <CustomButton 
+        <CustomButton
             text={'Start with Facebook'}
             onPress={() => externalServiceLogin(AuthSagaActions.FACEBOOK_LOGIN)}
             iconContainerColor={'#4280cb'}
@@ -34,13 +35,13 @@ const ExternalLogin: FunctionComponent<ExternalLoginProps> = ({ externalServiceL
             text={'Start with Google'}
             onPress={() => externalServiceLogin(AuthSagaActions.GOOGLE_LOGIN)}
             iconContainerColor={'#e65252'}
-            buttonStyles={[styles.googleButtonStyle, styles.buttonStyles]} 
+            buttonStyles={[styles.googleButtonStyle, styles.buttonStyles]}
             imageType={socialTypes.google}
-        /> 
+        />
     </View>
 );
 
-const mapStateToProps = (state: AppState) => ({  
+const mapStateToProps = (state: AppState) => ({
     errorMsg: state.auth.request.errorMsg,
     isLoading: state.auth.request.state === RequestState.inProgress
 });

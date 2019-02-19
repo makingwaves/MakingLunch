@@ -4,8 +4,7 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 import styles from './style';
 
-import Triangle from "../Triangle";
-import { triangleSides } from "../Triangle/Triangle";
+import Triangle, { triangleSides } from "@app/components/Triangle/Triangle";
 
 export interface AvatarProps {
     readonly photo: string;
@@ -18,10 +17,10 @@ export interface AvatarProps {
 const Avatar: FunctionComponent<AvatarProps> = ({
     photo, triangleSide, size = wp('8%'), imageContainer = {}, imageStyles = {}
 }) => (
-    <View style={[styles.imageContainer, imageContainer]}>
-        {photo && <Image style={[styles.imageStyles, imageStyles]} source={{ uri: photo }} resizeMode={'cover'} />}
-        {triangleSide && <Triangle size={size} triangleSide={triangleSide} />}
-    </View>
-);
+        <View style={[styles.imageContainer, imageContainer]}>
+            {photo && <Image style={[styles.imageStyles, imageStyles]} source={{ uri: photo }} resizeMode={'cover'} />}
+            {triangleSide && <Triangle size={size} triangleSide={triangleSide} />}
+        </View>
+    );
 
 export default memo(Avatar);

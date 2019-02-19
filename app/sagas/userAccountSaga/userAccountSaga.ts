@@ -1,14 +1,15 @@
 
-import { takeLatest, put, call, select } from 'redux-saga/effects';
-import RNSecureKeyStore from "react-native-secure-key-store";
-
-import { AuthSagaActions, Profile } from '../../state/auth/types';
-import { authActionsCreators } from '../../state/auth/actions';
-import { accountService } from './../../api';
-
-import { TOKEN_KEY, configureGoogle } from '../loginSaga/loginSaga';
-import { AppState } from '../../state/state';
 import { Platform } from 'react-native';
+import RNSecureKeyStore from 'react-native-secure-key-store';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
+
+import { AppState } from '@app/state/state';
+import { accountService } from '@app/api';
+import { getLunchesFlow } from '@app/sagas/lunchesSaga/lunchesSaga';
+import { authActionsCreators } from '@app/state/auth/actions';
+import { Profile, AuthSagaActions } from '@app/state/auth/types';
+import { TOKEN_KEY, configureGoogle } from '@app/sagas/loginSaga/loginSaga';
+
 
 export function* getSecureStoredKey(key: string) {
     try {
@@ -17,7 +18,7 @@ export function* getSecureStoredKey(key: string) {
             key
         );
         return token;
-    } catch(err) {
+    } catch (err) {
         return err;
     }
 }
@@ -28,7 +29,7 @@ export function* getUserDataFlow() {
     try {
         const userProfile: Profile = yield select(getUserProfileFromStore);
 
-        if(userProfile)
+        if (userProfile)
             return;
 
         yield put(authActionsCreators.startRequest());
@@ -39,7 +40,7 @@ export function* getUserDataFlow() {
 
         yield put(authActionsCreators.setProfile(userData));
         yield put(authActionsCreators.requestSuccess());
-    } catch(err) {
+    } catch (err) {
         yield put(authActionsCreators.requestFail('Error when trying to fetch user data.'));
     }
 }
@@ -55,7 +56,7 @@ export function* updateUserDataFlow({ userData }: { type: string, userData: Prof
 
         yield put(authActionsCreators.setProfile(updatedUserData));
         yield put(authActionsCreators.requestSuccess());
-    } catch(err) {
+    } catch (err) {
         yield put(authActionsCreators.requestFail('Error when trying to update user data.'));
     }
 }
@@ -68,19 +69,20 @@ export function* getUserDataWithTokenFlow() {
             configureGoogle[Platform.OS]
         );
 
-        if(typeof token === 'string') {
+        if (typeof token === 'string') {
             const userData: Profile = yield call(
                 [accountService, accountService.getUserDataWithToken],
                 token
             );
-            
+
             yield put(authActionsCreators.setToken(token));
             yield put(authActionsCreators.setProfile(userData));
+            yield call(getLunchesFlow);
         }
         else {
             yield put(authActionsCreators.setProfile(null));
         }
-    } catch(err) {
+    } catch (err) {
         yield put(authActionsCreators.setProfile(null));
     }
 }

@@ -1,21 +1,19 @@
+import Config from 'react-native-config';
+import { GoogleSignin, User } from 'react-native-google-signin';
+import RNSecureKeyStore, { ACCESSIBLE } from "react-native-secure-key-store";
 import { takeLatest, call, put, CallEffect } from 'redux-saga/effects';
 import { LoginManager, AccessToken, LoginResult } from "react-native-fbsdk";
-import { GoogleSignin, User } from 'react-native-google-signin';
-import Config from 'react-native-config';
-import RNSecureKeyStore, { ACCESSIBLE } from "react-native-secure-key-store";
 
-import { AuthSagaActions } from '../../state/auth/types';
-import { authActionsCreators } from '../../state/auth/actions';
-
+import { AuthSagaActions } from '@app/state/auth/types';
+import { UserDataResponse } from '@app/api/accountService/accountService';
+import { navigationService } from '@app/services';
+import { FacebookDataResult } from '@app/api/facebookLoginService/facebookLoginService';
+import { authActionsCreators } from '@app/state/auth/actions';
 import { getUserDataWithTokenFlow } from '../userAccountSaga/userAccountSaga';
-import { navigationService } from '../../services';
-import { FacebookDataResult } from '../../api/facebookLoginService/facebookLoginService';
-import { UserDataResponse } from '../../api/accountService/accountService';
-import { facebookLoginService, accountService } from '../../api';
-
 import { keyToString, mapDataToResponse } from '../utils/pureFn/pureFn';
+import { facebookLoginService, accountService } from '@app/api';
 
-export const TOKEN_KEY: string = 'USER_TOKEN'; 
+export const TOKEN_KEY: string = 'USER_TOKEN';
 
 export interface UserData {
     name: string;
@@ -31,7 +29,7 @@ export const configureGoogle: { [key in 'android' | 'ios']: () => Iterable<CallE
                 [GoogleSignin, GoogleSignin.configure],
                 { iosClientId: Config.KEYSTORE_IOSCLIENT_ID }
             );
-        } catch(err) {
+        } catch (err) {
             return err;
         }
     },
@@ -40,8 +38,8 @@ export const configureGoogle: { [key in 'android' | 'ios']: () => Iterable<CallE
             yield call(
                 [GoogleSignin, GoogleSignin.configure],
                 { webClientId: Config.KEYSTORE_WEBCLIENT_ID }
-            ); 
-        } catch(err) {
+            );
+        } catch (err) {
             return err;
         }
     }
@@ -53,7 +51,7 @@ export function* setSecureStoredKey(key: string, token: string) {
             [RNSecureKeyStore, RNSecureKeyStore.set],
             key, token, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }
         );
-    } catch(err) {
+    } catch (err) {
         return err;
     }
 }
@@ -64,8 +62,8 @@ export function* facebookLoginFlow() {
             [LoginManager, LoginManager.logInWithReadPermissions],
             ['public_profile', 'email']
         );
-        
-        if(!facebookLoginResponse.isCancelled) {
+
+        if (!facebookLoginResponse.isCancelled) {
             const accessTokenResult: AccessToken = yield call(
                 [AccessToken, AccessToken.getCurrentAccessToken]
             );
@@ -83,19 +81,19 @@ export function* facebookLoginFlow() {
             );
 
             yield call(setSecureStoredKey, TOKEN_KEY, userDataResponse.token);
-            
+
             try {
-                yield call(getUserDataWithTokenFlow); 
-    
+                yield call(getUserDataWithTokenFlow);
+
                 yield put(authActionsCreators.setToken(userDataResponse.token));
                 yield put(authActionsCreators.requestSuccess());
-        
+
                 yield navigationService.navigate(userDataResponse.isNewUser ? 'UserProfile' : 'App');
-            } catch(err) {
+            } catch (err) {
                 yield put(authActionsCreators.requestFail('Error when loggin in to Facebook.'));
             }
         }
-    } catch(err) {
+    } catch (err) {
         yield put(authActionsCreators.requestFail('Error when loggin in to Facebook.'));
     }
 }
@@ -120,20 +118,20 @@ export function* googleLoginFlow() {
         );
 
         yield call(setSecureStoredKey, TOKEN_KEY, userDataResponse.token);
-        
-        try { 
-            yield call(getUserDataWithTokenFlow); 
+
+        try {
+            yield call(getUserDataWithTokenFlow);
 
             yield put(authActionsCreators.setToken(userDataResponse.token));
             yield put(authActionsCreators.requestSuccess());
-    
+
             yield navigationService.navigate(userDataResponse.isNewUser ? 'UserProfile' : 'App');
-        } catch(err) {
+        } catch (err) {
             yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
         }
-    } catch(err) {
+    } catch (err) {
         yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
-    }   
+    }
 }
 
 export function* loginSaga() {

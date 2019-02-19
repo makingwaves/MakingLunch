@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { createAppContainer, createStackNavigator, NavigationScreenProp, NavigationParams } from 'react-navigation';
 
-import Landing from '../screens/Landing';
-import AppStack from './app';
- 
-import { navigationService } from '../services';
-import InitialScreen from '../screens/InitialScreen';
+import { navigationService } from '@app/services';
 
-const RootNavigation  = createStackNavigator(
+import Landing from '@app/screens/Landing';
+import AppStack from '@app/navigation/app';
+import InitialScreen from '@app/screens/InitialScreen';
+
+const RootNavigation = createStackNavigator(
     {
         App: {
             screen: AppStack
@@ -19,7 +19,7 @@ const RootNavigation  = createStackNavigator(
             screen: InitialScreen
         }
     },
-    { 
+    {
         headerMode: 'none',
         initialRouteName: 'Initial'
     }

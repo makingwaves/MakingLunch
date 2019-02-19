@@ -1,4 +1,4 @@
-import {Request} from '../common/types';
+import { Request } from '../common/types';
 
 // --- State interfaces:
 export interface Message {

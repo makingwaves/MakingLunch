@@ -1,14 +1,13 @@
 
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import RNSecureKeyStore from "react-native-secure-key-store";
 import { GoogleSignin } from 'react-native-google-signin';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
-import RNSecureKeyStore from "react-native-secure-key-store";
+import { takeLatest, put, all, call } from 'redux-saga/effects';
 
-import { AuthSagaActions } from '../../state/auth/types';
-import { authActionsCreators } from '../../state/auth/actions';
-import { navigationService } from '../../services';
-
-import { TOKEN_KEY } from './../loginSaga/loginSaga';
+import { TOKEN_KEY } from '../loginSaga/loginSaga';
+import { AuthSagaActions } from '@app/state/auth/types';
+import { navigationService } from '@app/services';
+import { authActionsCreators } from '@app/state/auth/actions';
 
 export function* removeSecureStoredKey(key: string) {
     try {
@@ -16,7 +15,7 @@ export function* removeSecureStoredKey(key: string) {
             [RNSecureKeyStore, RNSecureKeyStore.remove],
             key
         );
-    } catch(err) {
+    } catch (err) {
         return err;
     }
 }
@@ -30,20 +29,20 @@ export function* logoutFlow() {
 
         yield call(removeSecureStoredKey, TOKEN_KEY);
 
-        if(loggedInFb)
+        if (loggedInFb)
             yield call(
                 [LoginManager, LoginManager.logOut]
             );
-        if(loggedInGoogle)
+        if (loggedInGoogle)
             yield call(
                 [GoogleSignin, GoogleSignin.signOut]
             );
-        
+
         yield put(authActionsCreators.setProfile(null));
         yield put(authActionsCreators.setToken(null));
 
         yield navigationService.navigate('Auth');
-    } catch(err) {
+    } catch (err) {
         yield put(authActionsCreators.requestFail('Error when trying to logout.'));
     }
 }

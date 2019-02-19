@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { colors } from '../../../../config/styles';
+import { colors } from '@app/config/styles';
 
 export default StyleSheet.create({
     buttonStyles: {
@@ -15,12 +15,12 @@ export default StyleSheet.create({
     userPhotoContainer: {
         height: '100%',
         aspectRatio: 1,
-        alignItems: 'center', 
+        alignItems: 'center',
         justifyContent: 'center'
     },
     userPhotoStyles: {
         width: '50%',
-        height: '50%', 
-        borderRadius: hp('25%') / 6 
+        height: '50%',
+        borderRadius: hp('25%') / 6
     }
 });

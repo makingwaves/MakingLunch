@@ -1,10 +1,10 @@
 import { createStackNavigator } from 'react-navigation';
 
-import Main from '../screens/Main';
-import UserProfile from '../screens/UserProfile';
-import LunchesList from '../screens/LunchesList';
-import ChatMessages from '../screens/ChatMessages';
-import GuestsSwiper from '../screens/GuestsSwiper';
+import Main from '@app/screens/Main';
+import LunchesList from '@app/screens/LunchesList';
+import UserProfile from '@app/screens/UserProfile';
+import ChatMessages from '@app/screens/ChatMessages';
+import GuestsSwiper from '@app/screens/GuestsSwiper';
 
 const AppStack = createStackNavigator(
     {
@@ -12,7 +12,7 @@ const AppStack = createStackNavigator(
         LunchesList: { screen: LunchesList },
         UserProfile: { screen: UserProfile },
         Chat: { screen: ChatMessages },
-        GuestsSwiper: { screen: GuestsSwiper } 
+        GuestsSwiper: { screen: GuestsSwiper }
     },
     {
         initialRouteName: 'Main',

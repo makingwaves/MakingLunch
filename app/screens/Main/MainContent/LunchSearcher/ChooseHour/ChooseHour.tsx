@@ -46,9 +46,9 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
 
     private getMappedDate(str: number[]): string {
         return dayjs()
-            .set('hour', str[0] + 1)
+            .set('hour', str[0])
             .set('minute', str[1])
-            .toString();
+            .format();
     }
 
     private openTimePicker = async (type: 'lunchStart') => {
@@ -63,10 +63,9 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
                 is24Hour: true
             });
 
-            if(action !== TimePickerAndroid.dismissedAction) {
-                this.setState(prevState  => ({ [type]: this.mapTimePickerValuesToString(hour, minute) }))
-            }
-        } catch(err) { }
+            if (action !== TimePickerAndroid.dismissedAction)
+                this.setState(prevState => ({ [type]: this.mapTimePickerValuesToString(hour, minute) }))
+        } catch (err) { }
     }
 
     private mapTimePickerValuesToString(hour: number, minute: number, suffix: string = ':'): string {
@@ -93,7 +92,7 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
 
         return (
             <View>
-                <Bubble 
+                <Bubble
                     triangleSide={triangleSides.bottomLeft}
                     bubbleContainerStyles={styles.bubbleContainer}
                     bubbleStyles={styles.bubble}
@@ -103,14 +102,14 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
                         <Text style={styles.bubbleTitle}>Lunch begins between</Text>
                     </View>
                     <View style={styles.bottomBubbleContainer}>
-                        <TimePickerType 
+                        <TimePickerType
                             timeType={'lunchStart'}
                             timeValue={lunchStart}
                             openTimePicker={this.openTimePicker}
                             textAlignment={'flex-start'}
                         />
                         <Image source={ARROW} style={styles.arrowImageStyles} />
-                        <TimePickerType 
+                        <TimePickerType
                             timeType={'lunchEnd'}
                             timeValue={lunchEnd}
                             openTimePicker={this.openTimePicker}
@@ -118,7 +117,7 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
                         />
                     </View>
                 </Bubble>
-                <CustomButton 
+                <CustomButton
                     text={'Search!'}
                     onPress={this.onSearchLunchClick}
                     containerStyles={styles.searchButtonContainer}

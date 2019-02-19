@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "app",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -9,6 +10,9 @@
     "moduleResolution": "node",
     "noEmit": true,
     "target": "esnext",
+    "paths": {
+      "@app/*": ["*"]
+    }
   },
   "exclude": ["node_modules"],
 }
