@@ -1,11 +1,10 @@
-import { NavigationScreenProp, NavigationParams, NavigationActions } from "react-navigation";
+import { NavigationScreenProp, NavigationParams, NavigationActions, StackActions } from "react-navigation";
 
 class NavigationService {
     private navigation: NavigationScreenProp<NavigationParams>;
 
     public setNavigation(navigationRef: NavigationScreenProp<NavigationParams>): void {
-        if (!this.navigation)
-            this.navigation = navigationRef;
+        this.navigation = navigationRef;
     }
 
     public navigate(routeName: string, params?: NavigationParams): void {
@@ -15,6 +14,18 @@ class NavigationService {
                 params
             })
         );
+    }
+
+    public navigateAndReset(routeName: string, params?: NavigationParams): void {
+        this.navigation.dispatch(StackActions.reset({
+            index: 0,
+            key: null,
+            actions: [
+                NavigationActions.navigate({
+                    routeName, params
+                })
+            ]
+        }))
     }
 }
 

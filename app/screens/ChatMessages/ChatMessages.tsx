@@ -39,7 +39,7 @@ class ChatMessages extends Component<ChatProps> {
     }
 
     public componentDidMount(): void {
-        this.props.getChatMessages({ lunchId: this.props.id, currentPage: this.currentPage });
+        this.props.getChatMessages({ lunchId: this.props.id, currentPage: this.currentPage, lazyLoaded: false });
     }
 
     private onMessageSend = (messageContent: string): void => {
@@ -52,7 +52,7 @@ class ChatMessages extends Component<ChatProps> {
 
     private lazyLoadChatMessages = () => {
         this.currentPage += 1;
-        this.props.getChatMessages({ lunchId: this.props.id, currentPage: this.currentPage });
+        this.props.getChatMessages({ lunchId: this.props.id, currentPage: this.currentPage, lazyLoaded: true });
     }
 
     public render() {

@@ -145,6 +145,7 @@ export enum LunchActions {
     SET_LUNCH_TIME = '@@lunches/set_lunch_time',
     SET_LUNCH_CHAT = '@@lunches/set_chat',
     ADD_CHAT_MESSAGE = '@@lunches/add_chat_message',
+    ADD_LOADED_CHAT_MESSAGES = '@@lunches/add_loaded_chat_messages',
     UPDATE_CHAT_MESSAGE = '@@lunches/UPDATE_CHAT_MESSAGE',
     REMOVE_CHAT_MESSAGE = '@@lunches/remove_chat_message',
     START_REQUEST = '@@lunches/start_request',

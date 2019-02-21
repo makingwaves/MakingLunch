@@ -1,6 +1,6 @@
-import React, { memo, FunctionComponent } from "react";
-import { View, Image, StyleProp, ViewStyle, ImageStyle } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import React, { memo, FunctionComponent } from "react";
+import { View, Image, StyleProp, ViewStyle, ImageStyle, Dimensions } from "react-native";
 
 import styles from './style';
 
@@ -12,15 +12,27 @@ export interface AvatarProps {
     readonly size?: number;
     readonly imageContainer?: StyleProp<ViewStyle>;
     readonly imageStyles?: StyleProp<ImageStyle>;
+    readonly imageWidth: number;
 };
 
 const Avatar: FunctionComponent<AvatarProps> = ({
-    photo, triangleSide, size = wp('8%'), imageContainer = {}, imageStyles = {}
-}) => (
+    photo, triangleSide, size = wp('8%'), imageContainer = {}, imageStyles = {}, imageWidth = Math.floor(wp('100%'))
+}) => {
+    const mapPhoto = (photo: string): string => {
+        if (photo && typeof photo === 'string')
+            return photo.includes('googleusercontent') ? mapGooglePhoto(photo) : mapFacebookPhoto(photo);
+    }
+    const mapGooglePhoto = (photo: string): string => photo + '?sz=' + imageWidth
+    const mapFacebookPhoto = (photo: string): string => photo + '?width=' + imageWidth;
+
+    const mappedPhoto = mapPhoto(photo);
+
+    return (
         <View style={[styles.imageContainer, imageContainer]}>
-            {photo && <Image style={[styles.imageStyles, imageStyles]} source={{ uri: photo }} resizeMode={'cover'} />}
+            {photo && <Image style={[styles.imageStyles, imageStyles]} source={{ uri: mappedPhoto }} resizeMode={'cover'} />}
             {triangleSide && <Triangle size={size} triangleSide={triangleSide} />}
         </View>
-    );
+    )
+}
 
 export default memo(Avatar);

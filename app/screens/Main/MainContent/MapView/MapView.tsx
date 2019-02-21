@@ -4,12 +4,7 @@ import GoogleMapView, { PROVIDER_GOOGLE, Circle, Region, Marker } from 'react-na
 import styles from './style';
 import { colors } from '../../../../config/styles';
 import { Location } from '../../../../state/lunches/types';
-
-export interface MapViewState {
-    lng: number;
-    lat: number;
-    radius: number;
-};
+import { View, Image } from 'react-native';
 
 export interface Point {
     lng: number;
@@ -18,9 +13,7 @@ export interface Point {
 
 const LOCATION_ICON = require('./img/location_icon.png');
 
-class MapView extends PureComponent<object, MapViewState> {
-    public state: MapViewState;
-
+class MapView extends PureComponent<object> {
     private readonly initialRegion: Region = {
         latitude: 50.062525,
         longitude: 19.936764,
@@ -34,122 +27,81 @@ class MapView extends PureComponent<object, MapViewState> {
         super(props);
 
         this.googleMapsRef = createRef();
-
-        const {
-            latitude,
-            longitude,
-            longitudeDelta
-        } = this.initialRegion;
-
-        this.state = {
-            lat: latitude,
-            lng: longitude,
-            radius: this.getRadius(latitude, longitude, longitudeDelta)
-        };
     }
 
-    public navigateToUserLocation = (): void => {  
+    public navigateToUserLocation = (): void => {
         this.getUserLocation((lng, lat) => {
-            this.googleMapsRef.current.animateToRegion({ 
-                longitude: lng, 
+            this.googleMapsRef.current.animateToRegion({
+                longitude: lng,
                 latitude: lat,
                 longitudeDelta: this.initialRegion.longitudeDelta,
                 latitudeDelta: this.initialRegion.latitudeDelta
-            }, 300);    
-            this.setState(prevState => ({ lng, lat }));    
-        });  
+            }, 300);
+        });
     }
 
-    public getSelectedUserLocation(): Location {
+    public async getSelectedUserLocation(): Promise<Location> {
+        const camera = await this.googleMapsRef.current.getCamera();
+        const { southWest, northEast } = await this.googleMapsRef.current.getMapBoundaries();
+
+        const lngFromScreen = this.getCircleLng(southWest.longitude, northEast.longitude);
+
         return {
-            latitude: this.state.lat,
-            longitude: this.state.lng,
-            radiusInMeters: Math.floor(this.state.radius)
+            latitude: camera.center.latitude,
+            longitude: camera.center.longitude,
+            radiusInMeters: this.distance({
+                lat: camera.center.latitude,
+                lng: northEast.longitude + lngFromScreen
+            }, {
+                    lat: camera.center.latitude,
+                    lng: southWest.longitude - lngFromScreen
+                })
         }
     }
 
-    public onRegionChange = (evt: Region) => {
-        const {  
-            latitude: lat, 
-            longitude: lng, 
-            longitudeDelta: lngDelta,  
-        } = evt; 
-        this.setState(prevState => ({
-            lng,
-            lat,
-            radius: this.getRadius(lat, lng, lngDelta) 
-        }));
-    };
-
-    private getRadius(lat: number, lng: number, lngRadius: number): number {
-        return this.getDistanceBetweenPoints(
-            { lat: lat, lng: lng - lngRadius / 2 },
-            { lat: lat, lng: lng + lngRadius / 2 } 
-        )
+    private getCircleLng(westLng: number, eastLng: number): number {
+        return (westLng - eastLng) * .25;
     }
 
-    private getDistanceBetweenPoints(point1: Point, point2: Point): number {
-        const earthRadius: number = 6371;
-        const [dLat, dLng] = [
-            this.degToRadians(point2.lat - point1.lat),
-            this.degToRadians(point2.lng - point1.lng)
-        ];
-        const  a = 
-            Math.sin( dLat / 2 ) * Math.sin( dLat / 2 ) +
-            Math.cos(this.degToRadians(point1.lat)) * Math.cos(this.degToRadians(point2.lat)) * 
-            Math.sin( dLng / 2 ) * Math.sin( dLng / 2 );
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt( 1 - a )); 
-        return Math.abs(( earthRadius * c ) * 350);
-    }
-
-    private degToRadians(deg: number): number {
-        return deg * ( Math.PI / 180 );
+    private distance(p1: Point, p2: Point): number {
+        const radlat1 = Math.PI * p1.lat / 180;
+        const radlat2 = Math.PI * p2.lat / 180;
+        const theta = p1.lng - p2.lng;
+        const radtheta = Math.PI * theta / 180;
+        let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        if (dist > 1)
+            dist = 1;
+        dist = Math.acos(dist);
+        dist = dist * 180 / Math.PI;
+        return Math.round((dist * 60 * 1.1515) * 1609.344);
     }
 
     private getUserLocation(cb: (lng: number, lat: number) => void): void {
-        navigator.geolocation.getCurrentPosition(({ 
-            coords 
+        navigator.geolocation.getCurrentPosition(({
+            coords
         }) => cb(coords.longitude, coords.latitude));
     }
 
     public render() {
-        const {
-            lng,
-            lat,
-            radius
-        } = this.state;
-
-        const coords = {
-            latitude: lat,
-            longitude: lng
-        };
-
         return (
-            <GoogleMapView
-                style={styles.mapView} 
-                provider={PROVIDER_GOOGLE}   
-                initialRegion={this.initialRegion}
-                ref={this.googleMapsRef}
-                onRegionChange={this.onRegionChange}
-                // onMapReady={this.navigateToUserLocation}
-                showsTraffic={false}
-                showsBuildings={false}
-                loadingEnabled={true} 
-                loadingBackgroundColor={colors.colorLight}
-                loadingIndicatorColor={colors.brandColorPrimary} 
-            >
-                <Marker 
-                    coordinate={coords}
-                    image={LOCATION_ICON}  
-                />
-                <Circle 
-                    center={coords}
-                    radius={radius} 
-                    fillColor={'rgba(0, 0, 0, .3)'}
-                    strokeWidth={2}
-                    strokeColor={colors.brandColorPrimary} 
-                /> 
-            </GoogleMapView>
+            <View style={styles.mapContainer}>
+                <GoogleMapView
+                    style={styles.mapView}
+                    provider={PROVIDER_GOOGLE}
+                    initialRegion={this.initialRegion}
+                    ref={this.googleMapsRef}
+                    onMapReady={this.navigateToUserLocation}
+                    showsTraffic={false}
+                    showsBuildings={false}
+                    loadingEnabled={true}
+                    loadingBackgroundColor={colors.colorLight}
+                    loadingIndicatorColor={colors.brandColorPrimary}
+                >
+                </GoogleMapView>
+                <View style={styles.circle} pointerEvents={'none'}>
+                    <Image source={LOCATION_ICON} style={styles.circleIcon} />
+                </View>
+            </View>
         );
     }
 }

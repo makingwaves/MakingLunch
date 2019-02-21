@@ -5,7 +5,6 @@ import { Profile } from '@app/state/auth/types';
 import { ErrorResponse } from '@app/services/errorHandleService/errorHandleService';
 import { ErrorHandleService } from '@app/services';
 
-
 export interface UserDataRequest {
     name: string;
     description: string;
@@ -13,6 +12,7 @@ export interface UserDataRequest {
     loginProvider: 'facebook' | 'google';
     loginProviderToken: string; // token from facebook / google
     id?: string; // facebook userId
+    deviceId: string;
 };
 
 export interface UserDataResponse {

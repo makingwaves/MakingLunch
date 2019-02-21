@@ -4,6 +4,9 @@ import { colors } from '../../../config/styles';
 
 
 export default StyleSheet.create({
+    imageContainerStyles: {
+        width: '30%'
+    },
     singleLunchContainer: {
         marginTop: 10,
     },

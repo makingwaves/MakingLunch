@@ -66,7 +66,7 @@ class Landing extends PureComponent<NavigationScreenProps> {
     public render() {
         return (
             <ParallaxSwiper
-                speed={0.5}
+                speed={.15}
                 animatedValue={new Animated.Value(0)}
             > 
                 <ParallaxSwiperPage

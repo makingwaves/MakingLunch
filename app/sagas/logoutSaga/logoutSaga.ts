@@ -41,7 +41,7 @@ export function* logoutFlow() {
         yield put(authActionsCreators.setProfile(null));
         yield put(authActionsCreators.setToken(null));
 
-        yield navigationService.navigate('Auth');
+        yield navigationService.navigateAndReset('Auth');
     } catch (err) {
         yield put(authActionsCreators.requestFail('Error when trying to logout.'));
     }

@@ -88,7 +88,7 @@ export function* facebookLoginFlow() {
                 yield put(authActionsCreators.setToken(userDataResponse.token));
                 yield put(authActionsCreators.requestSuccess());
 
-                yield navigationService.navigate(userDataResponse.isNewUser ? 'UserProfile' : 'App');
+                yield navigationService.navigateAndReset(userDataResponse.isNewUser ? 'UserProfile' : 'App');
             } catch (err) {
                 yield put(authActionsCreators.requestFail('Error when loggin in to Facebook.'));
             }
@@ -125,7 +125,7 @@ export function* googleLoginFlow() {
             yield put(authActionsCreators.setToken(userDataResponse.token));
             yield put(authActionsCreators.requestSuccess());
 
-            yield navigationService.navigate(userDataResponse.isNewUser ? 'UserProfile' : 'App');
+            yield navigationService.navigateAndReset(userDataResponse.isNewUser ? 'UserProfile' : 'App');
         } catch (err) {
             yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
         }

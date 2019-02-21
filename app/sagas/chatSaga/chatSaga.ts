@@ -9,6 +9,7 @@ import { AddChatMessagePayload, MessageStatus, UpdateChatMessagePayload, RemoveC
 
 export interface GetLunchChatData {
     lunchId: string;
+    lazyLoaded: boolean;
     currentPage: number;
 };
 
@@ -29,7 +30,7 @@ export const getPendingMessageData = (messagePayload: PostChatMessageDto, userId
         message: {
             messageId: uuid,
             memberId: userId,
-            time: dayjs().toString(),
+            time: dayjs().format(),
             message: messagePayload.messageContent,
             status: MessageStatus.pending
         }
@@ -66,7 +67,11 @@ export function* getLunchChatFlow({ payload }: { type: string, payload: GetLunch
         );
 
         yield put(lunchesActionsCreators.requestSuccess());
-        yield put(lunchesActionsCreators.setLunchChat({ lunchId: payload.lunchId, chat: chat }));
+
+        if (payload.lazyLoaded)
+            yield put(lunchesActionsCreators.addLoadedChatMessages({ lunchId: payload.lunchId, chat: chat }));
+        else
+            yield put(lunchesActionsCreators.setLunchChat({ lunchId: payload.lunchId, chat: chat }));
     } catch (err) {
         yield put(lunchesActionsCreators.requestFail('Error when trying to fetch chat messages.'));
     }

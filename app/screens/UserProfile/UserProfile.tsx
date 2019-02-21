@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import { NavigationScreenProps } from 'react-navigation';
-import { KeyboardAvoidingView, ScrollView } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { KeyboardAvoidingView, ScrollView, AppState } from 'react-native';
 
 import styles from './style';
-import { colors } from '../../config/styles';
 
-import BackButton from '../../components/BackButton';
-import { Profile, AuthSagaActions } from '../../state/auth/types';
-import CustomInput from '../../components/CustomInput/CustomInput';
-import { AppState } from './../../state/state';
-import CustomButton from '../../components/CustomButton';
-import { triangleSides } from '../../components/Triangle/Triangle';
-import Avatar from '../../components/Avatar/Avatar';
-import HocFetchData from '../../components/HocFetchData';
-import { RequestState } from '../../state/common/types';
+import Avatar from '@app/components/Avatar';
+import { colors } from '@app/config/styles';
+import BackButton from '@app/components/BackButton';
+import CustomInput from '@app/components/CustomInput';
+import CustomButton from '@app/components/CustomButton';
+import HocFetchData from '@app/components/HocFetchData';
+import { RequestState } from '@app/state/common/types';
+import { triangleSides } from '@app/components/Triangle/Triangle';
+import { Profile, AuthSagaActions } from '@app/state/auth/types';
 
 export interface UserProfileProps extends NavigationScreenProps {
     userData: Profile;
@@ -32,8 +32,15 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
         super(props);
 
         this.state = {
-            userData: props.userData
+            userData: this.changeUserImageWidth(props.userData)
         };
+    }
+
+    private changeUserImageWidth(userData: Profile): Profile {
+        return {
+            ...userData,
+            photo: userData.photo
+        }
     }
 
     private onInputChange = (text: string, type: string) => {
@@ -46,40 +53,40 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
 
     public render() {
         const { navigation } = this.props;
-        const { userData } = this.state; 
+        const { userData } = this.state;
 
-        return ( 
+        return (
             <ScrollView style={styles.userProfileContainer}>
-                <BackButton navigation={navigation} backgroundColor={colors.colorLight} /> 
-                <KeyboardAvoidingView style={styles.formContainer} behavior={'padding'}>  
+                <BackButton navigation={navigation} backgroundColor={colors.colorLight} />
+                <KeyboardAvoidingView style={styles.formContainer} behavior={'padding'}>
                     <Avatar photo={userData.photo} imageContainer={styles.imageContainer} imageStyles={styles.imageStyles} triangleSide={triangleSides.bottomRight} />
-                    <CustomInput 
+                    <CustomInput
                         value={userData.name}
                         type={'name'}
-                        onChangeText={this.onInputChange} 
-                        label={'Your name (visible to others)'} 
+                        onChangeText={this.onInputChange}
+                        label={'Your name (visible to others)'}
                         triangleSide={triangleSides.bottomRight}
                         inputStyles={styles.nameInput}
                     />
-                    <CustomInput 
+                    <CustomInput
                         value={userData.description}
                         type={'description'}
-                        onChangeText={this.onInputChange} 
+                        onChangeText={this.onInputChange}
                         multiLine={true}
-                        label={'Something about you'} 
+                        label={'Something about you'}
                         triangleSide={triangleSides.bottomLeft}
                         inputStyles={styles.descriptionInput}
                     />
-                    <CustomButton 
+                    <CustomButton
                         text={'Save'}
-                        onPress={this.saveUserData} 
+                        onPress={this.saveUserData}
                         containerStyles={styles.buttonContainerStyles}
                         buttonStyles={styles.buttonStyles}
                         triangleSide={triangleSides.bottomLeft}
                     />
                 </KeyboardAvoidingView>
             </ScrollView>
-        ); 
+        );
     }
 }
 
@@ -94,6 +101,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     mapDispatchToProps
 )(HocFetchData(UserProfile, 'Updating user data..'))

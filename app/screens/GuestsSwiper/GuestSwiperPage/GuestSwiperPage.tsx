@@ -4,10 +4,10 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import styles from './style';
 
-import { Member } from '../../../state/members/types';
-import Avatar from '../../../components/Avatar';
-import { triangleSides } from '../../../components/Triangle/Triangle';
-import Bubble from '../../../components/Bubble';
+import Bubble from '@app/components/Bubble';
+import Avatar from '@app/components/Avatar';
+import { Member } from '@app/state/members/types';
+import { triangleSides } from '@app/components/Triangle/Triangle';
 
 export interface GuestSwiperPageProps {
     member: Member;
@@ -17,13 +17,13 @@ const GuestSwiperPage: FunctionComponent<GuestSwiperPageProps> = ({
     member
 }) => {
     return (
-        <View style={styles.guestPageContainer}> 
-            <Avatar 
-                photo={member.photo} 
-                imageContainer={styles.imageContainer}  
-                imageStyles={styles.imageStyles} 
-                triangleSide={triangleSides.bottomRight} 
-                size={wp('10%')}    
+        <View style={styles.guestPageContainer}>
+            <Avatar
+                photo={member.photo}
+                imageContainer={styles.imageContainer}
+                imageStyles={styles.imageStyles}
+                triangleSide={triangleSides.bottomRight}
+                size={wp('10%')}
             />
             <Bubble bubbleContainerStyles={styles.bubbleContainer} bubbleStyles={[styles.bubble, styles.name]} triangleSide={triangleSides.bottomLeft}>
                 <Text style={[styles.bubbleText, styles.nameText]}>{member.name}</Text>
@@ -35,11 +35,11 @@ const GuestSwiperPage: FunctionComponent<GuestSwiperPageProps> = ({
             </Bubble>
             <Bubble bubbleContainerStyles={styles.meetingsContainer} bubbleStyles={styles.meetingsBubble}>
                 <Text style={styles.meetingsText}>N0 of mettings</Text>
-                <Text style={styles.meetingsNumber}>32</Text> 
+                <Text style={styles.meetingsNumber}>32</Text>
             </Bubble>
-        </View> 
+        </View>
     )
-} 
+}
 
 export default memo(GuestSwiperPage);
 

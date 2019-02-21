@@ -13,7 +13,7 @@ export interface FacebookDataResponse {
 export interface FacebookDataResult {
     id: string;
     name: string;
-    photo: string;  
+    photo: string;
     description?: string;
 };
 
@@ -24,7 +24,7 @@ class FacebookLoginService {
             return new GraphRequestManager()
                 .addRequest(
                     this.getGraphRequest(
-                        '/me?fields=id,name,picture', 
+                        '/me?fields=id,name,picture',
                         (err: Error, result: FacebookDataResponse) => !err ? resolve(this.mapResultFromFacebook(result)) : reject(err)
                     )
                 )

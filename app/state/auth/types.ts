@@ -11,7 +11,6 @@ export interface Profile extends BasicProfile {
     meetingsNumber: number;
 }
 
-
 export interface AuthState {
     request: Request;
     profile: Profile | null;

@@ -41,7 +41,7 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
         this.mapViewRef.current.navigateToUserLocation();
     }
 
-    private onSearchClick = (timeSpan: TimeSpan): void => {
+    private onSearchClick = async (timeSpan: TimeSpan): Promise<void> => {
         if (this.isBetweenOtherPendingLunches(timeSpan, this.props.lunches, this.props.userId)) {
             Alert.alert(
                 'Error occured',
@@ -52,7 +52,7 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
             );
         }
         else {
-            const userLocation = this.mapViewRef.current.getSelectedUserLocation();
+            const userLocation = await this.mapViewRef.current.getSelectedUserLocation();
             this.props.searchLunch({
                 ...timeSpan,
                 ...userLocation

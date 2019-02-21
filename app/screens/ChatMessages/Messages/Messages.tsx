@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
-import { ListRenderItem, FlatList, View } from 'react-native';
-import React, { ReactElement, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import { FlatList, View, ListRenderItem } from 'react-native';
 
 import styles from './style';
 
-import { Message } from '@app/state/lunches/types';
+import MessageType from './MessageType';
 import { AppState } from '@app/state/state';
 import MessagesLoader from './MessagesLoader';
-import OtherUserMessage from './OtherUserMessage';
-import CurrentUserMessage from './CurrentUserMessage';
+import { Message, MessageStatus } from '@app/state/lunches/types';
 
 export interface MessagesProps {
     userId: string;
@@ -21,24 +20,12 @@ export interface MessagesState {
     performLazyLoad: boolean;
 };
 
-export interface MessageTypeProps {
-    singleMessage: Message;
-    userId: string;
-};
-
 export enum UserMessageType {
     otherUser, currentUser
 };
 
-export type MessageType = { [key in UserMessageType]: (singleMessage: Message, userId: string) => ReactElement<MessageTypeProps> };
-
 class Messages extends PureComponent<MessagesProps, MessagesState> {
     public state: MessagesState;
-
-    private messageType: MessageType = {
-        [UserMessageType.otherUser]: (singleMessage, userId) => <OtherUserMessage singleMessage={singleMessage} userId={userId} />,
-        [UserMessageType.currentUser]: (singleMessage, userId) => <CurrentUserMessage singleMessage={singleMessage} userId={userId} />
-    };
 
     constructor(props: MessagesProps) {
         super(props);
@@ -49,15 +36,16 @@ class Messages extends PureComponent<MessagesProps, MessagesState> {
     }
 
     public componentDidUpdate(prevProps: MessagesProps): void {
-        if (prevProps.messages !== this.props.messages
+        if (this.state.performLazyLoad && prevProps.messages !== this.props.messages
             && (prevProps.messages.length === this.props.messages.length || this.props.messages.length < 16))
-            this.setState(prevState => ({ performLazyLoad: false }));
+            if (!this.prevPropsUpdatingStatus(prevProps.messages))
+                this.setState(prevState => ({ performLazyLoad: false }));
     }
 
-    private renderMessageItem: ListRenderItem<Message> = ({ item }) => {
-        const isCurrentUser: number = Number(item.memberId === this.props.userId);
-        return item && this.messageType[isCurrentUser](item, item.memberId);
-    };
+    private prevPropsUpdatingStatus(prevMessages: Message[]): boolean {
+        return prevMessages && prevMessages
+            .some(msg => msg.status === MessageStatus.pending);
+    }
 
     private keyExtractor = (item: Message, index: number): string => item.messageId;
 
@@ -65,6 +53,8 @@ class Messages extends PureComponent<MessagesProps, MessagesState> {
         if (!this.props.refreshing && this.state.performLazyLoad)
             this.props.onEndReach();
     }
+
+    private renderItem: ListRenderItem<Message> = ({ item }) => <MessageType key={item.messageId} userId={this.props.userId} item={item} />;
 
     public render() {
         const {
@@ -77,11 +67,11 @@ class Messages extends PureComponent<MessagesProps, MessagesState> {
                 <FlatList
                     style={styles.messagesViewContainer}
                     data={messages}
-                    renderItem={this.renderMessageItem}
+                    renderItem={this.renderItem}
                     keyExtractor={this.keyExtractor}
                     inverted={true}
                     onEndReached={this.onEndReach}
-                    onEndReachedThreshold={.2}
+                    onEndReachedThreshold={0.25}
                     ListHeaderComponent={<View style={styles.headerFlatList}></View>}
                     ListFooterComponent={<MessagesLoader isLoading={refreshing} />}
                 />

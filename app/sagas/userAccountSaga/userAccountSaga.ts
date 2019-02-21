@@ -80,10 +80,10 @@ export function* getUserDataWithTokenFlow() {
             yield call(getLunchesFlow);
         }
         else {
-            yield put(authActionsCreators.setProfile(null));
+            yield put(authActionsCreators.setProfile({} as Profile));
         }
     } catch (err) {
-        yield put(authActionsCreators.setProfile(null));
+        yield put(authActionsCreators.setProfile({} as Profile));
     }
 }
 

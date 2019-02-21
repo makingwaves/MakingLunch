@@ -37,7 +37,7 @@ const SingleLunch: FunctionComponent<SingleLunchProps> = ({
         <TouchableOpacity style={styles.singleLunchContainer} onPress={onLunchClick}>
             <View style={styles.topBar}>
                 <LunchDate isActive={isActive} date={date} />
-                <GuestList guestsId={lunch.members} />
+                <GuestList guestsId={lunch.members} imageContainerStyles={styles.imageContainerStyles} />
             </View>
             <View style={[styles.bottomBar, isActive ? styles.activeBottomBar : {}]}>
                 <Text style={styles.bottomBarText}>{subTitle}</Text>

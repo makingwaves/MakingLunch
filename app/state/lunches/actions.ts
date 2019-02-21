@@ -29,6 +29,7 @@ export const lunchesActionsCreators = {
         makeAction(LunchActions.SET_LUNCH_LOCATION, locationPayload),
     setLunchTime: (timePayload: SetLunchTimePayload) => makeAction(LunchActions.SET_LUNCH_TIME, timePayload),
     setLunchChat: (chatPayload: SetLunchChatPayload) => makeAction(LunchActions.SET_LUNCH_CHAT, chatPayload),
+    addLoadedChatMessages: (chatPayload: SetLunchChatPayload) => makeAction(LunchActions.ADD_LOADED_CHAT_MESSAGES, chatPayload),
     addChatMessage: (messagePayload: AddChatMessagePayload) =>
         makeAction(LunchActions.ADD_CHAT_MESSAGE, messagePayload),
     updateChatMessage: (messagePayload: UpdateChatMessagePayload) => makeAction(LunchActions.UPDATE_CHAT_MESSAGE, messagePayload),

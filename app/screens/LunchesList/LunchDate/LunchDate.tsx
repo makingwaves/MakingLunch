@@ -32,7 +32,7 @@ const LunchDate: FunctionComponent<LunchDataProps> = ({
     };
 
     return (
-        <View>
+        <View style={styles.lunchDateContainer}>
             <View style={styles.upperDate}>
                 <Image source={CLOCK_SVG} style={styles.clockImage} />
                 <Text style={styles.miniDateText}>{dayjs(date.begin).format('YYYY.MM.DD')}</Text>

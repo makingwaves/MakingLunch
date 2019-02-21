@@ -3,6 +3,9 @@ import { StyleSheet } from 'react-native';
 import { colors, fontSizes } from '../../../config/styles';
 
 export default StyleSheet.create({
+    lunchDateContainer: {
+        width: '55%'
+    },
     miniDateText: {
         color: colors.colorLightest,
         fontSize: fontSizes.mini,
@@ -14,7 +17,7 @@ export default StyleSheet.create({
     },
     activeLargeDataText: {
         color: colors.brandColorSecondary,
-        fontSize: fontSizes.peta
+        fontSize: fontSizes.giga
     },
     upperDate: {
         flexDirection: 'row',

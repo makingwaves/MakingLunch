@@ -6,6 +6,7 @@ import { navigationService } from '@app/services';
 import Landing from '@app/screens/Landing';
 import AppStack from '@app/navigation/app';
 import InitialScreen from '@app/screens/InitialScreen';
+import pushNotificationService from '@app/api/pushNotificationService/pushNotificationService';
 
 const RootNavigation = createStackNavigator(
     {
@@ -34,6 +35,8 @@ class Navigation extends Component {
         super(props);
 
         this.navigatorRef = React.createRef();
+
+        pushNotificationService.configureNotification();
     }
 
     public componentDidMount(): void {
