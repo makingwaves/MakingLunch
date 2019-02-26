@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { NavigationScreenProps } from 'react-navigation';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { KeyboardAvoidingView, ScrollView, AppState } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
 
 import styles from './style';
 
@@ -10,14 +9,16 @@ import Avatar from '@app/components/Avatar';
 import { colors } from '@app/config/styles';
 import BackButton from '@app/components/BackButton';
 import CustomInput from '@app/components/CustomInput';
+import { AppState } from '@app/state/state';
 import CustomButton from '@app/components/CustomButton';
-import HocFetchData from '@app/components/HocFetchData';
 import { RequestState } from '@app/state/common/types';
 import { triangleSides } from '@app/components/Triangle/Triangle';
 import { Profile, AuthSagaActions } from '@app/state/auth/types';
 
 export interface UserProfileProps extends NavigationScreenProps {
     userData: Profile;
+    errorMsg: string;
+    isLoading: boolean;
     updateUser: (userData: Profile) => void;
 };
 
@@ -34,6 +35,21 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
         this.state = {
             userData: this.changeUserImageWidth(props.userData)
         };
+    }
+
+    public componentDidUpdate(prevProps: UserProfileProps): void {
+        if (prevProps !== this.props && !prevProps.isLoading && this.props.isLoading)
+            this.showAlert();
+    }
+
+    private showAlert(): void {
+        Alert.alert(
+            'Profile update',
+            'You have updated your data successfuly',
+            [
+                { text: 'Ok' }
+            ]
+        );
     }
 
     private changeUserImageWidth(userData: Profile): Profile {
@@ -103,4 +119,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(HocFetchData(UserProfile, 'Updating user data..'))
+)(UserProfile)

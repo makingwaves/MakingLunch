@@ -32,15 +32,15 @@ export type LunchType = {
 class LunchesList extends PureComponent<LunchesListProps> {
     private lunchTypesTitles: LunchType = {
         [LunchStatus.pending]: {
-            title: 'Pending',
-            subTitle: 'Pending'
-        },
-        [LunchStatus.running]: {
-            title: 'Current',
+            title: 'PENDING',
             subTitle: 'Searching'
         },
+        [LunchStatus.running]: {
+            title: 'RUNNING',
+            subTitle: 'Running'
+        },
         [LunchStatus.finished]: {
-            title: 'Lunch history',
+            title: 'LUNCH HISTORY',
             subTitle: 'Finished'
         }
     };
@@ -59,7 +59,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
                     style={styles.sectionList}
                     renderSectionHeader={({ section: { title, data } }) => (
                         <View>
-                            {data && !!data.length && <Text style={styles.sectionTitle}>{title}</Text>}
+                            {data && !!data.length && <Text style={styles.sectionTitle}>{this.lunchTypesTitles[title].title}</Text>}
                         </View>
                     )}
                     renderItem={({ item, section }) => (
@@ -67,6 +67,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
                     )}
                     sections={lunches}
                     keyExtractor={(item, index) => item + index}
+                    ListFooterComponent={<View style={styles.sectionListBottom}></View>}
                 />
             </View>
         );

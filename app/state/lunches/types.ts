@@ -138,6 +138,7 @@ export enum LunchActions {
     CREATE_LUNCH = '@@lunches/create_lunch',
     UPDATE_LUNCH = '@@lunches/update_lunch',
     SET_LUNCH_STATUS = '@@lunches/set_lunch_status',
+    ADD_LUNCH = '@@lunches/add_lunch',
     REMOVE_LUNCH = '@@lunches/remove_lunch',
     ADD_LUNCH_MEMBER = '@@lunches/add_lunch_member',
     REMOVE_LUNCH_MEMBER = '@@lunches/remove_lunch_member',

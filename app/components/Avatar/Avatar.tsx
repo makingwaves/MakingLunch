@@ -1,6 +1,7 @@
+import FastImage from 'react-native-fast-image'
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import React, { memo, FunctionComponent } from "react";
-import { View, Image, StyleProp, ViewStyle, ImageStyle, Dimensions } from "react-native";
+import { View, StyleProp, ViewStyle, ImageStyle } from "react-native";
 
 import styles from './style';
 
@@ -12,7 +13,7 @@ export interface AvatarProps {
     readonly size?: number;
     readonly imageContainer?: StyleProp<ViewStyle>;
     readonly imageStyles?: StyleProp<ImageStyle>;
-    readonly imageWidth: number;
+    readonly imageWidth?: number;
 };
 
 const Avatar: FunctionComponent<AvatarProps> = ({
@@ -29,7 +30,7 @@ const Avatar: FunctionComponent<AvatarProps> = ({
 
     return (
         <View style={[styles.imageContainer, imageContainer]}>
-            {photo && <Image style={[styles.imageStyles, imageStyles]} source={{ uri: mappedPhoto }} resizeMode={'cover'} />}
+            {photo && <FastImage style={[styles.imageStyles, imageStyles]} source={{ uri: mappedPhoto }} />}
             {triangleSide && <Triangle size={size} triangleSide={triangleSide} />}
         </View>
     )

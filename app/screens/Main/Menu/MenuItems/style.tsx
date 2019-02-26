@@ -19,8 +19,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     userPhotoStyles: {
-        width: '50%',
-        height: '50%',
-        borderRadius: hp('25%') / 6
+        height: hp('5%'),
+        aspectRatio: 1
     }
 });

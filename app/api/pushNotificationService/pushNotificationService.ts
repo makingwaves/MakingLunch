@@ -2,11 +2,13 @@ import Config from 'react-native-config';
 import PushNotifications, { PushNotification } from 'react-native-push-notification';
 
 import MessageNotification, { MessageNotificationTitle, MessageNotificationType } from './messageNotification';
+import LunchAssingedNotifcation, { LunchAssingedNotifcationType, LunchAssingedNotifcationTitle } from './lunchAssingedNotification';
 
-export type NotificationTitle = MessageNotificationTitle;
+export type NotificationTitle = MessageNotificationTitle | LunchAssingedNotifcationTitle;
 
 export type NotificationType = {
-    'New message': MessageNotificationType
+    'New message': MessageNotificationType,
+    'Lunch was assigned': LunchAssingedNotifcationType
 };
 
 export interface NotificationData {
@@ -30,7 +32,8 @@ class PushNotificationService {
     private deviceIdToken: string;
 
     private notificationType: NotificationObject = {
-        'New message': new MessageNotification
+        'New message': new MessageNotification,
+        'Lunch was assigned': new LunchAssingedNotifcation
     };
 
     public configureNotification(): void {

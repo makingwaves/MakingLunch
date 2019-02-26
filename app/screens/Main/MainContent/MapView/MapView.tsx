@@ -90,7 +90,7 @@ class MapView extends PureComponent<object> {
                     provider={PROVIDER_GOOGLE}
                     initialRegion={this.initialRegion}
                     ref={this.googleMapsRef}
-                    onMapReady={this.navigateToUserLocation}
+                    // onMapReady={this.navigateToUserLocation}
                     showsTraffic={false}
                     showsBuildings={false}
                     loadingEnabled={true}

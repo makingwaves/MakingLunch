@@ -1,16 +1,17 @@
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { View, StyleProp, ViewStyle } from 'react-native';
-import React, { FunctionComponent, memo } from 'react';
+import React, { FunctionComponent, memo, ReactNode } from 'react';
 
 import styles from './style';
 
 import Triangle, { triangleSides } from "@app/components/Triangle/Triangle";
 
 export interface BubbleProps {
-    readonly bubbleContainerStyles?: StyleProp<ViewStyle>;
+    readonly size?: number;
+    readonly children?: ReactNode;
     readonly bubbleStyles?: StyleProp<ViewStyle>;
     readonly triangleSide?: triangleSides;
-    readonly size?: number;
+    readonly bubbleContainerStyles?: StyleProp<ViewStyle>;
 };
 
 const Bubble: FunctionComponent<BubbleProps> = ({

@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { colors, fontSizes } from "../../../../../config/styles";
+import { colors, fontSizes } from "@app/config/styles";
 
 export default StyleSheet.create({
     searchingContainer: {
@@ -25,7 +25,7 @@ export default StyleSheet.create({
     bubbleTitle: {
         fontWeight: '900',
         color: colors.colorLightest,
-        fontSize: fontSizes.zetta,
+        fontSize: fontSizes.exa,
         marginBottom: 12
     },
     indicatorStyles: {

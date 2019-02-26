@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import { View, Text, Image, TimePickerAndroid } from 'react-native';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 import styles from './style';
-import CustomButton from '../../../../../components/CustomButton';
-import { triangleSides } from '../../../../../components/Triangle/Triangle';
-import Bubble from '../../../../../components/Bubble';
+
+import { TimeSpan } from '@app/state/lunches/types';
+import Bubble from '@app/components/Bubble';
+import { triangleSides } from '@app/components/Triangle/Triangle';
 import TimePickerType from './TimePickerType';
-import { TimeSpan } from '../../../../../state/lunches/types';
+import CustomButton from '@app/components/CustomButton';
 
 const CLOCK = require('./img/clock.png');
 const ARROW = require('./img/arrow.png');
@@ -61,7 +62,7 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
                 hour: hourType,
                 minute: minuteType,
                 is24Hour: true
-            });
+            }) as any;
 
             if (action !== TimePickerAndroid.dismissedAction)
                 this.setState(prevState => ({ [type]: this.mapTimePickerValuesToString(hour, minute) }))

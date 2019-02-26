@@ -68,6 +68,7 @@ class Landing extends PureComponent<NavigationScreenProps> {
             <ParallaxSwiper
                 speed={.15}
                 animatedValue={new Animated.Value(0)}
+                dividerWidth={0}
             > 
                 <ParallaxSwiperPage
                     BackgroundComponent={<Image style={styles.backgroundImage} source={LOGIN_BACKGROUND_1}/>}

@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 import { MapperFn } from './utils';
 import { LunchResponseDto, MeetingsResponse } from "@app/api/lunchesService/lunchesService";
-import { LunchStatus, LunchLocationMap, LunchTimeMap, Chat, LunchesMap } from "@app/state/lunches/types";
+import { LunchStatus, LunchLocationMap, LunchTimeMap, Chat, LunchesMap, Lunch } from "@app/state/lunches/types";
 
 export type LunchesMapFn<T> = MapperFn<LunchResponseDto, T>;
 
@@ -36,7 +36,25 @@ export const mapAndExtendLunches = (
         .reduce((lunchMappedObject, lunch) => (
             lunchMappedObject[lunch.id] = lunch, lunchMappedObject
         ), {});
-}
+};
+export const mapAndExtendLunch = (
+    lunch: LunchResponseDto,
+    idMapFn: LunchesMapFn<string>,
+    statusMapFn: LunchesMapFn<LunchStatus>,
+    locationsMapFn: LunchesMapFn<LunchLocationMap>,
+    timesMapFn: LunchesMapFn<LunchTimeMap>,
+    membersMapFn: LunchesMapFn<string[]>,
+    chatMapFn: LunchesMapFn<Chat>
+): Lunch => {
+    return lunch && {
+        id: idMapFn(lunch),
+        status: statusMapFn(lunch),
+        locations: locationsMapFn(lunch),
+        times: timesMapFn(lunch),
+        members: membersMapFn(lunch),
+        chat: chatMapFn(lunch)
+    }
+};
 
 export const mapId = (lunch: LunchResponseDto): string => {
     return lunch && lunch.id;

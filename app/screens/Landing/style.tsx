@@ -9,11 +9,11 @@ export default StyleSheet.create({
         paddingHorizontal: 10,
         paddingBottom: 100,
         paddingTop: 80,
-        borderWidth: 3,
+        borderWidth: 6
     },
     backgroundImage: {
-        width,
-        height,
+        width: width,
+        height: height,
     },
     firstBubble: {
         borderTopLeftRadius: 0

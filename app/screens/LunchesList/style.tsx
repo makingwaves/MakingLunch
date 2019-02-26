@@ -16,5 +16,8 @@ export default StyleSheet.create({
         marginTop: 30,
         color: colors.brandColorPrimary,
         fontWeight: '900'
+    },
+    sectionListBottom: {
+        marginBottom: 30
     }
 });

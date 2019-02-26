@@ -26,6 +26,14 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                 ...state,
                 data: action.payload
             };
+        case LunchActions.ADD_LUNCH:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.id]: action.payload
+                }
+            };
         case LunchActions.CREATE_LUNCH:
             return {
                 ...state,

@@ -1,6 +1,7 @@
 import { makeAction } from '@app/utils/redux';
 
 import {
+    Lunch,
     LunchActions,
     LunchesMap,
     AddLunchMemberPayload,
@@ -13,7 +14,7 @@ import {
     RemoveLunchMemberPayload,
     AddChatMessagePayload,
     UpdateChatMessagePayload,
-    RemoveChatMessagePayload
+    RemoveChatMessagePayload,
 } from './types';
 
 export const lunchesActionsCreators = {
@@ -22,6 +23,7 @@ export const lunchesActionsCreators = {
     setLunchStatus: (statusPayload: SetLunchStatusPayload) => makeAction(LunchActions.SET_LUNCH_STATUS, statusPayload),
     updateLunch: (lunchPayload: UpdateLunchPayload) => makeAction(LunchActions.UPDATE_LUNCH, lunchPayload),
     removeLunch: (lunchId: string) => makeAction(LunchActions.REMOVE_LUNCH, lunchId),
+    addLunch: (lunchPayload: Lunch) => makeAction(LunchActions.ADD_LUNCH, lunchPayload),
     addLunchMember: (payload: AddLunchMemberPayload) =>
         makeAction(LunchActions.ADD_LUNCH_MEMBER, payload),
     removeLunchMember: (payload: RemoveLunchMemberPayload) => makeAction(LunchActions.REMOVE_LUNCH_MEMBER, payload),

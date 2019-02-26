@@ -1,52 +1,48 @@
-import React, { FunctionComponent, Fragment } from "react";
-import { connect } from "react-redux";
-import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper';
-import { NavigationScreenProps } from "react-navigation";
 import { View } from "react-native";
+import { connect } from "react-redux";
+import { NavigationScreenProps } from "react-navigation";
+import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper';
+import React, { FunctionComponent, Fragment } from "react";
 
 import styles from './style';
 
-import { AppState } from "../../state/state";
-import { MembersMap } from "../../state/members/types";
+import { colors } from "@app/config/styles";
+import BackButton from "@app/components/BackButton";
+import { AppState } from "@app/state/state";
+import { MembersMap } from "@app/state/members/types";
 import GuestSwiperPage from "./GuestSwiperPage";
-import BackButton from "../../components/BackButton";
-import { colors } from "../../config/styles";
 
-export interface GuestsSwiperProps extends NavigationScreenProps  {
+export interface GuestsSwiperProps extends NavigationScreenProps {
     members: MembersMap;
     membersId: string[];
-}
+};
 
 const GuestsSwiper: FunctionComponent<GuestsSwiperProps> = ({
     members, membersId, navigation
 }) => {
-    const getSwiperForegroundComponent = (memberId: string) => {
-        return (
-            <GuestSwiperPage member={members[memberId]} />
-        )
-    }
-    const getSwiperBackgroundComponent = () => {
-        return (
-            <View style={styles.backgroundImage}></View>
-        )
-    };
+    const getSwiperForegroundComponent = (memberId: string) => <GuestSwiperPage member={members[memberId]} />;
+
+    const getSwiperBackgroundComponent = () => <View style={styles.backgroundImage}></View>;
 
     return (
         <Fragment>
-            <BackButton navigation={navigation} backgroundColor={colors.colorLight} />  
-            <ParallaxSwiper 
-                speed={0.5}
-            > 
-                {membersId && membersId  
-                    .map(memberId => ( 
-                        <ParallaxSwiperPage 
-                            key={memberId} 
-                            ForegroundComponent={getSwiperForegroundComponent(memberId)} 
-                            BackgroundComponent={getSwiperBackgroundComponent()}
-                        />
-                    ))
-                }
-            </ParallaxSwiper> 
+            <BackButton navigation={navigation} backgroundColor={colors.colorLight} />
+            <ParallaxSwiper
+                speed={0.15}
+                dividerWidth={0}
+                backgroundColor="black"
+                showProgressBar={true}
+                progressBarBackgroundColor="rgba(0,0,0,0.25)"
+                progressBarValueBackgroundColor="white"
+            >
+                {membersId && membersId.map(memberId =>
+                    <ParallaxSwiperPage
+                        key={memberId}
+                        ForegroundComponent={getSwiperForegroundComponent(memberId)}
+                        BackgroundComponent={getSwiperBackgroundComponent()}
+                    />
+                )}
+            </ParallaxSwiper>
         </Fragment>
     );
 }
