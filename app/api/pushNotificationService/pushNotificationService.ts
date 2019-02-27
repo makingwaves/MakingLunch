@@ -3,6 +3,7 @@ import PushNotifications, { PushNotification } from 'react-native-push-notificat
 
 import MessageNotification, { MessageNotificationTitle, MessageNotificationType } from './messageNotification';
 import LunchAssingedNotifcation, { LunchAssingedNotifcationType, LunchAssingedNotifcationTitle } from './lunchAssingedNotification';
+import { navigationService } from '@app/services';
 
 export type NotificationTitle = MessageNotificationTitle | LunchAssingedNotifcationTitle;
 
@@ -24,6 +25,11 @@ export interface Notification {
     notification: (title: NotificationTitle, body: NotificationType[NotificationTitle]) => void;
 };
 
+export interface LocalNotifications {
+    'New message': (lunchId: string) => void,
+    'Lunch was assigned': () => void
+};
+
 export interface ExtendedNotification extends PushNotification {
     'gcm.notification.Title': NotificationTitle;
 }
@@ -34,6 +40,10 @@ class PushNotificationService {
     private notificationType: NotificationObject = {
         'New message': new MessageNotification,
         'Lunch was assigned': new LunchAssingedNotifcation
+    };
+    private localNotificationRedirect: LocalNotifications = {
+        'New message': this.onLocalNewMessageClick.bind(this),
+        'Lunch was assigned': this.onLocalLunchAssignClick.bind(this)
     };
 
     public configureNotification(): void {
@@ -53,13 +63,27 @@ class PushNotificationService {
     }
 
     private onNotification = (data: ExtendedNotification & { notification: NotificationData }): void => {
-        const title: NotificationTitle = this.getNotificationTitle(data);
-        if (title && this.notificationType[title])
-            this.notificationType[title].notification(title, data as any);
+        if (data.userInteraction) {
+            const title: string = data['title'];
+            this.localNotificationRedirect[title] && this.localNotificationRedirect[title](data['lunchId']);
+        }
+        else {
+            const title: NotificationTitle = this.getNotificationTitle(data);
+            this.notificationType[title] && this.notificationType[title].notification(title, data as any);
+        }
     }
 
     private getNotificationTitle(data: ExtendedNotification): NotificationTitle {
         return data["gcm.notification.Title"];
+    }
+
+    private onLocalNewMessageClick(lunchId: string): void {
+        if (lunchId && typeof lunchId === 'string')
+            navigationService.navigate('Chat', { lunch: { id: lunchId } });
+    }
+
+    private onLocalLunchAssignClick(): void {
+        navigationService.navigate('Main');
     }
 }
 

@@ -1,14 +1,14 @@
+import dayjs from 'dayjs';
 import React, { PureComponent } from 'react';
 import { View, Text, Image, TimePickerAndroid } from 'react-native';
-import dayjs from 'dayjs';
 
 import styles from './style';
 
-import { TimeSpan } from '@app/state/lunches/types';
 import Bubble from '@app/components/Bubble';
-import { triangleSides } from '@app/components/Triangle/Triangle';
-import TimePickerType from './TimePickerType';
+import { TimeSpan } from '@app/state/lunches/types';
 import CustomButton from '@app/components/CustomButton';
+import TimePickerType from './TimePickerType';
+import { triangleSides } from '@app/components/Triangle/Triangle';
 
 const CLOCK = require('./img/clock.png');
 const ARROW = require('./img/arrow.png');

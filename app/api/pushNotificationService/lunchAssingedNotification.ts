@@ -25,10 +25,11 @@ class LunchAssingedNotifcation implements Notification {
     public notification(title: LunchAssingedNotifcationTitle, data: LunchAssingedNotifcationType): void {
         const lunchData: LunchObjectDto = this.getLunchObject(data);
 
-        store.dispatch({ type: LunchActions.REMOVE_LUNCH, payload: lunchData.meetingId });
-
         lunchesService.getSingleLunch(lunchData.lunchId)
-            .then(lunch => store.dispatch({ type: LunchActions.ADD_LUNCH, payload: lunch }));
+            .then(lunch => {
+                store.dispatch({ type: LunchActions.ADD_LUNCH, payload: lunch });
+                store.dispatch({ type: LunchActions.REMOVE_LUNCH, payload: lunchData.meetingId });
+            });
 
         PushNotification.localNotification({
             title: title,

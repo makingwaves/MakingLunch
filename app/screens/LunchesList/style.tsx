@@ -9,8 +9,7 @@ export default StyleSheet.create({
     },
     sectionList: {
         paddingHorizontal: 30,
-        marginTop: 30,
-        marginBottom: 10,
+        marginBottom: 10
     },
     sectionTitle: {
         marginTop: 30,

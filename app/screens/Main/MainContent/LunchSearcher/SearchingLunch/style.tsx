@@ -9,7 +9,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between'
     },
     bubbleContainer: {
-        width: '80%',
+        width: '90%',
         alignSelf: 'center'
     },
     bubbleStyles: {

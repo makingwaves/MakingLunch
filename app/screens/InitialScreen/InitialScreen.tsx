@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import React, { Component } from 'react';
-import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
+import { NavigationScreenProps } from 'react-navigation';
 
 import styles from './style';
 

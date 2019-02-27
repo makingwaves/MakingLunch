@@ -27,8 +27,9 @@ class MessageNotification implements Notification {
 
         PushNotification.localNotification({
             title: title,
-            message: messageData.message.message
-        });
+            message: messageData.message.message,
+            lunchId: messageData.lunchId
+        } as any);
     }
 
     private getMessageObject(data: MessageNotificationType): AddChatMessagePayload {

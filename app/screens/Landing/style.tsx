@@ -8,8 +8,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 10,
         paddingBottom: 100,
-        paddingTop: 80,
-        borderWidth: 6
+        paddingTop: 80
     },
     backgroundImage: {
         width: width,

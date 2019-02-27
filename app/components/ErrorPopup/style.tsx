@@ -1,52 +1,45 @@
 import { StyleSheet } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-import { colors } from "@app/config/styles";
+import { colors, fontSizes } from "@app/config/styles";
 
 export default StyleSheet.create({
-    container: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
+    showAnimationStyles: {
+        opacity: 1,
+        height: hp('10%')
+    },
+    hideAnimatioStyles: {
+        opacity: 0,
+        height: 0
+    },
+    animationViewStyles: {
+        height: '100%',
         alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 10,
-        backgroundColor: 'rgba(0, 0, 0, .7)'
-    },
-    containerInnerStyles: {
-        position: 'relative',
-        width: wp('70%'),
-        height: hp('25%'),
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 18,
-        paddingHorizontal: 12,
-        borderRadius: 10,
-        backgroundColor: colors.colorLightest,
-    },
-    title: {
-        textAlign: 'center',
-        color: colors.brandColorTetriary,
-        fontWeight: '900',
-    },
-    errorContent: {
-        marginTop: 14,
-        marginBottom: 18,
-        textAlign: 'center',
-        color: colors.brandColorTetriary,
-    },
-    buttonContainer: {
-        paddingVertical: 6,
-        marginHorizontal: 0,
-        marginBottom: 0,
+        flexDirection: 'row',
+        paddingHorizontal: 20,
+        paddingVertical: 8,
         backgroundColor: colors.brandColorTetriary
     },
-    buttonStyles: {
-        borderRadius: 0
+    container: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: wp('100%'),
+        zIndex: 100,
     },
-    textButtonStyles: {
-        fontWeight: '400'
+    icon: {
+        height: 20,
+        width: 20,
+        marginRight: 8
+    },
+    textsContainer: {
+    },
+    title: {
+        fontSize: fontSizes.kilo,
+        fontWeight: '900',
+        color: colors.colorLightest
+    },
+    description: {
+        color: colors.colorLightest
     }
 });

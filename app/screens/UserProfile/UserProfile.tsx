@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { NavigationScreenProps } from 'react-navigation';
 import { KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
 
@@ -8,17 +8,16 @@ import styles from './style';
 import Avatar from '@app/components/Avatar';
 import { colors } from '@app/config/styles';
 import BackButton from '@app/components/BackButton';
+import ErrorPopup from '@app/components/ErrorPopup';
 import CustomInput from '@app/components/CustomInput';
 import { AppState } from '@app/state/state';
 import CustomButton from '@app/components/CustomButton';
-import { RequestState } from '@app/state/common/types';
 import { triangleSides } from '@app/components/Triangle/Triangle';
 import { Profile, AuthSagaActions } from '@app/state/auth/types';
 
 export interface UserProfileProps extends NavigationScreenProps {
     userData: Profile;
     errorMsg: string;
-    isLoading: boolean;
     updateUser: (userData: Profile) => void;
 };
 
@@ -35,11 +34,6 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
         this.state = {
             userData: this.changeUserImageWidth(props.userData)
         };
-    }
-
-    public componentDidUpdate(prevProps: UserProfileProps): void {
-        if (prevProps !== this.props && !prevProps.isLoading && this.props.isLoading)
-            this.showAlert();
     }
 
     private showAlert(): void {
@@ -65,50 +59,63 @@ class UserProfile extends Component<UserProfileProps, UserProfileState> {
 
     private saveUserData = () => {
         this.props.updateUser(this.state.userData);
+        this.showAlert();
     };
 
     public render() {
-        const { navigation } = this.props;
-        const { userData } = this.state;
+        const {
+            errorMsg,
+            navigation
+        } = this.props;
+        const {
+            userData
+        } = this.state;
 
         return (
-            <ScrollView style={styles.userProfileContainer}>
-                <BackButton navigation={navigation} backgroundColor={colors.colorLight} />
-                <KeyboardAvoidingView style={styles.formContainer} behavior={'padding'}>
-                    <Avatar photo={userData.photo} imageContainer={styles.imageContainer} imageStyles={styles.imageStyles} triangleSide={triangleSides.bottomRight} />
-                    <CustomInput
-                        value={userData.name}
-                        type={'name'}
-                        onChangeText={this.onInputChange}
-                        label={'Your name (visible to others)'}
-                        triangleSide={triangleSides.bottomRight}
-                        inputStyles={styles.nameInput}
-                    />
-                    <CustomInput
-                        value={userData.description}
-                        type={'description'}
-                        onChangeText={this.onInputChange}
-                        multiLine={true}
-                        label={'Something about you'}
-                        triangleSide={triangleSides.bottomLeft}
-                        inputStyles={styles.descriptionInput}
-                    />
-                    <CustomButton
-                        text={'Save'}
-                        onPress={this.saveUserData}
-                        containerStyles={styles.buttonContainerStyles}
-                        buttonStyles={styles.buttonStyles}
-                        triangleSide={triangleSides.bottomLeft}
-                    />
-                </KeyboardAvoidingView>
-            </ScrollView>
+            <Fragment>
+                <ErrorPopup
+                    title={'An error has occured'}
+                    showError={!!errorMsg}
+                    description={errorMsg}
+                    showDuration={3000}
+                />
+                <ScrollView style={styles.userProfileContainer}>
+                    <BackButton navigation={navigation} backgroundColor={colors.colorLight} />
+                    <KeyboardAvoidingView style={styles.formContainer} behavior={'padding'}>
+                        <Avatar photo={userData.photo} imageContainer={styles.imageContainer} imageStyles={styles.imageStyles} triangleSide={triangleSides.bottomRight} />
+                        <CustomInput
+                            value={userData.name}
+                            type={'name'}
+                            onChangeText={this.onInputChange}
+                            label={'Your name (visible to others)'}
+                            triangleSide={triangleSides.bottomRight}
+                            inputStyles={styles.nameInput}
+                        />
+                        <CustomInput
+                            value={userData.description}
+                            type={'description'}
+                            onChangeText={this.onInputChange}
+                            multiLine={true}
+                            label={'Something about you'}
+                            triangleSide={triangleSides.bottomLeft}
+                            inputStyles={styles.descriptionInput}
+                        />
+                        <CustomButton
+                            text={'Save'}
+                            onPress={this.saveUserData}
+                            containerStyles={styles.buttonContainerStyles}
+                            buttonStyles={styles.buttonStyles}
+                            triangleSide={triangleSides.bottomLeft}
+                        />
+                    </KeyboardAvoidingView>
+                </ScrollView>
+            </Fragment>
         );
     }
 }
 
 const mapStateToProps = (state: AppState) => ({
     userData: state.auth.profile,
-    isLoading: state.auth.request.state === RequestState.inProgress,
     errorMsg: state.auth.request.errorMsg
 });
 

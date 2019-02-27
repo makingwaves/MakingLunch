@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Animated, StyleProp, ViewStyle } from 'react-native';
 
 export interface ConditionalAnimationProps {
-    condition: boolean;
     duration: number;
+    condition: boolean;
     showAnimationStyles: StyleProp<ViewStyle>;
     hideAnimatioStyles: StyleProp<ViewStyle>;
     animationViewStyles?: StyleProp<ViewStyle>;

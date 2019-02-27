@@ -1,11 +1,11 @@
-import React, { PureComponent, ReactElement, ComponentClass } from 'react';
 import { View } from 'react-native';
+import React, { PureComponent, ReactElement, ComponentClass } from 'react';
 
 import styles from './style';
 
-import { TimeSpan } from '../../../../state/lunches/types';
-import { LunchStage } from '../MainContent';
 import ChooseHour from './ChooseHour';
+import { TimeSpan } from '@app/state/lunches/types';
+import { LunchStage } from '../MainContent';
 import SearchingLunch from './SearchingLunch';
 
 export interface LunchSearcherProps {
@@ -15,29 +15,21 @@ export interface LunchSearcherProps {
     onCancelClick: () => void;
 };
 
-export interface LunchSearcherState {
-
-};
-
-class LunchSearcher extends PureComponent<LunchSearcherProps, LunchSearcherState> {
-    public state: LunchSearcherState;
+class LunchSearcher extends PureComponent<LunchSearcherProps> {
+    private timeoutFn: number;
 
     private stageView: { [key in LunchStage]: () => ReactElement<ComponentClass> } = {
         chooseData: () => <ChooseHour onSearchClick={this.props.onSearchClick} />,
         searching: () => <SearchingLunch onCancelClick={this.props.onCancelClick} />
     };
 
-    constructor(props: LunchSearcherProps) {
-        super(props);
-
-        this.state = {
-
-        };
-    }
-
     public componentDidUpdate(prevProps: LunchSearcherProps): void {
         if (prevProps.stage !== this.props.stage && this.props.stage === 'searching')
-            setTimeout(this.changeStage, 3000);
+            this.timeoutFn = setTimeout(this.changeStage, 3000);
+    }
+
+    public componentWillUnmount(): void {
+        clearTimeout(this.timeoutFn);
     }
 
     private changeStage = () => {

@@ -6,13 +6,20 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-native",
-    "lib": ["es6"],
+    "lib": [
+      "es6",
+      "es2017"
+    ],
     "moduleResolution": "node",
     "noEmit": true,
     "target": "esnext",
     "paths": {
-      "@app/*": ["*"]
+      "@app/*": [
+        "*"
+      ]
     }
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
 }

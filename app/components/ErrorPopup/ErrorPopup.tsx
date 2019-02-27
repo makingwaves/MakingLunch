@@ -1,42 +1,74 @@
-import { Modal, View, Text } from 'react-native';
-import React, { FunctionComponent, memo } from 'react';
+import { View, Text, Image, ImageSourcePropType } from 'react-native';
+import React, { PureComponent } from 'react';
 
 import styles from './style';
 
-import CustomButton from '@app/components/CustomButton';
+import ConditionalAnimation from '../ConditionalAnimation';
 
 export interface ErrorPopupProps {
-    closePopup: () => void;
-    errorOccured: boolean;
-    title?: string;
-    errorMsg?: string;
-    closeButtonText?: string;
+    title: string;
+    iconUrl?: ImageSourcePropType;
+    showError: boolean;
+    description?: string;
+    showDuration?: number;
 };
 
-const ErrorPopup: FunctionComponent<ErrorPopupProps> = ({
-    closePopup, errorOccured, title = 'Error', errorMsg = 'An error has occured', closeButtonText = 'Close'
-}) => {
-    return (
-        <Modal
-            visible={errorOccured}
-            transparent={true}
-            onRequestClose={() => { }}
-        >
+export interface ErrorPopupState {
+    isVisible: boolean;
+};
+
+class ErrorPopup extends PureComponent<ErrorPopupProps, ErrorPopupState> {
+    public state: ErrorPopupState;
+
+    constructor(props: ErrorPopupProps) {
+        super(props);
+
+        this.state = {
+            isVisible: false
+        };
+    }
+
+    public componentDidUpdate(prevProps: ErrorPopupProps, prevState: ErrorPopupState): void {
+        if (!this.state.isVisible && (prevProps !== this.props && this.props.showError))
+            this.setState(prevState => ({
+                isVisible: true
+            }), () => {
+                setTimeout(() => (
+                    this.setState(prevState => ({ isVisible: false }))
+                ), this.props.showDuration);
+            });
+    }
+
+    public render() {
+        const {
+            title,
+            iconUrl,
+            description,
+        } = this.props;
+        const {
+            isVisible
+        } = this.state;
+
+        return (
             <View style={styles.container}>
-                <View style={styles.containerInnerStyles}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.errorContent}>{errorMsg}</Text>
-                    <CustomButton
-                        text={closeButtonText}
-                        onPress={closePopup}
-                        containerStyles={styles.buttonContainer}
-                        buttonStyles={styles.buttonStyles}
-                        textButtonStyles={styles.textButtonStyles}
-                    />
-                </View>
+                <ConditionalAnimation
+                    duration={300}
+                    condition={isVisible}
+                    showAnimationStyles={styles.showAnimationStyles}
+                    hideAnimatioStyles={styles.hideAnimatioStyles}
+                >
+                    <View style={styles.animationViewStyles}>
+                        {iconUrl && <Image source={iconUrl} style={styles.icon} />}
+                        <View style={styles.textsContainer}>
+                            <Text style={styles.title}>{title}</Text>
+                            {description ? <Text style={styles.description}>{description}</Text> : null}
+                        </View>
+                    </View>
+                </ConditionalAnimation>
             </View>
-        </Modal>
-    );
+        )
+    }
 }
 
-export default memo(ErrorPopup);
+
+export default ErrorPopup;
