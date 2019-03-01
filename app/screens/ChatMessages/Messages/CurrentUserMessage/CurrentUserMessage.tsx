@@ -1,15 +1,15 @@
-import React, { FunctionComponent, memo } from 'react'
 import { View, Text } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import React, { FunctionComponent, memo } from 'react'
 
 import styles from './style';
 
-import { MessageTypeProps } from '../Messages';
-import Triangle, { triangleSides } from '../../../../components/Triangle/Triangle';
-import UserImage from '../../../../components/UserImage';
-import { MessageStatus } from '../../../../state/lunches/types';
+import UserImage from '@app/components/UserImage';
+import { MessageStatus } from '@app/state/lunches/types';
+import { MessageSubTypeProps } from '../MessageType/MessageType';
+import Triangle, { triangleSides } from '@app/components/Triangle/Triangle';
 
-const CurrentUserMessage: FunctionComponent<MessageTypeProps> = ({
+const CurrentUserMessage: FunctionComponent<MessageSubTypeProps> = ({
     singleMessage, userId
 }) => {
     const pendingStyles = singleMessage.status === MessageStatus.pending ? styles.pendingMessage : {};

@@ -8,6 +8,7 @@ import styles from './style';
 import Messages from './Messages';
 import { colors } from '@app/config/styles';
 import BackButton from '@app/components/BackButton';
+import ErrorPopup from '@app/components/ErrorPopup';
 import { AppState } from '@app/state/state';
 import { mapLunchData } from './selectors/chatMessagesSelectors';
 import { RequestState } from '@app/state/common/types';
@@ -19,14 +20,15 @@ import { Message, LunchSagaActions } from '@app/state/lunches/types';
 export interface ChatProps extends NavigationScreenProps {
     id: string;
     members: string[];
-    chatMessages: Message[];
+    errorMsg: string;
+    isLoading: boolean;
     lunchDate: {
         date: string;
         hour: string;
     };
-    isLoading: boolean;
-    getChatMessages: (payload: GetLunchChatData) => void;
     sendMessage: (messageContent: string, lunchId: string) => void;
+    chatMessages: Message[];
+    getChatMessages: (payload: GetLunchChatData) => void;
 };
 
 class ChatMessages extends Component<ChatProps> {
@@ -58,6 +60,7 @@ class ChatMessages extends Component<ChatProps> {
     public render() {
         const {
             members,
+            errorMsg,
             isLoading,
             lunchDate,
             navigation,
@@ -66,6 +69,7 @@ class ChatMessages extends Component<ChatProps> {
 
         return (
             <View style={styles.chatMessagesContainer}>
+                <ErrorPopup title={'An error has occured'} description={errorMsg} showError={!!errorMsg} showDuration={3000} />
                 <BackButton navigation={navigation} backgroundColor={colors.brandColorSecondary} alignmentHorizontal={'space-between'}>
                     <LunchInformation
                         membersId={members}
@@ -88,7 +92,8 @@ class ChatMessages extends Component<ChatProps> {
 
 const mapStateToProps = (state: AppState, ownProps: ChatProps) => ({
     ...mapLunchData(state, ownProps),
-    isLoading: state.lunches.request.state === RequestState.inProgress
+    isLoading: state.lunches.request.state === RequestState.inProgress,
+    errorMsg: state.lunches.request.errorMsg
 });
 
 const mapDispatchToProps = dispatch => ({

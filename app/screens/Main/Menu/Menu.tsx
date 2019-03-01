@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import Display from 'react-native-display';
 import { connect } from 'react-redux';
 import React, { PureComponent, Fragment } from 'react';
 
@@ -7,7 +7,6 @@ import styles from './style';
 import MenuItems from './MenuItems';
 import { AppState } from '@app/state/state';
 import HamburgerItem from './HamburgerItem';
-import ConditionalAnimation from '@app/components/ConditionalAnimation';
 import { Profile, AuthSagaActions } from '@app/state/auth/types';
 
 export interface MenuProps {
@@ -50,20 +49,10 @@ class Menu extends PureComponent<MenuProps, MenuState> {
 
         return (
             <Fragment>
-                <View style={styles.viewContainer}>
-                    <ConditionalAnimation
-                        condition={menuItemsVisible}
-                        duration={200}
-                        animationViewStyles={styles.animationViewStyles}
-                        showAnimationStyles={styles.showMenuStyles}
-                        hideAnimatioStyles={styles.hideMenuStyles}
-                    >
-                        <MenuItems logOut={logOut} userData={userData} />
-                    </ConditionalAnimation>
-                </View>
-                <HamburgerItem
-                    onHamburgerClick={this.toggleMenuVisibility}
-                />
+                <Display style={styles.viewContainer} enable={menuItemsVisible} enter={'fadeInDownBig'} exit={'fadeOutUpBig'} defaultDuration={300}>
+                    <MenuItems logOut={logOut} userData={userData} />
+                </Display>
+                <HamburgerItem onHamburgerClick={this.toggleMenuVisibility} />
             </Fragment>
         )
     }

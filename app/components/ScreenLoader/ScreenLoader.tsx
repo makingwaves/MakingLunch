@@ -1,5 +1,6 @@
+import Display from 'react-native-display';
+import { ActivityIndicator } from 'react-native';
 import React, { memo, FunctionComponent } from 'react';
-import { View, ActivityIndicator } from 'react-native';
 
 import styles from './style';
 import { colors } from '@app/config/styles';
@@ -12,11 +13,11 @@ export interface LoaderProps {
 const Loader: FunctionComponent<LoaderProps> = ({
     isVisible, indicatorColor = colors.colorLightest
 }) => {
-    return isVisible && (
-        <View style={styles.container}>
+    return (
+        <Display style={styles.container} enable={isVisible} enter={'fadeIn'} exit={'flipOutY'} defaultDuration={300}>
             <ActivityIndicator color={indicatorColor} size={'large'} />
-        </View>
-    );
+        </Display>
+    )
 }
 
 export default memo(Loader);

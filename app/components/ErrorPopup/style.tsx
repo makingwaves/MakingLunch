@@ -4,35 +4,23 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 import { colors, fontSizes } from "@app/config/styles";
 
 export default StyleSheet.create({
-    showAnimationStyles: {
-        opacity: 1,
-        height: hp('10%')
-    },
-    hideAnimatioStyles: {
-        opacity: 0,
-        height: 0
-    },
-    animationViewStyles: {
-        height: '100%',
-        alignItems: 'center',
-        flexDirection: 'row',
-        paddingHorizontal: 20,
-        paddingVertical: 8,
-        backgroundColor: colors.brandColorTetriary
-    },
     container: {
         position: 'absolute',
         top: 0,
         left: 0,
         width: wp('100%'),
-        zIndex: 100,
+        height: hp('10%'),
+        alignItems: 'center',
+        flexDirection: 'row',
+        paddingHorizontal: 20,
+        paddingVertical: 8,
+        backgroundColor: colors.brandColorTetriary,
+        zIndex: 1001
     },
     icon: {
         height: 20,
         width: 20,
         marginRight: 8
-    },
-    textsContainer: {
     },
     title: {
         fontSize: fontSizes.kilo,

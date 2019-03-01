@@ -61,6 +61,7 @@ export const getUserId = (store: AppState) => store.auth.profile.id;
 export function* getLunchChatFlow({ payload }: { type: string, payload: GetLunchChatData }) {
     try {
         yield put(lunchesActionsCreators.startRequest());
+
         const chat: Chat = yield call(
             [chatService, chatService.getChatMessages],
             payload.lunchId, payload.currentPage

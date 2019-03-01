@@ -1,12 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import Placeholder from 'rn-placeholder';
 import { View, Text } from 'react-native';
-import Placeholder from "rn-placeholder";
+import React, { FunctionComponent } from 'react';
 
 import styles from './style';
 
-const LunchesPlaceholder: FunctionComponent = ({
-
-}) => {
+const LunchesPlaceholder: FunctionComponent = ({ }) => {
     return (
         <View style={styles.placeholderContainer}>
             <View>
@@ -34,4 +32,4 @@ const LunchesPlaceholder: FunctionComponent = ({
     )
 };
 
-export default Placeholder.connect(LunchesPlaceholder);
+export default (Placeholder.connect as any)(LunchesPlaceholder);

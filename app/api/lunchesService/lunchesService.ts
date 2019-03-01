@@ -63,6 +63,12 @@ class LunchesService extends ErrorHandleService {
             .catch(err => this.getErrorMessage(err, 'An error occured while trying to get Single Lunch.'));
     }
 
+    public deleteMeetingRequest(meetingId: string): Promise<object | ErrorResponse> {
+        return httpClient.delete('/api/Meetings/' + meetingId)
+            .then(res => res.data)
+            .catch(err => this.getErrorMessage(err, 'An error occured while trying to cancel lunch.'))
+    }
+
     private getMeetings(): Promise<LunchesResponse | ErrorResponse> {
         return httpClient.get<MeetingsResponse[]>('/api/Meetings?onlyUnassigned=true')
             .then(res => this.filterOutPendingPastLunches(res.data))

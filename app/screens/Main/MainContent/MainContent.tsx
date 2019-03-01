@@ -1,20 +1,26 @@
 import dayjs from 'dayjs';
+import { Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { View, Alert } from 'react-native';
 import React, { PureComponent, Fragment, RefObject, createRef } from 'react';
 
 import MapView from './MapView';
 import { AppState } from '@app/state/state';
 import LunchSearcher from './LunchSearcher';
 import { MeetingRequest } from '@app/api/lunchesService/lunchesService';
-import UserLocationButton from './UserLocationButton';
-import { TimeSpan, LunchSagaActions, LunchesMap, LunchStatus } from '@app/state/lunches/types';
+import { TimeSpan, LunchSagaActions, LunchesMap, LunchStatus, Lunch } from '@app/state/lunches/types';
+import ErrorPopup from '@app/components/ErrorPopup';
+import { RequestState } from '@app/state/common/types';
+import { getPendingAndRunningLunches } from './mainContentSelector';
 
-export type LunchStage = 'chooseData' | 'searching';
+export type LunchStage = 'chooseData' | 'searching' | 'waitingForData' | 'lunchAssigned';
 
 export interface MainContentProps {
     userId: string;
-    lunches: LunchesMap;
+    pending: LunchesMap;
+    running: Lunch;
+    errorMsg: string;
+    isLoading: boolean;
+    getLunches: () => void;
     searchLunch: (data: MeetingRequest) => void;
 };
 
@@ -33,8 +39,25 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
         this.mapViewRef = createRef();
 
         this.state = {
-            stage: 'chooseData'
+            stage: 'waitingForData'
         };
+    }
+
+    public componentDidMount(): void {
+        this.props.getLunches();
+    }
+
+    public componentDidUpdate(prevProps: MainContentProps): void {
+        if (prevProps !== this.props) {
+            if (this.props.errorMsg || (!this.props.isLoading && this.state.stage === 'waitingForData'))
+                this.setState(prevState => ({
+                    stage: 'chooseData'
+                }));
+            else if (this.props.running)
+                this.setState(prevState => ({
+                    stage: 'lunchAssigned'
+                }));
+        }
     }
 
     private onLocationClick = () => {
@@ -42,7 +65,7 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
     }
 
     private onSearchClick = async (timeSpan: TimeSpan): Promise<void> => {
-        if (this.isBetweenOtherPendingLunches(timeSpan, this.props.lunches, this.props.userId)) {
+        if (this.isBetweenOtherPendingLunches(timeSpan, this.props.pending, this.props.userId)) {
             Alert.alert(
                 'Error occured',
                 'You already have lunch, which has such a time range.',
@@ -70,10 +93,11 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
         this.setState(prevState => ({ stage }));
     }
 
-    private isBetweenOtherPendingLunches(lunchTimeSpan: TimeSpan, lunches: LunchesMap, userId: string): boolean {
-        return lunches && Object.keys(lunches)
-            .filter(id => lunches[id].status === LunchStatus.pending)
-            .some(id => this.timesCollide(lunches[id].times[userId], lunchTimeSpan.begin, lunchTimeSpan.end))
+    private isBetweenOtherPendingLunches(lunchTimeSpan: TimeSpan, pending: LunchesMap, userId: string): boolean {
+        return pending && Object.keys(pending)
+            .some(id =>
+                this.timesCollide(pending[id].times[userId], lunchTimeSpan.begin, lunchTimeSpan.end)
+            );
     }
 
     private timesCollide(lunchTime: TimeSpan, begin: string, end: string): boolean {
@@ -92,33 +116,40 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
 
     public render() {
         const {
+            running,
+            errorMsg,
+        } = this.props;
+        const {
             stage
         } = this.state;
 
         return (
             <Fragment>
+                <ErrorPopup title={'An error has occured'} description={errorMsg} showError={!!errorMsg} showDuration={3000} />
                 <MapView ref={this.mapViewRef} />
-                <View>
-                    {stage === 'chooseData' && <UserLocationButton onClick={this.onLocationClick} />}
-                    <LunchSearcher
-                        stage={stage}
-                        onSearchClick={this.onSearchClick}
-                        onCancelClick={this.onCancelClick}
-                        onStageChange={this.onStageChange}
-                    />
-                </View>
+                <LunchSearcher
+                    stage={stage}
+                    running={running}
+                    onSearchClick={this.onSearchClick}
+                    onCancelClick={this.onCancelClick}
+                    onStageChange={this.onStageChange}
+                    onLocationClick={this.onLocationClick}
+                />
             </Fragment>
         );
     }
 }
 
 const mapStateToProps = (state: AppState) => ({
-    lunches: state.lunches.data,
-    userId: state.auth.profile && state.auth.profile.id
+    ...getPendingAndRunningLunches(state),
+    userId: state.auth.profile && state.auth.profile.id,
+    errorMsg: state.lunches.request.errorMsg || state.auth.request.errorMsg,
+    isLoading: state.lunches.request.state === RequestState.inProgress
 });
 
 const mapDispatchToProps = dispatch => ({
-    searchLunch: (data: MeetingRequest) => dispatch({ type: LunchSagaActions.POST_LUNCH, payload: data })
+    getLunches: () => dispatch({ type: LunchSagaActions.GET_LUNCHES }),
+    searchLunch: (data: MeetingRequest) => dispatch({ type: LunchSagaActions.POST_LUNCH, payload: data }),
 });
 
 export default connect(

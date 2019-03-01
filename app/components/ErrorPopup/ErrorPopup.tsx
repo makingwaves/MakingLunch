@@ -1,16 +1,16 @@
-import { View, Text, Image, ImageSourcePropType } from 'react-native';
+import Display from 'react-native-display';
 import React, { PureComponent } from 'react';
+import { View, Text, Image, ImageSourcePropType } from 'react-native';
 
 import styles from './style';
 
-import ConditionalAnimation from '../ConditionalAnimation';
 
 export interface ErrorPopupProps {
     title: string;
     iconUrl?: ImageSourcePropType;
     showError: boolean;
     description?: string;
-    showDuration?: number;
+    showDuration: number;
 };
 
 export interface ErrorPopupState {
@@ -50,22 +50,13 @@ class ErrorPopup extends PureComponent<ErrorPopupProps, ErrorPopupState> {
         } = this.state;
 
         return (
-            <View style={styles.container}>
-                <ConditionalAnimation
-                    duration={300}
-                    condition={isVisible}
-                    showAnimationStyles={styles.showAnimationStyles}
-                    hideAnimatioStyles={styles.hideAnimatioStyles}
-                >
-                    <View style={styles.animationViewStyles}>
-                        {iconUrl && <Image source={iconUrl} style={styles.icon} />}
-                        <View style={styles.textsContainer}>
-                            <Text style={styles.title}>{title}</Text>
-                            {description ? <Text style={styles.description}>{description}</Text> : null}
-                        </View>
-                    </View>
-                </ConditionalAnimation>
-            </View>
+            <Display style={styles.container} enable={isVisible} enter={'bounceInDown'} exit={'bounceOutUp'} defaultDuration={300}>
+                {iconUrl && <Image source={iconUrl} style={styles.icon} />}
+                <View>
+                    <Text style={styles.title}>{title}</Text>
+                    {description ? <Text style={styles.description}>{description}</Text> : null}
+                </View>
+            </Display>
         )
     }
 }

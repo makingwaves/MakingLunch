@@ -2,12 +2,13 @@ import Image from 'react-native-remote-svg';
 import { AlignItemsProperty } from 'csstype';
 import { NavigationScreenProps } from 'react-navigation';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import React, { memo, FunctionComponent } from 'react';
+import React, { memo, FunctionComponent, ReactNode } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 
 import styles from './style';
 
 interface BackButtonProps extends NavigationScreenProps {
+    children?: ReactNode;
     screenTitle?: string;
     backgroundColor?: string;
     alignmentHorizontal?: AlignItemsProperty;

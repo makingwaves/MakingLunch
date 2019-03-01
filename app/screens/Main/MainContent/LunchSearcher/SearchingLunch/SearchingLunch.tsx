@@ -21,8 +21,8 @@ const SearchingLunch: FunctionComponent<SearchingLunchProps> = ({
                 bubbleStyles={styles.bubbleStyles}
                 triangleSide={triangleSides.topRight}
             >
-                <Text style={styles.bubbleTitle}>Searching for your best match</Text>
-                <Text style={styles.bubbleText}>It may take up to 15 minutes. Come back later to check results.</Text>
+                <Text style={styles.bubbleTitle}>We are processing your data</Text>
+                <Text style={styles.bubbleText}>Soon you will be redirected to the current list of lunches, please wait..</Text>
             </Bubble>
             <CustomButton
                 text={'Cancel'}

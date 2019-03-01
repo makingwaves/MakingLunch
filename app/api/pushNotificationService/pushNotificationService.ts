@@ -1,9 +1,11 @@
 import Config from 'react-native-config';
 import PushNotifications, { PushNotification } from 'react-native-push-notification';
 
+import store from '@app/boot/store';
+import { Profile } from '@app/state/auth/types';
+import { navigationService } from '@app/services';
 import MessageNotification, { MessageNotificationTitle, MessageNotificationType } from './messageNotification';
 import LunchAssingedNotifcation, { LunchAssingedNotifcationType, LunchAssingedNotifcationTitle } from './lunchAssingedNotification';
-import { navigationService } from '@app/services';
 
 export type NotificationTitle = MessageNotificationTitle | LunchAssingedNotifcationTitle;
 
@@ -27,7 +29,8 @@ export interface Notification {
 
 export interface LocalNotifications {
     'New message': (lunchId: string) => void,
-    'Lunch was assigned': () => void
+    'SplashScreen': () => void,
+    'Lunch was assigned': () => void,
 };
 
 export interface ExtendedNotification extends PushNotification {
@@ -43,7 +46,8 @@ class PushNotificationService {
     };
     private localNotificationRedirect: LocalNotifications = {
         'New message': this.onLocalNewMessageClick.bind(this),
-        'Lunch was assigned': this.onLocalLunchAssignClick.bind(this)
+        'Lunch was assigned': this.onLocalLunchAssignClick.bind(this),
+        'SplashScreen': this.userNotLoggedClick.bind(this)
     };
 
     public configureNotification(): void {
@@ -64,7 +68,7 @@ class PushNotificationService {
 
     private onNotification = (data: ExtendedNotification & { notification: NotificationData }): void => {
         if (data.userInteraction) {
-            const title: string = data['title'];
+            const title: string = this.isUserLogged() ? data['title'] : 'SplashScreen';
             this.localNotificationRedirect[title] && this.localNotificationRedirect[title](data['lunchId']);
         }
         else {
@@ -84,6 +88,15 @@ class PushNotificationService {
 
     private onLocalLunchAssignClick(): void {
         navigationService.navigate('Main');
+    }
+
+    private userNotLoggedClick(): void {
+        navigationService.navigate('Initial');
+    }
+
+    private isUserLogged(): boolean {
+        const user: Profile = store.getState().auth.profile;
+        return !!(user && user.id)
     }
 }
 

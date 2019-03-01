@@ -4,11 +4,11 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import styles from './style';
 
-import UserImage from '../../../../components/UserImage';
-import { MessageTypeProps } from '../Messages';
-import Triangle, { triangleSides } from '../../../../components/Triangle/Triangle';
+import UserImage from '@app/components/UserImage';
+import { MessageSubTypeProps } from '../MessageType/MessageType';
+import Triangle, { triangleSides } from '@app/components/Triangle/Triangle';
 
-const OtherUserMessage: FunctionComponent<MessageTypeProps> = ({
+const OtherUserMessage: FunctionComponent<MessageSubTypeProps> = ({
     singleMessage, userId
 }) => {
     return (

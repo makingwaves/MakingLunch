@@ -1,5 +1,5 @@
 import Config from 'react-native-config';
-import { GoogleSignin, User } from 'react-native-google-signin';
+import { GoogleSignin, User, statusCodes } from 'react-native-google-signin';
 import RNSecureKeyStore, { ACCESSIBLE } from "react-native-secure-key-store";
 import { takeLatest, call, put, CallEffect } from 'redux-saga/effects';
 import { LoginManager, AccessToken, LoginResult } from "react-native-fbsdk";
@@ -16,9 +16,9 @@ import { facebookLoginService, accountService } from '@app/api';
 export const TOKEN_KEY: string = 'USER_TOKEN';
 
 export interface UserData {
+    id: string;
     name: string;
     photo: string;
-    id: string;
     description?: string;
 };
 
@@ -104,13 +104,13 @@ export function* googleLoginFlow() {
             [GoogleSignin, GoogleSignin.hasPlayServices]
         );
 
+        yield put(authActionsCreators.startRequest());
+
         const userInfo: User = yield call(
             [GoogleSignin, GoogleSignin.signIn]
         );
 
         const token = yield keyToString(userInfo, 'idToken');
-
-        yield put(authActionsCreators.startRequest());
 
         const userDataResponse: UserDataResponse = yield call(
             [accountService, accountService.sendUserData],
@@ -130,7 +130,10 @@ export function* googleLoginFlow() {
             yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
         }
     } catch (err) {
-        yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
+        if (err.code === statusCodes.SIGN_IN_CANCELLED)
+            yield put(authActionsCreators.requestSuccess());
+        else
+            yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
     }
 }
 

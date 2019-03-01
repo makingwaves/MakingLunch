@@ -3,14 +3,14 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 
 export default StyleSheet.create({
     container: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
         width: wp('100%'),
         height: hp('100%'),
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, .75)',
+        position: 'absolute',
+        left: 0,
+        top: 0,
         zIndex: 12,
+        backgroundColor: 'rgba(0, 0, 0, .75)',
     }
 });

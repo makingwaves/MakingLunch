@@ -5,11 +5,11 @@ import { colors, fontSizes } from "@app/config/styles";
 
 export default StyleSheet.create({
     searchingContainer: {
-        height: hp('65%'),
-        justifyContent: 'space-between'
+        height: hp('55%'),
+        justifyContent: 'space-between',
     },
     bubbleContainer: {
-        width: '90%',
+        width: '80%',
         alignSelf: 'center'
     },
     bubbleStyles: {

@@ -14,6 +14,7 @@ export interface Chat {
 }
 
 export enum MessageStatus {
+    posted = 'POSTED',
     pending = 'PENDING',
     finished = 'FINISHED'
 }
@@ -30,7 +31,7 @@ export interface LunchTimeMap {
 export enum LunchStatus {
     pending = 'PENDING',
     running = 'RUNNING',
-    finished = 'FINISHED',
+    finished = 'FINISHED'
 }
 
 export interface Location {
@@ -50,6 +51,7 @@ export interface Lunch {
     times: LunchTimeMap;
     members: string[];
     chat: Chat;
+    isCancelling: boolean;
 }
 
 export interface LunchesMap {
@@ -112,6 +114,11 @@ export interface SetLunchChatPayload {
     chat: Chat;
 }
 
+export interface SetLunchCancellation {
+    lunchId: string;
+    isCancelling: boolean;
+}
+
 export interface AddChatMessagePayload {
     lunchId: string;
     message: Message;
@@ -145,6 +152,7 @@ export enum LunchActions {
     SET_LUNCH_LOCATION = '@@lunches/set_lunch_location',
     SET_LUNCH_TIME = '@@lunches/set_lunch_time',
     SET_LUNCH_CHAT = '@@lunches/set_chat',
+    SET_LUNCH_CANCELLATION = '@@lunches/set_lunch_cancellation',
     ADD_CHAT_MESSAGE = '@@lunches/add_chat_message',
     ADD_LOADED_CHAT_MESSAGES = '@@lunches/add_loaded_chat_messages',
     UPDATE_CHAT_MESSAGE = '@@lunches/UPDATE_CHAT_MESSAGE',
@@ -159,5 +167,6 @@ export enum LunchSagaActions {
     GET_LUNCHES = '@@lunches/get_lunches',
     POST_LUNCH = '@@lunches/post_lunch',
     GET_LUNCH_CHAT = '@@lunches/get_lunch_chat',
-    SEND_CHAT_MESSAGE = '@@lunches/send_chat_message'
+    SEND_CHAT_MESSAGE = '@@lunches/send_chat_message',
+    CANCEL_LUNCH = '@@lunches/cancel_lunch'
 }

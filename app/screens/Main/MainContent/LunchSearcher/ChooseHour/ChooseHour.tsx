@@ -9,12 +9,14 @@ import { TimeSpan } from '@app/state/lunches/types';
 import CustomButton from '@app/components/CustomButton';
 import TimePickerType from './TimePickerType';
 import { triangleSides } from '@app/components/Triangle/Triangle';
+import UserLocationButton from '../../UserLocationButton';
 
 const CLOCK = require('./img/clock.png');
 const ARROW = require('./img/arrow.png');
 
 export interface ChooseHourProps {
     onSearchClick: (timeSpan: TimeSpan) => void;
+    onLocationClick: () => void;
 };
 
 export interface ChoouseHourState {
@@ -90,9 +92,13 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
             lunchStart,
             lunchEnd
         } = this.state;
+        const {
+            onLocationClick
+        } = this.props;
 
         return (
             <View>
+                <UserLocationButton onClick={onLocationClick} />
                 <Bubble
                     triangleSide={triangleSides.bottomLeft}
                     bubbleContainerStyles={styles.bubbleContainer}

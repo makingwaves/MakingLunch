@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from "react";
-import { View, Image, Text } from "react-native";
 import dayjs from 'dayjs';
+import { View, Image, Text } from "react-native";
+import React, { FunctionComponent } from "react";
 
 import styles from './styles';
 
@@ -12,7 +12,7 @@ export interface LunchDataProps {
     };
 }
 
-const CLOCK_SVG = require('./img/clock.png');
+const CLOCK = require('./img/clock.png');
 
 const LunchDate: FunctionComponent<LunchDataProps> = ({
     isActive, date
@@ -34,8 +34,8 @@ const LunchDate: FunctionComponent<LunchDataProps> = ({
     return (
         <View style={styles.lunchDateContainer}>
             <View style={styles.upperDate}>
-                <Image source={CLOCK_SVG} style={styles.clockImage} />
-                <Text style={styles.miniDateText}>{dayjs(date.begin).format('YYYY.MM.DD')}</Text>
+                <Image source={CLOCK} style={styles.clockImage} />
+                <Text style={styles.miniDateText}>{dayjs(date.begin).format('DD.MM.YY')}</Text>
             </View>
             <View>
                 {getLargeDataText(isActive)}

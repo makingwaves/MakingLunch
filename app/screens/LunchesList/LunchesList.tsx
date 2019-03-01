@@ -11,6 +11,9 @@ import SingleLunch from './SingleLunch';
 import { AppState } from '@app/state/state';
 import { mapLunchesToArray } from './lunchesListSelectors';
 import { LunchStatus, Lunch } from '@app/state/lunches/types';
+import LunchesPlaceholder from './LunchesPlaceholder';
+import { LunchSagaActions } from '@app/state/lunches/types';
+import ErrorPopup from '@app/components/ErrorPopup';
 
 export interface LunchesListDto {
     data: Lunch[];
@@ -20,6 +23,8 @@ export interface LunchesListDto {
 export interface LunchesListProps extends NavigationScreenProps {
     userId: string;
     lunches: LunchesListDto[];
+    errorMsg: string;
+    cancelMeeting: (lunchId: string) => void;
 };
 
 export type LunchType = {
@@ -49,36 +54,47 @@ class LunchesList extends PureComponent<LunchesListProps> {
         const {
             userId,
             lunches,
-            navigation
+            errorMsg,
+            navigation,
+            cancelMeeting
         } = this.props;
 
         return (
             <View style={styles.lunchesListContainer}>
+                <ErrorPopup title={'An error has occured'} description={errorMsg} showError={!!errorMsg} showDuration={2000} />
                 <BackButton navigation={navigation} screenTitle={'Your lunches'} backgroundColor={colors.brandColorSecondary} />
-                <SectionList
-                    style={styles.sectionList}
-                    renderSectionHeader={({ section: { title, data } }) => (
-                        <View>
-                            {data && !!data.length && <Text style={styles.sectionTitle}>{this.lunchTypesTitles[title].title}</Text>}
-                        </View>
-                    )}
-                    renderItem={({ item, section }) => (
-                        <SingleLunch lunch={item} userId={userId} subTitle={this.lunchTypesTitles[section.title].subTitle} />
-                    )}
-                    sections={lunches}
-                    keyExtractor={(item, index) => item + index}
-                    ListFooterComponent={<View style={styles.sectionListBottom}></View>}
-                />
+                <LunchesPlaceholder onReady={!!lunches}>
+                    <SectionList
+                        style={styles.sectionList}
+                        renderSectionHeader={({ section: { title, data } }) => (
+                            <View>
+                                {data && !!data.length && <Text style={styles.sectionTitle}>{this.lunchTypesTitles[title].title}</Text>}
+                            </View>
+                        )}
+                        renderItem={({ item, section }) => (
+                            <SingleLunch lunch={item} userId={userId} subTitle={this.lunchTypesTitles[section.title].subTitle} cancelMeeting={cancelMeeting} />
+                        )}
+                        sections={lunches}
+                        keyExtractor={(item, index) => item + index}
+                        ListFooterComponent={<View style={styles.sectionListBottom}></View>}
+                    />
+                </LunchesPlaceholder>
             </View>
         );
     }
 }
 
 const mapStateToProps = (state: AppState) => ({
+    userId: state.auth.profile.id,
     lunches: mapLunchesToArray(state),
-    userId: state.auth.profile.id
+    errorMsg: state.lunches.request.errorMsg
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    cancelMeeting: (lunchId: string) => dispatch({ type: LunchSagaActions.CANCEL_LUNCH, lunchId })
 });
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(LunchesList);

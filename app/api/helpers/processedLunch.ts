@@ -31,7 +31,8 @@ export const mapAndExtendLunches = (
             locations: locationsMapFn(lunch),
             times: timesMapFn(lunch),
             members: membersMapFn(lunch),
-            chat: chatMapFn(lunch)
+            chat: chatMapFn(lunch),
+            isCancelling: false
         }))
         .reduce((lunchMappedObject, lunch) => (
             lunchMappedObject[lunch.id] = lunch, lunchMappedObject
@@ -52,7 +53,8 @@ export const mapAndExtendLunch = (
         locations: locationsMapFn(lunch),
         times: timesMapFn(lunch),
         members: membersMapFn(lunch),
-        chat: chatMapFn(lunch)
+        chat: chatMapFn(lunch),
+        isCancelling: false
     }
 };
 

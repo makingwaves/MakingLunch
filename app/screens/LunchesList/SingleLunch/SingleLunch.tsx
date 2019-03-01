@@ -1,7 +1,9 @@
-import { View, Text, TouchableOpacity, Alert } from "react-native";
-import React, { FunctionComponent, memo } from 'react'
+import Display from 'react-native-display';
+import React, { FunctionComponent, memo, Fragment } from 'react'
+import { View, Text, TouchableOpacity, Alert, Image, ActivityIndicator } from "react-native";
 
 import styles from './style';
+import { colors } from "@app/config/styles";
 
 import LunchDate from '../LunchDate';
 import GuestList from '@app/components/GuestList';
@@ -12,10 +14,13 @@ export interface SingleLunchProps {
     lunch: Lunch;
     userId: string;
     subTitle: string;
+    cancelMeeting: (lunchId: string) => void;
 };
 
+const DELETE = require('./assets/delete.png');
+
 const SingleLunch: FunctionComponent<SingleLunchProps> = ({
-    lunch, subTitle, userId
+    lunch, subTitle, userId, cancelMeeting
 }) => {
     const date = lunch.times[lunch.id] || lunch.times[userId];
     const isActive = lunch.status === LunchStatus.pending;
@@ -33,14 +38,37 @@ const SingleLunch: FunctionComponent<SingleLunchProps> = ({
             );
     }
 
+    const onDeleteClick = (): void => {
+        Alert.alert(
+            'Cancel pending lunch',
+            'Are you sure you want to cancel this lunch?',
+            [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Confirm', onPress: () => cancelMeeting(lunch.id) }
+            ]
+        );
+    }
+
     return (
         <TouchableOpacity style={styles.singleLunchContainer} onPress={onLunchClick}>
-            <View style={styles.topBar}>
-                <LunchDate isActive={isActive} date={date} />
-                <GuestList guestsId={lunch.members} imageContainerStyles={styles.imageContainerStyles} />
+            <View style={styles.displayTopBar}>
+                <Display enable={lunch.isCancelling} style={styles.topBar} enter={'fadeIn'} exit={'fadeOut'} defaultDuration={300}>
+                    <View style={styles.cancellingContainer}>
+                        <ActivityIndicator color={colors.brandColorSecondary} />
+                    </View>
+                </Display>
+                <Display enable={!lunch.isCancelling} style={styles.topBar} enter={'fadeIn'} exit={'fadeOut'} defaultDuration={300}>
+                    <LunchDate isActive={isActive} date={date} />
+                    <GuestList guestsId={lunch.members} imageContainerStyles={styles.imageContainerStyles} />
+                </Display>
             </View>
             <View style={[styles.bottomBar, isActive ? styles.activeBottomBar : {}]}>
-                <Text style={styles.bottomBarText}>{subTitle}</Text>
+                {(isActive && !lunch.isCancelling) && (
+                    <TouchableOpacity onPress={onDeleteClick} style={styles.deleteIconContainer} >
+                        <Image source={DELETE} style={styles.deleteIcon} />
+                    </TouchableOpacity>
+                )}
+                <Text style={styles.bottomBarText}>{lunch.isCancelling ? 'Cancelling' : subTitle}</Text>
             </View>
         </TouchableOpacity>
     );

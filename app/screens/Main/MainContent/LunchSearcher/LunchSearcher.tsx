@@ -1,31 +1,31 @@
+import Display from 'react-native-display';
 import { View } from 'react-native';
-import React, { PureComponent, ReactElement, ComponentClass } from 'react';
+import React, { PureComponent } from 'react';
 
 import styles from './style';
 
 import ChooseHour from './ChooseHour';
-import { TimeSpan } from '@app/state/lunches/types';
+import { TimeSpan, Lunch } from '@app/state/lunches/types';
 import { LunchStage } from '../MainContent';
 import SearchingLunch from './SearchingLunch';
+import WaitingForData from './WaitingForData';
+import LunchAssigned from './LunchAssigned';
 
 export interface LunchSearcherProps {
     stage: LunchStage;
+    running: Lunch;
     onStageChange: (stage: LunchStage) => void;
     onSearchClick: (timeSpan: TimeSpan) => void;
     onCancelClick: () => void;
+    onLocationClick: () => void;
 };
 
 class LunchSearcher extends PureComponent<LunchSearcherProps> {
     private timeoutFn: number;
 
-    private stageView: { [key in LunchStage]: () => ReactElement<ComponentClass> } = {
-        chooseData: () => <ChooseHour onSearchClick={this.props.onSearchClick} />,
-        searching: () => <SearchingLunch onCancelClick={this.props.onCancelClick} />
-    };
-
     public componentDidUpdate(prevProps: LunchSearcherProps): void {
         if (prevProps.stage !== this.props.stage && this.props.stage === 'searching')
-            this.timeoutFn = setTimeout(this.changeStage, 3000);
+            this.timeoutFn = setTimeout(this.changeStage, 6000);
     }
 
     public componentWillUnmount(): void {
@@ -38,12 +38,25 @@ class LunchSearcher extends PureComponent<LunchSearcherProps> {
 
     public render() {
         const {
-            stage
+            stage,
+            running,
+            onLocationClick
         } = this.props;
 
         return (
             <View style={styles.lunchSearcherContainer}>
-                {this.stageView[stage]()}
+                <Display style={[styles.displayContainer, styles.waitingDisplay]} enable={stage === 'waitingForData'} enter={'lightSpeedIn'} exit={'fadeOutLeft'} defaultDuration={500}>
+                    <WaitingForData />
+                </Display>
+                <Display style={styles.displayContainer} enable={stage === 'chooseData'} enter={'lightSpeedIn'} exit={'fadeOutLeft'} defaultDuration={500}>
+                    <ChooseHour onSearchClick={this.props.onSearchClick} onLocationClick={onLocationClick} />
+                </Display>
+                <Display style={[styles.displayContainer, styles.searchingDisplay]} enable={stage === 'searching'} enter={'lightSpeedIn'} exit={'fadeOutLeft'} defaultDuration={500}>
+                    <SearchingLunch onCancelClick={this.props.onCancelClick} />
+                </Display>
+                <Display style={styles.displayContainer} enable={stage === 'lunchAssigned'} enter={'lightSpeedIn'} exit={'fadeOutLeft'} defaultDuration={500}>
+                    <LunchAssigned runningLunch={running} />
+                </Display>
             </View>
         )
     }

@@ -1,4 +1,4 @@
-
+import { delay } from 'redux-saga';
 import { Platform } from 'react-native';
 import RNSecureKeyStore from 'react-native-secure-key-store';
 import { takeLatest, put, call, select } from 'redux-saga/effects';
@@ -9,7 +9,6 @@ import { getLunchesFlow } from '@app/sagas/lunchesSaga/lunchesSaga';
 import { authActionsCreators } from '@app/state/auth/actions';
 import { Profile, AuthSagaActions } from '@app/state/auth/types';
 import { TOKEN_KEY, configureGoogle } from '@app/sagas/loginSaga/loginSaga';
-
 
 export function* getSecureStoredKey(key: string) {
     try {
@@ -77,9 +76,9 @@ export function* getUserDataWithTokenFlow() {
 
             yield put(authActionsCreators.setToken(token));
             yield put(authActionsCreators.setProfile(userData));
-            yield call(getLunchesFlow);
         }
         else {
+            yield delay(1000);
             yield put(authActionsCreators.setProfile({} as Profile));
         }
     } catch (err) {

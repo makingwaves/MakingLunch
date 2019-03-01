@@ -22,6 +22,8 @@ export function* removeSecureStoredKey(key: string) {
 
 export function* logoutFlow() {
     try {
+        yield put(authActionsCreators.startRequest());
+
         const { loggedInFb, loggedInGoogle } = yield all({
             loggedInFb: call([AccessToken, AccessToken.getCurrentAccessToken]),
             loggedInGoogle: call([GoogleSignin, GoogleSignin.isSignedIn])
@@ -40,6 +42,8 @@ export function* logoutFlow() {
 
         yield put(authActionsCreators.setProfile(null));
         yield put(authActionsCreators.setToken(null));
+
+        yield put(authActionsCreators.requestSuccess());
 
         yield navigationService.navigateAndReset('Auth');
     } catch (err) {

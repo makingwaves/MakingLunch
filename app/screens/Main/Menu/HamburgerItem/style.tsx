@@ -12,7 +12,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         width: wp('10%'),
         height: hp('3%'),
-        zIndex: 123213213231
+        zIndex: 1000
     },
     beams: {
         height: 4,

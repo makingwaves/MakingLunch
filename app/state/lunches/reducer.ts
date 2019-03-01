@@ -12,7 +12,7 @@ const initialState: LunchesState = {
         state: RequestState.none,
         errorMsg: '',
     },
-    data: {},
+    data: null,
 };
 
 type LunchAction = ActionUnion<typeof lunchesActionsCreators>;
@@ -81,6 +81,18 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                     },
                 },
             };
+        case LunchActions.SET_LUNCH_CANCELLATION: {
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.lunchId]: {
+                        ...state.data[action.payload.lunchId],
+                        isCancelling: action.payload.isCancelling
+                    }
+                }
+            };
+        }
         case LunchActions.REMOVE_LUNCH:
             return {
                 ...state,
