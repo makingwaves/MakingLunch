@@ -126,7 +126,7 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
         return (
             <Fragment>
                 <ErrorPopup title={'An error has occured'} description={errorMsg} showError={!!errorMsg} showDuration={3000} />
-                <MapView ref={this.mapViewRef} />
+                <MapView ref={this.mapViewRef} stage={stage} runningLunch={running} />
                 <LunchSearcher
                     stage={stage}
                     running={running}

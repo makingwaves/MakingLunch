@@ -15,7 +15,7 @@ export default StyleSheet.create({
         height: height,
     },
     bubbleContainer: {
-        width: '60%'
+        width: '80%'
     },
     firstBubble: {
         borderTopLeftRadius: 0
