@@ -37,7 +37,7 @@ const LunchAssigned: FunctionComponent<LunchAssignedProps> = ({
                 <Text style={styles.hourText}>{dayjs(date.begin).format('HH:mm')}</Text>
             </Bubble>
             <Bubble bubbleContainerStyles={styles.guestBubbleContainer} bubbleStyles={styles.guestBubble} triangleSide={triangleSides.bottomLeft}>
-                <GuestList guestListContainerStyles={styles.guestListContainer} imageContainerStyles={styles.guestListImage} guestsId={runningLunch.members} />
+                <GuestList guestListContainerStyles={styles.guestListContainer} imageStyles={styles.guestImage} imageContainerStyles={styles.guestImageContainer} guestsId={runningLunch.members} />
             </Bubble>
             <CustomButton
                 text={'Start chat'}

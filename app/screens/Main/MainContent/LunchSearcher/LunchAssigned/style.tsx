@@ -31,21 +31,23 @@ export default StyleSheet.create({
         textAlign: 'center'
     },
     guestBubbleContainer: {
-        width: '65%',
+        width: '75%',
         marginTop: wp('2.5%'),
-        marginLeft: wp('10%'),
+        marginLeft: wp('5%'),
         alignSelf: 'flex-start',
     },
     guestBubble: {
         borderBottomLeftRadius: 0,
-        padding: wp('2%')
+        padding: wp('3%'),
     },
     guestListContainer: {
         width: '100%'
     },
-    guestListImage: {
+    guestImageContainer: {
         width: '30%',
-        aspectRatio: 1,
+        aspectRatio: 1
+    },
+    guestImage: {
         borderRadius: 18
     },
     buttonContainer: {

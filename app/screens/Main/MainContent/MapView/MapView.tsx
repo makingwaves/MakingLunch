@@ -14,10 +14,6 @@ export interface Point {
     lat: number;
 };
 
-export interface UserLocation extends Location {
-    id: string;
-};
-
 const LOCATION_ICON = require('./img/location_icon.png');
 
 export interface MapViewProps {
@@ -25,7 +21,12 @@ export interface MapViewProps {
     runningLunch: Lunch;
 };
 
-class MapView extends PureComponent<MapViewProps> {
+export interface MapViewState {
+    mapReady: boolean;
+};
+
+class MapView extends PureComponent<MapViewProps, MapViewState> {
+    public state: MapViewState;
 
     private readonly initialRegion: Region = {
         latitude: 50.062525,
@@ -40,20 +41,15 @@ class MapView extends PureComponent<MapViewProps> {
         super(props);
 
         this.googleMapsRef = createRef();
+
+        this.state = {
+            mapReady: false
+        };
     }
 
     public componentDidUpdate(prevProps: MapViewProps): void {
-        if (prevProps !== this.props && this.props.stage === 'lunchAssigned') {
-            const {
-                runningLunch: { id, locations }
-            } = this.props;
-            this.animateTo({
-                longitude: locations[id].longitude,
-                latitude: locations[id].latitude,
-                longitudeDelta: 0.05,
-                latitudeDelta: 0.05
-            });
-        }
+        if (prevProps !== this.props && this.props.stage === 'lunchAssigned')
+            this.navigateToRunningLocation();
     }
 
     public navigateToUserLocation = (): void => {
@@ -86,13 +82,26 @@ class MapView extends PureComponent<MapViewProps> {
         }
     }
 
+    private navigateToRunningLocation(): void {
+        const {
+            runningLunch: { id, locations }
+        } = this.props;
+        this.animateTo({
+            longitude: locations[id].longitude,
+            latitude: locations[id].latitude,
+            longitudeDelta: 0.05,
+            latitudeDelta: 0.05
+        });
+    }
+
     private animateTo(region: Region): void {
-        this.googleMapsRef.current.animateToRegion({
-            longitude: region.longitude,
-            latitude: region.latitude,
-            longitudeDelta: region.longitudeDelta,
-            latitudeDelta: region.latitudeDelta
-        }, 300);
+        if (this.state.mapReady)
+            this.googleMapsRef.current.animateToRegion({
+                longitude: region.longitude,
+                latitude: region.latitude,
+                longitudeDelta: region.longitudeDelta,
+                latitudeDelta: region.latitudeDelta
+            }, 300);
     }
 
     private getCircleLng(westLng: number, eastLng: number): number {
@@ -118,10 +127,15 @@ class MapView extends PureComponent<MapViewProps> {
         }) => cb(coords.longitude, coords.latitude));
     }
 
-    private getUsersLocations(runningLunch: Lunch): UserLocation[] {
-        return runningLunch && Object.keys(runningLunch.locations)
-            .filter(key => key !== runningLunch.id)
-            .map(key => ({ ...runningLunch.locations[key], id: key }));
+    private onMapReady = (): void => {
+        this.setState(prevState => ({
+            mapReady: true
+        }), () => {
+            if (this.props.stage === 'lunchAssigned')
+                this.navigateToRunningLocation();
+            else
+                this.navigateToUserLocation();
+        });
     }
 
     public render() {
@@ -130,15 +144,13 @@ class MapView extends PureComponent<MapViewProps> {
             runningLunch
         } = this.props;
 
-        const userLocations = this.getUsersLocations(runningLunch);
-
         return (
             <View style={styles.mapContainer}>
                 <GoogleMapView
                     style={styles.mapView}
                     ref={this.googleMapsRef}
                     provider={PROVIDER_GOOGLE}
-                    // onMapReady={this.navigateToUserLocation}
+                    onMapReady={this.onMapReady}
                     showsTraffic={false}
                     initialRegion={this.initialRegion}
                     showsBuildings={false}
@@ -146,7 +158,7 @@ class MapView extends PureComponent<MapViewProps> {
                     loadingBackgroundColor={colors.colorLight}
                     loadingIndicatorColor={colors.brandColorPrimary}
                 >
-                    {stage === 'lunchAssigned' && <LocationCircle userLocations={userLocations} />}
+                    {stage === 'lunchAssigned' && <LocationCircle lunch={runningLunch} />}
                 </GoogleMapView>
                 {stage !== 'lunchAssigned' && (
                     <View style={styles.circle} pointerEvents={'none'}>
