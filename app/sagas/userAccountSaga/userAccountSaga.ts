@@ -5,7 +5,6 @@ import { takeLatest, put, call, select } from 'redux-saga/effects';
 
 import { AppState } from '@app/state/state';
 import { accountService } from '@app/api';
-import { getLunchesFlow } from '@app/sagas/lunchesSaga/lunchesSaga';
 import { authActionsCreators } from '@app/state/auth/actions';
 import { Profile, AuthSagaActions } from '@app/state/auth/types';
 import { TOKEN_KEY, configureGoogle } from '@app/sagas/loginSaga/loginSaga';

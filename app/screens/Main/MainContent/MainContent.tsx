@@ -11,6 +11,7 @@ import { TimeSpan, LunchSagaActions, LunchesMap, LunchStatus, Lunch } from '@app
 import ErrorPopup from '@app/components/ErrorPopup';
 import { RequestState } from '@app/state/common/types';
 import { getPendingAndRunningLunches } from './mainContentSelector';
+import { navigationService } from '@app/services';
 
 export type LunchStage = 'chooseData' | 'searching' | 'waitingForData' | 'lunchAssigned';
 
@@ -60,19 +61,17 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
         }
     }
 
+    private redirectToLunchesList = () => {
+        navigationService.navigate('LunchesList');
+    }
+
     private onLocationClick = () => {
         this.mapViewRef.current.navigateToUserLocation();
     }
 
     private onSearchClick = async (timeSpan: TimeSpan): Promise<void> => {
         if (this.isBetweenOtherPendingLunches(timeSpan, this.props.pending, this.props.userId)) {
-            Alert.alert(
-                'Error occured',
-                'You already have lunch, which has such a time range.',
-                [
-                    { text: 'Ok' }
-                ]
-            );
+            Alert.alert('Error occured', 'You already have lunch, which has such a time range.', [{ text: 'Ok' }]);
         }
         else {
             const userLocation = await this.mapViewRef.current.getSelectedUserLocation();
@@ -80,17 +79,8 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
                 ...timeSpan,
                 ...userLocation
             });
-
-            this.setState(prevState => ({ stage: 'searching' }));
+            Alert.alert('Lunch was assigned', 'Your lunch was successfully assigned', [{ text: 'Go to lunches', onPress: this.redirectToLunchesList }, { text: 'Ok' }]);
         }
-    }
-
-    private onCancelClick = (): void => {
-        this.setState(prevState => ({ stage: 'chooseData' }));
-    }
-
-    private onStageChange = (stage: LunchStage): void => {
-        this.setState(prevState => ({ stage }));
     }
 
     private isBetweenOtherPendingLunches(lunchTimeSpan: TimeSpan, pending: LunchesMap, userId: string): boolean {
@@ -127,14 +117,7 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
             <Fragment>
                 <ErrorPopup title={'An error has occured'} description={errorMsg} showError={!!errorMsg} showDuration={3000} />
                 <MapView ref={this.mapViewRef} stage={stage} runningLunch={running} />
-                <LunchSearcher
-                    stage={stage}
-                    running={running}
-                    onSearchClick={this.onSearchClick}
-                    onCancelClick={this.onCancelClick}
-                    onStageChange={this.onStageChange}
-                    onLocationClick={this.onLocationClick}
-                />
+                <LunchSearcher stage={stage} running={running} onSearchClick={this.onSearchClick} onLocationClick={this.onLocationClick} />
             </Fragment>
         );
     }
