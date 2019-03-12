@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import React, { PureComponent, Fragment, RefObject, createRef } from 'react';
@@ -11,6 +10,7 @@ import { RequestState } from '@app/state/common/types';
 import { MeetingRequest } from '@app/api/lunchesService/lunchesService';
 import { navigationService } from '@app/services';
 import { getPendingAndRunningLunches } from './selectors/mainContentSelector';
+import { isBetweenOtherPendingLunches } from './utils/utils';
 import { TimeSpan, LunchSagaActions, LunchesMap, Lunch } from '@app/state/lunches/types';
 
 export type LunchStage = 'chooseData' | 'searching' | 'waitingForData' | 'lunchAssigned';
@@ -70,7 +70,7 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
     }
 
     private onSearchClick = async (timeSpan: TimeSpan): Promise<void> => {
-        if (this.isBetweenOtherPendingLunches(timeSpan, this.props.pending, this.props.userId)) {
+        if (isBetweenOtherPendingLunches(timeSpan, this.props.pending, this.props.userId)) {
             Alert.alert('Error occured', 'You already have lunch, which has such a time range.', [{ text: 'Ok' }]);
         }
         else {
@@ -81,27 +81,6 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
             });
             Alert.alert('Lunch was assigned', 'Your lunch was successfully assigned', [{ text: 'Go to lunches', onPress: this.redirectToLunchesList }, { text: 'Ok' }]);
         }
-    }
-
-    private isBetweenOtherPendingLunches(lunchTimeSpan: TimeSpan, pending: LunchesMap, userId: string): boolean {
-        return pending && Object.keys(pending)
-            .some(id =>
-                this.timesCollide(pending[id].times[userId], lunchTimeSpan.begin, lunchTimeSpan.end)
-            );
-    }
-
-    private timesCollide(lunchTime: TimeSpan, begin: string, end: string): boolean {
-        if (this.isBetween(dayjs(begin), dayjs(lunchTime.begin), dayjs(lunchTime.end)))
-            return true;
-        if (this.isBetween(dayjs(end), dayjs(lunchTime.begin), dayjs(lunchTime.end)))
-            return true;
-        return false;
-    }
-
-    private isBetween(checkingTime: dayjs.Dayjs, begin: dayjs.Dayjs, end: dayjs.Dayjs): boolean {
-        if (checkingTime.isAfter(begin) && checkingTime.isBefore(end))
-            return true;
-        return false;
     }
 
     public render() {
