@@ -67,6 +67,7 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                         times: action.payload.times,
                         members: action.payload.members,
                         chat: {},
+                        isCancelling: action.payload.isCancelling
                     },
                 },
             };

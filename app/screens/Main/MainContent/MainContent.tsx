@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import React, { PureComponent, Fragment, RefObject, createRef } from 'react';
 
 import MapView from './MapView';
+import ErrorPopup from '@app/components/ErrorPopup';
 import { AppState } from '@app/state/state';
 import LunchSearcher from './LunchSearcher';
-import { MeetingRequest } from '@app/api/lunchesService/lunchesService';
-import { TimeSpan, LunchSagaActions, LunchesMap, LunchStatus, Lunch } from '@app/state/lunches/types';
-import ErrorPopup from '@app/components/ErrorPopup';
 import { RequestState } from '@app/state/common/types';
-import { getPendingAndRunningLunches } from './mainContentSelector';
+import { MeetingRequest } from '@app/api/lunchesService/lunchesService';
 import { navigationService } from '@app/services';
+import { getPendingAndRunningLunches } from './selectors/mainContentSelector';
+import { TimeSpan, LunchSagaActions, LunchesMap, Lunch } from '@app/state/lunches/types';
 
 export type LunchStage = 'chooseData' | 'searching' | 'waitingForData' | 'lunchAssigned';
 

@@ -5,7 +5,7 @@ import {
     LunchActions,
     LunchesState,
     LunchStatus, Message, RemoveLunchMemberPayload,
-    SetLunchLocationPayload, SetLunchStatusPayload, SetLunchTimePayload, TimeSpan, UpdateLunchPayload,
+    SetLunchLocationPayload, SetLunchStatusPayload, SetLunchTimePayload, TimeSpan, UpdateLunchPayload, MessageStatus,
 } from './types';
 import { RequestState } from '../common/types';
 import { Reducer } from 'redux-testkit';
@@ -21,7 +21,7 @@ describe('lunches reducer', () => {
                 state: RequestState.none,
                 errorMsg: '',
             },
-            data: {},
+            data: null,
         };
     });
 
@@ -95,6 +95,7 @@ describe('lunches reducer', () => {
                         radiusInMeters: 200,
                     },
                 },
+                isCancelling: false
             };
 
             expect(lunchesActionsCreators.updateLunch(lunchUpdate)).toEqual({
@@ -182,6 +183,7 @@ describe('lunches reducer', () => {
                 memberId: 'memberId',
                 time: '2018-08-28T09:07:11.566Z',
                 message: 'Test message',
+                status: MessageStatus.finished
             };
 
             const messagePayload: AddChatMessagePayload = {
@@ -258,6 +260,7 @@ describe('lunches reducer', () => {
                 },
                 members: [mem1Id],
                 chat: {},
+                isCancelling: false
             };
 
             const twoMemberLunch: Lunch = {
@@ -273,6 +276,7 @@ describe('lunches reducer', () => {
                 },
                 members: [mem1Id, mem2Id],
                 chat: {},
+                isCancelling: false
             };
 
             existingLunchState = {
@@ -341,6 +345,7 @@ describe('lunches reducer', () => {
                     },
                 },
                 chat: {},
+                isCancelling: false
             };
 
             const updatePayload: UpdateLunchPayload = {
@@ -370,6 +375,7 @@ describe('lunches reducer', () => {
                         radiusInMeters: 200,
                     },
                 },
+                isCancelling: false
             };
 
             const updateAction = lunchesActionsCreators.updateLunch(updatePayload);
@@ -443,7 +449,7 @@ describe('lunches reducer', () => {
 
             const removeLunch2 = lunchesActionsCreators.removeLunch(lunch2Id);
             Reducer(lunchesReducer).withState(oneLunchState).expect(removeLunch2).toReturnState({
-                ...initialState,
+                ...initialState, data: {}
             });
         });
 
@@ -564,6 +570,7 @@ describe('lunches reducer', () => {
                 memberId: mem1Id,
                 time: '2018-09-21T09:08:11.566Z',
                 message: 'Test message 1',
+                status: MessageStatus.finished
             };
 
             const message2: Message = {
@@ -571,6 +578,7 @@ describe('lunches reducer', () => {
                 memberId: mem2Id,
                 time: '2018-09-21T09:11:11.566Z',
                 message: 'Test message 2',
+                status: MessageStatus.finished
             };
 
             const stateWithMessage = {

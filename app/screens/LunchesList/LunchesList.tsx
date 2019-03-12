@@ -9,7 +9,7 @@ import { colors } from '@app/config/styles';
 import BackButton from '@app/components/BackButton';
 import SingleLunch from './SingleLunch';
 import { AppState } from '@app/state/state';
-import { mapLunchesToArray } from './lunchesListSelectors';
+import { mapLunchesToArray } from './selectors/lunchesListSelectors';
 import { LunchStatus, Lunch } from '@app/state/lunches/types';
 import LunchesPlaceholder from './LunchesPlaceholder';
 import { LunchSagaActions } from '@app/state/lunches/types';

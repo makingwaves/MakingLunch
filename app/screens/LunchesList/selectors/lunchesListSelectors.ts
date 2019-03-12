@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { AppState } from '@app/state/state';
-import { LunchesListDto } from './LunchesList';
+import { LunchesListDto } from '../LunchesList';
 import { LunchesMap, LunchStatus, Lunch } from '@app/state/lunches/types';
 
 const getUserId = (state: AppState) => state.auth.profile.id;

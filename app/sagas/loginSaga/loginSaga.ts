@@ -10,7 +10,7 @@ import { navigationService } from '@app/services';
 import { FacebookDataResult } from '@app/api/facebookLoginService/facebookLoginService';
 import { authActionsCreators } from '@app/state/auth/actions';
 import { getUserDataWithTokenFlow } from '../userAccountSaga/userAccountSaga';
-import { keyToString, mapDataToResponse } from '../utils/pureFn/pureFn';
+import { keyToString, mapDataToResponse } from '../utils/utils';
 import { facebookLoginService, accountService } from '@app/api';
 
 export const TOKEN_KEY: string = 'USER_TOKEN';

@@ -1,4 +1,11 @@
-import { mapDataToResponse, keyToString, hasKey } from "./pureFn";
+import { mapDataToResponse, keyToString, hasKey } from "./utils";
+
+jest.mock('react-native-google-signin', () => ({
+    GoogleSignin: {
+        hasPlayServices: () => true,
+        signIn: () => ({})
+    }
+}));
 
 describe('Utils', () => {
     const correctObject = {

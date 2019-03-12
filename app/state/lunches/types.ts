@@ -78,6 +78,7 @@ export interface UpdateLunchPayload {
     members: string[];
     times: LunchTimeMap;
     locations: LunchLocationMap;
+    isCancelling: boolean;
 }
 
 export interface SetLunchStatusPayload {

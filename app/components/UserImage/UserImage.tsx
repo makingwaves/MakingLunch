@@ -7,7 +7,7 @@ import styles from './style';
 
 import Avatar from '@app/components/Avatar';
 import { AppState } from '@app/state/state';
-import { getGivenUserPhoto } from './userImageSelectors';
+import { getGivenUserPhoto } from './selectors/userImageSelectors';
 
 export interface UserImageProps {
     userId: string;
