@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { createAppContainer, createStackNavigator, NavigationScreenProp, NavigationParams } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, NavigationScreenProp, NavigationParams } from 'react-navigation';
 
 import { navigationService } from '@app/services';
 
@@ -8,7 +8,7 @@ import AppStack from '@app/navigation/app';
 import InitialScreen from '@app/screens/InitialScreen';
 import pushNotificationService from '@app/api/pushNotificationService/pushNotificationService';
 
-const RootNavigation = createStackNavigator(
+const RootNavigation = createSwitchNavigator(
     {
         App: {
             screen: AppStack
@@ -21,7 +21,6 @@ const RootNavigation = createStackNavigator(
         }
     },
     {
-        headerMode: 'none',
         initialRouteName: 'Initial'
     }
 );

@@ -1,8 +1,8 @@
-import Display from 'react-native-display';
 import React, { PureComponent } from 'react';
 import { View, Text, Image, ImageSourcePropType } from 'react-native';
 
 import styles from './style';
+import Display from '../Display';
 
 
 export interface ErrorPopupProps {
@@ -50,7 +50,7 @@ class ErrorPopup extends PureComponent<ErrorPopupProps, ErrorPopupState> {
         } = this.state;
 
         return (
-            <Display style={styles.container} enable={isVisible} enter={'bounceInDown'} exit={'bounceOutUp'} defaultDuration={300}>
+            <Display style={styles.container} enable={isVisible} enter={'fadeInDown'} exit={'fadeOutUp'} defaultDuration={300}>
                 {iconUrl && <Image source={iconUrl} style={styles.icon} />}
                 <View>
                     <Text style={styles.title}>{title}</Text>

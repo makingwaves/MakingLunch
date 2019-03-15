@@ -3,8 +3,8 @@ import { View } from 'react-native';
 
 import styles from './style';
 
-import CustomInput from '../../../components/CustomInput';
-import CustomButton from '../../../components/CustomButton';
+import CustomInput from '@app/components/CustomInput';
+import CustomButton from '@app/components/CustomButton';
 
 export interface ChatMessageInputProps {
     sendMessage: (messageContent: string) => void;
@@ -27,8 +27,8 @@ class ChatMessageInput extends PureComponent<ChatMessageInputProps, ChatMessageI
 
     private onSendClick = () => {
         const { chatMessage } = this.state;
-        
-        if(chatMessage !== '') {
+
+        if (chatMessage !== '') {
             this.props.sendMessage(chatMessage);
             this.setState(prevState => ({ chatMessage: '' }));
         }
@@ -45,7 +45,7 @@ class ChatMessageInput extends PureComponent<ChatMessageInputProps, ChatMessageI
 
         return (
             <View style={styles.chatMessagesContainer}>
-                <CustomInput 
+                <CustomInput
                     value={chatMessage}
                     type={'text'}
                     onChangeText={this.onMessageInputChange}
@@ -53,7 +53,7 @@ class ChatMessageInput extends PureComponent<ChatMessageInputProps, ChatMessageI
                     inputStyles={styles.inputStyles}
                     placeholder={'Type message here..'}
                 />
-                <CustomButton 
+                <CustomButton
                     text={'Send'}
                     onPress={this.onSendClick}
                     containerStyles={styles.buttonContainerStyles}

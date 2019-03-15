@@ -63,7 +63,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
             <View style={styles.lunchesListContainer}>
                 <ErrorPopup title={'An error has occured'} description={errorMsg} showError={!!errorMsg} showDuration={2000} />
                 <BackButton navigation={navigation} screenTitle={'Your lunches'} backgroundColor={colors.brandColorSecondary} />
-                <LunchesPlaceholder onReady={!!lunches}>
+                <LunchesPlaceholder onReady={!!lunches} animate={'fade'}>
                     <SectionList
                         style={styles.sectionList}
                         renderSectionHeader={({ section: { title, data } }) => (

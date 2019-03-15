@@ -6,8 +6,12 @@ export default StyleSheet.create({
     messagesViewContainer: {
         flex: 1,
         paddingHorizontal: 30,
+        transform: [{ scaleY: -1 }]
     },
     headerFlatList: {
-        marginBottom: hp('8%')
+        marginBottom: hp('7%')
+    },
+    flip: {
+        transform: [{ scaleY: -1 }]
     }
 });

@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
-import React, { PureComponent } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
+import React, { PureComponent, Fragment } from 'react';
 import { View, Text, Image, TimePickerAndroid } from 'react-native';
 
 import styles from './style';
@@ -10,6 +10,7 @@ import CustomButton from '@app/components/CustomButton';
 import TimePickerType from './TimePickerType';
 import { triangleSides } from '@app/components/Triangle/Triangle';
 import UserLocationButton from '../../UserLocationButton';
+import { Alert } from 'react-native';
 
 const CLOCK = require('./img/clock.png');
 const ARROW = require('./img/arrow.png');
@@ -42,19 +43,18 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
 
     private getTimespan(): TimeSpan {
         return {
-            begin: this.getMappedDate(this.getTimeFromGivenString(this.splitBy(this.state.lunchStart))),
-            end: this.getMappedDate(this.getTimeFromGivenString(this.splitBy(this.state.lunchEnd)))
+            begin: this.getMappedDate(this.getTimeFromGivenString(this.splitBy(this.state.lunchStart))).format(),
+            end: this.getMappedDate(this.getTimeFromGivenString(this.splitBy(this.state.lunchEnd))).format()
         }
     }
 
-    private getMappedDate(str: number[]): string {
+    private getMappedDate(str: number[]): Dayjs {
         return dayjs()
             .set('hour', str[0])
-            .set('minute', str[1])
-            .format();
+            .set('minute', str[1]);
     }
 
-    private openTimePicker = async (type: 'lunchStart') => {
+    private openTimePicker = async (type: 'lunchStart' | 'lunchEnd') => {
         const { [type]: timeType } = this.state;
 
         try {
@@ -66,9 +66,28 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
                 is24Hour: true
             }) as any;
 
-            if (action !== TimePickerAndroid.dismissedAction)
-                this.setState(prevState => ({ [type]: this.mapTimePickerValuesToString(hour, minute) }))
+            if (action !== TimePickerAndroid.dismissedAction) {
+                const selectedHour: string = this.mapTimePickerValuesToString(hour, minute);
+                const fnName = type === 'lunchStart' ? 'isBefore' : 'isAfter';
+                const stateVariable = type === 'lunchStart' ? 'lunchEnd' : 'lunchStart';
+
+                if (this.isEndAfterStart(selectedHour, this.state[stateVariable], fnName))
+                    this.setState(prevState => ({ [type]: selectedHour }) as any)
+                else
+                    this.showWrongTimeAlert();
+            }
         } catch (err) { }
+    }
+
+    private isEndAfterStart(selectedHour: string, checkingTime: string, fn: 'isAfter' | 'isBefore'): boolean {
+        const selectedAsDaysJS = this.getMappedDate(this.getTimeFromGivenString(this.splitBy(selectedHour, ':')));
+        const checkingAsDaysJS = this.getMappedDate(this.getTimeFromGivenString(this.splitBy(checkingTime, ':')));
+
+        return selectedAsDaysJS[fn](checkingAsDaysJS);
+    }
+
+    private showWrongTimeAlert(): void {
+        Alert.alert('Warning', 'The end of the dinner must be after start of the dinner.', [{ text: 'Ok' }]);
     }
 
     private mapTimePickerValuesToString(hour: number, minute: number, suffix: string = ':'): string {
@@ -97,7 +116,7 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
         } = this.props;
 
         return (
-            <View>
+            <Fragment>
                 <UserLocationButton onClick={onLocationClick} />
                 <Bubble
                     triangleSide={triangleSides.bottomLeft}
@@ -106,7 +125,7 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
                 >
                     <View style={styles.upperBubbleContainer}>
                         <Image source={CLOCK} />
-                        <Text style={styles.bubbleTitle}>Lunch begins between</Text>
+                        <Text style={styles.bubbleTitle}>Lunch begins today between</Text>
                     </View>
                     <View style={styles.bottomBubbleContainer}>
                         <TimePickerType
@@ -132,7 +151,7 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
                     textButtonStyles={styles.textSearchButton}
                     triangleSide={triangleSides.bottomRight}
                 />
-            </View>
+            </Fragment>
         );
     }
 }

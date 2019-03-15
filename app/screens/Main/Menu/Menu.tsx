@@ -1,9 +1,9 @@
-import Display from 'react-native-display';
 import { connect } from 'react-redux';
 import React, { PureComponent, Fragment } from 'react';
 
 import styles from './style';
 
+import Display from '@app/components/Display';
 import MenuItems from './MenuItems';
 import { AppState } from '@app/state/state';
 import HamburgerItem from './HamburgerItem';
@@ -12,7 +12,6 @@ import { Profile, AuthSagaActions } from '@app/state/auth/types';
 export interface MenuProps {
     logOut: () => void;
     userData: Profile;
-    getUserData: () => void;
 };
 
 export interface MenuState {
@@ -28,10 +27,6 @@ class Menu extends PureComponent<MenuProps, MenuState> {
         this.state = {
             menuItemsVisible: false
         };
-    }
-
-    public componentDidMount(): void {
-        this.props.getUserData();
     }
 
     private toggleMenuVisibility = () => {
@@ -63,7 +58,6 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getUserData: () => dispatch({ type: AuthSagaActions.GET_USER_DATA }),
     logOut: () => dispatch({ type: AuthSagaActions.LOGOUT })
 });
 

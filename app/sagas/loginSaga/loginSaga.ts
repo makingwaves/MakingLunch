@@ -82,16 +82,10 @@ export function* facebookLoginFlow() {
 
             yield call(setSecureStoredKey, TOKEN_KEY, userDataResponse.token);
 
-            try {
-                yield call(getUserDataWithTokenFlow);
+            yield put(authActionsCreators.setToken(userDataResponse.token));
+            yield put(authActionsCreators.requestSuccess());
 
-                yield put(authActionsCreators.setToken(userDataResponse.token));
-                yield put(authActionsCreators.requestSuccess());
-
-                yield navigationService.navigateAndReset('App');
-            } catch (err) {
-                yield put(authActionsCreators.requestFail('Error when loggin in to Facebook.'));
-            }
+            yield navigationService.navigate('App');
         }
     } catch (err) {
         yield put(authActionsCreators.requestFail('Error when loggin in to Facebook.'));
@@ -119,16 +113,10 @@ export function* googleLoginFlow() {
 
         yield call(setSecureStoredKey, TOKEN_KEY, userDataResponse.token);
 
-        try {
-            yield call(getUserDataWithTokenFlow);
+        yield put(authActionsCreators.setToken(userDataResponse.token));
+        yield put(authActionsCreators.requestSuccess());
 
-            yield put(authActionsCreators.setToken(userDataResponse.token));
-            yield put(authActionsCreators.requestSuccess());
-
-            yield navigationService.navigateAndReset('App');
-        } catch (err) {
-            yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
-        }
+        yield navigationService.navigate('App');
     } catch (err) {
         if (err.code === statusCodes.SIGN_IN_CANCELLED)
             yield put(authActionsCreators.requestSuccess());

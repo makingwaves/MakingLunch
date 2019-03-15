@@ -4,15 +4,20 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { colors } from "@app/config/styles";
 
 export default StyleSheet.create({
-    hamburgerContainer: {
+    touchable: {
         position: 'absolute',
-        right: 20,
-        top: hp('3%'),
-        alignSelf: 'flex-end',
+        right: 0,
+        top: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: hp('8.5%'),
+        width: wp('20%'),
+        zIndex: 1000,
+    },
+    hamburgerContainer: {
         justifyContent: 'space-between',
         width: wp('10%'),
         height: hp('3%'),
-        zIndex: 1000
     },
     beams: {
         height: 4,

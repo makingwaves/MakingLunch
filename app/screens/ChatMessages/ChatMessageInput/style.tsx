@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-import { colors } from '../../../config/styles';
+import { colors } from '@app/config/styles';
 
 export default StyleSheet.create({
     chatMessagesContainer: {

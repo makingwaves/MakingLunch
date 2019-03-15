@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native';
 
-import { colors } from '../../../../config/styles';
-
+import { colors } from '@app/config/styles';
 
 export default StyleSheet.create({
     messageContainer: {
         alignSelf: 'flex-end',
         alignItems: 'flex-end',
         maxWidth: '80%',
-        marginTop: 14
+        marginTop: 14,
     },
     messageBlock: {
         position: 'relative',
@@ -18,7 +17,7 @@ export default StyleSheet.create({
         backgroundColor: colors.colorLightest,
     },
     pendingMessage: {
-        opacity: .35
+        opacity: .3
     },
     messageText: {
         paddingVertical: 10,

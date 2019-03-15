@@ -63,19 +63,17 @@ class Messages extends PureComponent<MessagesProps, MessagesState> {
         } = this.props;
 
         return (
-            <View style={{ flex: 1 }}>
-                <FlatList
-                    style={styles.messagesViewContainer}
-                    data={messages}
-                    renderItem={this.renderItem}
-                    keyExtractor={this.keyExtractor}
-                    inverted={true}
-                    onEndReached={this.onEndReach}
-                    onEndReachedThreshold={0.25}
-                    ListHeaderComponent={<View style={styles.headerFlatList}></View>}
-                    ListFooterComponent={<MessagesLoader isLoading={refreshing} />}
-                />
-            </View>
+            <FlatList
+                style={styles.messagesViewContainer}
+                data={messages}
+                renderItem={this.renderItem}
+                keyExtractor={this.keyExtractor}
+                inverted={true}
+                onEndReached={this.onEndReach}
+                onEndReachedThreshold={0.25}
+                ListHeaderComponent={<View style={styles.headerFlatList}></View>}
+                ListFooterComponent={<MessagesLoader isLoading={refreshing} />}
+            />
         );
     }
 }

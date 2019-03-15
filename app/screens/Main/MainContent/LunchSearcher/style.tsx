@@ -10,11 +10,12 @@ export default StyleSheet.create({
         marginHorizontal: 30,
     },
     displayContainer: {
-        width: '100%',
         position: 'absolute',
         left: 0,
         right: 0,
-        bottom: 0
+        bottom: 0,
+        borderWidth: 1,
+        borderColor: 'transparent',
     },
     searchingDisplay: {
         bottom: hp('10%')

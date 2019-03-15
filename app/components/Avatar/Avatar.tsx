@@ -30,7 +30,11 @@ const Avatar: FunctionComponent<AvatarProps> = ({
 
     return (
         <View style={[styles.imageContainer, imageContainer]}>
-            {photo && <FastImage style={[styles.imageStyles, imageStyles]} source={{ uri: mappedPhoto }} />}
+            {mappedPhoto ? (
+                <FastImage style={[styles.imageStyles, imageStyles]} source={{ uri: mappedPhoto }} />
+            ) : (
+                    <View style={[styles.imageStyles, styles.defaultPlaceholderStyles, imageStyles]}></View>
+                )}
             {triangleSide && <Triangle size={size} triangleSide={triangleSide} />}
         </View>
     )

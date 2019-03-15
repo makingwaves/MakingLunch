@@ -43,7 +43,7 @@ export function* getUserDataFlow() {
     }
 }
 
-export function* updateUserDataFlow({ userData }: { type: string, userData: Profile }) {
+export function* updateUserDataFlow({ userData }: { type: string, userData: { name: string, description: string } }) {
     try {
         yield put(authActionsCreators.startRequest());
 
@@ -59,34 +59,25 @@ export function* updateUserDataFlow({ userData }: { type: string, userData: Prof
     }
 }
 
-export function* getUserDataWithTokenFlow() {
+export function* getUserToken() {
     try {
-        const token: string = yield call(getSecureStoredKey, TOKEN_KEY);
 
         yield call(
             configureGoogle[Platform.OS]
         );
 
-        if (typeof token === 'string') {
-            const userData: Profile = yield call(
-                [accountService, accountService.getUserDataWithToken],
-                token
-            );
+        const token: string = yield call(getSecureStoredKey, TOKEN_KEY);
 
-            yield put(authActionsCreators.setToken(token));
-            yield put(authActionsCreators.setProfile(userData));
-        }
-        else {
-            yield delay(1000);
-            yield put(authActionsCreators.setProfile({} as Profile));
-        }
+        yield delay(1000);
+
+        yield put(authActionsCreators.setToken(typeof token === 'string' ? token : null));
     } catch (err) {
-        yield put(authActionsCreators.setProfile({} as Profile));
+        yield put(authActionsCreators.setToken(null));
     }
 }
 
 export function* userAccountSaga() {
     yield takeLatest(AuthSagaActions.GET_USER_DATA, getUserDataFlow);
     yield takeLatest(AuthSagaActions.UPDATE_USER_DATA, updateUserDataFlow);
-    yield takeLatest(AuthSagaActions.GET_USER_DATA_WITH_TOKEN, getUserDataWithTokenFlow);
+    yield takeLatest(AuthSagaActions.GET_USER_TOKEN, getUserToken);
 }

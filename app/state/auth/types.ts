@@ -30,7 +30,7 @@ export enum AuthSagaActions {
     FACEBOOK_LOGIN = '@@auth/facebook_login',
     GOOGLE_LOGIN = '@@auth/google_login',
     GET_USER_DATA = '@@auth/get_user_data',
-    GET_USER_DATA_WITH_TOKEN = '@@auth/get_user_data_with_token',
+    GET_USER_TOKEN = '@@auth/GET_USER_TOKEN',
     UPDATE_USER_DATA = '@@auth/update_user_data',
     LOGOUT = '@@auth/logout'
 }

@@ -1,6 +1,6 @@
-import React, { FunctionComponent, memo } from 'react'
 import { View, Text } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import React, { FunctionComponent, memo } from 'react'
 
 import styles from './style';
 

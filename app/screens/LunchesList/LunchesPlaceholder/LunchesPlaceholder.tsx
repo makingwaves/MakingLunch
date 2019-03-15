@@ -7,23 +7,21 @@ import styles from './style';
 const LunchesPlaceholder: FunctionComponent = ({ }) => {
     return (
         <View style={styles.placeholderContainer}>
-            <View>
-                <Text style={[styles.sectionTitle, styles.sectionTitleStyles]}></Text>
-            </View>
+            <Text style={[styles.sectionTitle]}></Text>
             <View style={styles.singleLunchContainer}>
-                <View style={[styles.topBar, styles.topBarStyles]}>
+                <View style={[styles.displayTopBar, styles.topBarStyles]}>
                 </View>
                 <View style={[styles.bottomBar, styles.bottomBarStyles]}>
                 </View>
             </View>
             <View style={styles.singleLunchContainer}>
-                <View style={[styles.topBar, styles.topBarStyles]}>
+                <View style={[styles.displayTopBar, styles.topBarStyles]}>
                 </View>
                 <View style={[styles.bottomBar, styles.bottomBarStyles]}>
                 </View>
             </View>
             <View style={styles.singleLunchContainer}>
-                <View style={[styles.topBar, styles.topBarStyles]}>
+                <View style={[styles.displayTopBar, styles.topBarStyles]}>
                 </View>
                 <View style={[styles.bottomBar, styles.bottomBarStyles]}>
                 </View>
@@ -32,4 +30,5 @@ const LunchesPlaceholder: FunctionComponent = ({ }) => {
     )
 };
 
+//https://github.com/mfrachet/rn-placeholder/issues/68
 export default (Placeholder.connect as any)(LunchesPlaceholder);

@@ -8,16 +8,13 @@ import sectionContainer from './../style';
 export default StyleSheet.create({
     ...lunchStyle,
     topBarStyles: {
-        backgroundColor: 'rgba(91, 70, 99, .4)',
-        paddingVertical: 39
+        backgroundColor: colors.brandColorPrimary,
+        paddingVertical: 42
     },
     bottomBarStyles: {
         backgroundColor: colors.colorLightest,
         paddingVertical: 12,
     },
     placeholderContainer: sectionContainer.sectionList,
-    sectionTitle: sectionContainer.sectionTitle,
-    sectionTitleStyles: {
-        paddingVertical: 3
-    }
+    sectionTitle: sectionContainer.sectionTitle
 })

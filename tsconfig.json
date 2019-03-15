@@ -10,6 +10,7 @@
       "es6",
       "es2017"
     ],
+    "experimentalDecorators": true,
     "moduleResolution": "node",
     "noEmit": true,
     "target": "esnext",

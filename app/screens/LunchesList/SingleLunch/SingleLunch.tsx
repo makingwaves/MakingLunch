@@ -1,10 +1,10 @@
-import Display from 'react-native-display';
-import React, { FunctionComponent, memo, Fragment } from 'react'
+import React, { FunctionComponent, memo } from 'react'
 import { View, Text, TouchableOpacity, Alert, Image, ActivityIndicator } from "react-native";
 
 import styles from './style';
 import { colors } from "@app/config/styles";
 
+import Display from '@app/components/Display';
 import LunchDate from '../LunchDate';
 import GuestList from '@app/components/GuestList';
 import { navigationService } from '@app/services';

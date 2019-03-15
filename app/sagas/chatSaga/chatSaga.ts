@@ -95,7 +95,6 @@ export function* postChatMessage({ payload }: { type: string, payload: PostChatM
             [chatService, chatService.postChatMessage],
             payload
         );
-
         const finishedMessage: UpdateChatMessagePayload = yield call(
             getFinishedMessageData,
             payload.lunchId, uuid

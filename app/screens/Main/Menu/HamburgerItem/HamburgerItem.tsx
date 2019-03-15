@@ -13,11 +13,13 @@ const HamburgerItem: FunctionComponent<HamburgerItemProps> = ({
     return (
         <TouchableOpacity
             onPress={onHamburgerClick}
-            style={styles.hamburgerContainer}
+            style={styles.touchable}
         >
-            <View style={styles.beams}></View>
-            <View style={styles.beams}></View>
-            <View style={styles.beams}></View>
+            <View style={styles.hamburgerContainer}>
+                <View style={styles.beams}></View>
+                <View style={styles.beams}></View>
+                <View style={styles.beams}></View>
+            </View>
         </TouchableOpacity>
     );
 };

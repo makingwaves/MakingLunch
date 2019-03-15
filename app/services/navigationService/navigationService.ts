@@ -15,18 +15,6 @@ class NavigationService {
             })
         );
     }
-
-    public navigateAndReset(routeName: string, params?: NavigationParams): void {
-        this.navigation.dispatch(StackActions.reset({
-            index: 0,
-            key: null,
-            actions: [
-                NavigationActions.navigate({
-                    routeName, params
-                })
-            ]
-        }))
-    }
 }
 
 const navigationService = new NavigationService;

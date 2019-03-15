@@ -8,7 +8,7 @@ import { userAccountSaga } from "./userAccountSaga/userAccountSaga";
 
 const sagas = [
     loginSaga, userAccountSaga, logoutSaga, lunchesSaga, chatSaga
-].map(s => s);
+].map(s => fork(s));
 
 export default function* () {
     yield all(sagas);

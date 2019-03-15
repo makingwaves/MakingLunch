@@ -21,7 +21,6 @@ export interface MainContentProps {
     running: Lunch;
     errorMsg: string;
     isLoading: boolean;
-    getLunches: () => void;
     searchLunch: (data: MeetingRequest) => void;
 };
 
@@ -42,10 +41,6 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
         this.state = {
             stage: 'waitingForData'
         };
-    }
-
-    public componentDidMount(): void {
-        this.props.getLunches();
     }
 
     public componentDidUpdate(prevProps: MainContentProps): void {
@@ -110,7 +105,6 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getLunches: () => dispatch({ type: LunchSagaActions.GET_LUNCHES }),
     searchLunch: (data: MeetingRequest) => dispatch({ type: LunchSagaActions.POST_LUNCH, payload: data }),
 });
 

@@ -1,4 +1,5 @@
-import React, { FunctionComponent, ReactElement, memo } from 'react'
+import * as Animatable from 'react-native-animatable';
+import React, { FunctionComponent, ReactElement, memo } from 'react';
 
 import { Message } from '@app/state/lunches/types';
 import OtherUserMessage from '../OtherUserMessage';
@@ -16,6 +17,25 @@ export interface MessageTypeProps {
     item: Message;
     userId: string;
 };
+
+Animatable.initializeRegistryWithDefinitions({
+    slideFromRight: {
+        0: {
+            translateX: 20
+        },
+        1: {
+            translateX: 0
+        }
+    },
+    slideFromLeft: {
+        0: {
+            translateX: -20
+        },
+        1: {
+            translateX: 0
+        }
+    }
+});
 
 const MessageType: FunctionComponent<MessageTypeProps> = ({
     item, userId
