@@ -23,9 +23,9 @@
       android:theme="@style/AppTheme">
 
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
-                android:value="MakingLunchChannelName"/>
+                android:value="makingLunchChannelName"/>
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_description"
-                  android:value="MakingLunchChannelDescription"/>
+                  android:value="makingLunchChannelDescription"/>
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
                   android:resource="@android:color/white"/>
 

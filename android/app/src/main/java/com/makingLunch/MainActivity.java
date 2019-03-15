@@ -1,16 +1,9 @@
 package com.makingLunch;
 
+import android.content.Intent;
 import com.facebook.react.ReactActivity;
 
-import android.content.Intent;
-
 public class MainActivity extends ReactActivity {
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        MainApplication.getCallbackManager().onActivityResult(requestCode, resultCode, data);
-    }
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -19,5 +12,11 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "makingLunch";
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        MainApplication.getCallbackManager().onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -10,9 +10,6 @@
     "w": "rm -rf node_modules && npm install"
   },
   "dependencies": {
-    "appcenter": "1.12.0",
-    "appcenter-analytics": "1.12.0",
-    "appcenter-crashes": "1.12.0",
     "axios": "^0.18.0",
     "dayjs": "^1.7.8",
     "react": "16.6.1",
@@ -29,7 +26,6 @@
     "react-native-remote-svg": "^1.3.0",
     "react-native-responsive-screen": "^1.2.0",
     "react-native-secure-key-store": "^2.0.0",
-    "react-native-svg": "^8.0.10",
     "react-native-uuid-generator": "^5.0.0",
     "react-navigation": "^3.0.8",
     "react-redux": "^6.0.0",
