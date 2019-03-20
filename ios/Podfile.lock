@@ -20,12 +20,33 @@ PODS:
     - FirebaseCore (~> 5.2)
     - GoogleUtilities/Environment (~> 5.2)
     - GoogleUtilities/UserDefaults (~> 5.2)
+  - Google-Maps-iOS-Utils (2.1.0):
+    - Google-Maps-iOS-Utils/Clustering (= 2.1.0)
+    - Google-Maps-iOS-Utils/Geometry (= 2.1.0)
+    - Google-Maps-iOS-Utils/Heatmap (= 2.1.0)
+    - Google-Maps-iOS-Utils/QuadTree (= 2.1.0)
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Clustering (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Geometry (2.1.0):
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Heatmap (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/QuadTree (2.1.0):
+    - GoogleMaps
   - GoogleAppMeasurement (5.8.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
+  - GoogleMaps (2.5.0):
+    - GoogleMaps/Maps (= 2.5.0)
+  - GoogleMaps/Base (2.5.0)
+  - GoogleMaps/Maps (2.5.0):
+    - GoogleMaps/Base
   - GoogleSignIn (4.4.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
@@ -62,10 +83,23 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - React (0.11.0):
+    - React/Core (= 0.11.0)
+  - react-native-google-maps (0.23.0):
+    - Google-Maps-iOS-Utils (= 2.1.0)
+    - GoogleMaps (= 2.5.0)
+    - React
+  - react-native-maps (0.23.0):
+    - React
+  - React/Core (0.11.0)
 
 DEPENDENCIES:
   - Firebase/Core
+  - Google-Maps-iOS-Utils
+  - GoogleMaps
   - GoogleSignIn (~> 4.4.0)
+  - react-native-google-maps (from `../node_modules/react-native-maps`)
+  - react-native-maps (from `../node_modules/react-native-maps`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -73,25 +107,39 @@ SPEC REPOS:
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseInstanceID
+    - Google-Maps-iOS-Utils
     - GoogleAppMeasurement
+    - GoogleMaps
     - GoogleSignIn
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
     - nanopb
+    - React
+
+EXTERNAL SOURCES:
+  react-native-google-maps:
+    :path: "../node_modules/react-native-maps"
+  react-native-maps:
+    :path: "../node_modules/react-native-maps"
 
 SPEC CHECKSUMS:
   Firebase: c60d49e9c2630875a96207d15e2affb8364996d1
   FirebaseAnalytics: fd72a26bf8dac84cefba2f0864366f718555a5b0
   FirebaseCore: 22a79a961c3951ef2f77b67bfbc99e454247b319
   FirebaseInstanceID: cf488df2f4b79782f0e430b04a0e17c0aa7979b2
+  Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleAppMeasurement: 1624046ab1bcc5e170061a56ef5679000b079c8e
+  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
   GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
   GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  React: ab1a2e21deb34965c38328d5ec40cc7d12c6050a
+  react-native-google-maps: 544d2208b09a7e2ec2c6112c8a97c4e7f921f74d
+  react-native-maps: 9469741f77f270c605cafec603ce47327dc5b5f8
 
-PODFILE CHECKSUM: bd91f4eff55a97d573ed6aa51a6a5be652594068
+PODFILE CHECKSUM: 583fa4646fe70c494bad6cf5d7d20a261abc7c7f
 
 COCOAPODS: 1.6.1

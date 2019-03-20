@@ -493,10 +493,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				50293B2E2242740100E23C41 /* libRCTPushNotification.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
-				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				501E9440223F8F84006CF437 /* FBSDKCoreKit.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				501E9442223F8F8C006CF437 /* FBSDKLoginKit.framework in Frameworks */,
@@ -1528,12 +1528,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-makingLunch/Pods-makingLunch-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1750,18 +1752,15 @@
 				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /Users/krzysztof.nofz/Documents/FacebookSDK;
 				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-fast-imageiosFastImage/**",
-					"$(SRCROOT)..\node_modules\neact-native-google-signiniosRNGoogleSignin",
-					"$(SRCROOT)..\node_modules\neact-native-fbsdkiosRCTFBSDK/**",
-					"$(SRCROOT)..\node_modules\neact-native-configiosReactNativeConfig",
-					"$(SRCROOT)..\node_modules\neact-native-secure-key-storeios/**",
-					"$(SRCROOT)..\node_modules\neact-native-uuid-generatorios",
-					"$(SRCROOT)..\node_modules\neact-native-mapslibios/**",
-					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
+					"<Multiple",
+					"values>",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				"HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../node_modules/react-native/React";
 				INFOPLIST_FILE = makingLunch/Info.plist;
+				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
+				INFOPLIST_PREFIX_HEADER = "${BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1786,18 +1785,15 @@
 				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /Users/krzysztof.nofz/Documents/FacebookSDK;
 				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-fast-imageiosFastImage/**",
-					"$(SRCROOT)..\node_modules\neact-native-google-signiniosRNGoogleSignin",
-					"$(SRCROOT)..\node_modules\neact-native-fbsdkiosRCTFBSDK/**",
-					"$(SRCROOT)..\node_modules\neact-native-configiosReactNativeConfig",
-					"$(SRCROOT)..\node_modules\neact-native-secure-key-storeios/**",
-					"$(SRCROOT)..\node_modules\neact-native-uuid-generatorios",
-					"$(SRCROOT)..\node_modules\neact-native-mapslibios/**",
-					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
+					"<Multiple",
+					"values>",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				"HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../node_modules/react-native/React";
 				INFOPLIST_FILE = makingLunch/Info.plist;
+				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
+				INFOPLIST_PREFIX_HEADER = "${BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

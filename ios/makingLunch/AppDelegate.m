@@ -9,6 +9,7 @@
 
 @import Firebase;
 
+#import <GoogleMaps/GoogleMaps.h>
 #import <RNGoogleSignIn/RNGoogleSignIn.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <React/RCTBundleURLProvider.h>
@@ -20,6 +21,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+  
+  //[GMSServices provideAPIKey:@"AIzaSyBdVl-cTICSwYKrZ95SuvNw7dbMuDt1KG0"];
   
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];
@@ -37,7 +40,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [FIRApp configure];
+  //[FIRApp configure];
   return YES;
 }
 
@@ -48,8 +51,8 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-  return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]
-  || [RNGoogleSignin application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+  return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+  //|| [RNGoogleSignin application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
 }
 
 // Required to register for notifications
