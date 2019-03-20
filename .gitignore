@@ -60,3 +60,4 @@ buck-out/
 .jest
 google-services.json
 *.keystore
+ios/Pods
