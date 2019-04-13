@@ -1,26 +1,42 @@
-import React, {Component} from 'react';
-import {View, Text, Button, TouchableOpacity} from 'react-native';
-import {NavigationScreenProps} from 'react-navigation';
+import { View } from 'react-native';
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
+
 import styles from './style';
 
-class Main extends Component<NavigationScreenProps> {
-    constructor(props: NavigationScreenProps) {
-        super(props);
+import Menu from './Menu';
+import MainContent from './MainContent';
+import { AuthSagaActions } from '@app/state/auth/types';
+import { LunchSagaActions } from '@app/state/lunches/types';
+
+export interface MainProps {
+    getLunches: () => void;
+    getUserProfile: () => void;
+}
+
+class Main extends Component<MainProps> {
+
+    public componentDidMount(): void {
+        this.props.getLunches();
+        this.props.getUserProfile();
     }
 
     public render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.title}>Main</Text>
-                <Button title={'LunchesList'} onPress={() => this.props.navigation.navigate('LunchesList')}/>
-                <Button title={'Profile'} onPress={() => this.props.navigation.navigate('Profile')}/>
-                <Button title={'Chat'} onPress={() => this.props.navigation.navigate('Chat')}/>
-                <Button title={'Settings'} onPress={() => this.props.navigation.navigate('Settings')}/>
-                <Button title={'Logout'} onPress={() => this.props.navigation.navigate('Auth')}/>
-                <Button title={'Guests screen'} onPress={() => this.props.navigation.navigate('Guests')}/>
+            <View style={styles.mainContainer}>
+                <Menu />
+                <MainContent />
             </View>
         );
     }
 }
 
-export default Main;
+const mapDispatchToProps = dispatch => ({
+    getLunches: () => dispatch({ type: LunchSagaActions.GET_LUNCHES }),
+    getUserProfile: () => dispatch({ type: AuthSagaActions.GET_USER_DATA })
+})
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Main);

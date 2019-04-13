@@ -1,17 +1,24 @@
-import {applyMiddleware, createStore} from 'redux';
-import rootReducer from '../state/state';
+import { applyMiddleware, createStore } from 'redux';
+import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
 
-function configureStore() {
-    // configure middlewares
-    // const middlewares = [];
-    // compose enhancers
-    // const enhancer = composeEnhancers(applyMiddleware(...middlewares));
-    // create store
-    return createStore(rootReducer);
+import sagas from '@app/sagas/sagas';
+import rootReducer from '@app/state/state';
+
+type Middlewares = SagaMiddleware<{}>;
+
+function configureStore(middlewares: Middlewares[]) {
+    return createStore(
+        rootReducer,
+        applyMiddleware(...middlewares)
+    );
 }
 
-// pass an optional param to rehydrate state on app start
-const store = configureStore();
+const sagaMiddleware = createSagaMiddleware();
 
-// export store singleton instance
+const store = configureStore([
+    sagaMiddleware
+]);
+
+sagaMiddleware.run(sagas);
+
 export default store;

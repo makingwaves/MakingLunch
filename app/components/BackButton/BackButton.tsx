@@ -1,21 +1,34 @@
-import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import styles from './style';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Image from 'react-native-remote-svg';
-import {NavigationScreenProps} from 'react-navigation';
+import { AlignItemsProperty } from 'csstype';
+import { NavigationScreenProps } from 'react-navigation';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import React, { memo, FunctionComponent, ReactNode } from 'react';
+import { TouchableOpacity, View, Text } from 'react-native';
 
-const BackButton = (props: NavigationScreenProps) => {
-    const { navigation } = props;
+import styles from './style';
 
-    return (
-        <TouchableOpacity style={styles.container} onPress={() => { navigation.goBack(); }}>
-            <Image
-                source={require('./backArrow.svg')}
-                style={{ width: wp('8%'), height: wp('8%')}}
-            />
-        </TouchableOpacity>
+interface BackButtonProps extends NavigationScreenProps {
+    children?: ReactNode;
+    screenTitle?: string;
+    backgroundColor?: string;
+    alignmentHorizontal?: AlignItemsProperty;
+}
+
+const backButton = require('./assets/backArrow.png');
+
+const BackButton: FunctionComponent<BackButtonProps> = ({
+    navigation, children, backgroundColor = 'transparent', alignmentHorizontal = 'center', screenTitle = null
+}) => (
+        <View style={[styles.container, { backgroundColor: backgroundColor, justifyContent: alignmentHorizontal }]}>
+            <TouchableOpacity style={styles.imageStyles} onPress={() => { navigation.goBack(); }}>
+                <Image
+                    source={backButton}
+                    style={{ width: wp('8%'), height: wp('8%') }}
+                />
+            </TouchableOpacity>
+            {screenTitle && <Text style={styles.screenTitle}>{screenTitle}</Text>}
+            {children}
+        </View>
     );
-};
 
-export default BackButton;
+export default memo(BackButton);

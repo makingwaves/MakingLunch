@@ -5,12 +5,12 @@ import {
     LunchActions,
     LunchesState,
     LunchStatus, Message, RemoveLunchMemberPayload,
-    SetLunchLocationPayload, SetLunchStatusPayload, SetLunchTimePayload, TimeSpan, UpdateLunchPayload,
+    SetLunchLocationPayload, SetLunchStatusPayload, SetLunchTimePayload, TimeSpan, UpdateLunchPayload, MessageStatus,
 } from './types';
-import {RequestState} from '../common/types';
-import {Reducer} from 'redux-testkit';
-import {lunchesReducer} from './reducer';
-import {lunchesActionsCreators} from './actions';
+import { RequestState } from '../common/types';
+import { Reducer } from 'redux-testkit';
+import { lunchesReducer } from './reducer';
+import { lunchesActionsCreators } from './actions';
 
 describe('lunches reducer', () => {
     let initialState: LunchesState;
@@ -21,16 +21,16 @@ describe('lunches reducer', () => {
                 state: RequestState.none,
                 errorMsg: '',
             },
-            data: {},
+            data: null,
         };
     });
 
     test(`should have initial state`, () => {
-        Reducer(lunchesReducer).expect({type: ''}).toReturnState(initialState);
+        Reducer(lunchesReducer).expect({ type: '' }).toReturnState(initialState);
     });
 
     test('should not change state when action does not exist', () => {
-        Reducer(lunchesReducer).expect({type: 'NOT_EXISTING'}).toReturnState(initialState);
+        Reducer(lunchesReducer).expect({ type: 'NOT_EXISTING' }).toReturnState(initialState);
     });
 
     describe('action creators', () => {
@@ -39,13 +39,13 @@ describe('lunches reducer', () => {
                 lunchId: 'lId',
                 creatorId: 'cId',
                 time: {
-                    start: '2018-08-28T09:07:11.566Z',
+                    begin: '2018-08-28T09:07:11.566Z',
                     end: '2018-08-28T09:10:11.566Z',
                 },
                 location: {
                     latitude: 25.25,
                     longitude: 53.53,
-                    range: 300,
+                    radiusInMeters: 300,
                 },
             };
 
@@ -56,15 +56,15 @@ describe('lunches reducer', () => {
         });
 
         test(LunchActions.SET_LUNCH_STATUS, () => {
-            const pendingPayload: SetLunchStatusPayload = {lunchId: 'lId', lunchStatus: LunchStatus.pending};
-            const runningPayload: SetLunchStatusPayload = {lunchId: 'lId', lunchStatus: LunchStatus.running};
-            const finishedPayload: SetLunchStatusPayload = {lunchId: 'lId', lunchStatus: LunchStatus.finished};
+            const pendingPayload: SetLunchStatusPayload = { lunchId: 'lId', lunchStatus: LunchStatus.pending };
+            const runningPayload: SetLunchStatusPayload = { lunchId: 'lId', lunchStatus: LunchStatus.running };
+            const finishedPayload: SetLunchStatusPayload = { lunchId: 'lId', lunchStatus: LunchStatus.finished };
             expect(lunchesActionsCreators.setLunchStatus(pendingPayload))
-                .toEqual({type: LunchActions.SET_LUNCH_STATUS, payload: pendingPayload});
+                .toEqual({ type: LunchActions.SET_LUNCH_STATUS, payload: pendingPayload });
             expect(lunchesActionsCreators.setLunchStatus(runningPayload))
-                .toEqual({type: LunchActions.SET_LUNCH_STATUS, payload: runningPayload});
+                .toEqual({ type: LunchActions.SET_LUNCH_STATUS, payload: runningPayload });
             expect(lunchesActionsCreators.setLunchStatus(finishedPayload))
-                .toEqual({type: LunchActions.SET_LUNCH_STATUS, payload: finishedPayload});
+                .toEqual({ type: LunchActions.SET_LUNCH_STATUS, payload: finishedPayload });
         });
 
         test(LunchActions.UPDATE_LUNCH, () => {
@@ -75,11 +75,11 @@ describe('lunches reducer', () => {
                 members: ['mem1', 'mem2'],
                 times: {
                     mem1: {
-                        start: '2018-08-28T09:07:11.566Z',
+                        begin: '2018-08-28T09:07:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                     mem2: {
-                        start: '2018-08-28T09:08:11.566Z',
+                        begin: '2018-08-28T09:08:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                 },
@@ -87,14 +87,15 @@ describe('lunches reducer', () => {
                     mem1: {
                         latitude: 25.25,
                         longitude: 53.53,
-                        range: 300,
+                        radiusInMeters: 300,
                     },
                     mem2: {
                         latitude: 26.25,
                         longitude: 52.53,
-                        range: 200,
+                        radiusInMeters: 200,
                     },
                 },
+                isCancelling: false
             };
 
             expect(lunchesActionsCreators.updateLunch(lunchUpdate)).toEqual({
@@ -116,13 +117,13 @@ describe('lunches reducer', () => {
                 lunchId: 'lId',
                 memberId: 'mId',
                 time: {
-                    start: '2018-08-28T09:07:11.566Z',
+                    begin: '2018-08-28T09:07:11.566Z',
                     end: '2018-08-28T09:10:11.566Z',
                 },
                 location: {
                     latitude: 25.25,
                     longitude: 53.53,
-                    range: 300,
+                    radiusInMeters: 300,
                 },
             };
 
@@ -150,7 +151,7 @@ describe('lunches reducer', () => {
                 location: {
                     latitude: 25.25,
                     longitude: 53.53,
-                    range: 300,
+                    radiusInMeters: 300,
                 },
             };
 
@@ -165,7 +166,7 @@ describe('lunches reducer', () => {
                 lunchId: 'lId',
                 memberId: 'mId',
                 time: {
-                    start: '2018-08-28T09:07:11.566Z',
+                    begin: '2018-08-28T09:07:11.566Z',
                     end: '2018-08-28T09:10:11.566Z',
                 },
             };
@@ -182,6 +183,7 @@ describe('lunches reducer', () => {
                 memberId: 'memberId',
                 time: '2018-08-28T09:07:11.566Z',
                 message: 'Test message',
+                status: MessageStatus.finished
             };
 
             const messagePayload: AddChatMessagePayload = {
@@ -196,15 +198,15 @@ describe('lunches reducer', () => {
         });
 
         test(LunchActions.START_REQUEST, () => {
-            expect(lunchesActionsCreators.startRequest()).toEqual({type: LunchActions.START_REQUEST});
+            expect(lunchesActionsCreators.startRequest()).toEqual({ type: LunchActions.START_REQUEST });
         });
         test(LunchActions.REQUEST_SUCCESS, () => {
-            expect(lunchesActionsCreators.requestSuccess()).toEqual({type: LunchActions.REQUEST_SUCCESS});
+            expect(lunchesActionsCreators.requestSuccess()).toEqual({ type: LunchActions.REQUEST_SUCCESS });
         });
         test(LunchActions.REQUEST_FAIL, () => {
             const errorMsg = 'Shit happens';
             expect(lunchesActionsCreators.requestFail(errorMsg))
-                .toEqual({type: LunchActions.REQUEST_FAIL, payload: errorMsg});
+                .toEqual({ type: LunchActions.REQUEST_FAIL, payload: errorMsg });
         });
     });
 
@@ -223,22 +225,22 @@ describe('lunches reducer', () => {
             location1 = {
                 latitude: 25.25,
                 longitude: 53.53,
-                range: 300,
+                radiusInMeters: 300,
             };
 
             location2 = {
                 latitude: 26.25,
                 longitude: 52.53,
-                range: 450,
+                radiusInMeters: 450,
             };
 
             time1 = {
-                start: '2018-08-28T09:07:11.566Z',
+                begin: '2018-08-28T09:07:11.566Z',
                 end: '2018-08-28T09:10:11.566Z',
             };
 
             time2 = {
-                start: '2018-08-28T09:08:31.566Z',
+                begin: '2018-08-28T09:08:31.566Z',
                 end: '2018-08-28T09:09:11.566Z',
             };
 
@@ -258,6 +260,7 @@ describe('lunches reducer', () => {
                 },
                 members: [mem1Id],
                 chat: {},
+                isCancelling: false
             };
 
             const twoMemberLunch: Lunch = {
@@ -273,6 +276,7 @@ describe('lunches reducer', () => {
                 },
                 members: [mem1Id, mem2Id],
                 chat: {},
+                isCancelling: false
             };
 
             existingLunchState = {
@@ -320,11 +324,11 @@ describe('lunches reducer', () => {
                 members: ['mem1', 'mem2'],
                 times: {
                     mem1: {
-                        start: '2018-08-28T09:07:11.566Z',
+                        begin: '2018-08-28T09:07:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                     mem2: {
-                        start: '2018-08-28T09:08:11.566Z',
+                        begin: '2018-08-28T09:08:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                 },
@@ -332,15 +336,16 @@ describe('lunches reducer', () => {
                     mem1: {
                         latitude: 25.25,
                         longitude: 53.53,
-                        range: 300,
+                        radiusInMeters: 300,
                     },
                     mem2: {
                         latitude: 26.25,
                         longitude: 52.53,
-                        range: 200,
+                        radiusInMeters: 200,
                     },
                 },
                 chat: {},
+                isCancelling: false
             };
 
             const updatePayload: UpdateLunchPayload = {
@@ -350,11 +355,11 @@ describe('lunches reducer', () => {
                 members: ['mem1', 'mem2'],
                 times: {
                     mem1: {
-                        start: '2018-08-28T09:07:11.566Z',
+                        begin: '2018-08-28T09:07:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                     mem2: {
-                        start: '2018-08-28T09:08:11.566Z',
+                        begin: '2018-08-28T09:08:11.566Z',
                         end: '2018-08-28T09:10:11.566Z',
                     },
                 },
@@ -362,14 +367,15 @@ describe('lunches reducer', () => {
                     mem1: {
                         latitude: 25.25,
                         longitude: 53.53,
-                        range: 300,
+                        radiusInMeters: 300,
                     },
                     mem2: {
                         latitude: 26.25,
                         longitude: 52.53,
-                        range: 200,
+                        radiusInMeters: 200,
                     },
                 },
+                isCancelling: false
             };
 
             const updateAction = lunchesActionsCreators.updateLunch(updatePayload);
@@ -383,9 +389,9 @@ describe('lunches reducer', () => {
         });
 
         test(LunchActions.SET_LUNCH_STATUS, () => {
-            const pendingPayload: SetLunchStatusPayload = {lunchId: lunch2Id, lunchStatus: LunchStatus.pending};
-            const runningPayload: SetLunchStatusPayload = {lunchId: lunch1Id, lunchStatus: LunchStatus.running};
-            const finishedPayload: SetLunchStatusPayload = {lunchId: lunch1Id, lunchStatus: LunchStatus.finished};
+            const pendingPayload: SetLunchStatusPayload = { lunchId: lunch2Id, lunchStatus: LunchStatus.pending };
+            const runningPayload: SetLunchStatusPayload = { lunchId: lunch1Id, lunchStatus: LunchStatus.running };
+            const finishedPayload: SetLunchStatusPayload = { lunchId: lunch1Id, lunchStatus: LunchStatus.finished };
             const setPendingStatusAction = lunchesActionsCreators.setLunchStatus(pendingPayload);
             const setRunningStatusAction = lunchesActionsCreators.setLunchStatus(runningPayload);
             const setFinishedStatusAction = lunchesActionsCreators.setLunchStatus(finishedPayload);
@@ -443,7 +449,7 @@ describe('lunches reducer', () => {
 
             const removeLunch2 = lunchesActionsCreators.removeLunch(lunch2Id);
             Reducer(lunchesReducer).withState(oneLunchState).expect(removeLunch2).toReturnState({
-                ...initialState,
+                ...initialState, data: {}
             });
         });
 
@@ -504,7 +510,7 @@ describe('lunches reducer', () => {
             const changedLocation = {
                 latitude: 10.12,
                 longitude: 18.10,
-                range: 100,
+                radiusInMeters: 100,
             };
 
             const setLocationPayload: SetLunchLocationPayload = {
@@ -531,7 +537,7 @@ describe('lunches reducer', () => {
 
         test(LunchActions.SET_LUNCH_TIME, () => {
             const changedTime = {
-                start: '2018-09-21T09:08:11.566Z',
+                begin: '2018-09-21T09:08:11.566Z',
                 end: '2018-09-21T09:11:11.566Z',
             };
 
@@ -564,6 +570,7 @@ describe('lunches reducer', () => {
                 memberId: mem1Id,
                 time: '2018-09-21T09:08:11.566Z',
                 message: 'Test message 1',
+                status: MessageStatus.finished
             };
 
             const message2: Message = {
@@ -571,6 +578,7 @@ describe('lunches reducer', () => {
                 memberId: mem2Id,
                 time: '2018-09-21T09:11:11.566Z',
                 message: 'Test message 2',
+                status: MessageStatus.finished
             };
 
             const stateWithMessage = {
@@ -632,9 +640,9 @@ describe('lunches reducer', () => {
             };
         });
 
-        test(`${LunchActions.START_REQUEST} - should reflect request start state`, () => {
-            const startAction = lunchesActionsCreators.startRequest();
-            Reducer(lunchesReducer).expect(startAction).toReturnState({
+        test(`${LunchActions.START_REQUEST} - should reflect request begin state`, () => {
+            const beginAction = lunchesActionsCreators.startRequest();
+            Reducer(lunchesReducer).expect(beginAction).toReturnState({
                 ...initialState,
                 request: {
                     state: RequestState.inProgress,

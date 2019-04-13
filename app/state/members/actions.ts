@@ -1,5 +1,5 @@
-import {makeAction} from '../../utils/redux';
-import {Member, MembersMap, MembersActions} from './types';
+import { makeAction } from '@app/utils/redux';
+import { Member, MembersMap, MembersActions } from './types';
 
 export const membersActionsCreators = {
     setMember: (member: Member) => makeAction(MembersActions.SET_MEMBER, member),

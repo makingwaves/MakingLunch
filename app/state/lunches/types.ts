@@ -1,4 +1,4 @@
-import {Request} from '../common/types';
+import { Request } from '../common/types';
 
 // --- State interfaces:
 export interface Message {
@@ -6,14 +6,21 @@ export interface Message {
     memberId: string;
     time: string;
     message: string;
+    status: MessageStatus;
 }
 
 export interface Chat {
     [messageId: string]: Message;
 }
 
+export enum MessageStatus {
+    posted = 'POSTED',
+    pending = 'PENDING',
+    finished = 'FINISHED'
+}
+
 export interface TimeSpan {
-    start: string;
+    begin: string;
     end: string;
 }
 
@@ -24,13 +31,13 @@ export interface LunchTimeMap {
 export enum LunchStatus {
     pending = 'PENDING',
     running = 'RUNNING',
-    finished = 'FINISHED',
+    finished = 'FINISHED'
 }
 
 export interface Location {
     latitude: number;
     longitude: number;
-    range: number;
+    radiusInMeters: number;
 }
 
 export interface LunchLocationMap {
@@ -44,6 +51,7 @@ export interface Lunch {
     times: LunchTimeMap;
     members: string[];
     chat: Chat;
+    isCancelling: boolean;
 }
 
 export interface LunchesMap {
@@ -70,6 +78,7 @@ export interface UpdateLunchPayload {
     members: string[];
     times: LunchTimeMap;
     locations: LunchLocationMap;
+    isCancelling: boolean;
 }
 
 export interface SetLunchStatusPayload {
@@ -101,23 +110,64 @@ export interface SetLunchTimePayload {
     time: TimeSpan;
 }
 
+export interface SetLunchChatPayload {
+    lunchId: string;
+    chat: Chat;
+}
+
+export interface SetLunchCancellation {
+    lunchId: string;
+    isCancelling: boolean;
+}
+
 export interface AddChatMessagePayload {
     lunchId: string;
     message: Message;
 }
 
+export interface UpdateChatMessagePayload {
+    lunchId: string;
+    message: {
+        messageId: string;
+        status: MessageStatus;
+    };
+}
+
+export interface RemoveChatMessagePayload {
+    lunchId: string;
+    message: {
+        messageId: string;
+    };
+}
+
 // --- Actions
 export enum LunchActions {
+    SET_LUNCHES = '@@lunches/set_lunches',
     CREATE_LUNCH = '@@lunches/create_lunch',
     UPDATE_LUNCH = '@@lunches/update_lunch',
     SET_LUNCH_STATUS = '@@lunches/set_lunch_status',
+    ADD_LUNCH = '@@lunches/add_lunch',
     REMOVE_LUNCH = '@@lunches/remove_lunch',
     ADD_LUNCH_MEMBER = '@@lunches/add_lunch_member',
     REMOVE_LUNCH_MEMBER = '@@lunches/remove_lunch_member',
     SET_LUNCH_LOCATION = '@@lunches/set_lunch_location',
     SET_LUNCH_TIME = '@@lunches/set_lunch_time',
+    SET_LUNCH_CHAT = '@@lunches/set_chat',
+    SET_LUNCH_CANCELLATION = '@@lunches/set_lunch_cancellation',
     ADD_CHAT_MESSAGE = '@@lunches/add_chat_message',
+    ADD_LOADED_CHAT_MESSAGES = '@@lunches/add_loaded_chat_messages',
+    UPDATE_CHAT_MESSAGE = '@@lunches/UPDATE_CHAT_MESSAGE',
+    REMOVE_CHAT_MESSAGE = '@@lunches/remove_chat_message',
     START_REQUEST = '@@lunches/start_request',
     REQUEST_SUCCESS = '@@lunches/request_success',
     REQUEST_FAIL = '@@lunches/request_fail',
+    CLEAR_ERROR_MESSAGE = '@@lunches/clear_error_message'
+}
+
+export enum LunchSagaActions {
+    GET_LUNCHES = '@@lunches/get_lunches',
+    POST_LUNCH = '@@lunches/post_lunch',
+    GET_LUNCH_CHAT = '@@lunches/get_lunch_chat',
+    SEND_CHAT_MESSAGE = '@@lunches/send_chat_message',
+    CANCEL_LUNCH = '@@lunches/cancel_lunch'
 }

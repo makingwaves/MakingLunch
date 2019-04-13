@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
@@ -6,15 +6,24 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between',
         paddingHorizontal: 10,
         paddingBottom: 100,
-        paddingTop: 80,
-        borderWidth: 3,
+        paddingTop: 80
     },
-
     backgroundImage: {
-        width,
-        height,
+        width: width,
+        height: height,
     },
+    bubbleContainer: {
+        width: '80%'
+    },
+    firstBubble: {
+        borderTopLeftRadius: 0
+    },
+    secondBubble: {
+        borderBottomLeftRadius: 0
+    },
+    thirdBubble: {
+        borderTopRightRadius: 0
+    }
 });

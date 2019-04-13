@@ -1,8 +1,8 @@
-import {Member, MembersActions, MembersMap, MembersState} from './types';
-import {RequestState} from '../common/types';
-import {Reducer} from 'redux-testkit';
-import {membersReducer} from './reducer';
-import {membersActionsCreators} from './actions';
+import { Member, MembersActions, MembersMap, MembersState } from './types';
+import { RequestState } from '../common/types';
+import { Reducer } from 'redux-testkit';
+import { membersReducer } from './reducer';
+import { membersActionsCreators } from './actions';
 
 describe('members reducer', () => {
     let initialState: MembersState;
@@ -18,11 +18,11 @@ describe('members reducer', () => {
     });
 
     test(`should have initial state`, () => {
-        Reducer(membersReducer).expect({type: ''}).toReturnState(initialState);
+        Reducer(membersReducer).expect({ type: '' }).toReturnState(initialState);
     });
 
     test('should not change state when action does not exist', () => {
-        Reducer(membersReducer).expect({type: 'NOT_EXISTING'}).toReturnState(initialState);
+        Reducer(membersReducer).expect({ type: 'NOT_EXISTING' }).toReturnState(initialState);
     });
 
     describe('action creators', () => {
@@ -35,7 +35,7 @@ describe('members reducer', () => {
             };
 
             expect(membersActionsCreators.setMember(member))
-                .toEqual({type: MembersActions.SET_MEMBER, payload: member});
+                .toEqual({ type: MembersActions.SET_MEMBER, payload: member });
         });
 
         test(MembersActions.BATCH_SET_MEMBERS, () => {
@@ -62,19 +62,19 @@ describe('members reducer', () => {
 
         test(MembersActions.REMOVE_MEMBER, () => {
             const id = 'removedId';
-            expect(membersActionsCreators.removeMember(id)).toEqual({type: MembersActions.REMOVE_MEMBER, payload: id});
+            expect(membersActionsCreators.removeMember(id)).toEqual({ type: MembersActions.REMOVE_MEMBER, payload: id });
         });
 
         test(MembersActions.REMOVE_ALL_MEMBERS, () => {
-            expect(membersActionsCreators.removeAllMembers()).toEqual({type: MembersActions.REMOVE_ALL_MEMBERS});
+            expect(membersActionsCreators.removeAllMembers()).toEqual({ type: MembersActions.REMOVE_ALL_MEMBERS });
         });
 
         test(MembersActions.START_REQUEST, () => {
-            expect(membersActionsCreators.startRequest()).toEqual({type: MembersActions.START_REQUEST});
+            expect(membersActionsCreators.startRequest()).toEqual({ type: MembersActions.START_REQUEST });
         });
 
         test(MembersActions.REQUEST_SUCCESS, () => {
-            expect(membersActionsCreators.requestSuccess()).toEqual({type: MembersActions.REQUEST_SUCCESS});
+            expect(membersActionsCreators.requestSuccess()).toEqual({ type: MembersActions.REQUEST_SUCCESS });
         });
 
         test(MembersActions.REQUEST_FAIL, () => {
@@ -132,9 +132,9 @@ describe('members reducer', () => {
             };
 
             const setAction = membersActionsCreators.setMember(member);
-            Reducer(membersReducer).expect(setAction).toReturnState({...initialState, data: { mId: member}});
+            Reducer(membersReducer).expect(setAction).toReturnState({ ...initialState, data: { mId: member } });
             const changeAction = membersActionsCreators.setMember(changedMember);
-            Reducer(membersReducer).expect(changeAction).toReturnState({...initialState, data: {mId: changedMember}});
+            Reducer(membersReducer).expect(changeAction).toReturnState({ ...initialState, data: { mId: changedMember } });
         });
 
         test(`${MembersActions.BATCH_SET_MEMBERS} - should batch set members`, () => {
@@ -154,7 +154,7 @@ describe('members reducer', () => {
             };
 
             const batchSetAction = membersActionsCreators.batchSetMembers(members);
-            Reducer(membersReducer).expect(batchSetAction).toReturnState({...initialState, data: members});
+            Reducer(membersReducer).expect(batchSetAction).toReturnState({ ...initialState, data: members });
         });
 
         test(`${MembersActions.REMOVE_MEMBER} - should remove member`, () => {
