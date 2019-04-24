@@ -9,7 +9,6 @@ import { UserDataResponse } from '@app/api/accountService/accountService';
 import { navigationService } from '@app/services';
 import { FacebookDataResult } from '@app/api/facebookLoginService/facebookLoginService';
 import { authActionsCreators } from '@app/state/auth/actions';
-import { getUserDataWithTokenFlow } from '../userAccountSaga/userAccountSaga';
 import { keyToString, mapDataToResponse } from '../utils/utils';
 import { facebookLoginService, accountService } from '@app/api';
 
@@ -27,7 +26,7 @@ export const configureGoogle: { [key in 'android' | 'ios']: () => Iterable<CallE
         try {
             yield call(
                 [GoogleSignin, GoogleSignin.configure],
-                { iosClientId: Config.KEYSTORE_IOSCLIENT_ID }
+                { iosClientId: Config.KEYSTORE_IOSCLIENT_ID, scopes: ['https://www.googleapis.com/auth/drive.readonly'] }
             );
         } catch (err) {
             return err;
@@ -37,7 +36,7 @@ export const configureGoogle: { [key in 'android' | 'ios']: () => Iterable<CallE
         try {
             yield call(
                 [GoogleSignin, GoogleSignin.configure],
-                { webClientId: Config.KEYSTORE_WEBCLIENT_ID }
+                { webClientId: Config.KEYSTORE_WEBCLIENT_ID, scopes: ['https://www.googleapis.com/auth/drive.readonly'] }
             );
         } catch (err) {
             return err;
