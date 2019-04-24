@@ -7,7 +7,7 @@
     "android": "react-native run-android",
     "test": "jest",
     "test:watch": "jest --watch",
-    "postinstall": "./node_modules/react-native-maps/enable-google-maps ./ios"
+    "iosPostInstall": "./node_modules/react-native-maps/enable-google-maps ./ios"
   },
   "dependencies": {
     "axios": "0.18.0",
