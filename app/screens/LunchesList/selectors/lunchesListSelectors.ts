@@ -4,7 +4,7 @@ import { AppState } from '@app/state/state';
 import { LunchesListDto } from '../LunchesList';
 import { LunchesMap, LunchStatus, Lunch } from '@app/state/lunches/types';
 
-const getUserId = (state: AppState) => state.auth.profile.id;
+const getUserId = (state: AppState) => state.auth.profile && state.auth.profile.id;
 const getLunches = (state: AppState) => state.lunches.data;
 
 const splitLunchesByStatus = (lunches: LunchesMap, userId: string): LunchesListDto[] => {
