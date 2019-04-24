@@ -85,7 +85,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    userId: state.auth.profile.id,
+    userId: state.auth.profile && state.auth.profile.id,
     lunches: mapLunchesToArray(state),
     errorMsg: state.lunches.request.errorMsg
 });

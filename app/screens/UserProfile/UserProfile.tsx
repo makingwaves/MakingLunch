@@ -28,7 +28,8 @@ const UserProfile: FunctionComponent<UserProfileProps> = ({
             'You have updated your data successfuly',
             [
                 { text: 'Ok' }
-            ]
+            ],
+            { cancelable: false }
         );
     }
 

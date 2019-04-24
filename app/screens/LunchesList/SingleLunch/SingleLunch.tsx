@@ -45,7 +45,8 @@ const SingleLunch: FunctionComponent<SingleLunchProps> = ({
             [
                 { text: 'Cancel', style: 'cancel' },
                 { text: 'Confirm', onPress: () => cancelMeeting(lunch.id) }
-            ]
+            ],
+            { cancelable: false }
         );
     }
 

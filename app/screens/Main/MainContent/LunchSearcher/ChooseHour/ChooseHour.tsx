@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs';
+import { View, Text, Image } from 'react-native';
 import React, { PureComponent, Fragment } from 'react';
-import { View, Text, Image, TimePickerAndroid } from 'react-native';
 
 import styles from './style';
 
@@ -54,29 +54,15 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
             .set('minute', str[1]);
     }
 
-    private openTimePicker = async (type: 'lunchStart' | 'lunchEnd') => {
-        const { [type]: timeType } = this.state;
+    private openTimePicker = (type: 'lunchStart' | 'lunchEnd', hour: number, minute: number) => {
+        const selectedHour: string = this.mapTimePickerValuesToString(hour, minute);
+        const fnName = type === 'lunchStart' ? 'isBefore' : 'isAfter';
+        const stateVariable = type === 'lunchStart' ? 'lunchEnd' : 'lunchStart';
 
-        try {
-            const [hourType, minuteType] = this.getTimeFromGivenString(this.splitBy(timeType));
-
-            const { action, hour, minute } = await TimePickerAndroid.open({
-                hour: hourType,
-                minute: minuteType,
-                is24Hour: true
-            }) as any;
-
-            if (action !== TimePickerAndroid.dismissedAction) {
-                const selectedHour: string = this.mapTimePickerValuesToString(hour, minute);
-                const fnName = type === 'lunchStart' ? 'isBefore' : 'isAfter';
-                const stateVariable = type === 'lunchStart' ? 'lunchEnd' : 'lunchStart';
-
-                if (this.isEndAfterStart(selectedHour, this.state[stateVariable], fnName))
-                    this.setState(prevState => ({ [type]: selectedHour }) as any)
-                else
-                    this.showWrongTimeAlert();
-            }
-        } catch (err) { }
+        if (this.isEndAfterStart(selectedHour, this.state[stateVariable], fnName))
+            this.setState(prevState => ({ [type]: selectedHour }) as any)
+        else
+            this.showWrongTimeAlert();
     }
 
     private isEndAfterStart(selectedHour: string, checkingTime: string, fn: 'isAfter' | 'isBefore'): boolean {
@@ -87,7 +73,10 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
     }
 
     private showWrongTimeAlert(): void {
-        Alert.alert('Warning', 'The end of the dinner must be after start of the dinner.', [{ text: 'Ok' }]);
+        Alert.alert('Warning', 'The end of the dinner must be after start of the dinner.',
+            [{ text: 'Ok' }],
+            { cancelable: false }
+        );
     }
 
     private mapTimePickerValuesToString(hour: number, minute: number, suffix: string = ':'): string {
@@ -131,14 +120,14 @@ class ChooseHour extends PureComponent<ChooseHourProps, ChoouseHourState> {
                         <TimePickerType
                             timeType={'lunchStart'}
                             timeValue={lunchStart}
-                            openTimePicker={this.openTimePicker}
+                            onTimeChangeFn={this.openTimePicker}
                             textAlignment={'flex-start'}
                         />
                         <Image source={ARROW} style={styles.arrowImageStyles} />
                         <TimePickerType
                             timeType={'lunchEnd'}
                             timeValue={lunchEnd}
-                            openTimePicker={this.openTimePicker}
+                            onTimeChangeFn={this.openTimePicker}
                             textAlignment={'flex-end'}
                         />
                     </View>

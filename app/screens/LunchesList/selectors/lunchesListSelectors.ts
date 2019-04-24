@@ -8,7 +8,7 @@ const getUserId = (state: AppState) => state.auth.profile && state.auth.profile.
 const getLunches = (state: AppState) => state.lunches.data;
 
 const splitLunchesByStatus = (lunches: LunchesMap, userId: string): LunchesListDto[] => {
-    return lunches && Object.keys(lunches)
+    return (lunches && userId) && Object.keys(lunches)
         .reduce((statusArray, lunchId) => {
             const lunch = lunches[lunchId];
             return statusArray.map(statusType => {

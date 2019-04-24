@@ -61,3 +61,4 @@ buck-out/
 google-services.json
 *.keystore
 ios/Pods
+ios/build

@@ -1,35 +1,68 @@
-import React, { FunctionComponent, memo } from 'react';
+import TimePicker from 'react-native-24h-timepicker';
+import React, { PureComponent, RefObject, createRef, Fragment } from 'react';
 
 import styles from './style';
 
-import CustomButton from '../../../../../../components/CustomButton';
+import CustomButton from "@app/components/CustomButton";
 
 export type LunchTimeType = 'lunchStart' | 'lunchEnd';
 
-export interface TimePickersBubbleProps {
+export interface TimePickerTypeProps {
     timeType: LunchTimeType;
     timeValue: string;
     textAlignment: 'flex-start' | 'flex-end';
-    openTimePicker: (type: LunchTimeType) => void;
+    onTimeChangeFn: (type: LunchTimeType, hour: number, minute: number) => void;
 };
 
-const TimePickerType: FunctionComponent<TimePickersBubbleProps> = ({
-    timeValue, timeType, openTimePicker, textAlignment 
-}) => {
-    const onButtonClick = () => {
-        openTimePicker(timeType);
-    };
+class TimePickerType extends PureComponent<TimePickerTypeProps> {
+    private timePickerRef: RefObject<TimePicker>;
 
-    return (
-        <CustomButton
-            text={timeValue}
-            onPress={onButtonClick}
-            containerStyles={styles.timePickerContainer}
-            buttonStyles={styles.timePickerButton}
-            textButtonStyles={styles.timePickerText}
-            textAlignment={textAlignment}
-        />
-    );
+    constructor(props: TimePickerTypeProps) {
+        super(props);
+
+        this.timePickerRef = createRef();
+    }
+
+    public onTimepickerOpen = (): void => {
+        this.timePickerRef.current.open();
+    }
+
+    public onTimeChoose = (hour: number, minute: number): void => {
+        this.props.onTimeChangeFn(this.props.timeType, hour, minute);
+        this.timePickerRef.current.close();
+    }
+
+    private getTimeObject(time: string): string[] {
+        return time && time.split(':');
+    }
+
+    public render() {
+        const {
+            timeValue,
+            textAlignment
+        } = this.props;
+
+        const [hour, minute] = this.getTimeObject(timeValue);
+
+        return (
+            <Fragment>
+                <CustomButton
+                    text={timeValue}
+                    onPress={this.onTimepickerOpen}
+                    containerStyles={styles.timePickerContainer}
+                    buttonStyles={styles.timePickerButton}
+                    textButtonStyles={styles.timePickerText}
+                    textAlignment={textAlignment}
+                />
+                <TimePicker
+                    ref={this.timePickerRef}
+                    selectedHour={hour}
+                    selectedMinute={minute}
+                    onConfirm={this.onTimeChoose}
+                />
+            </Fragment>
+        )
+    }
 }
 
-export default memo(TimePickerType)
+export default TimePickerType;

@@ -6,9 +6,6 @@ import { ErrorResponse } from '@app/services/errorHandleService/errorHandleServi
 import { ErrorHandleService } from '@app/services';
 
 export interface UserDataRequest {
-    name: string;
-    description: string;
-    photo: string;
     loginProvider: 'facebook' | 'google';
     loginProviderToken: string; // token from facebook / google
     id?: string; // facebook userId

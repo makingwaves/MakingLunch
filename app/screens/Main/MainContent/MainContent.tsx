@@ -66,7 +66,10 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
 
     private onSearchClick = async (timeSpan: TimeSpan): Promise<void> => {
         if (isBetweenOtherPendingLunches(timeSpan, this.props.pending, this.props.userId)) {
-            Alert.alert('Error occured', 'You already have lunch, which has such a time range.', [{ text: 'Ok' }]);
+            Alert.alert('Error occured', 'You already have lunch, which has such a time range.',
+                [{ text: 'Ok' }],
+                { cancelable: false }
+            );
         }
         else {
             const userLocation = await this.mapViewRef.current.getSelectedUserLocation();
@@ -74,7 +77,10 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
                 ...timeSpan,
                 ...userLocation
             });
-            Alert.alert('Lunch was assigned', 'Your lunch was successfully assigned', [{ text: 'Go to lunches', onPress: this.redirectToLunchesList }, { text: 'Ok' }]);
+            Alert.alert('Lunch was assigned', 'Your lunch was successfully assigned',
+                [{ text: 'Go to lunches', onPress: this.redirectToLunchesList }, { text: 'Ok' }],
+                { cancelable: false }
+            );
         }
     }
 
