@@ -26,7 +26,7 @@ export const configureGoogle: { [key in 'android' | 'ios']: () => Iterable<CallE
         try {
             yield call(
                 [GoogleSignin, GoogleSignin.configure],
-                { iosClientId: Config.KEYSTORE_IOSCLIENT_ID, scopes: ['https://www.googleapis.com/auth/drive.readonly'] }
+                { webClientId: Config.KEYSTORE_WEBCLIENT_ID }
             );
         } catch (err) {
             return err;
@@ -36,7 +36,7 @@ export const configureGoogle: { [key in 'android' | 'ios']: () => Iterable<CallE
         try {
             yield call(
                 [GoogleSignin, GoogleSignin.configure],
-                { webClientId: Config.KEYSTORE_WEBCLIENT_ID, scopes: ['https://www.googleapis.com/auth/drive.readonly'] }
+                { webClientId: Config.KEYSTORE_WEBCLIENT_ID }
             );
         } catch (err) {
             return err;

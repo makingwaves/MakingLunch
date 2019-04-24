@@ -1,4 +1,5 @@
 import TimePicker from 'react-native-24h-timepicker';
+import { Platform, TimePickerAndroid } from 'react-native';
 import React, { PureComponent, RefObject, createRef, Fragment } from 'react';
 
 import styles from './style';
@@ -24,12 +25,31 @@ class TimePickerType extends PureComponent<TimePickerTypeProps> {
     }
 
     public onTimepickerOpen = (): void => {
+        if (Platform.OS === 'ios')
+            this.openIOSTimepicker();
+        else
+            this.openAndroidTimepicker();
+    }
+
+    public onTimeIOSChoose = (hour: number, minute: number): void => {
+        this.props.onTimeChangeFn(this.props.timeType, hour, minute);
+        this.timePickerRef.current.close();
+    }
+
+    private openIOSTimepicker(): void {
         this.timePickerRef.current.open();
     }
 
-    public onTimeChoose = (hour: number, minute: number): void => {
-        this.props.onTimeChangeFn(this.props.timeType, hour, minute);
-        this.timePickerRef.current.close();
+    private async openAndroidTimepicker(): Promise<void> {
+        const [hourProps, minuteProps] = this.getTimeObject(this.props.timeValue);
+        const { action, hour, minute } = await TimePickerAndroid.open({
+            hour: parseInt(hourProps),
+            minute: parseInt(minuteProps),
+            is24Hour: true
+        }) as any;
+
+        if (action !== TimePickerAndroid.dismissedAction)
+            this.props.onTimeChangeFn(this.props.timeType, hour, minute);
     }
 
     private getTimeObject(time: string): string[] {
@@ -54,12 +74,14 @@ class TimePickerType extends PureComponent<TimePickerTypeProps> {
                     textButtonStyles={styles.timePickerText}
                     textAlignment={textAlignment}
                 />
-                <TimePicker
-                    ref={this.timePickerRef}
-                    selectedHour={hour}
-                    selectedMinute={minute}
-                    onConfirm={this.onTimeChoose}
-                />
+                {Platform.OS === 'ios' && (
+                    <TimePicker
+                        ref={this.timePickerRef}
+                        selectedHour={hour}
+                        selectedMinute={minute}
+                        onConfirm={this.onTimeIOSChoose}
+                    />
+                )}
             </Fragment>
         )
     }
