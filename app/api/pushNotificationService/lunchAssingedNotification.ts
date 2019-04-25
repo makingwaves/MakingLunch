@@ -1,9 +1,10 @@
 import PushNotification from 'react-native-push-notification';
 
 import store from "@app/boot/store";
-import { Notification } from "./pushNotificationService";
-import { LunchActions, AddChatMessagePayload, MessageStatus, Lunch } from "@app/state/lunches/types";
 import lunchesService from '@app/api/lunchesService/lunchesService';
+import { Notification } from "./pushNotificationService";
+import { LunchActions } from "@app/state/lunches/types";
+import { MembersActions } from '@app/state/members/types';
 
 export type LunchAssingedNotifcationType = {
     'gcm.notification.LunchId': string
@@ -27,7 +28,8 @@ class LunchAssingedNotifcation implements Notification {
 
         lunchesService.getSingleLunch(lunchData.lunchId)
             .then(lunch => {
-                store.dispatch({ type: LunchActions.ADD_LUNCH, payload: lunch });
+                store.dispatch({ type: LunchActions.ADD_LUNCH, payload: lunch.lunches });
+                store.dispatch({ type: MembersActions.BATCH_SET_MEMBERS, payload: lunch.members })
                 store.dispatch({ type: LunchActions.REMOVE_LUNCH, payload: lunchData.meetingId });
             });
 

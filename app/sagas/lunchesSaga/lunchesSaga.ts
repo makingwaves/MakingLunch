@@ -1,12 +1,10 @@
 
 import { takeLatest, takeEvery, put, call } from 'redux-saga/effects';
 
-import { LunchStatus } from '@app/state/lunches/types';
 import { lunchesActionsCreators } from '@app/state/lunches/actions';
 import { membersActionsCreators } from '@app/state/members/actions';
 import lunchesService, { MeetingRequest } from '@app/api/lunchesService/lunchesService';
 import { CreateLunchPayload, LunchSagaActions } from '@app/state/lunches/types';
-// import { sagaRetry } from '../utils/sagaRetry';
 
 export function* getLunchesFlow() {
     try {

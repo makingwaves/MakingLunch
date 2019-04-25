@@ -1,10 +1,10 @@
 import httpClient from "@app/config/axios";
 
 import { BasicProfile } from "@app/state/auth/types";
-import { ErrorHandleService } from "@app/services";
 import { ErrorResponse } from "@app/services/errorHandleService/errorHandleService";
+import { ErrorHandleService } from "@app/services";
 import { Chat, AddChatMessagePayload } from "@app/state/lunches/types";
-import { mapMessageToPayload, mapMessageId, mapMemberId, mapTime, mapMessageContent, mapAndExtendChatMessages } from "@app/api/helpers/processedChat";
+import { normalizeChatMessages, normalizeAddedChatMessage } from "@app/sagas/chatSaga/normalizer";
 
 export interface PostChatMessageDto {
     lunchId: string;
@@ -26,7 +26,7 @@ class ChatService extends ErrorHandleService {
 
     public getChatMessages(lunchId: string, currentPage: number): Promise<Chat | ErrorResponse> {
         return httpClient.get<ChatResponseDto[]>('/api/Messages/' + lunchId + '/' + currentPage + '/16')
-            .then(res => this.mapChatMessageResponse(res.data))
+            .then(res => normalizeChatMessages(res.data))
             .catch(err => this.getErrorMessage(err, 'An Error occurred while trying to fetch chat messages.'))
     }
 
@@ -35,26 +35,8 @@ class ChatService extends ErrorHandleService {
             lunchId: data.lunchId,
             content: data.messageContent
         })
-            .then(res => this.mapAddedMessage(res.data, data.lunchId))
+            .then(res => normalizeAddedChatMessage(res.data, data.lunchId))
             .catch(err => this.getErrorMessage(err, 'An Error occurred while trying to fetch chat messages.'))
-    }
-
-    private mapAddedMessage(messageResponse: ChatResponseDto, lunchId: string): AddChatMessagePayload {
-        return mapMessageToPayload(messageResponse, lunchId,
-            message => mapMessageId(message),
-            message => mapMemberId(message),
-            message => mapTime(message),
-            message => mapMessageContent(message)
-        );
-    }
-
-    private mapChatMessageResponse(chatResponse: ChatResponseDto[]): Chat {
-        return mapAndExtendChatMessages(chatResponse,
-            message => mapMessageId(message),
-            message => mapMemberId(message),
-            message => mapTime(message),
-            message => mapMessageContent(message)
-        );
     }
 }
 
