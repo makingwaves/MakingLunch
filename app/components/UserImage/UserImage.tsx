@@ -1,32 +1,43 @@
-import React, {Component} from 'react';
-import {View, Image} from 'react-native';
+
+import { connect } from 'react-redux';
+import React, { FunctionComponent, memo, Fragment } from 'react'
+import { View, Image, StyleProp, ViewStyle, ImageStyle } from 'react-native';
+
 import styles from './style';
-import Bubble from '../Bubble/Bubble';
-import {borderRadius} from '../../config/styles';
-import {triangleSides} from '../Triangle/Triangle';
+
+import Avatar from '@app/components/Avatar';
+import { AppState } from '@app/state/state';
+import { getGivenUserPhoto } from './selectors/userImageSelectors';
 
 export interface UserImageProps {
-    readonly imageUri: string;
-}
+    userId: string;
+    photo?: string;
+    imageContainerStyles?: StyleProp<ViewStyle>;
+    imageStyles?: StyleProp<ImageStyle>;
+};
 
-class UserImage extends Component<UserImageProps> {
+const QUESTION_MARK = require('./img/question_mark.png');
 
-    public render() {
-        const { imageUri } = this.props;
-        return (
-        <Bubble
-            baseBorderRadius={borderRadius.borderRadiusLarge}
-            borderRadiusBottomRight={borderRadius.borderRadiusNone}
-            triangleSide={triangleSides.bottomRight}
-        >
-            <View style={styles.imageContainer}>
-                <View style={styles.fixedRatio}>
-                    <Image source={{uri: imageUri}} style={styles.image} resizeMode={'cover'} />
-                </View>
-            </View>
-        </Bubble>
-        );
-    }
-}
+const UserImage: FunctionComponent<UserImageProps> = ({
+    photo, imageContainerStyles = {}, imageStyles = {}
+}) => {
+    return (
+        <Fragment>
+            {photo ? (
+                <Avatar photo={photo} imageStyles={[styles.avatarImageStyles, imageStyles]} imageContainer={[styles.imageContainer, imageContainerStyles]} />
+            ) : (
+                    <View style={[styles.imageContainer, styles.imageContainerPlaceholder, imageContainerStyles]}>
+                        <Image style={styles.imagePlaceholder} source={QUESTION_MARK} />
+                    </View>
+                )}
+        </Fragment>
+    );
+};
 
-export default UserImage;
+const mapStateToProps = (state: AppState, ownProps: UserImageProps) => ({
+    photo: getGivenUserPhoto(state, ownProps.userId)
+});
+
+export default connect(
+    mapStateToProps
+)(memo(UserImage));

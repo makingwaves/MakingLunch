@@ -1,16 +1,18 @@
-import {LunchActions, LunchesState, LunchStatus} from './types';
-import {RequestState} from '../common/types';
-import {Reducer} from 'redux';
-import {ActionUnion} from '../../utils/redux';
-import {lunchesActionsCreators} from './actions';
-import {ObjTransformer} from '../../utils/common';
+import { Reducer } from 'redux';
+
+
+import { ActionUnion } from '@app/utils/redux';
+import { RequestState } from '../common/types';
+import { ObjTransformer } from '@app/utils/common';
+import { lunchesActionsCreators } from './actions';
+import { LunchActions, LunchesState, LunchStatus } from './types';
 
 const initialState: LunchesState = {
     request: {
         state: RequestState.none,
         errorMsg: '',
     },
-    data: {},
+    data: null,
 };
 
 type LunchAction = ActionUnion<typeof lunchesActionsCreators>;
@@ -19,6 +21,19 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
     const transformer = new ObjTransformer();
 
     switch (action.type) {
+        case LunchActions.SET_LUNCHES:
+            return {
+                ...state,
+                data: action.payload
+            };
+        case LunchActions.ADD_LUNCH:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.id]: action.payload
+                }
+            };
         case LunchActions.CREATE_LUNCH:
             return {
                 ...state,
@@ -52,6 +67,7 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                         times: action.payload.times,
                         members: action.payload.members,
                         chat: {},
+                        isCancelling: action.payload.isCancelling
                     },
                 },
             };
@@ -66,6 +82,18 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                     },
                 },
             };
+        case LunchActions.SET_LUNCH_CANCELLATION: {
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.lunchId]: {
+                        ...state.data[action.payload.lunchId],
+                        isCancelling: action.payload.isCancelling
+                    }
+                }
+            };
+        }
         case LunchActions.REMOVE_LUNCH:
             return {
                 ...state,
@@ -141,6 +169,31 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                     },
                 },
             };
+        case LunchActions.SET_LUNCH_CHAT:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.lunchId]: {
+                        ...state.data[action.payload.lunchId],
+                        chat: action.payload.chat
+                    },
+                },
+            };
+        case LunchActions.ADD_LOADED_CHAT_MESSAGES:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.lunchId]: {
+                        ...state.data[action.payload.lunchId],
+                        chat: {
+                            ...state.data[action.payload.lunchId].chat,
+                            ...action.payload.chat
+                        }
+                    },
+                },
+            };
         case LunchActions.ADD_CHAT_MESSAGE:
             return {
                 ...state,
@@ -155,6 +208,38 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                     },
                 },
             };
+        case LunchActions.UPDATE_CHAT_MESSAGE:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.lunchId]: {
+                        ...state.data[action.payload.lunchId],
+                        chat: {
+                            ...state.data[action.payload.lunchId].chat,
+                            [action.payload.message.messageId]: {
+                                ...state.data[action.payload.lunchId].chat[action.payload.message.messageId],
+                                status: action.payload.message.status
+                            },
+                        },
+                    },
+                }
+            };
+        case LunchActions.REMOVE_CHAT_MESSAGE:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.lunchId]: {
+                        ...state.data[action.payload.lunchId],
+                        chat: {
+                            ...transformer.set(state.data[action.payload.lunchId].chat)
+                                .filter((key) => (key !== action.payload.message.messageId))
+                                .get(),
+                        }
+                    }
+                }
+            }
         case LunchActions.START_REQUEST:
             return {
                 ...state,
@@ -179,6 +264,14 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                     errorMsg: action.payload,
                 },
             };
+        case LunchActions.CLEAR_ERROR_MESSAGE:
+            return {
+                ...state,
+                request: {
+                    ...state.request,
+                    errorMsg: ''
+                }
+            }
         default:
             return state;
     }

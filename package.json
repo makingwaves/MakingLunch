@@ -1,70 +1,56 @@
 {
   "name": "makingLunch",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
-  "devDependencies": {
-    "@types/jest": "^22.2.3",
-    "@types/react": "^16.3.14",
-    "@types/react-native": "^0.55.14",
-    "@types/react-test-renderer": "^16.0.1",
-    "@types/redux-testkit": "^1.0.2",
-    "jest": "^23.5.0",
-    "jest-expo": "~27.0.0",
-    "react-native-remote-svg": "^1.3.0",
-    "react-native-scripts-ts": "1.15.0",
-    "react-native-typescript-transformer": "^1.2.3",
-    "react-test-renderer": "16.3.1",
-    "redux-testkit": "^1.0.6",
-    "ts-jest": "^22.4.6",
-    "tslib": "^1.9.1",
-    "tslint": "^5.11.0",
-    "tslint-eslint-rules": "^5.3.1",
-    "tslint-react": "^3.6.0",
-    "typescript": "^2.8.3"
-  },
-  "main": "./node_modules/react-native-scripts-ts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts-ts start",
-    "eject": "react-native-scripts-ts eject",
-    "android": "react-native-scripts-ts android",
-    "ios": "react-native-scripts-ts ios",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "react-native run-android",
     "test": "jest",
-    "lint": "tslint --project ./tsconfig.json --config ./tslint.json --force"
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "useBabelrc": true
-      }
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "preset": "jest-expo",
-    "testMatch": [
-      "**/__tests__/**/*.[tj]s?(x)",
-      "**/?(*.)(spec|test).[tj]s?(x)"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    }
+    "test:watch": "jest --watch",
+    "iosPostInstall": "./node_modules/react-native-maps/enable-google-maps ./ios"
   },
   "dependencies": {
-    "@types/react-navigation": "^2.0.12",
-    "@types/react-redux": "^6.0.5",
-    "expo": "^27.0.1",
-    "react": "16.3.1",
-    "react-native": "~0.55.2",
-    "react-native-parallax-swiper": "^1.1.7",
-    "react-native-responsive-screen": "^1.1.9",
-    "react-native-svg": "^7.0.3",
-    "react-native-swiper": "^1.5.13",
-    "react-navigation": "^2.9.3",
-    "redux": "^4.0.0"
+    "axios": "0.18.0",
+    "dayjs": "1.7.8",
+    "react": "16.6.1",
+    "react-native": "0.57.7",
+    "react-native-24h-timepicker": "1.0.0",
+    "react-native-animatable": "1.3.1",
+    "react-native-config": "0.11.7",
+    "react-native-fast-image": "5.1.3",
+    "react-native-fbsdk": "0.8.0",
+    "react-native-gesture-handler": "1.0.10",
+    "react-native-google-signin": "1.0.2",
+    "react-native-maps": "0.24.2",
+    "react-native-parallax-swiper": "1.1.7",
+    "react-native-push-notification": "3.1.2",
+    "react-native-remote-svg": "1.3.0",
+    "react-native-responsive-screen": "1.2.0",
+    "react-native-secure-key-store": "2.0.0",
+    "react-native-uuid-generator": "5.0.0",
+    "react-navigation": "3.0.8",
+    "react-redux": "6.0.0",
+    "redux": "4.0.1",
+    "redux-saga": "0.16.2",
+    "reselect": "4.0.0",
+    "rn-placeholder": "1.3.3"
+  },
+  "devDependencies": {
+    "@types/jest": "23.3.10",
+    "@types/react": "16.7.17",
+    "@types/react-native": "0.57.18",
+    "@types/react-native-fbsdk": "0.6.2",
+    "@types/react-native-push-notification": "3.0.4",
+    "@types/react-navigation": "2.13.8",
+    "@types/react-redux": "6.0.11",
+    "@types/react-test-renderer": "16.0.3",
+    "babel-jest": "23.6.0",
+    "jest": "23.6.0",
+    "metro-react-native-babel-preset": "0.48.5",
+    "react-native-typescript-transformer": "1.2.10",
+    "react-test-renderer": "16.6.1",
+    "redux-testkit": "1.0.6",
+    "ts-jest": "23.10.5",
+    "typescript": "3.2.2"
   }
 }

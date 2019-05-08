@@ -1,5 +1,6 @@
 {
   "defaultSeverity": "error",
+  "editor.formatOnSave": true,
   "extends": [
     "tslint:recommended",
     "tslint-eslint-rules",
@@ -10,10 +11,34 @@
     "object-literal-sort-keys": false,
     "member-ordering": false,
     "jsx-no-lambda": false,
-    "jsx-boolean-value": [true, "always"],
-    "quotemark": [true, "single", "jsx-double"],
-    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
-    "interface-name": [true, "never-prefix"]
+    "jsx-boolean-value": [
+      true,
+      "always"
+    ],
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "space-in-brackets": [
+      "error",
+      "always"
+    ],
+    "whitespace": [
+      true,
+      "check-module"
+    ]
   },
   "rulesDirectory": []
 }

@@ -1,16 +1,53 @@
-import React from 'react';
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
-import AppStack from './app';
-import AuthStack from './auth';
+import React, { Component } from 'react'
+import { createAppContainer, createSwitchNavigator, NavigationScreenProp, NavigationParams } from 'react-navigation';
+
+import { navigationService } from '@app/services';
+
+import Landing from '@app/screens/Landing';
+import AppStack from '@app/navigation/app';
+import InitialScreen from '@app/screens/InitialScreen';
+import pushNotificationService from '@app/api/pushNotificationService/pushNotificationService';
 
 const RootNavigation = createSwitchNavigator(
     {
-        App: AppStack,
-        Auth: AuthStack,
+        App: {
+            screen: AppStack
+        },
+        Auth: {
+            screen: Landing
+        },
+        Initial: {
+            screen: InitialScreen
+        }
     },
     {
-        initialRouteName: 'Auth',
-    },
+        initialRouteName: 'Initial'
+    }
 );
 
-export default RootNavigation;
+const RootNavigationContainer = createAppContainer(RootNavigation);
+
+class Navigation extends Component {
+    private navigatorRef: React.RefObject<NavigationScreenProp<NavigationParams>>;
+
+    constructor(props) {
+        super(props);
+
+        this.navigatorRef = React.createRef();
+
+        pushNotificationService.configureNotification();
+    }
+
+    public componentDidMount(): void {
+        navigationService.setNavigation(this.navigatorRef.current);
+    }
+
+    public render(): JSX.Element {
+        return (
+            <RootNavigationContainer ref={this.navigatorRef} />
+        );
+    }
+}
+
+export default Navigation;
+

@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {fontSizes, fontWeights, spacing, colors} from '../../config/styles';
+import { StyleSheet } from 'react-native';
+
+import { fontSizes, fontWeights, spacing, colors } from '@app/config/styles';
 
 export default StyleSheet.create({
     title: {
@@ -7,7 +8,6 @@ export default StyleSheet.create({
         color: colors.colorLightest,
         paddingBottom: spacing.gutterSmall,
     },
-
     text: {
         fontSize: fontSizes.base,
         color: colors.colorLightest,

@@ -1,8 +1,9 @@
-import {AuthActions, AuthState} from './types';
-import {ActionUnion} from '../../utils/redux';
-import {authActionsCreators} from './actions';
-import {Reducer} from 'redux';
-import {RequestState} from '../common/types';
+import { Reducer } from 'redux';
+
+import { ActionUnion } from '@app/utils/redux';
+import { RequestState } from '../common/types';
+import { authActionsCreators } from './actions';
+import { AuthActions, AuthState } from './types';
 
 const initialState: AuthState = {
     request: {

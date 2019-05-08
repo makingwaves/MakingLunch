@@ -1,67 +1,32 @@
-import React from 'react';
-import {View} from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { View, StyleProp, ViewStyle } from 'react-native';
+import React, { FunctionComponent, memo, ReactNode } from 'react';
+
 import styles from './style';
-import {borderRadius, colors} from '../../config/styles';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import Triangle, {triangleSides} from '../Triangle/Triangle';
+
+import Triangle, { triangleSides } from "@app/components/Triangle/Triangle";
+import { PointerEventsProperty } from 'csstype';
 
 export interface BubbleProps {
-    readonly color?: string;
-    readonly baseBorderRadius?: number;
-    readonly borderRadiusTopLeft?: number;
-    readonly borderRadiusTopRight?: number;
-    readonly borderRadiusBottomLeft?: number;
-    readonly borderRadiusBottomRight?: number;
-    readonly triangleSide?: triangleSides;
     readonly size?: number;
-}
+    readonly children?: ReactNode;
+    readonly bubbleStyles?: StyleProp<ViewStyle>;
+    readonly triangleSide?: triangleSides;
+    readonly pointerEvents?: 'auto' | 'none' | 'box-only' | 'box-none';
+    readonly bubbleContainerStyles?: StyleProp<ViewStyle>;
+};
 
-const Bubble: React.SFC<BubbleProps> = (
-    {   color = colors.brandColorPrimary,
-        baseBorderRadius = borderRadius.borderRadiusBase,
-        borderRadiusTopLeft = borderRadius.borderRadiusBase,
-        borderRadiusTopRight = borderRadius.borderRadiusBase,
-        borderRadiusBottomLeft = borderRadius.borderRadiusBase,
-        borderRadiusBottomRight = borderRadius.borderRadiusBase,
-        triangleSide,
-        size = wp('10%'),
-        children,
-    }) => {
-
-    const getMarginProperty = () => {
-        if (
-            triangleSide === triangleSides.topLeft ||
-            triangleSide === triangleSides.topRight
-        ) {
-            return {marginTop: size};
-        } else if (
-            triangleSide === triangleSides.bottomLeft ||
-            triangleSide === triangleSides.bottomRight
-        ) {
-            return {marginBottom: size};
-        }
-        return {};
-    };
-
-    const getBubbleProperties = () => {
-        return {
-            backgroundColor: color,
-            borderRadius: baseBorderRadius,
-            borderTopLeftRadius: borderRadiusTopLeft,
-            borderTopRightRadius: borderRadiusTopRight,
-            borderBottomLeftRadius: borderRadiusBottomLeft,
-            borderBottomRightRadius: borderRadiusBottomRight,
-        };
-    };
-
+const Bubble: FunctionComponent<BubbleProps> = ({
+    bubbleContainerStyles = {}, bubbleStyles = {}, triangleSide = null, size = wp('10%'), children, pointerEvents = 'auto'
+}) => {
     return (
-        <View style={[styles.container, getMarginProperty()]}>
-            <View style={[styles.bubble, getBubbleProperties()]}>
+        <View style={[styles.container, bubbleContainerStyles]} pointerEvents={pointerEvents}>
+            <View style={[styles.bubble, bubbleStyles]} pointerEvents={pointerEvents}>
                 {children}
             </View>
-            {triangleSide && <Triangle size={size} triangleSide={triangleSide}/>}
+            {triangleSide && <Triangle size={size} triangleSide={triangleSide} />}
         </View>
     );
 };
 
-export default Bubble;
+export default memo(Bubble);
