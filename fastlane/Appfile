@@ -1,0 +1,5 @@
+# iOS Settings
+app_identifier("com.makingLunch")
+
+# Android Settings
+package_name("com.makingLunch")

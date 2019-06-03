@@ -98,8 +98,14 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
+    dexOptions {
+        jumboMode true
+    }
+
     defaultConfig {
         applicationId "com.makingLunch"
+        applicationIdSuffix ""
+        
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -107,14 +113,23 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        resValue "string", "build_config_package", "com.makingLunch"
     }
     signingConfigs {
         release {
-            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
-                storeFile file(MYAPP_RELEASE_STORE_FILE)
-                storePassword MYAPP_RELEASE_STORE_PASSWORD
-                keyAlias MYAPP_RELEASE_KEY_ALIAS
-                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            if (project.env.get('DEVELOP_STORE_FILE') != null) {
+                storeFile rootProject.file(project.env.get("DEVELOP_STORE_FILE"))
+                storePassword project.env.get("DEVELOP_STORE_PASSWORD")
+                keyAlias project.env.get("DEVELOP_KEY_ALIAS")
+                keyPassword project.env.get("DEVELOP_KEY_PASSWORD")
+            }
+        }
+        debug {
+            if (project.env.get('DEVELOP_STORE_FILE') != null) {
+                storeFile rootProject.file(project.env.get("DEVELOP_STORE_FILE"))
+                storePassword project.env.get("DEVELOP_STORE_PASSWORD")
+                keyAlias project.env.get("DEVELOP_KEY_ALIAS")
+                keyPassword project.env.get("DEVELOP_KEY_PASSWORD")
             }
         }
     }
@@ -130,7 +145,18 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
+            
+            if (project.env.get('DEVELOP_STORE_FILE') != null) {
+                signingConfig signingConfigs.release
+            } else {
+                println '-------------------------------------------------'
+                println 'The DEVELOP_STORE_FILE property was not set!'
+                println 'This release will not be signed by gradle!'
+                println '-------------------------------------------------'
+            }
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
     // applicationVariants are e.g. debug, release
