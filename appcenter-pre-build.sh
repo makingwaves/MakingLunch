@@ -13,7 +13,7 @@ sed -i -e 's/\\"/'\"'/g' ./android/app/google-services.json
 echo "google-services file content:"
 cat ./android/app/google-services.json
 
-if ["$RN_RELEASE_TYPE" != "prod"]; then
+if [ "$RN_RELEASE_TYPE" != "prod" ]; then
     printf "Install imagemagick:\n"
     brew install imagemagick
 else
