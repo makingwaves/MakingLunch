@@ -13,13 +13,15 @@ sed -i -e 's/\\"/'\"'/g' ./android/app/google-services.json
 echo "google-services file content:"
 cat ./android/app/google-services.json
 
-if [ "$RN_RELEASE_TYPE" != "prod" ]; then
-    printf "Install imagemagick:\n"
-    brew install imagemagick
-else
-    printf "Skip imagemagick installation for production relese.\n"
-fi
 
 printf "Executing fastlane prep_relese_type:\n"
 bundle install
 bundle exec fastlane prep_release_type
+
+if [ "$RN_RELEASE_TYPE" != "prod" ]; then
+    printf "Install imagemagick and add icon badge:\n"
+    brew install imagemagick
+    bundle exec fastlane add_icon_badge
+else
+    printf "Skip adding icon badge.\n"
+fi
