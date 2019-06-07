@@ -13,11 +13,11 @@ sed -i -e 's/\\"/'\"'/g' ./android/app/google-services.json
 echo "google-services file content:"
 cat ./android/app/google-services.json
 
-if [$RN_RELEASE_TYPE != "prod"]; then
+if ["$RN_RELEASE_TYPE" != "prod"]; then
     printf "Install imagemagick:\n"
     brew install imagemagick
 else
-    printf "Skip imagemagick installation for production relese:\n"
+    printf "Skip imagemagick installation for production relese.\n"
 fi
 
 printf "Executing fastlane prep_relese_type:\n"
