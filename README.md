@@ -88,4 +88,4 @@ Make sure you did configure a reverse proxy on your device: e.g.
     - Check the google-services.json file
     - Check if KEYSTORE_WEBCLIENT_ID is correct
     - Check if you configured google login screen (provide support email etc.)
-![Google console screen](https://github.com/makingwaves/MakingLunch/tree/deployment_prod/doc/google_console.png)
+![Google console screen](https://raw.githubusercontent.com/makingwaves/MakingLunch/deployment_prod/doc/google_console.png)
