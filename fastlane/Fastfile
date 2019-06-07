@@ -43,10 +43,11 @@ lane :prep_release_type do
     value: ".#{suffix}"
   )
 
-# android badge
+end
+
+lane :add_icon_badge do
+  # android badge
   add_badge(
     glob: "/android/app/src/main/res/**/ic_launcher.{png,PNG}", # note no dot in path
-    no_badge: type == 'prod'
   )
-
 end
