@@ -8,7 +8,7 @@ TBD
 ## Prerequisites
 To build and run this project, you will need to setup a proper development environment. 
 
-You will need to setup:
+You will need:
 1. React-Native
 2. Android SDK (for android platform)
     - SDK version: 26
@@ -16,7 +16,7 @@ You will need to setup:
 3. IOS - TBD
 
 ## External prerequisites
-This application depends on several external services. To be abele to successfully build and run this application, you will have to setup the following services:
+This application depends on several external services. To be abele to successfully run this application, you will have to setup the following services:
 ### 1. Firebase 
 You will need a Firebase project: https://console.firebase.google.com
 ### 2. Google Maps
