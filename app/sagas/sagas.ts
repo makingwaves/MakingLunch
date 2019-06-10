@@ -6,9 +6,10 @@ import { logoutSaga } from "./logoutSaga/logoutSaga";
 import { lunchesSaga } from "./lunchesSaga/lunchesSaga";
 import { userAccountSaga } from "./userAccountSaga/userAccountSaga";
 import { networkStateSaga } from "./networkStateSaga/networkStateSaga";
+import { appMessagesSaga } from "./appMessagesSaga/appMessagesSaga";
 
 const sagas = [
-    loginSaga, userAccountSaga, logoutSaga, lunchesSaga, chatSaga, networkStateSaga
+    appMessagesSaga, loginSaga, userAccountSaga, logoutSaga, lunchesSaga, chatSaga, networkStateSaga
 ].map(s => fork(s));
 
 export default function* () {

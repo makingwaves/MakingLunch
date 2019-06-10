@@ -8,7 +8,6 @@ import { membersReducer } from './members/reducer';
 import { LunchesState } from './lunches/types';
 import { lunchesReducer } from './lunches/reducer';
 
-import { reducer as toastrReducer } from 'react-redux-toastr'
 
 export interface AppState {
     general: GeneralState;
@@ -21,6 +20,5 @@ export default combineReducers({
     general: generalReduce,
     auth: authReducer,
     members: membersReducer,
-    lunches: lunchesReducer,
-    toastr: toastrReducer
+    lunches: lunchesReducer
 });

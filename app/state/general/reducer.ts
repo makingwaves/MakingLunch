@@ -4,7 +4,6 @@ import { ActionUnion } from '@app/utils/redux';
 import { generalActionsCreators } from "./actions"
 import { GeneralState, GeneralActions } from "./types"
 
-
 const initialState: GeneralState = {
     network_connection_state: false
 };

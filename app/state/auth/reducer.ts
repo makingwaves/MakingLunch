@@ -16,7 +16,7 @@ const initialState: AuthState = {
 
 type AuthAction = ActionUnion<typeof authActionsCreators>;
 
-export const authReducer: Reducer<AuthState> = (state = initialState, action: AuthAction) => {
+export const authReducer: Reducer<AuthState> = (state: AuthState = initialState, action: AuthAction) => {
     switch (action.type) {
         case AuthActions.SET_PROFILE:
             return {

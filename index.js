@@ -15,6 +15,4 @@ import { AppRegistry } from 'react-native';
 import App from './App';
 import { name as appName } from './app.json';
 
-import "react-redux-toastr/lib/css/react-redux-toastr.min.css"
-
 AppRegistry.registerComponent(appName, () => App);
