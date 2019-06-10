@@ -31,32 +31,41 @@ TBD
 
 ### Install dependencies
     $ npm install
-
-### Setup Firebase
-1. Create new keystore (under **MakingLunch\keystores** folder):
+### APK Signing 
+1. Create a keystore (under **MakingLunch\keystores** folder):
 
        $ mkdir .\keystores && cd .\keystores
-       $ keytool -genkey -alias com.makingLunch -keyalg RSA -keystore dev.keystore -keysize 2048   
-    The tool will ask you to provide keys store password, key password and some other information. After a keystore adn the com.makingLunch key are successfully created, run following command to read the SHA1 fingerprint.
+       $ keytool -genkey -alias <key_alias> -keyalg RSA -keystore <keystore_file> -keysize 2048   
+    The tool will ask you to provide keys store password, key password and some other information.
 
-        $ keytool -list -v -keystore dev.keystore
+2. Signing configuration \
+    The file .\android\app\build.gradle sets up signing configuration for the app. This file refers to an external file which is NOT checked into the git repository. The file is ~/.gradle/gradle.properties (windows: c:\\users\\%username%\\.gradle\\gradle.properties) on the machine used to build the app. The file contains information about where the keystore is located and what the password is. Example gradle.properties file:
     
-2. Add android application to Firebase with the name ```com.makingLunch``` and provide SHA1 fingerprint, obtained in step 1
-3. Download generated google-services.json file from Firebase to **MakingLunch\android\app**
+        MAKINGLUNCH_STORE_FILE=<keystore_file>
+        MAKINGLUNCH_STORE_PASSWORD=<keystore_password>
+        MAKINGLUNCH_KEY_ALIAS=<key_alias>
+        MAKINGLUNCH_KEY_PASSWORD=<key_password>
+    
+     Keep in mind that it is strongly advised not to store this kind of information under a version control system. \
+     You can read more about Generating Signed APK ans setting up gradle variables [here](https://facebook.github.io/react-native/docs/0.59/signed-apk-android).
+
+
+### Setup Firebase
+ After a keystore and the provided <key_alias> key are successfully created, run following command to read the SHA1 fingerprint.
+
+        $ keytool -list -v -keystore <keystore_file>
+    
+1. Add android application to Firebase with the name ```com.makingLunch``` and provide SHA1 fingerprint, obtained in step 1
+2. Download generated google-services.json file from Firebase to **MakingLunch\android\app**
+
 ### Setup environment variables
 Create a .env file in the MakingLunch directory:
 
-    FACEBOOK_APP_ID=<facebook app id>
-    SERVER_URL=<backend server url>
-    KEYSTORE_WEBCLIENT_ID=<google web client id>
-    GOOGLE_MAPS_ID=<google maps id>
-    SENDERID=<sender id>
-
-    # Setup local keystore
-    DEVELOP_STORE_FILE=../keystores/dev.keystore
-    DEVELOP_KEY_ALIAS=com.makingLunch
-    DEVELOP_STORE_PASSWORD=<key store password>
-    DEVELOP_KEY_PASSWORD=<key password>
+    FACEBOOK_APP_ID=<facebook_app_id>
+    SERVER_URL=<backend_server_url>
+    KEYSTORE_WEBCLIENT_ID=<google_web_client_id>
+    GOOGLE_MAPS_ID=<google_maps_id>
+    SENDERID=<sender_id>
 
 **FACEBOOK_APP_ID** - TBD \
 **SERVER_URL** - TBD \
