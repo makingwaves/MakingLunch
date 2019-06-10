@@ -36,33 +36,37 @@ TBD
 1. Create new keystore (under **MakingLunch\keystores** folder):
 
        $ mkdir .\keystores && cd .\keystores
-       $ keytool -genkey -alias com.makingLunch -keyalg RSA -keystore dev.keystore -keysize 2048   
-    The tool will ask you to provide keys store password, key password and some other information. After a keystore adn the com.makingLunch key are successfully created, run following command to read the SHA1 fingerprint.
+       $ keytool -genkey -alias <key_alias> -keyalg RSA -keystore <keystore_file> -keysize 2048   
+    The tool will ask you to provide keys store password, key password and some other information. After a keystore and the provided <key_alias> key are successfully created, run following command to read the SHA1 fingerprint.
 
-        $ keytool -list -v -keystore dev.keystore
+        $ keytool -list -v -keystore <keystore_file>
     
 2. Add android application to Firebase with the name ```com.makingLunch``` and provide SHA1 fingerprint, obtained in step 1
 3. Download generated google-services.json file from Firebase to **MakingLunch\android\app**
 ### Setup environment variables
 Create a .env file in the MakingLunch directory:
 
-    FACEBOOK_APP_ID=<facebook app id>
-    SERVER_URL=<backend server url>
-    KEYSTORE_WEBCLIENT_ID=<google web client id>
-    GOOGLE_MAPS_ID=<google maps id>
-    SENDERID=<sender id>
-
-    # Setup local keystore
-    DEVELOP_STORE_FILE=../keystores/dev.keystore
-    DEVELOP_KEY_ALIAS=com.makingLunch
-    DEVELOP_STORE_PASSWORD=<key store password>
-    DEVELOP_KEY_PASSWORD=<key password>
+    FACEBOOK_APP_ID=<facebook_app_id>
+    SERVER_URL=<backend_server_url>
+    KEYSTORE_WEBCLIENT_ID=<google_web_client_id>
+    GOOGLE_MAPS_ID=<google_maps_id>
+    SENDERID=<sender_id>
 
 **FACEBOOK_APP_ID** - TBD \
 **SERVER_URL** - TBD \
 **KEYSTORE_WEBCLIENT_ID** - This is a OAuth2.0 google client id created by Firebase. You can get it from Google Developers Console - it will be called like 'Web client (auto created by Google Service)'. Or alternatively you can read this value from google-services.json from property client.services.appinvite_service.other_platform_oauth_client.client_id\
 **GOOGLE_MAPS_ID** - TBD \
 **SENDERID** - TBD 
+
+### Setup gradle.properties file
+SPK signing parameters (e.g. keystore file) should be defined in a gradle.properties file. Keep in mind that it is strongly advised not to store this kind of information under a version control system. Read more about Generating Signed APK ans setting up gradle variables [here](https://facebook.github.io/react-native/docs/0.59/signed-apk-android).
+
+example gradle.properties file with signing properties:
+
+    MAKINGLUNCH_STORE_FILE=<keystore_file>
+    MAKINGLUNCH_STORE_PASSWORD=<keystore_password>
+    MAKINGLUNCH_KEY_ALIAS=<key_alias>
+    MAKINGLUNCH_KEY_PASSWORD=<key_password>
 
 ### Build and run on Android device
 The following command will build and install the application onto your Android device. Make sure that you have a device conned or a AVD running.
