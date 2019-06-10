@@ -39,7 +39,7 @@ TBD
     The tool will ask you to provide keys store password, key password and some other information.
 
 2. Signing configuration \
-    The file .\android\app\build.gradle sets up signing configuration for the app. This file refers to an external file which is NOT checked into the git repository. The file is ~/.gradle/gradle.properties (windows: c:\\users\\%username%\\.gradle\\gradle.properties) on the machine used to build the app. The file contains information about where the keystore is located and what the password is. Example gradle.properties file:
+    The file *.\android\app\build.gradle* sets up signing configuration for the app. This file refers to an external file which is NOT checked into the git repository. The file is *~/.gradle/gradle.properties* (windows: *c:\\users\\%username%\\.gradle\\gradle.properties*) on the machine used to build the app. The file contains information about where the keystore is located and what the password is. Example gradle.properties file:
     
         MAKINGLUNCH_STORE_FILE=<keystore_file>
         MAKINGLUNCH_STORE_PASSWORD=<keystore_password>
