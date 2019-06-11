@@ -64,14 +64,14 @@ Create a .env file in the MakingLunch directory:
     API_URL=<backend server url>
     FACEBOOK_APP_ID=<facebook app id>
     GOOGLE_WEB_CLIENT_ID=<google web client id>
-    GOOGLE_MAPS_ID=<google maps id>
-    PUSH_NOTIFICATION_SENDER_ID=<sender id> #YOUR FCM (Firebase Cloud Messaging) SENDER ID
+    GOOGLE_MAPS_API_KEY=<google maps api key>
+    PUSH_NOTIFICATION_SENDER_ID=<sender id> 
 
 **API_URL** - TBD \
 **FACEBOOK_APP_ID** - TBD \
 **GOOGLE_WEB_CLIENT_ID** - This is a OAuth2.0 google client id created by Firebase. You can get it from Google Developers Console - it will be called like 'Web client (auto created by Google Service)'. Or alternatively you can read this value from google-services.json from property client.services.appinvite_service.other_platform_oauth_client.client_id\
-**GOOGLE_MAPS_ID** - TBD \
-**PUSH_NOTIFICATION_SENDER_ID** - TBD 
+**GOOGLE_MAPS_API_KEY** - This is API key that you generate using the Google Cloud Platform Console. Each time you use Google Maps Platform products, you must include an API key to validate your request.
+**PUSH_NOTIFICATION_SENDER_ID** - This is FCM (Firebase Cloud Messaging) sender id. A unique numerical value created when you create your Firebase project.
 
 ### Build and run on Android device
 The following command will build and install the application onto your Android device. Make sure that you have a device conned or a AVD running.
