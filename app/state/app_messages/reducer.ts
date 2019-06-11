@@ -11,7 +11,7 @@ const initialState: AppMessagesState = {
 
 type AppAction = ActionUnion<typeof appMessagesActionsCreators>;
 
-export const generalReduce: Reducer<AppMessagesState> = (state: AppMessagesState = initialState, action: AppAction) => {
+export const appMessagesReducer: Reducer<AppMessagesState> = (state: AppMessagesState = initialState, action: AppAction) => {
     switch (action.type) {
         case AppMessagesActions.SHOW_APP_MESSAGE:
             return {

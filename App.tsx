@@ -4,17 +4,12 @@ import { Provider } from 'react-redux';
 
 import store from './app/boot/store';
 import Navigation from './app/navigation/navigation';
-import Modal from "react-native-modal";
+import AppPopup from "./app/components/AppPopup/AppPopup"
 
 export default () => {
     return (
         <Provider store={store}>
-            <Modal isVisible={false}>
-                <View style={{ flex: 1 }}>
-                    <Text style="color: red;">Hello!</Text>
-                    {/* <Button title="Hide modal" onPress={() => { }} /> */}
-                </View>
-            </Modal>
+            <AppPopup />
             <Navigation />
         </Provider>
     );

@@ -1,36 +1,41 @@
-import React, { PureComponent } from 'react';
+import React, { Component, Fragment } from 'react';
 import { View, Text, Image, ImageSourcePropType } from 'react-native';
 
+import { AppState } from '@app/state/state';
 import styles from './style';
 import Display from '../Display';
+import { AppMessage } from '@app/state/app_messages/types';
+import { connect } from 'react-redux';
 
 
-// export interface AppPopupProps {
-//     title: string;
-//     iconUrl?: ImageSourcePropType;
-//     showError: boolean;
-//     description?: string;
-//     showDuration: number;
-// };
+interface AppPopupProps {
+    messages: AppMessage[];
+}
 
-export interface AppPopupState {
-    isVisible: boolean;
-};
+class AppPopup extends Component<AppPopupProps> {
 
-class AppPopup extends PureComponent<object, AppPopupState> {
-    public state: AppPopupState;
-
-    constructor(props: object) {
+    constructor(props: AppPopupProps) {
         super(props);
     }
 
     public render() {
-
+        let msg = this.props.messages;
         return (
-            <Text>Elo</Text>
+            <Fragment>
+                {
+                    msg.map((v: AppMessage) => {
+                        return <Text>v.title</Text>
+                    })
+                }
+            </Fragment>
         )
     }
 }
 
-const mapStateToProps = (store: IAppSta)
-export default AppPopup;
+const mapStateToProps = (state: AppState) => ({
+    messages: state.appMessages.app_messages
+});
+
+
+
+export default connect(mapStateToProps)(AppPopup);
