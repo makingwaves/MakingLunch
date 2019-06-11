@@ -26,7 +26,7 @@ export const configureGoogle: { [key in 'android' | 'ios']: () => Iterable<CallE
         try {
             yield call(
                 [GoogleSignin, GoogleSignin.configure],
-                { webClientId: Config.KEYSTORE_WEBCLIENT_ID }
+                { webClientId: Config.GOOGLE_WEB_CLIENT_ID }
             );
         } catch (err) {
             return err;
@@ -36,7 +36,7 @@ export const configureGoogle: { [key in 'android' | 'ios']: () => Iterable<CallE
         try {
             yield call(
                 [GoogleSignin, GoogleSignin.configure],
-                { webClientId: Config.KEYSTORE_WEBCLIENT_ID }
+                { webClientId: Config.GOOGLE_WEB_CLIENT_ID }
             );
         } catch (err) {
             return err;

@@ -59,7 +59,7 @@ class PushNotificationService {
         PushNotifications.configure({
             onRegister: this.onRegister,
             onNotification: this.onNotification,
-            senderID: Config.SENDERID,
+            senderID: Config.PUSH_NOTIFICATION_SENDER_ID,
         })
     }
 

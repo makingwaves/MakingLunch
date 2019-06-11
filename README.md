@@ -16,7 +16,7 @@ You will need:
 3. IOS - TBD
 
 ## External prerequisites
-This application depends on several external services. To be abele to successfully run this application, you will have to setup the following services:
+This application depends on several external services. To be able to successfully run this application, you will have to setup the following services:
 ### 1. Firebase 
 You will need a Firebase project: https://console.firebase.google.com
 ### 2. Google Maps
@@ -61,17 +61,17 @@ TBD
 ### Setup environment variables
 Create a .env file in the MakingLunch directory:
 
-    FACEBOOK_APP_ID=<facebook_app_id>
-    SERVER_URL=<backend_server_url>
-    KEYSTORE_WEBCLIENT_ID=<google_web_client_id>
-    GOOGLE_MAPS_ID=<google_maps_id>
-    SENDERID=<sender_id>
+    API_URL=<backend server url>
+    FACEBOOK_APP_ID=<facebook app id>
+    GOOGLE_WEB_CLIENT_ID=<google web client id>
+    GOOGLE_MAPS_ID=<google maps id>
+    PUSH_NOTIFICATION_SENDER_ID=<sender id> #YOUR FCM (Firebase Cloud Messaging) SENDER ID
 
+**API_URL** - TBD \
 **FACEBOOK_APP_ID** - TBD \
-**SERVER_URL** - TBD \
-**KEYSTORE_WEBCLIENT_ID** - This is a OAuth2.0 google client id created by Firebase. You can get it from Google Developers Console - it will be called like 'Web client (auto created by Google Service)'. Or alternatively you can read this value from google-services.json from property client.services.appinvite_service.other_platform_oauth_client.client_id\
+**GOOGLE_WEB_CLIENT_ID** - This is a OAuth2.0 google client id created by Firebase. You can get it from Google Developers Console - it will be called like 'Web client (auto created by Google Service)'. Or alternatively you can read this value from google-services.json from property client.services.appinvite_service.other_platform_oauth_client.client_id\
 **GOOGLE_MAPS_ID** - TBD \
-**SENDERID** - TBD 
+**PUSH_NOTIFICATION_SENDER_ID** - TBD 
 
 ### Build and run on Android device
 The following command will build and install the application onto your Android device. Make sure that you have a device conned or a AVD running.
@@ -98,3 +98,19 @@ Make sure you did configure a reverse proxy on your device: e.g.
     - Check if KEYSTORE_WEBCLIENT_ID is correct
     - Check if you configured google login screen (provide support email etc.)
 ![Google console screen](https://raw.githubusercontent.com/makingwaves/MakingLunch/deployment_prod/doc/google_console.png)
+
+# Issues & Contributing
+
+## Issues
+Feel free to submit issues and enhancement requests.
+
+## Contributing
+
+1. Fork the repo on GitHub
+2. Clone the project to your own machine
+3. Commit changes to your own branch
+4. Push your work back up to your fork
+5. Submit a Pull request so that we can review your changes
+---
+
+Made with ♥ by Making Waves Team 

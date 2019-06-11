@@ -4,7 +4,7 @@ import store from '../boot/store';
 import Config from 'react-native-config';
 
 const httpClient = axios.create({
-    baseURL: Config.SERVER_URL,
+    baseURL: Config.API_URL,
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
