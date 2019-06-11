@@ -3,10 +3,11 @@ import { View, Text, Image, ImageSourcePropType } from 'react-native';
 
 import { AppState } from '@app/state/state';
 import styles from './style';
-import Display from '../Display';
+
 import { AppMessage } from '@app/state/app_messages/types';
 import { connect } from 'react-redux';
 
+import AppPopupMsg from "./AppPopupMsg"
 
 interface AppPopupProps {
     messages: AppMessage[];
@@ -20,14 +21,15 @@ class AppPopup extends Component<AppPopupProps> {
 
     public render() {
         let msg = this.props.messages;
+
         return (
-            <Fragment>
+            <View style={styles.container}>
                 {
                     msg.map((v: AppMessage) => {
-                        return <Text>v.title</Text>
+                        return <AppPopupMsg key={v.id} {...v} />
                     })
                 }
-            </Fragment>
+            </ View>
         )
     }
 }
@@ -35,7 +37,6 @@ class AppPopup extends Component<AppPopupProps> {
 const mapStateToProps = (state: AppState) => ({
     messages: state.appMessages.app_messages
 });
-
 
 
 export default connect(mapStateToProps)(AppPopup);

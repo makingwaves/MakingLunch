@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 
 import { ActionUnion } from '@app/utils/redux';
 import { appMessagesActionsCreators } from "./actions"
-import { AppMessagesActions, AppMessagesState } from "./types"
+import { AppMessagesActions, AppMessagesState, AppMessage, AppMessageType } from "./types"
 
 
 const initialState: AppMessagesState = {
@@ -16,7 +16,12 @@ export const appMessagesReducer: Reducer<AppMessagesState> = (state: AppMessages
         case AppMessagesActions.SHOW_APP_MESSAGE:
             return {
                 ...state,
-                app_messages: [...state.app_messages, action.payload]
+                app_messages: [...state.app_messages.filter(m => m.id != action.payload.id), action.payload]
+            };
+        case AppMessagesActions.HIDE_APP_MESSAGE:
+            return {
+                ...state,
+                app_messages: [...state.app_messages.filter(m => m.id != action.payload)]
             };
     }
     return state;

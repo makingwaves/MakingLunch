@@ -12,6 +12,10 @@ import { authActionsCreators } from '@app/state/auth/actions';
 import { keyToString, mapDataToResponse } from '../utils/utils';
 import { facebookLoginService, accountService } from '@app/api';
 
+import { appMessagesActionsCreators } from "@app/state/app_messages/actions"
+import { AppMessageType } from '@app/state/app_messages/types';
+import { YellowBox } from 'react-native';
+
 export const TOKEN_KEY: string = 'USER_TOKEN';
 
 export interface UserData {
@@ -119,8 +123,14 @@ export function* googleLoginFlow() {
     } catch (err) {
         if (err.code === statusCodes.SIGN_IN_CANCELLED)
             yield put(authActionsCreators.requestSuccess());
-        else
+        else {
+            // yield put(appMessagesActionsCreators.showErrorMessage(
+            //     "Authentication error",
+            //     "Error when loggin in to Google Account.", null,
+            //     5000));
+
             yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
+        }
     }
 }
 

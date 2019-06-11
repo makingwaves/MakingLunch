@@ -9,8 +9,8 @@ import AppPopup from "./app/components/AppPopup/AppPopup"
 export default () => {
     return (
         <Provider store={store}>
-            <AppPopup />
             <Navigation />
+            <AppPopup />
         </Provider>
     );
 };

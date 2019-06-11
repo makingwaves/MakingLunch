@@ -17,6 +17,6 @@ export interface AppMessagesState {
 }
 
 export enum AppMessagesActions {
-    SHOW_APP_MESSAGE = "@@general/show_error_message",
-    HIDE_APP_MESSAGE = "@@general/hide_error_message"
+    SHOW_APP_MESSAGE = "@@general/show_app_message",
+    HIDE_APP_MESSAGE = "@@general/hide_app_message"
 };
