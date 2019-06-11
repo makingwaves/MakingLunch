@@ -8,7 +8,7 @@ TBD
 ## Prerequisites
 To build and run this project, you will need to setup a proper development environment. 
 
-You will need:
+**You will need:**
 1. React-Native
 2. Android SDK (for android platform)
     - SDK version: 26
@@ -39,7 +39,9 @@ TBD
     The tool will ask you to provide keys store password, key password and some other information.
 
 2. Signing configuration \
-    The file *.\android\app\build.gradle* sets up signing configuration for the app. This file refers to an external file which is NOT checked into the git repository. The file is *~/.gradle/gradle.properties* (windows: *c:\\users\\%username%\\.gradle\\gradle.properties*) on the machine used to build the app. The file contains information about where the keystore is located and what the password is. Example gradle.properties file:
+    The file `.\android\app\build.gradle` sets up signing configuration for the app. This file refers to an external file which is NOT checked into the git repository. The file is `~/.gradle/gradle.properties` (windows: `c:\\users\\%username%\\.gradle\\gradle.properties`) on the machine used to build the app. The file contains information about where the keystore is located and what the password is. 
+    
+    Example gradle.properties file:
     
         MAKINGLUNCH_STORE_FILE=<keystore_file>
         MAKINGLUNCH_STORE_PASSWORD=<keystore_password>
@@ -59,7 +61,7 @@ TBD
 2. Download generated google-services.json file from Firebase to **MakingLunch\android\app**
 
 ### Setup environment variables
-Create a .env file in the MakingLunch directory:
+Create a .env file in the MakingLunch directory: 
 
     API_URL=<backend server url>
     FACEBOOK_APP_ID=<facebook app id>
@@ -67,20 +69,20 @@ Create a .env file in the MakingLunch directory:
     GOOGLE_MAPS_API_KEY=<google maps api key>
     PUSH_NOTIFICATION_SENDER_ID=<sender id> 
 
-**API_URL** - TBD \
-**FACEBOOK_APP_ID** - TBD \
-**GOOGLE_WEB_CLIENT_ID** - This is a OAuth2.0 google client id created by Firebase. You can get it from Google Developers Console - it will be called like 'Web client (auto created by Google Service)'. Or alternatively you can read this value from google-services.json from property client.services.appinvite_service.other_platform_oauth_client.client_id\
-**GOOGLE_MAPS_API_KEY** - This is API key that you generate using the Google Cloud Platform Console. Each time you use Google Maps Platform products, you must include an API key to validate your request.
-**PUSH_NOTIFICATION_SENDER_ID** - This is FCM (Firebase Cloud Messaging) sender id. A unique numerical value created when you create your Firebase project.
+- **API_URL** - This is a URL to API service (backend). 
+- **FACEBOOK_APP_ID** - This is a unique number that identifies app in facebook. It is needed for Facebook Login.
+- **GOOGLE_WEB_CLIENT_ID** - This is a OAuth2.0 google client id created by Firebase. You can get it from Google Developers Console - it will be called like 'Web client (auto created by Google Service)'. Or alternatively you can read this value from google-services.json from property client.services.appinvite_service.other_platform_oauth_client.client_id\
+- **GOOGLE_MAPS_API_KEY** - This is API key that you generate using the Google Cloud Platform Console. Each time you use Google Maps Platform products, you must include an API key to validate your request.
+- **PUSH_NOTIFICATION_SENDER_ID** - This is FCM (Firebase Cloud Messaging) sender id. A unique numerical value created when you create your Firebase project.
 
 ### Build and run on Android device
 The following command will build and install the application onto your Android device. Make sure that you have a device conned or a AVD running.
 
-Debug version:
+**Debug version:**
 
     $ react-native run-android
 
-Relese version:
+**Relese version:**
 
     $ react-native run-android --variant=relese
 
