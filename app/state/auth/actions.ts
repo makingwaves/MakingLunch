@@ -7,5 +7,5 @@ export const authActionsCreators = {
     clearToken: () => makeAction(AuthActions.CLEAR_TOKEN),
     startRequest: () => makeAction(AuthActions.START_REQUEST),
     requestSuccess: () => makeAction(AuthActions.REQUEST_SUCCESS),
-    requestFail: (errorMsg: string) => makeAction(AuthActions.REQUEST_FAIL, errorMsg),
+    requestFail: () => makeAction(AuthActions.REQUEST_FAIL),
 };

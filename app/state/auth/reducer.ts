@@ -53,8 +53,7 @@ export const authReducer: Reducer<AuthState> = (state: AuthState = initialState,
             return {
                 ...state,
                 request: {
-                    state: RequestState.failed,
-                    errorMsg: action.payload,
+                    state: RequestState.failed
                 },
             };
         default:

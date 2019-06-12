@@ -5,7 +5,7 @@ import { generalActionsCreators } from "./actions"
 import { GeneralState, GeneralActions } from "./types"
 
 const initialState: GeneralState = {
-    network_connection_state: false
+    network_connection_state: null
 };
 
 type GeneralAction = ActionUnion<typeof generalActionsCreators>;

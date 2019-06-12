@@ -6,7 +6,7 @@ import { appMessagesActionsCreators } from "../../state/app_messages/actions"
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
 
 export function* addAppMessage({ payload }: { type: string, payload: AppMessage }) {
-    if (payload.duration !== null) {
+    if (payload.duration) {
         yield delay(payload.duration);
         yield put(appMessagesActionsCreators.hideAppMessage(payload.id));
     }

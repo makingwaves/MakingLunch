@@ -29,7 +29,7 @@ xdescribe('logoutSaga', () => {
             it(`should put ${AuthActions.REQUEST_FAIL} with custom error message`, () => {
                 expect(logoutGen.throw({}).value)
                     .toEqual(
-                        put(authActionsCreators.requestFail('Error when trying to logout.'))
+                        put(authActionsCreators.requestFail())
                     );
             });
 
@@ -39,7 +39,7 @@ xdescribe('logoutSaga', () => {
                 };
                 expect(logoutGen.throw(error).value)
                     .toEqual(
-                        put(authActionsCreators.requestFail(error.message))
+                        put(authActionsCreators.requestFail())
                     );
             });
         });

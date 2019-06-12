@@ -35,7 +35,7 @@ xdescribe('loginSaga', () => {
             it(`should put ${AuthActions.REQUEST_FAIL} with custom error message`, () => {
                 expect(facebookFlowGen.throw({}).value)
                     .toEqual(
-                        put(authActionsCreators.requestFail('Error when loggin in to Facebook.'))
+                        put(authActionsCreators.requestFail())
                     );
             });
 
@@ -45,7 +45,7 @@ xdescribe('loginSaga', () => {
                 };
                 expect(facebookFlowGen.throw(error).value)
                     .toEqual(
-                        put(authActionsCreators.requestFail(error.message))
+                        put(authActionsCreators.requestFail())
                     );
             });
         });
@@ -189,7 +189,7 @@ xdescribe('loginSaga', () => {
             it(`should put ${AuthActions.REQUEST_FAIL} with custom error message`, () => {
                 expect(googleFlowGen.throw({}).value)
                     .toEqual(
-                        put(authActionsCreators.requestFail('Error when loggin in to Google Account.'))
+                        put(authActionsCreators.requestFail())
                     );
             });
 
@@ -199,7 +199,7 @@ xdescribe('loginSaga', () => {
                 };
                 expect(googleFlowGen.throw(error).value)
                     .toEqual(
-                        put(authActionsCreators.requestFail(error.message))
+                        put(authActionsCreators.requestFail())
                     );
             });
         });

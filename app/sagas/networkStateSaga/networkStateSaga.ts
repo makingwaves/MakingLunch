@@ -2,7 +2,10 @@ import { eventChannel } from 'redux-saga';
 import { call, take, put, select } from 'redux-saga/effects';
 import { NetInfo } from 'react-native';
 import { generalActionsCreators } from "../../state/general/actions";
+import { appMessagesActionsCreators } from "../../state/app_messages/actions";
 import { getNetworkConnection } from "../../state/general/selectors";
+
+const NO_NETWORK_MSG_ID = "no_network_warning"
 
 function networkStateChannelFactory() {
     return eventChannel(emitter => {
@@ -21,7 +24,6 @@ function networkStateChannelFactory() {
 export function* networkStateSaga() {
 
     const channel = yield call(networkStateChannelFactory);
-    console.log("No network !!!");
 
     while (true) {
         const isConnected = yield take(channel);
@@ -29,9 +31,14 @@ export function* networkStateSaga() {
 
         if (lastConnectionStatus !== isConnected) {
             if (!isConnected) {
-                console.log("No network !!!");
+                yield put(appMessagesActionsCreators.showWarningMessage({
+                    id: NO_NETWORK_MSG_ID,
+                    title: "Network",
+                    message: "No network connection !"
+                }));
+
             } else {
-                console.log("Some network !");
+                yield put(appMessagesActionsCreators.hideAppMessage(NO_NETWORK_MSG_ID));
             }
         }
 

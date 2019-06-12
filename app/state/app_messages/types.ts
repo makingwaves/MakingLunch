@@ -1,5 +1,6 @@
 export enum AppMessageType {
-    Information = 1,
+    Success = 1,
+    Information,
     Warning,
     Error
 };

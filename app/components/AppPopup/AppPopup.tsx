@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import { View, Text, Image, ImageSourcePropType } from 'react-native';
+import { connect } from 'react-redux';
+import { View } from 'react-native';
+import TransitionGroup, { FadeInOutTransition } from 'react-native-transitiongroup';
 
 import { AppState } from '@app/state/state';
-import styles from './style';
-
 import { AppMessage } from '@app/state/app_messages/types';
-import { connect } from 'react-redux';
-
 import AppPopupMsg from "./AppPopupMsg"
+
+import styles from './style';
 
 interface AppPopupProps {
     messages: AppMessage[];
@@ -24,11 +24,17 @@ class AppPopup extends Component<AppPopupProps> {
 
         return (
             <View style={styles.container}>
-                {
-                    msg.map((v: AppMessage) => {
-                        return <AppPopupMsg key={v.id} {...v} />
-                    })
-                }
+                <TransitionGroup>
+                    {
+                        msg.map((v: AppMessage) => {
+                            return (
+                                <FadeInOutTransition key={`app_msg__${v.id}`}>
+                                    <AppPopupMsg key={v.id} {...v} />
+                                </FadeInOutTransition>
+                            );
+                        })
+                    }
+                </TransitionGroup>
             </ View>
         )
     }
@@ -37,6 +43,5 @@ class AppPopup extends Component<AppPopupProps> {
 const mapStateToProps = (state: AppState) => ({
     messages: state.appMessages.app_messages
 });
-
 
 export default connect(mapStateToProps)(AppPopup);

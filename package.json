@@ -10,7 +10,9 @@
     "iosPostInstall": "./node_modules/react-native-maps/enable-google-maps ./ios"
   },
   "dependencies": {
+    "@types/react-native-uuid": "^1.4.0",
     "axios": "0.18.0",
+    "buffer": "^5.2.1",
     "dayjs": "1.7.8",
     "react": "16.6.1",
     "react-native": "0.57.7",
@@ -28,6 +30,7 @@
     "react-native-remote-svg": "1.3.0",
     "react-native-responsive-screen": "1.2.0",
     "react-native-secure-key-store": "2.0.0",
+    "react-native-transitiongroup": "^1.2.0",
     "react-native-uuid": "^1.4.9",
     "react-native-uuid-generator": "5.0.0",
     "react-navigation": "3.0.8",

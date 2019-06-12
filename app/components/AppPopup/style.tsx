@@ -1,4 +1,4 @@
-import { StyleSheet, YellowBox } from "react-native";
+import { StyleSheet } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import { colors, fontSizes } from "@app/config/styles";
@@ -11,7 +11,7 @@ export default StyleSheet.create({
 
         zIndex: 1001
     },
-    msg_container: {
+    message_container: {
         alignItems: 'center',
         height: hp('10%'),
         width: wp('100%'),
@@ -20,14 +20,17 @@ export default StyleSheet.create({
         paddingHorizontal: 20,
         marginBottom: 1,
     },
-    error_message: {
-        backgroundColor: colors.brandColorTetriary,
-    },
-    warning_message: {
-        backgroundColor: '#850',
+    success_message: {
+        backgroundColor: colors.success,
     },
     info_message: {
-        backgroundColor: '#aaf',
+        backgroundColor: colors.info,
+    },
+    warning_message: {
+        backgroundColor: colors.warning,
+    },
+    error_message: {
+        backgroundColor: colors.danger,
     },
     icon: {
         height: 20,

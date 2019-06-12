@@ -91,7 +91,13 @@ export function* facebookLoginFlow() {
             yield navigationService.navigate('App');
         }
     } catch (err) {
-        yield put(authActionsCreators.requestFail('Error when loggin in to Facebook.'));
+        yield put(appMessagesActionsCreators.showErrorMessage({
+            title: "Authentication error",
+            message: 'Error when loggin in to Facebook.',
+            duration: 5000
+        }));
+
+        yield put(authActionsCreators.requestFail());
     }
 }
 
@@ -124,12 +130,13 @@ export function* googleLoginFlow() {
         if (err.code === statusCodes.SIGN_IN_CANCELLED)
             yield put(authActionsCreators.requestSuccess());
         else {
-            // yield put(appMessagesActionsCreators.showErrorMessage(
-            //     "Authentication error",
-            //     "Error when loggin in to Google Account.", null,
-            //     5000));
+            yield put(appMessagesActionsCreators.showErrorMessage({
+                title: "Authentication error",
+                message: "Error when loggin in to Google Account.",
+                duration: 5000
+            }));
 
-            yield put(authActionsCreators.requestFail('Error when loggin in to Google Account.'));
+            yield put(authActionsCreators.requestFail());
         }
     }
 }

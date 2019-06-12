@@ -25,7 +25,12 @@ export enum colors {
     brandColorTetriary = '#ff5c5c',
     colorLight = '#eee6e4',
     colorLightest = '#ffffff',
-    placeholder = '#DFDFDF'
+    placeholder = '#DFDFDF',
+
+    danger = '#bb2124',
+    warning = '#ffae42',
+    info = '#5bc0de',
+    success = "#22bb33"
 }
 
 export enum borderRadius {

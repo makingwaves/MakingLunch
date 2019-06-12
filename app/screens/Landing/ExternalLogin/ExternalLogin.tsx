@@ -20,22 +20,16 @@ type ServiceType = AuthSagaActions.FACEBOOK_LOGIN | AuthSagaActions.GOOGLE_LOGIN
 const ERROR_ICON = require('./assets/error.png');
 
 interface ExternalLoginProps {
-    errorMsg: string;
     isLoading: boolean;
     externalServiceLogin: (serviceType: ServiceType) => void;
 };
 
 const ExternalLogin: FunctionComponent<ExternalLoginProps> = ({
-    externalServiceLogin, errorMsg, isLoading
+    externalServiceLogin, isLoading
 }) => {
     return (
         <FetchDataHelper
-            showError={!!errorMsg}
-            errorTitle={'An error has occured'}
-            errorDescription={errorMsg}
             isLoading={isLoading}
-            errorIcon={ERROR_ICON}
-            showErrorDuration={3000}
         >
             <View style={styles.container}>
                 <CustomButton
@@ -58,7 +52,6 @@ const ExternalLogin: FunctionComponent<ExternalLoginProps> = ({
 };
 
 const mapStateToProps = (state: AppState) => ({
-    errorMsg: state.auth.request.errorMsg,
     isLoading: state.auth.request.state === RequestState.inProgress
 });
 

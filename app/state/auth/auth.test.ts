@@ -53,7 +53,7 @@ describe('auth reducer', () => {
         });
         test(AuthActions.REQUEST_FAIL, () => {
             const errorMsg = 'Shit happens';
-            expect(authActionsCreators.requestFail(errorMsg))
+            expect(authActionsCreators.requestFail())
                 .toEqual({ type: AuthActions.REQUEST_FAIL, payload: errorMsg });
         });
     });
@@ -135,7 +135,7 @@ describe('auth reducer', () => {
 
         test(`${AuthActions.REQUEST_FAIL} - should reflect request failed state`, () => {
             const errorMsg = 'Shit happens';
-            const failAction = authActionsCreators.requestFail(errorMsg);
+            const failAction = authActionsCreators.requestFail();
             Reducer(authReducer).withState(requestInProgressState).expect(failAction).toReturnState({
                 ...initialState,
                 request: {

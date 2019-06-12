@@ -6,27 +6,15 @@ import ScreenLoader from '@app/components/ScreenLoader';
 
 export interface FetchDataHelper {
     children: ReactNode;
-    showError: boolean;
     isLoading: boolean;
-    errorTitle: string;
-    errorIcon?: ImageSourcePropType;
-    errorDescription?: string;
-    showErrorDuration?: number;
 };
 
 const FetchDataHelper: FunctionComponent<FetchDataHelper> = ({
-    errorTitle, errorDescription, errorIcon, showErrorDuration, showError, isLoading, children
+    isLoading, children
 }) => {
     return (
         <Fragment>
             <ScreenLoader isVisible={isLoading} />
-            <ErrorPopup
-                showError={showError}
-                title={errorTitle}
-                description={errorDescription}
-                iconUrl={errorIcon}
-                showDuration={showErrorDuration}
-            />
             {children}
         </Fragment>
     )

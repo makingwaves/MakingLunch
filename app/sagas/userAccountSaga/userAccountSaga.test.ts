@@ -33,7 +33,7 @@ xdescribe('userAccountSaga', () => {
             it(`should put ${AuthActions.REQUEST_FAIL} with custom error message`, () => {
                 expect(getUserDataGen.throw({}).value)
                     .toEqual(
-                        put(authActionsCreators.requestFail('Error when trying to fetch user data.'))
+                        put(authActionsCreators.requestFail())
                     );
             });
 
@@ -43,7 +43,7 @@ xdescribe('userAccountSaga', () => {
                 };
                 expect(getUserDataGen.throw(error).value)
                     .toEqual(
-                        put(authActionsCreators.requestFail(error.message))
+                        put(authActionsCreators.requestFail())
                     );
             });
         });
@@ -110,7 +110,7 @@ xdescribe('userAccountSaga', () => {
             it(`should put ${AuthActions.REQUEST_FAIL} with custom error message`, () => {
                 expect(updateUserDataGen.throw({}).value)
                     .toEqual(
-                        put(authActionsCreators.requestFail('Error when trying to update user data.'))
+                        put(authActionsCreators.requestFail())
                     );
             });
 
@@ -120,7 +120,7 @@ xdescribe('userAccountSaga', () => {
                 };
                 expect(updateUserDataGen.throw(error).value)
                     .toEqual(
-                        put(authActionsCreators.requestFail(error.message))
+                        put(authActionsCreators.requestFail())
                     );
             });
         });
