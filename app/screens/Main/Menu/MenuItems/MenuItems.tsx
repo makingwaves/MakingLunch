@@ -4,7 +4,7 @@ import styles from './style';
 
 import Avatar from '@app/components/Avatar';
 import { colors } from '@app/config/styles';
-import { Profile } from '@app/state/auth/types';
+import { Profile} from "@app/state/profile/types";
 import CustomButton from '@app/components/CustomButton';
 import { navigationService } from '@app/services';
 

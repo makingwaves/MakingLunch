@@ -158,10 +158,8 @@ export enum LunchActions {
     ADD_LOADED_CHAT_MESSAGES = '@@lunches/add_loaded_chat_messages',
     UPDATE_CHAT_MESSAGE = '@@lunches/UPDATE_CHAT_MESSAGE',
     REMOVE_CHAT_MESSAGE = '@@lunches/remove_chat_message',
-    START_REQUEST = '@@lunches/start_request',
-    REQUEST_SUCCESS = '@@lunches/request_success',
-    REQUEST_FAIL = '@@lunches/request_fail',
-    CLEAR_ERROR_MESSAGE = '@@lunches/clear_error_message'
+    CLEAR_ERROR_MESSAGE = '@@lunches/clear_error_message',
+    SET_LUNCHES_REQUEST_STATUS = 'LUNCHES/SET_LUNCHES_REQUEST_STATUS',
 }
 
 export enum LunchSagaActions {

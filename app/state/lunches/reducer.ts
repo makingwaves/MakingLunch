@@ -239,30 +239,11 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
                         }
                     }
                 }
-            }
-        case LunchActions.START_REQUEST:
-            return {
-                ...state,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
             };
-        case LunchActions.REQUEST_SUCCESS:
+        case LunchActions.SET_LUNCHES_REQUEST_STATUS:
             return {
                 ...state,
-                request: {
-                    state: RequestState.succeeded,
-                    errorMsg: '',
-                },
-            };
-        case LunchActions.REQUEST_FAIL:
-            return {
-                ...state,
-                request: {
-                    state: RequestState.failed,
-                    errorMsg: action.payload,
-                },
+                request: action.payload,
             };
         case LunchActions.CLEAR_ERROR_MESSAGE:
             return {

@@ -1,13 +1,14 @@
 import { fork, all } from "redux-saga/effects";
-
+import { watchAuthSagas } from "@app/sagas/user/auth/hooks";
+import { watchProfileSagas } from "@app/sagas/user/profile/hooks";
 import { chatSaga } from "./chatSaga/chatSaga";
-import { loginSaga } from "./loginSaga/loginSaga";
-import { logoutSaga } from "./logoutSaga/logoutSaga";
 import { lunchesSaga } from "./lunchesSaga/lunchesSaga";
-import { userAccountSaga } from "./userAccountSaga/userAccountSaga";
 
 const sagas = [
-    loginSaga, userAccountSaga, logoutSaga, lunchesSaga, chatSaga
+    watchAuthSagas,
+    watchProfileSagas,
+
+     lunchesSaga, chatSaga
 ].map(s => fork(s));
 
 export default function* () {

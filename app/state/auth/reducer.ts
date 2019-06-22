@@ -1,63 +1,62 @@
-import { Reducer } from 'redux';
-
-import { ActionUnion } from '@app/utils/redux';
-import { RequestState } from '../common/types';
 import { authActionsCreators } from './actions';
 import { AuthActions, AuthState } from './types';
+import {createReducer, GenericReducer} from "@app/state/common/reducers";
+import { ActionWithPayload, Request, RequestState, ActionUnion } from "@app/state/common/types";
+
+type AuthActionUnion = ActionUnion<typeof authActionsCreators>;
 
 const initialState: AuthState = {
-    request: {
+    loginRequest: {
         state: RequestState.none,
         errorMsg: '',
     },
-    profile: null,
+    logoutRequest: {
+        state: RequestState.none,
+        errorMsg: '',
+    },
     token: null,
 };
 
-type AuthAction = ActionUnion<typeof authActionsCreators>;
+class AuthReducer extends GenericReducer<AuthState, AuthActionUnion, AuthActions> {
 
-export const authReducer: Reducer<AuthState> = (state = initialState, action: AuthAction) => {
-    switch (action.type) {
-        case AuthActions.SET_PROFILE:
-            return {
-                ...state,
-                profile: action.payload,
-            };
-        case AuthActions.SET_TOKEN:
-            return {
-                ...state,
-                token: action.payload,
-            };
-        case AuthActions.CLEAR_TOKEN:
-            return {
-                ...state,
-                token: null,
-            };
-        case AuthActions.START_REQUEST:
-            return {
-                ...state,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
-            };
-        case AuthActions.REQUEST_SUCCESS:
-            return {
-                ...state,
-                request: {
-                    state: RequestState.succeeded,
-                    errorMsg: '',
-                },
-            };
-        case AuthActions.REQUEST_FAIL:
-            return {
-                ...state,
-                request: {
-                    state: RequestState.failed,
-                    errorMsg: action.payload,
-                },
-            };
-        default:
-            return state;
+    constructor(authState:AuthState) {
+        super(authState);
+
+        this.reducerMap.set(AuthActions.LOGIN_SET_REQUEST_STATUS, this.setLoginRequestStatus);
+        this.reducerMap.set(AuthActions.LOGOUT_SET_REQUEST_STATUS, this.setLogoutRequestStatus);
+        this.reducerMap.set(AuthActions.SET_TOKEN, this.setToken);
+        this.reducerMap.set(AuthActions.CLEAR_TOKEN, this.clearToken);
     }
-};
+
+    private setLoginRequestStatus = (state: AuthState, action: ActionWithPayload<Request>) : AuthState => {
+        return {
+            ...state,
+            loginRequest: action.payload
+        }
+    };
+
+    private setLogoutRequestStatus = (state: AuthState, action: ActionWithPayload<Request>) : AuthState => {
+        return {
+            ...state,
+            logoutRequest: action.payload
+        }
+    };
+
+    private setToken = (state: AuthState, action: ActionWithPayload<string>) : AuthState => {
+        return {
+            ...state,
+            token: action.payload
+        }
+    };
+
+    private clearToken = (state: AuthState) : AuthState => {
+        return {
+            ...state,
+            token: null
+        }
+    };
+
+}
+
+export const authReducer = createReducer(new AuthReducer(initialState));
+

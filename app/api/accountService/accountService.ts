@@ -1,7 +1,7 @@
 
 import httpClient from '@app/config/axios';
 
-import { Profile } from '@app/state/auth/types';
+import { Profile } from "@app/state/profile/types";
 import { ErrorResponse } from '@app/services/errorHandleService/errorHandleService';
 import { ErrorHandleService } from '@app/services';
 
@@ -27,14 +27,6 @@ class AccountService extends ErrorHandleService {
 
     public getUserData(): Promise<Profile | ErrorResponse> {
         return httpClient.get<Profile>('/api/Account')
-            .then(res => res.data)
-            .catch(err => this.getErrorMessage(err, 'An error occured while trying to fetch User Data.'));
-    }
-
-    public getUserDataWithToken(token: string): Promise<Profile | ErrorResponse> {
-        return httpClient.get<Profile>('/api/Account', {
-            headers: { Authorization: `Bearer ${token}` }
-        })
             .then(res => res.data)
             .catch(err => this.getErrorMessage(err, 'An error occured while trying to fetch User Data.'));
     }

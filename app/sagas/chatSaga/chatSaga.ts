@@ -11,7 +11,7 @@ export interface GetLunchChatData {
     lunchId: string;
     lazyLoaded: boolean;
     currentPage: number;
-};
+}
 
 export function* generateUUID() {
     try {
@@ -56,7 +56,7 @@ export const getRemovedMessageData = (lunchId: string, uuid: string): RemoveChat
     };
 };
 
-export const getUserId = (store: AppState) => store.auth.profile.id;
+export const getUserId = (store: AppState) => store.profile.profile.id;
 
 export function* getLunchChatFlow({ payload }: { type: string, payload: GetLunchChatData }) {
     try {

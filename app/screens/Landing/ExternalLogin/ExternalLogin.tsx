@@ -15,7 +15,7 @@ export enum socialTypes {
     google = 'Google',
 };
 
-type ServiceType = AuthSagaActions.FACEBOOK_LOGIN | AuthSagaActions.GOOGLE_LOGIN;
+type ServiceType = AuthSagaActions.facebookLogin | AuthSagaActions.googleLogin;
 
 const ERROR_ICON = require('./assets/error.png');
 
@@ -40,14 +40,14 @@ const ExternalLogin: FunctionComponent<ExternalLoginProps> = ({
             <View style={styles.container}>
                 <CustomButton
                     text={'Start with Facebook'}
-                    onPress={() => externalServiceLogin(AuthSagaActions.FACEBOOK_LOGIN)}
+                    onPress={() => externalServiceLogin(AuthSagaActions.facebookLogin)}
                     iconContainerColor={'#4280cb'}
                     buttonStyles={[styles.fbButtonStyle, styles.buttonStyles]}
                     imageType={socialTypes.facebook}
                 />
                 <CustomButton
                     text={'Start with Google'}
-                    onPress={() => externalServiceLogin(AuthSagaActions.GOOGLE_LOGIN)}
+                    onPress={() => externalServiceLogin(AuthSagaActions.googleLogin)}
                     iconContainerColor={'#e65252'}
                     buttonStyles={[styles.googleButtonStyle, styles.buttonStyles]}
                     imageType={socialTypes.google}

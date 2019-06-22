@@ -17,6 +17,7 @@ import {
     UpdateChatMessagePayload,
     RemoveChatMessagePayload,
 } from './types';
+import {Request} from "@app/state/common/types";
 
 export const lunchesActionsCreators = {
     setLunches: (lunchesPayload: LunchesMap) => makeAction(LunchActions.SET_LUNCHES, lunchesPayload),
@@ -38,8 +39,6 @@ export const lunchesActionsCreators = {
         makeAction(LunchActions.ADD_CHAT_MESSAGE, messagePayload),
     updateChatMessage: (messagePayload: UpdateChatMessagePayload) => makeAction(LunchActions.UPDATE_CHAT_MESSAGE, messagePayload),
     removeChatMessage: (messagePayload: RemoveChatMessagePayload) => makeAction(LunchActions.REMOVE_CHAT_MESSAGE, messagePayload),
-    startRequest: () => makeAction(LunchActions.START_REQUEST),
-    requestSuccess: () => makeAction(LunchActions.REQUEST_SUCCESS),
-    requestFail: (errorMsg: string) => makeAction(LunchActions.REQUEST_FAIL, errorMsg),
-    clearErrorMessage: () => makeAction(LunchActions.CLEAR_ERROR_MESSAGE)
+    clearErrorMessage: () => makeAction(LunchActions.CLEAR_ERROR_MESSAGE),
+    setLunchesRequestStatus: (requestStatus: Request) => makeAction(LunchActions.SET_LUNCHES_REQUEST_STATUS, requestStatus),
 };

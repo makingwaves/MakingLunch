@@ -7,11 +7,14 @@ import Display from '@app/components/Display';
 import MenuItems from './MenuItems';
 import { AppState } from '@app/state/state';
 import HamburgerItem from './HamburgerItem';
-import { Profile, AuthSagaActions } from '@app/state/auth/types';
+
+import { Profile } from "@app/state/profile/types";
+import {authSagaTriggers} from "@app/sagas/user/auth/actions";
+import {ProfileSelector} from "@app/state/profile/selectors";
 
 export interface MenuProps {
     logOut: () => void;
-    userData: Profile;
+    profile: Profile;
 };
 
 export interface MenuState {
@@ -36,7 +39,7 @@ class Menu extends PureComponent<MenuProps, MenuState> {
     public render() {
         const {
             logOut,
-            userData,
+            profile,
         } = this.props;
         const {
             menuItemsVisible
@@ -45,7 +48,7 @@ class Menu extends PureComponent<MenuProps, MenuState> {
         return (
             <Fragment>
                 <Display style={styles.viewContainer} enable={menuItemsVisible} enter={'fadeInDownBig'} exit={'fadeOutUpBig'} defaultDuration={300}>
-                    <MenuItems logOut={logOut} userData={userData} />
+                    <MenuItems logOut={logOut} userData={profile} />
                 </Display>
                 <HamburgerItem onHamburgerClick={this.toggleMenuVisibility} />
             </Fragment>
@@ -54,12 +57,12 @@ class Menu extends PureComponent<MenuProps, MenuState> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    userData: state.auth.profile
+    profile: ProfileSelector.profile(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-    logOut: () => dispatch({ type: AuthSagaActions.LOGOUT })
-});
+const mapDispatchToProps = {
+    logOut: authSagaTriggers.logout
+};
 
 export default connect(
     mapStateToProps,
