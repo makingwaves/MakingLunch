@@ -3,13 +3,15 @@
 buildscript {
     ext {
         buildToolsVersion = "27.0.3"
-        minSdkVersion = 27
-        compileSdkVersion = 27
-        targetSdkVersion = 27
+        minSdkVersion = 18
+        compileSdkVersion = 28
+        targetSdkVersion = 28
         supportLibVersion = "27.0.2"
         googlePlayServicesAuthVersion = "16.0.1"
-        googlePlayServicesVersion = "15.0.1"
+        googlePlayServicesVersion = "16.1.0"
         androidMapsUtilsVersion = "0.5"
+
+
     }
     repositories {
         jcenter()
