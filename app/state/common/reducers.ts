@@ -17,7 +17,7 @@ export function createReducer<S = any, A extends Action = AnyAction, T = any>(re
     const initialState = reducerClass.getInitialState();
 
     return (state: S = initialState, action: A) => {
-        if(reducerMap.has(action.type)) {
+        if (reducerMap.has(action.type)) {
             reducerMap.get(action.type)(state, action);
         }
         return state;

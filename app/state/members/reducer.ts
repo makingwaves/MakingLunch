@@ -1,9 +1,8 @@
-import { Reducer } from 'redux';
-
-import { ActionUnion } from '@app/utils/redux';
-import { RequestState } from '../common/types';
 import { membersActionsCreators } from './actions';
-import { MembersActions, MembersState, MembersMap } from './types';
+import { MembersActions, MembersState, MembersMap, Member } from './types';
+import { GenericReducer, createReducer } from '../common/reducers';
+import { ActionWithPayload, RequestState, ActionUnion } from "@app/state/common/types";
+
 
 const initialState: MembersState = {
     request: {
@@ -13,68 +12,58 @@ const initialState: MembersState = {
     data: {},
 };
 
-type MembersAction = ActionUnion<typeof membersActionsCreators>;
+type MembersActionUnion = ActionUnion<typeof membersActionsCreators>;
 
-export const membersReducer: Reducer<MembersState> = (state: MembersState = initialState, action: MembersAction) => {
-    switch (action.type) {
-        case MembersActions.SET_MEMBER:
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    [action.payload.id]: action.payload,
-                },
-            };
-        case MembersActions.BATCH_SET_MEMBERS:
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    ...action.payload,
-                },
-            };
-        case MembersActions.REMOVE_MEMBER:
-            return {
-                ...state,
-                data: Object
-                    .keys(state.data)
-                    .reduce((accumulator: MembersMap, key) => {
-                        if (key !== action.payload) {
-                            accumulator[key] = state.data[key];
-                        }
-                        return accumulator;
-                    }, {}),
-            };
-        case MembersActions.REMOVE_ALL_MEMBERS:
-            return {
-                ...state,
-                data: {},
-            };
-        case MembersActions.START_REQUEST:
-            return {
-                ...state,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
-            };
-        case MembersActions.REQUEST_SUCCESS:
-            return {
-                ...state,
-                request: {
-                    state: RequestState.succeeded,
-                    errorMsg: '',
-                },
-            };
-        case MembersActions.REQUEST_FAIL:
-            return {
-                ...state,
-                request: {
-                    state: RequestState.failed,
-                    errorMsg: action.payload,
-                },
-            };
-        default:
-            return state;
+
+class MemberReducer extends GenericReducer<MembersState, MembersActionUnion, MembersActions> {
+
+    constructor(membersState: MembersState) {
+        super(membersState);
+
+        this.reducerMap.set(MembersActions.SET_MEMBER, this.setMember);
+        this.reducerMap.set(MembersActions.BATCH_SET_MEMBERS, this.setBatchMembers);
+        this.reducerMap.set(MembersActions.REMOVE_MEMBER, this.removeMember)
     }
-};
+
+    private setMember = (state: MembersState, action: ActionWithPayload<Member>): MembersState => {
+
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                [action.payload.id]: action.payload,
+            },
+        };
+
+    };
+
+    private setBatchMembers = (state: MembersState, action: ActionWithPayload<MembersMap>): MembersState => {
+
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                ...action.payload,
+            },
+        };
+
+    };
+
+    private removeMember = (state: MembersState, action: ActionWithPayload<string>): MembersState => {
+
+        return {
+            ...state,
+            data: Object
+                .keys(state.data)
+                .reduce((accumulator: MembersMap, key) => {
+                    if (key !== action.payload) {
+                        accumulator[key] = state.data[key];
+                    }
+                    return accumulator;
+                }, {}),
+        };
+
+    };
+}
+
+export const profileReducer = createReducer(new MemberReducer(initialState));
