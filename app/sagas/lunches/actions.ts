@@ -1,4 +1,5 @@
 import { makeAction } from '@app/utils/redux';
+import {Location, TimeSpan} from "@app/state/lunches/types";
 
 export const enum LunchesSagaTriggeringActions {
     getLunches = 'LUNCHES/SAGA/GET_LUNCHES',
@@ -8,6 +9,8 @@ export const enum LunchesSagaTriggeringActions {
 
 export const lunchesSagaTriggers = {
     getLunches: () => makeAction(LunchesSagaTriggeringActions.getLunches),
-    requestLunch: () => makeAction(LunchesSagaTriggeringActions.requestLunch),
-    cancelLunch: () => makeAction(LunchesSagaTriggeringActions.cancelLunch),
+    requestLunch: (timeSpan: TimeSpan, location: Location) => makeAction(
+        LunchesSagaTriggeringActions.requestLunch,
+        {timeSpan, location}),
+    cancelLunch: (lunchId: string) => makeAction(LunchesSagaTriggeringActions.cancelLunch, lunchId),
 };
