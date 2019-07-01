@@ -3,7 +3,7 @@ import {ChatActions, Message, MessageHashTable} from "@app/state/lunches/chat/ty
 import {Request} from "@app/state/common/types";
 
 export const chatActionsCreators = {
-    setChatMessageRequestStatus: (requestStatus: Request) => makeAction(ChatActions.SET_CHAT_MESSAGE_REQUEST_STATUS, requestStatus),
+    setChatMessageRequestStatus: (lunchId: string, requestStatus: Request) => makeAction(ChatActions.SET_CHAT_MESSAGE_REQUEST_STATUS, {lunchId, requestStatus}),
     setLoadedChatMessages: (lunchId: string, messages: MessageHashTable) => makeAction(ChatActions.SET_LOADED_CHAT_MESSAGES, {lunchId, messages}),
     addChatMessage: (lunchId: string, message: Message) => makeAction(ChatActions.ADD_CHAT_MESSAGE, {lunchId, message}),
     updateChatMessage: (lunchId: string, message: Message) => makeAction(ChatActions.UPDATE_CHAT_MESSAGE, {lunchId, message}),

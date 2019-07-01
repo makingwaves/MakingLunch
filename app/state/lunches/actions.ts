@@ -1,44 +1,28 @@
 import { makeAction } from '@app/utils/redux';
-
-import {
-    Lunch,
-    LunchActions,
-    LunchesMap,
-    AddLunchMemberPayload,
-    SetLunchLocationPayload,
-    SetLunchTimePayload,
-    UpdateLunchPayload,
-    CreateLunchPayload,
-    SetLunchCancellation,
-    SetLunchStatusPayload,
-    SetLunchChatPayload,
-    RemoveLunchMemberPayload,
-    AddChatMessagePayload,
-    UpdateChatMessagePayload,
-    RemoveChatMessagePayload,
-} from './types';
+import {Lunch, LunchesMap, LunchesActions, Location, TimeSpan} from './types';
 import {Request} from "@app/state/common/types";
 
 export const lunchesActionsCreators = {
-    setLunches: (lunchesPayload: LunchesMap) => makeAction(LunchActions.SET_LUNCHES, lunchesPayload),
-    createLunch: (lunchPayload: CreateLunchPayload) => makeAction(LunchActions.CREATE_LUNCH, lunchPayload),
-    setLunchStatus: (statusPayload: SetLunchStatusPayload) => makeAction(LunchActions.SET_LUNCH_STATUS, statusPayload),
-    setLunchCancellation: (lunchPayload: SetLunchCancellation) => makeAction(LunchActions.SET_LUNCH_CANCELLATION, lunchPayload),
-    updateLunch: (lunchPayload: UpdateLunchPayload) => makeAction(LunchActions.UPDATE_LUNCH, lunchPayload),
-    removeLunch: (lunchId: string) => makeAction(LunchActions.REMOVE_LUNCH, lunchId),
-    addLunch: (lunchPayload: Lunch) => makeAction(LunchActions.ADD_LUNCH, lunchPayload),
-    addLunchMember: (payload: AddLunchMemberPayload) =>
-        makeAction(LunchActions.ADD_LUNCH_MEMBER, payload),
-    removeLunchMember: (payload: RemoveLunchMemberPayload) => makeAction(LunchActions.REMOVE_LUNCH_MEMBER, payload),
-    setLunchLocation: (locationPayload: SetLunchLocationPayload) =>
-        makeAction(LunchActions.SET_LUNCH_LOCATION, locationPayload),
-    setLunchTime: (timePayload: SetLunchTimePayload) => makeAction(LunchActions.SET_LUNCH_TIME, timePayload),
-    setLunchChat: (chatPayload: SetLunchChatPayload) => makeAction(LunchActions.SET_LUNCH_CHAT, chatPayload),
-    addLoadedChatMessages: (chatPayload: SetLunchChatPayload) => makeAction(LunchActions.ADD_LOADED_CHAT_MESSAGES, chatPayload),
-    addChatMessage: (messagePayload: AddChatMessagePayload) =>
-        makeAction(LunchActions.ADD_CHAT_MESSAGE, messagePayload),
-    updateChatMessage: (messagePayload: UpdateChatMessagePayload) => makeAction(LunchActions.UPDATE_CHAT_MESSAGE, messagePayload),
-    removeChatMessage: (messagePayload: RemoveChatMessagePayload) => makeAction(LunchActions.REMOVE_CHAT_MESSAGE, messagePayload),
-    clearErrorMessage: () => makeAction(LunchActions.CLEAR_ERROR_MESSAGE),
-    setLunchesRequestStatus: (requestStatus: Request) => makeAction(LunchActions.SET_LUNCHES_REQUEST_STATUS, requestStatus),
+    setLunchesRequestStatus: (requestStatus: Request) => makeAction(LunchesActions.SET_LUNCHES_REQUEST_STATUS, requestStatus),
+    setLunches: (lunches: LunchesMap) => makeAction(LunchesActions.SET_LUNCHES, lunches),
+    createLunch: (lunch: Lunch) => makeAction(LunchesActions.CREATE_LUNCH, lunch),
+    removeLunch: (lunchId: string) => makeAction(LunchesActions.REMOVE_LUNCH, lunchId),
+
+    setLunchCancellation: (
+        lunchId: string,
+        setCancellation: boolean
+    ) => makeAction(LunchesActions.SET_LUNCH_CANCELLATION, {lunchId, setCancellation}),
+
+    addLunchMember: (
+        lunchId: string,
+        lunchMember: {
+            memberId: string,
+            timeSpan: TimeSpan,
+            location: Location
+        }) => makeAction(LunchesActions.ADD_LUNCH_MEMBER, { lunchId, lunchMember }),
+
+    removeLunchMember: (
+        lunchId: string,
+        memberId: string
+    ) => makeAction(LunchesActions.REMOVE_LUNCH_MEMBER, { lunchId, memberId }),
 };

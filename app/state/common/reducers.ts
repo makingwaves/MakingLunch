@@ -8,6 +8,8 @@ export abstract class GenericReducer<S = any, A extends Action = AnyAction, T = 
         this.initialState = initialState;
     }
 
+    protected defaultReducer = (state: any, action: AnyAction) => state;
+
     public getReducerMap = () => this.reducerMap;
     public getInitialState = () => this.initialState;
 }
@@ -20,6 +22,6 @@ export function createReducer<S = any, A extends Action = AnyAction, T = any>(re
         if(reducerMap.has(action.type)) {
             reducerMap.get(action.type)(state, action);
         }
-        return state;
+        return this.defaultReducer(state, action);
     };
 }
