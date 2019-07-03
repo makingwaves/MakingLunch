@@ -17,7 +17,7 @@ export interface MembersState {
 }
 
 export enum MembersActions {
-    SET_MEMBER = '@@members/set_member',
-    BATCH_SET_MEMBERS = '@@members/batch_set_members',
-    REMOVE_MEMBER = '@@members/delete_member'
+    SET_MEMBER = 'MEMBERS/SET_MEMBER',
+    BATCH_SET_MEMBERS = 'MEMBERS/BATCH_SET_MEMBERS',
+    REMOVE_MEMBER = 'MEMBERS/DELETE_MEMBER'
 }

@@ -1,7 +1,7 @@
 import { membersActionsCreators } from './actions';
-import { MembersActions, MembersState, MembersMap, Member } from './types';
+import { MembersActions, MembersState, MembersMap } from './types';
 import { GenericReducer, createReducer } from '../common/reducers';
-import { ActionWithPayload, RequestState, ActionUnion } from "@app/state/common/types";
+import { RequestState, ActionUnion } from "@app/state/common/types";
 
 
 const initialState: MembersState = {
@@ -25,7 +25,7 @@ class MemberReducer extends GenericReducer<MembersState, MembersActionUnion, Mem
         this.reducerMap.set(MembersActions.REMOVE_MEMBER, this.removeMember)
     }
 
-    private setMember = (state: MembersState, action: ActionWithPayload<Member>): MembersState => {
+    private setMember = (state: MembersState, action: ReturnType<typeof membersActionsCreators.setMember>): MembersState => {
 
         return {
             ...state,
@@ -37,7 +37,7 @@ class MemberReducer extends GenericReducer<MembersState, MembersActionUnion, Mem
 
     };
 
-    private setBatchMembers = (state: MembersState, action: ActionWithPayload<MembersMap>): MembersState => {
+    private setBatchMembers = (state: MembersState, action: ReturnType<typeof membersActionsCreators.batchSetMembers>): MembersState => {
 
         return {
             ...state,
@@ -49,7 +49,7 @@ class MemberReducer extends GenericReducer<MembersState, MembersActionUnion, Mem
 
     };
 
-    private removeMember = (state: MembersState, action: ActionWithPayload<string>): MembersState => {
+    private removeMember = (state: MembersState, action: ReturnType<typeof membersActionsCreators.removeMember>): MembersState => {
 
         return {
             ...state,
@@ -66,4 +66,4 @@ class MemberReducer extends GenericReducer<MembersState, MembersActionUnion, Mem
     };
 }
 
-export const profileReducer = createReducer(new MemberReducer(initialState));
+export const memberReducer = createReducer(new MemberReducer(initialState));
