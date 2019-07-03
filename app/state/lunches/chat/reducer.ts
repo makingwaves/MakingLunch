@@ -4,7 +4,7 @@ import {ActionUnion, RequestState} from "@app/state/common/types";
 import { ChatState, ChatActions } from "./types";
 import { chatActionsCreators } from "./actions";
 
-type ChatActionUnion = ActionUnion<typeof chatActionsCreators>;
+export type ChatActionUnion = ActionUnion<typeof chatActionsCreators>;
 
 const initialState: ChatState = {
     request: {
@@ -23,6 +23,8 @@ class ChatReducer extends GenericReducer<ChatState, ChatActionUnion, ChatActions
         this.reducerMap.set(ChatActions.ADD_CHAT_MESSAGE, this.addChatMessage);
         this.reducerMap.set(ChatActions.UPDATE_CHAT_MESSAGE, this.updateChatMessage);
         this.reducerMap.set(ChatActions.REMOVE_CHAT_MESSAGE, this.removeChatMessage);
+
+
     }
 
     private setLoadedChatMessages = (

@@ -17,6 +17,15 @@ export interface UserDataResponse {
     token: string; // bearer token to api
 };
 
+export interface AccountDataResponseDto {
+    id:	string
+    name: string
+    email: string
+    description: string
+    photo: string
+    meetingsNumber:	number
+}
+
 class AccountService extends ErrorHandleService {
 
     public sendUserData(data: UserDataRequest): Promise<UserDataResponse | ErrorResponse> {
@@ -25,8 +34,8 @@ class AccountService extends ErrorHandleService {
             .catch(err => this.getErrorMessage(err, 'An Error occurred while trying to login.'));
     }
 
-    public getUserData(): Promise<Profile | ErrorResponse> {
-        return httpClient.get<Profile>('/api/Account')
+    public getUserData(): Promise<AccountDataResponseDto | ErrorResponse> {
+        return httpClient.get<AccountDataResponseDto>('/api/Account')
             .then(res => res.data)
             .catch(err => this.getErrorMessage(err, 'An error occured while trying to fetch User Data.'));
     }

@@ -28,21 +28,21 @@ class AuthReducer extends GenericReducer<AuthState, AuthActionUnion, AuthActions
         this.reducerMap.set(AuthActions.CLEAR_TOKEN, this.clearToken);
     }
 
-    private setLoginRequestStatus = (state: AuthState, action: ActionWithPayload<Request>) : AuthState => {
+    private setLoginRequestStatus = (state: AuthState, action: ReturnType<typeof authActionsCreators.loginSetRequestStatus>) : AuthState => {
         return {
             ...state,
             loginRequest: action.payload
         }
     };
 
-    private setLogoutRequestStatus = (state: AuthState, action: ActionWithPayload<Request>) : AuthState => {
+    private setLogoutRequestStatus = (state: AuthState, action: ReturnType<typeof authActionsCreators.loginSetRequestStatus>) : AuthState => {
         return {
             ...state,
             logoutRequest: action.payload
         }
     };
 
-    private setToken = (state: AuthState, action: ActionWithPayload<string>) : AuthState => {
+    private setToken = (state: AuthState, action: ReturnType<typeof authActionsCreators.setToken>) : AuthState => {
         return {
             ...state,
             token: action.payload

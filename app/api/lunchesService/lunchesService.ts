@@ -1,13 +1,11 @@
-import httpClient from '@app/config/axios';
+import api from '@app/config/axios';
+import {AxiosResponse} from "axios";
 
-import { MembersMap } from '@app/state/members/types';
-import { BasicProfile } from '@app/state/auth/types';
-import { Location, TimeSpan } from '@app/state/lunches/types';
-import { LunchesMap, CreateLunchPayload } from "@app/state/lunches/types";
 import ErrorHandleService, { ErrorResponse } from '@app/services/errorHandleService/errorHandleService';
-import { normalizePostedLunchRequest, normalizeLunchesRequest, normalizeMeetingsRequest, normalizeLunchRequest, normalizeLunchesAndMeetingsRequest } from '@app/sagas/lunchesSaga/normalizers';
+import { AccountDataResponseDto} from "@app/api/accountService/accountService";
+import { Location, TimeSpan } from '@app/state/lunches/types';
 
-export interface LunchBasicResponse {
+interface LunchBasicResponseDto {
     id: string;
     begin: string;
     end: string;
@@ -15,62 +13,74 @@ export interface LunchBasicResponse {
     longitude: number;
 }
 
-export interface MeetingsResponse extends LunchBasicResponse {
+interface MeetingResponseDto extends LunchBasicResponseDto {
     radiusInMeters: number;
-    user: BasicProfile;
-};
+    user: AccountDataResponseDto;
+}
 
-export interface LunchResponseDto extends LunchBasicResponse {
-    radiusInMeters: number;
-    guests: MeetingsResponse[];
-};
+interface LunchResponseDto extends LunchBasicResponseDto {
+    guests: MeetingResponseDto[];
+}
 
-export interface MeetingRequest extends Location, TimeSpan { };
+interface LunchDto extends LunchBasicResponseDto {
+    membersLunchRequests: MeetingResponseDto[]
+}
 
-export interface LunchesResponse {
-    lunches: LunchesMap;
-    members: MembersMap;
-};
+function mapMeetingToCorrectLunch(meetingResponseDto: MeetingResponseDto): LunchDto {
+    return ({
+        id: meetingResponseDto.id,
+        begin: meetingResponseDto.begin,
+        end: meetingResponseDto.end,
+        latitude: meetingResponseDto.latitude,
+        longitude: meetingResponseDto.longitude,
+        membersLunchRequests: [meetingResponseDto]
+    })
+}
+
+function mapLunchToCorrectLunch(lunchesResponseDto: LunchResponseDto): LunchDto {
+    return ({
+        id: lunchesResponseDto.id,
+        begin: lunchesResponseDto.begin,
+        end: lunchesResponseDto.end,
+        latitude: lunchesResponseDto.latitude,
+        longitude: lunchesResponseDto.longitude,
+        membersLunchRequests: lunchesResponseDto.guests
+    })
+}
+
+
 
 class LunchesService extends ErrorHandleService {
-    public postLunch(payload: MeetingRequest): Promise<CreateLunchPayload | ErrorResponse> {
-        return httpClient.post<MeetingsResponse>('/api/Meetings', payload)
-            .then(res => normalizePostedLunchRequest(res.data))
-            .catch(err => this.getErrorMessage(err, 'An error occured while trying to add Lunch.'))
-    }
+    public sendRequestLunch = (location: Location, timeSpan: TimeSpan): Promise<LunchDto| ErrorResponse> => {
+        return api.post<MeetingResponseDto>('/api/Meetings/')
+            .then(response => response.data)
+            .then(mapMeetingToCorrectLunch)
+            .catch(err => this.getErrorMessage(err, 'An Error occurred while trying to send lunch request.'));
+    };
+    public cancelRequestLunch = (lunchId: string): Promise<void| ErrorResponse> => {
+        return api.delete('/api/Meetings/' + lunchId).then(response => response.data)
+                  .catch(err => this.getErrorMessage(err, 'An Error occurred while trying to cancel lunch.'));
 
-    public getLunches(): Promise<LunchesResponse | ErrorResponse> {
-        return Promise.all([
-            this.getMeetings(),
-            this.getLunchesAndMembers()
-        ])
-            .then(([meetings, lunches]: [LunchesResponse, LunchesResponse]) => normalizeLunchesAndMeetingsRequest(meetings, lunches))
-            .catch((err: any) => this.getErrorMessage(err, err.message))
-    }
+    };
+    public getAllLunches = (): Promise<LunchDto[]| ErrorResponse> => {
+         return Promise.all<AxiosResponse<MeetingResponseDto[]>, AxiosResponse<LunchResponseDto[]>>([
+            api.get('/api/Meetings?onlyUnassigned=true'),
+            api.get('/api/Lunches'),
+        ]).then(([meetingsResponse, lunchesResponse])=> {
 
-    public getSingleLunch(lunchId: string): Promise<any> {
-        return httpClient.get<LunchResponseDto>('/api/Lunches/' + lunchId)
-            .then(res => normalizeLunchRequest(res.data))
-            .catch(err => this.getErrorMessage(err, 'An error occured while trying to get Single Lunch.'));
-    }
+            const requestsOfLunches:LunchDto[] = meetingsResponse.data.map(mapMeetingToCorrectLunch);
+            const drwanLunches:LunchDto[] = lunchesResponse.data.map( mapLunchToCorrectLunch);
 
-    public deleteMeetingRequest(meetingId: string): Promise<object | ErrorResponse> {
-        return httpClient.delete('/api/Meetings/' + meetingId)
-            .then(res => res.data)
-            .catch(err => this.getErrorMessage(err, 'An error occured while trying to cancel lunch.'))
-    }
+            return [...requestsOfLunches, ...drwanLunches];
+        }).catch(err => this.getErrorMessage(err, 'An Error occurred while trying to get all lunches.'));
+    };
 
-    private getMeetings(): Promise<LunchesResponse | ErrorResponse> {
-        return httpClient.get<MeetingsResponse[]>('/api/Meetings?onlyUnassigned=true')
-            .then(res => normalizeMeetingsRequest(res.data))
-            .catch(err => this.getErrorMessage(err, 'An error occured while trying to get Lunches.'))
-    }
-
-    private getLunchesAndMembers(): Promise<LunchesResponse | ErrorResponse> {
-        return httpClient.get<LunchResponseDto[]>('/api/Lunches')
-            .then(res => normalizeLunchesRequest(res.data))
-            .catch(err => this.getErrorMessage(err, 'An error occured while trying to get Lunches.'))
-    }
+    public getLunch = (lunchId: string): Promise<LunchDto| ErrorResponse>  => {
+        return api.get<LunchResponseDto>('/api/Lunches/' + lunchId)
+            .then(response => response.data)
+            .then(mapLunchToCorrectLunch)
+            .catch(err => this.getErrorMessage(err, 'An Error occurred while trying to get lunch.'));
+    };
 }
 
 const lunchesService = new LunchesService;
