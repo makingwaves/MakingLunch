@@ -1,5 +1,5 @@
 import { ChatMessageDto } from "@app/api/chatService/chatService";
-import { MessageStatus, Message, MessageHashTable } from "@app/state/lunches/chat/types";
+import { MessageStatus, Message, MessageHashTable } from "@app/state/chat/types";
 
 export const normalizeMessage = (data: ChatMessageDto): Message => {
     return {
@@ -9,7 +9,7 @@ export const normalizeMessage = (data: ChatMessageDto): Message => {
         message: data.content,
         status: MessageStatus.finished
     };
-}
+};
 
 export const normalizeChatMessages = (data: ChatMessageDto[]): MessageHashTable => {
     return data

@@ -18,10 +18,14 @@ export interface MessageHashTable {
     [messageId: string]: Message;
 }
 
-export type ChatState = {
+export type Chat = {
     request: Request,
     data: MessageHashTable
 };
+
+export type ChatState = {
+    [key:string]: Chat
+}
 
 export enum ChatActions {
     SET_LOADED_CHAT_MESSAGES = 'CHAT/SET_LOADED_CHAT_MESSAGES',

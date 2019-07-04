@@ -1,5 +1,4 @@
 import { Request } from '../common/types';
-import { ChatState } from "@app/state/lunches/chat/types";
 
 // --- State interfaces:
 
@@ -34,8 +33,6 @@ export interface Lunch {
     locations: LunchLocationMap;
     times: LunchTimeMap;
     members: string[];
-    chat: ChatState;
-    isCancelling: boolean;
 }
 
 export interface LunchesMap {
@@ -57,7 +54,4 @@ export enum LunchesActions {
 
     ADD_LUNCH_MEMBER = 'LUNCHES/ADD_LUNCH_MEMBER',
     REMOVE_LUNCH_MEMBER = 'LUNCHES/REMOVE_LUNCH_MEMBER',
-
-    SET_LUNCH_CANCELLATION = 'LUNCHES/SET_LUNCH_CANCELLATION',
-
 }

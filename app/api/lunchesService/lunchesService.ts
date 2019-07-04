@@ -3,10 +3,11 @@ import {AxiosResponse} from "axios";
 
 import ErrorHandleService, { ErrorResponse } from '@app/services/errorHandleService/errorHandleService';
 import { AccountDataResponseDto} from "@app/api/accountService/accountService";
-import { Location, TimeSpan } from '@app/state/lunches/types';
+import {Location, LunchStatus, TimeSpan} from '@app/state/lunches/types';
 
 interface LunchBasicResponseDto {
     id: string;
+    status: LunchStatus,
     begin: string;
     end: string;
     latitude: number;
@@ -22,29 +23,31 @@ interface LunchResponseDto extends LunchBasicResponseDto {
     guests: MeetingResponseDto[];
 }
 
-interface LunchDto extends LunchBasicResponseDto {
-    membersLunchRequests: MeetingResponseDto[]
+export interface LunchDto extends LunchBasicResponseDto {
+    lunchRequests: MeetingResponseDto[]
 }
 
 function mapMeetingToCorrectLunch(meetingResponseDto: MeetingResponseDto): LunchDto {
     return ({
         id: meetingResponseDto.id,
+        status: LunchStatus.pending,
         begin: meetingResponseDto.begin,
         end: meetingResponseDto.end,
         latitude: meetingResponseDto.latitude,
         longitude: meetingResponseDto.longitude,
-        membersLunchRequests: [meetingResponseDto]
+        lunchRequests: [meetingResponseDto]
     })
 }
 
 function mapLunchToCorrectLunch(lunchesResponseDto: LunchResponseDto): LunchDto {
     return ({
         id: lunchesResponseDto.id,
+        status: LunchStatus.running,
         begin: lunchesResponseDto.begin,
         end: lunchesResponseDto.end,
         latitude: lunchesResponseDto.latitude,
         longitude: lunchesResponseDto.longitude,
-        membersLunchRequests: lunchesResponseDto.guests
+        lunchRequests: lunchesResponseDto.guests
     })
 }
 

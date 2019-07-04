@@ -8,11 +8,6 @@ export const lunchesActionsCreators = {
     createLunch: (lunch: Lunch) => makeAction(LunchesActions.CREATE_LUNCH, lunch),
     removeLunch: (lunchId: string) => makeAction(LunchesActions.REMOVE_LUNCH, lunchId),
 
-    setLunchCancellation: (
-        lunchId: string,
-        setCancellation: boolean
-    ) => makeAction(LunchesActions.SET_LUNCH_CANCELLATION, {lunchId, setCancellation}),
-
     addLunchMember: (
         lunchId: string,
         lunchMember: {

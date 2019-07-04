@@ -66,4 +66,4 @@ class MemberReducer extends GenericReducer<MembersState, MembersActionUnion, Mem
     };
 }
 
-export const memberReducer = createReducer(new MemberReducer(initialState));
+export const membersReducer = createReducer(new MemberReducer(initialState));

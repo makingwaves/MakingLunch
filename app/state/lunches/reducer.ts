@@ -3,7 +3,6 @@ import {RequestState} from '../common/types';
 import {lunchesActionsCreators} from './actions';
 import {LunchesActions, LunchesState} from './types';
 import {createReducer, GenericReducer} from "@app/state/common/reducers";
-import {ChatActionUnion, chatReducer} from "@app/state/lunches/chat/reducer";
 
 type LunchesActionUnion = ActionUnion<typeof lunchesActionsCreators>;
 
@@ -26,18 +25,6 @@ class LunchesReducer extends GenericReducer<LunchesState, LunchesActionUnion, Lu
         this.reducerMap.set(LunchesActions.REMOVE_LUNCH, this.removeLunch);
         this.reducerMap.set(LunchesActions.ADD_LUNCH_MEMBER, this.addLunchMember);
         this.reducerMap.set(LunchesActions.REMOVE_LUNCH_MEMBER, this.removeLunchMember);
-
-        this.defaultReducer = this.handleChat;
-    }
-
-    private handleChat(state: LunchesState, action: ChatActionUnion) {
-        return {
-            ...state,
-            data: {
-                ...state.data[action.payload.lunchId],
-                chat: chatReducer(state.data[action.payload.lunchId].chat, action)
-            }
-        }
     }
 
     private setLunchesRequestStatus = (

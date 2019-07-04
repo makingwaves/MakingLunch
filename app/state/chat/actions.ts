@@ -1,5 +1,5 @@
 import {makeAction} from "@app/state/common/actionCreators";
-import {ChatActions, Message, MessageHashTable} from "@app/state/lunches/chat/types";
+import {ChatActions, Message, MessageHashTable} from "@app/state/chat/types";
 import {Request} from "@app/state/common/types";
 
 export const chatActionsCreators = {
