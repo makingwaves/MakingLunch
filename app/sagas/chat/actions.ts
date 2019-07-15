@@ -1,6 +1,6 @@
 import { makeAction } from '@app/utils/redux';
 
-export const enum ChatSagaTriggeringActions {
+export enum ChatSagaTriggeringActions {
     getChat = 'PROFILE/SAGA/GEP_PROFILE',
     sendChatMessage = 'PROFILE/SAGA/UPDATE_PROFILE',
 }

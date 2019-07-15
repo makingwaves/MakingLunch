@@ -1,7 +1,7 @@
 import { makeAction } from '@app/utils/redux';
 import {Profile} from "@app/state/profile/types";
 
-export const enum ProfileSagaTriggeringActions {
+export enum ProfileSagaTriggeringActions {
     getProfile = 'PROFILE/SAGA/GEP_PROFILE',
     updateProfile = 'PROFILE/SAGA/UPDATE_PROFILE',
 }

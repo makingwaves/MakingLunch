@@ -1,7 +1,7 @@
 import { makeAction } from '@app/utils/redux';
 import {Location, TimeSpan} from "@app/state/lunches/types";
 
-export const enum LunchesSagaTriggeringActions {
+export enum LunchesSagaTriggeringActions {
     getLunches = 'LUNCHES/SAGA/GET_LUNCHES',
     requestLunch = 'LUNCHES/SAGA/REQUEST_LUNCH',
     cancelLunch = 'LUNCHES/SAGA/CANCEL_LUNCH',

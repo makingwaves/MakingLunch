@@ -5,10 +5,10 @@ import chatService, {ChatMessageDto} from "@app/api/chatService/chatService";
 import {chatSagaTriggers} from "@app/sagas/chat/actions";
 import {Profile} from "@app/state/profile/types";
 import {requestAction} from "@app/sagas/common/requests";
-import {chatActionsCreators} from "@app/state/lunches/chat/actions";
-import {normalizeChatMessages} from "@app/state/lunches/chat/normalizer";
+import {chatActionsCreators} from "@app/state/chat/actions";
+import {normalizeChatMessages} from "@app/state/chat/normalizer";
 import {ProfileSelector} from "@app/state/profile/selectors";
-import {Message, MessageStatus} from "@app/state/lunches/chat/types";
+import {Message, MessageStatus} from "@app/state/chat/types";
 
 export function* getChatMessagesSaga({ payload } : ReturnType<typeof chatSagaTriggers.getChat>) {
     try {
