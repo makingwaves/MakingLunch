@@ -1,6 +1,6 @@
 import { call, put, select } from "redux-saga/effects";
 import { Profile } from "@app/state/profile/types";
-import { ProfileSelector } from "@app/state/profile/selectors";
+import { profile } from "@app/state/profile/selectors";
 import { profileActionsCreators } from "@app/state/profile/actions";
 import { accountService } from "@app/api";
 import { requestAction } from "@app/sagas/common/requests";
@@ -8,7 +8,7 @@ import { profileSagaTriggers } from "@app/sagas/user/profile/actions";
 
 export function* getProfileSaga() {
     try {
-        const userProfile: Profile = yield select(ProfileSelector.profile);
+        const userProfile: Profile = yield select(profile);
 
         if (!userProfile) {
             const profileData: Profile = yield call(
