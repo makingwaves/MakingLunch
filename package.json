@@ -7,7 +7,8 @@
     "android": "react-native run-android",
     "test": "jest",
     "test:watch": "jest --watch",
-    "iosPostInstall": "./node_modules/react-native-maps/enable-google-maps ./ios"
+    "iosPostInstall": "./node_modules/react-native-maps/enable-google-maps ./ios",
+    "postinstall": "npx jetify"
   },
   "dependencies": {
     "axios": "0.18.0",
@@ -23,7 +24,7 @@
     "react-native-google-signin": "2.0.0",
     "react-native-maps": "0.24.2",
     "react-native-parallax-swiper": "1.1.7",
-    "react-native-push-notification": "3.1.2",
+    "react-native-push-notification": "^3.1.2",
     "react-native-remote-svg": "1.3.0",
     "react-native-responsive-screen": "1.2.0",
     "react-native-secure-key-store": "2.0.0",
@@ -49,6 +50,7 @@
     "babel-jest": "^24.8.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "jest": "^24.8.0",
+    "jetifier": "^1.6.3",
     "metro-react-native-babel-preset": "^0.54.1",
     "react-test-renderer": "16.8.3",
     "redux-testkit": "1.0.6",
