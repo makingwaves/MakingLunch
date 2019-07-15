@@ -2,6 +2,7 @@ package com.makingLunch;
 
 import android.app.Application;
 
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.react.ReactApplication;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.facebook.react.ReactNativeHost;
@@ -24,7 +25,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ReactNativeConfigPackage()
+          new ReactNativeConfigPackage(),
+          new RNGoogleSigninPackage() // <-- this needs to be in the list
       );
     }
 

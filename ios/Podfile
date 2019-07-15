@@ -25,6 +25,8 @@ target 'makingLunch' do
 
     pod 'react-native-config', :path => '../node_modules/react-native-config'
 
+    pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
+
   end
 
   target 'makingLunchTests' do
