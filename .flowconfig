@@ -67,8 +67,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 [version]
-<<<<<<< HEAD
-^0.78.0
-=======
 ^0.92.0
->>>>>>> pre-dev-ios-config

@@ -4,5 +4,5 @@
         xmlns:tools="http://schemas.android.com/tools"
         package="com.makingLunch">
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <application tools:targetApi="28" tools:ignore="GoogleAppIndexingWarning" android:networkSecurityConfig="@xml/react_native_config" />
+    <application tools:targetApi="28" tools:ignore="GoogleAppIndexingWarning" android:networkSecurityConfig="@xml/react_native_config" android:usesCleartextTraffic="true" />
 </manifest>

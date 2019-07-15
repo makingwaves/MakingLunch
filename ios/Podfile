@@ -21,6 +21,10 @@ target 'makingLunch' do
   target 'makingLunch-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
+
+    pod 'react-native-config', :path => '../node_modules/react-native-config'
+
   end
 
   target 'makingLunchTests' do
