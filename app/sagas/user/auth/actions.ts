@@ -1,6 +1,6 @@
 import { makeAction } from '@app/utils/redux';
 
-export const enum AuthSagaTriggeringActions {
+export enum AuthSagaTriggeringActions {
     facebookLogin = 'AUTH/SAGA/FACEBOOK_LOGIN',
     googleLogin = 'AUTH/SAGA/GOOGLE_LOGIN',
     logout = 'AUTH/SAGA/LOGOUT',
