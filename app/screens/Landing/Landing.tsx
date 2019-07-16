@@ -25,9 +25,8 @@ class Landing extends PureComponent<NavigationScreenProps> {
                 bubbleContainerStyles={styles.bubbleContainer}
             >
                 <Intro
-                    title="Hello there!"
-                    text="Making Lunch unde omnis iste natus error sit volup tatem accus antium dolore mque laudantium,
-                    totam rem aperiam."
+                    title="Let’s go for lunch!"
+                    text="Making Lunch is an app that helps you grab lunch close to where you are, while meeting new friends at the same time."
                 />
             </Bubble>
         </View>
@@ -43,8 +42,7 @@ class Landing extends PureComponent<NavigationScreenProps> {
             >
                 <Intro
                     title="It’s so nice to meet you!"
-                    text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-                    sed quia non."
+                    text="Choose your time and how nearby you want to eat. Then, we’ll gather the nicest people around one table close to you!"
                 />
             </Bubble>
         </View>
@@ -58,8 +56,8 @@ class Landing extends PureComponent<NavigationScreenProps> {
                 bubbleContainerStyles={styles.bubbleContainer}
             >
                 <Intro
-                    title="Let's get started now"
-                    text="Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet."
+                    title="Let's get started!"
+                    text="I don’t know about you, but I’m getting hungry."
                 />
             </Bubble>
             <ExternalLogin /> 
