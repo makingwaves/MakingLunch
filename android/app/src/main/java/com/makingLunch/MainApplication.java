@@ -5,7 +5,6 @@ import android.app.Application;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.react.ReactApplication;
 import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
@@ -13,7 +12,10 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 import java.util.Arrays;
 import java.util.List;

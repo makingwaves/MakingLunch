@@ -73,13 +73,11 @@ export function * initializeAuthenticationSaga() {
 export function* loginFacebookSaga() {
     try {
         yield call(requestAction, authActionsCreators.loginSetRequestStatus, call(function* () {
-            console.log(LoginManager);
+
             const facebookLoginResponse: LoginResult = yield call(
                 [LoginManager, LoginManager.logInWithPermissions],
                 ['public_profile', 'email']
             );
-
-
 
             if (!facebookLoginResponse.isCancelled) {
                 const accessTokenResult: AccessToken = yield call([AccessToken, AccessToken.getCurrentAccessToken]);
