@@ -4,6 +4,7 @@ export interface AuthState {
     loginRequest: Request;
     logoutRequest: Request;
     token: string | null;
+    authStateDefined: boolean;
 }
 
 export enum AuthActions {
@@ -11,4 +12,5 @@ export enum AuthActions {
     LOGOUT_SET_REQUEST_STATUS = 'AUTH/LOGOUT_SET_REQUEST_STATUS',
     SET_TOKEN = 'AUTH/SET_TOKEN',
     CLEAR_TOKEN = 'AUTH/CLEAR_TOKEN',
+    DEFINE_AUTH_STATE = 'AUTH/DEFINE_AUTH_STATE'
 }

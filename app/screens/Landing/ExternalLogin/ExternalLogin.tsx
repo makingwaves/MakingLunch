@@ -7,8 +7,7 @@ import styles from './style';
 import { AppState } from '@app/state/state';
 import CustomButton from '@app/components/CustomButton';
 import FetchDataHelper from '@app/components/FetchDataHelper';
-import { RequestState } from '@app/state/common/types';
-import { AuthSagaActions } from '@app/state/auth/types';
+import {getIfLoginLoading, getLoginError} from "@app/state/auth/selectors";
 
 export enum socialTypes {
     facebook = 'Facebook',
@@ -58,8 +57,8 @@ const ExternalLogin: FunctionComponent<ExternalLoginProps> = ({
 };
 
 const mapStateToProps = (state: AppState) => ({
-    errorMsg: state.auth.request.errorMsg,
-    isLoading: state.auth.request.state === RequestState.inProgress
+    errorMsg: getLoginError(state),
+    isLoading: getIfLoginLoading(state)
 });
 
 const mapDispatchToProps = dispatch => ({

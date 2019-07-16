@@ -15,6 +15,7 @@ const initialState: AuthState = {
         errorMsg: '',
     },
     token: null,
+    authStateDefined: false
 };
 
 class AuthReducer extends GenericReducer<AuthState, AuthActionUnion, AuthActions> {
@@ -26,6 +27,7 @@ class AuthReducer extends GenericReducer<AuthState, AuthActionUnion, AuthActions
         this.reducerMap.set(AuthActions.LOGOUT_SET_REQUEST_STATUS, this.setLogoutRequestStatus);
         this.reducerMap.set(AuthActions.SET_TOKEN, this.setToken);
         this.reducerMap.set(AuthActions.CLEAR_TOKEN, this.clearToken);
+        this.reducerMap.set(AuthActions.DEFINE_AUTH_STATE, this.defineAuthState);
     }
 
     private setLoginRequestStatus = (state: AuthState, action: ReturnType<typeof authActionsCreators.loginSetRequestStatus>) : AuthState => {
@@ -56,6 +58,12 @@ class AuthReducer extends GenericReducer<AuthState, AuthActionUnion, AuthActions
         }
     };
 
+    private defineAuthState = (state: AuthState) : AuthState => {
+        return {
+            ...state,
+            authStateDefined: true
+        }
+    };
 }
 
 export const authReducer = createReducer(new AuthReducer(initialState));

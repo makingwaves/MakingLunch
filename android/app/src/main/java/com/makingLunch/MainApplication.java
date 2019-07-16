@@ -4,6 +4,7 @@ import android.app.Application;
 
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.react.ReactApplication;
+import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSecureKeyStorePackage(),
             new FBSDKPackage(mCallbackManager),
             new ReactNativePushNotificationPackage(),
             new RNGestureHandlerPackage(),

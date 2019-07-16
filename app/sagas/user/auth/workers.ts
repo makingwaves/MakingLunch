@@ -23,7 +23,7 @@ export function* removeSecureStoredKey(key: string) {
     try {
         yield call([RNSecureKeyStore, RNSecureKeyStore.remove], key);
     } catch (err) {
-        return err;
+        console.info(err);
     }
 }
 
@@ -35,7 +35,7 @@ export function* setSecureStoredKey(key: string, token: string) {
             token,
             {accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY });
     } catch (err) {
-        return err;
+        console.info(err);
     }
 }
 
@@ -44,7 +44,7 @@ export function* getSecureStoredKey(key: string) {
         const token: string = yield call([RNSecureKeyStore, RNSecureKeyStore.get], key);
         return token;
     } catch (err) {
-        return err;
+        console.info(err);
     }
 }
 
@@ -58,6 +58,7 @@ export function* authenticate(token: string) {
 export function * initializeAuthenticationSaga() {
     try {
         const token: string = yield call(getSecureStoredKey, TOKEN_KEY);
+
         if(token) {
             yield call(authenticate, token);
         }
@@ -65,6 +66,8 @@ export function * initializeAuthenticationSaga() {
     } catch (err) {
         yield put(authActionsCreators.setToken(null));
     }
+
+    yield put(authActionsCreators.defineAuthState());
 }
 
 export function* loginFacebookSaga() {
