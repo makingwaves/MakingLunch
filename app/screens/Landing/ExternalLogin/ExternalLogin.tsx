@@ -8,24 +8,24 @@ import { AppState } from '@app/state/state';
 import CustomButton from '@app/components/CustomButton';
 import FetchDataHelper from '@app/components/FetchDataHelper';
 import {getIfLoginLoading, getLoginError} from "@app/state/auth/selectors";
+import {authSagaTriggers} from "@app/sagas/user/auth/actions";
 
 export enum socialTypes {
     facebook = 'Facebook',
     google = 'Google',
-};
-
-type ServiceType = AuthSagaActions.facebookLogin | AuthSagaActions.googleLogin;
+}
 
 const ERROR_ICON = require('./assets/error.png');
 
 interface ExternalLoginProps {
     errorMsg: string;
     isLoading: boolean;
-    externalServiceLogin: (serviceType: ServiceType) => void;
+    facebookLogin: typeof authSagaTriggers.facebookLogin,
+    googleLogin: typeof authSagaTriggers.googleLogin
 };
 
 const ExternalLogin: FunctionComponent<ExternalLoginProps> = ({
-    externalServiceLogin, errorMsg, isLoading
+    facebookLogin, googleLogin, errorMsg, isLoading
 }) => {
     return (
         <FetchDataHelper
@@ -39,14 +39,14 @@ const ExternalLogin: FunctionComponent<ExternalLoginProps> = ({
             <View style={styles.container}>
                 <CustomButton
                     text={'Start with Facebook'}
-                    onPress={() => externalServiceLogin(AuthSagaActions.facebookLogin)}
+                    onPress={facebookLogin}
                     iconContainerColor={'#4280cb'}
                     buttonStyles={[styles.fbButtonStyle, styles.buttonStyles]}
                     imageType={socialTypes.facebook}
                 />
                 <CustomButton
                     text={'Start with Google'}
-                    onPress={() => externalServiceLogin(AuthSagaActions.googleLogin)}
+                    onPress={googleLogin}
                     iconContainerColor={'#e65252'}
                     buttonStyles={[styles.googleButtonStyle, styles.buttonStyles]}
                     imageType={socialTypes.google}
@@ -61,9 +61,10 @@ const mapStateToProps = (state: AppState) => ({
     isLoading: getIfLoginLoading(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-    externalServiceLogin: (serviceType: ServiceType) => dispatch({ type: serviceType })
-});
+const mapDispatchToProps = {
+    facebookLogin: authSagaTriggers.facebookLogin,
+    googleLogin: authSagaTriggers.googleLogin
+};
 
 export default connect(
     mapStateToProps,
