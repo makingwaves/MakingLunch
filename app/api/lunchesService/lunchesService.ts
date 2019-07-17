@@ -55,19 +55,19 @@ function mapLunchToCorrectLunch(lunchesResponseDto: LunchResponseDto): LunchDto 
 
 class LunchesService extends ErrorHandleService {
     public sendRequestLunch = (location: Location, timeSpan: TimeSpan): Promise<LunchDto| ErrorResponse> => {
-        return api.post<MeetingResponseDto>('/api/Meetings/')
+        return api.post<MeetingResponseDto>('/api/LunchProposals/')
             .then(response => response.data)
             .then(mapMeetingToCorrectLunch)
             .catch(err => this.getErrorMessage(err, 'An Error occurred while trying to send lunch request.'));
     };
     public cancelRequestLunch = (lunchId: string): Promise<void| ErrorResponse> => {
-        return api.delete('/api/Meetings/' + lunchId).then(response => response.data)
+        return api.delete('/api/LunchProposals/' + lunchId).then(response => response.data)
                   .catch(err => this.getErrorMessage(err, 'An Error occurred while trying to cancel lunch.'));
 
     };
     public getAllLunches = (): Promise<LunchDto[]| ErrorResponse> => {
          return Promise.all<AxiosResponse<MeetingResponseDto[]>, AxiosResponse<LunchResponseDto[]>>([
-            api.get('/api/Meetings?onlyUnassigned=true'),
+            api.get('/api/LunchProposals?onlyUnassigned=true'),
             api.get('/api/Lunches'),
         ]).then(([meetingsResponse, lunchesResponse])=> {
 

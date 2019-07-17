@@ -1,7 +1,7 @@
-XMLHttpRequest = GLOBAL.originalXMLHttpRequest ?
-  GLOBAL.originalXMLHttpRequest :
-  GLOBAL.XMLHttpRequest;
-
+// XMLHttpRequest = GLOBAL.originalXMLHttpRequest ?
+//   GLOBAL.originalXMLHttpRequest :
+//   GLOBAL.XMLHttpRequest;
+//
 // fetch logger
 global._fetch = fetch;
 global.fetch = function (uri, options, ...args) {
