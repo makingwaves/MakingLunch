@@ -37,11 +37,9 @@ export function* requestLunchSaga({ payload }: ReturnType<typeof lunchesSagaTrig
 
 export function* cancelLunchSaga({ payload: lunchId }: ReturnType<typeof lunchesSagaTriggers.cancelLunch>) {
     try {
-        yield put(lunchesActionsCreators.setLunchCancellation(lunchId,  true ));
         yield call([lunchesService, lunchesService.cancelRequestLunch], lunchId);
         yield put(lunchesActionsCreators.removeLunch(lunchId));
     } catch (err) {
-        yield put(lunchesActionsCreators.setLunchCancellation(lunchId,  false ));
         console.info('Error when trying to cancel pending lunch.');
     }
 }
