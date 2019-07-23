@@ -7,7 +7,7 @@ import {Profile} from "@app/state/profile/types";
 import {requestAction} from "@app/sagas/common/requests";
 import {chatActionsCreators} from "@app/state/chat/actions";
 import {normalizeChatMessages} from "@app/state/chat/normalizer";
-import {profile} from "@app/state/profile/selectors";
+import {getProfile} from "@app/state/profile/selectors";
 import {Message, MessageStatus} from "@app/state/chat/types";
 
 export function* getChatMessagesSaga({ payload } : ReturnType<typeof chatSagaTriggers.getChat>) {
@@ -27,7 +27,7 @@ export function* getChatMessagesSaga({ payload } : ReturnType<typeof chatSagaTri
 export function* sendChatMessageSaga({ payload }:  ReturnType<typeof chatSagaTriggers.sendChatMessage>) {
     try {
         const uuid: string = yield call([UUIDGenerator, UUIDGenerator.getRandomUUID]);
-        const profile: Profile = yield select(profile);
+        const profile: Profile = yield select(getProfile);
         const messageToAdd: Message = {
             messageId: uuid,
             memberId: profile.id,

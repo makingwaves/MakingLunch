@@ -10,7 +10,7 @@ import HamburgerItem from './HamburgerItem';
 
 import { Profile } from "@app/state/profile/types";
 import {authSagaTriggers} from "@app/sagas/user/auth/actions";
-import {profile} from "@app/state/profile/selectors";
+import {getProfile} from "@app/state/profile/selectors";
 
 export interface MenuProps {
     logOut: () => void;
@@ -57,7 +57,7 @@ class Menu extends PureComponent<MenuProps, MenuState> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    profile: profile(state)
+    profile: getProfile(state)
 });
 
 const mapDispatchToProps = {

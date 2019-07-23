@@ -6,22 +6,24 @@ import MapView from './MapView';
 import ErrorPopup from '@app/components/ErrorPopup';
 import { AppState } from '@app/state/state';
 import LunchSearcher from './LunchSearcher';
-import { RequestState } from '@app/state/common/types';
-import { MeetingRequest } from '@app/api/lunchesService/lunchesService';
 import { navigationService } from '@app/services';
 import { getPendingAndRunningLunches } from './selectors/mainContentSelector';
 import { isBetweenOtherPendingLunches } from './utils/utils';
-import { TimeSpan, LunchSagaActions, LunchesMap, Lunch } from '@app/state/lunches/types';
+import { TimeSpan, LunchesMap, Lunch } from '@app/state/lunches/types';
+import {getIfLunchesLoading, getLunchesError} from "@app/state/lunches/selectors";
+import {getProfile} from "@app/state/profile/selectors";
+import {lunchesSagaTriggers} from "@app/sagas/lunches/actions";
+import {Profile} from "@app/state/profile/types";
 
 export type LunchStage = 'chooseData' | 'searching' | 'waitingForData' | 'lunchAssigned';
 
 export interface MainContentProps {
-    userId: string;
+    profile: Profile;
     pending: LunchesMap;
     running: Lunch;
     errorMsg: string;
     isLoading: boolean;
-    searchLunch: (data: MeetingRequest) => void;
+    requestLunch: typeof lunchesSagaTriggers.requestLunch
 };
 
 export interface MainContentState {
@@ -64,8 +66,8 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
         this.mapViewRef.current.navigateToUserLocation();
     }
 
-    private onSearchClick = async (timeSpan: TimeSpan): Promise<void> => {
-        if (isBetweenOtherPendingLunches(timeSpan, this.props.pending, this.props.userId)) {
+    private onRequestLunchClick = async (timeSpan: TimeSpan): Promise<void> => {
+        if (isBetweenOtherPendingLunches(timeSpan, this.props.pending, this.props.profile.id)) {
             Alert.alert('Error occured', 'You already have lunch, which has such a time range.',
                 [{ text: 'Ok' }],
                 { cancelable: false }
@@ -73,10 +75,8 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
         }
         else {
             const userLocation = await this.mapViewRef.current.getSelectedUserLocation();
-            this.props.searchLunch({
-                ...timeSpan,
-                ...userLocation
-            });
+            this.props.requestLunch(timeSpan, userLocation);
+
             Alert.alert('Lunch was assigned', 'Your lunch was successfully assigned',
                 [{ text: 'Go to lunches', onPress: this.redirectToLunchesList }, { text: 'Ok' }],
                 { cancelable: false }
@@ -96,8 +96,17 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
         return (
             <Fragment>
                 <ErrorPopup title={'An error has occured'} description={errorMsg} showError={!!errorMsg} showDuration={3000} />
-                <MapView ref={this.mapViewRef} stage={stage} runningLunch={running} />
-                <LunchSearcher stage={stage} running={running} onSearchClick={this.onSearchClick} onLocationClick={this.onLocationClick} />
+                <MapView
+                    ref={this.mapViewRef}
+                    stage={stage}
+                    runningLunch={running}
+                />
+                <LunchSearcher
+                    stage={stage}
+                    running={running}
+                    onSearchClick={this.onRequestLunchClick}
+                    onLocationClick={this.onLocationClick}
+                />
             </Fragment>
         );
     }
@@ -105,14 +114,14 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
 
 const mapStateToProps = (state: AppState) => ({
     ...getPendingAndRunningLunches(state),
-    userId: state.auth.profile && state.auth.profile.id,
-    errorMsg: state.lunches.request.errorMsg || state.auth.request.errorMsg,
-    isLoading: state.lunches.request.state === RequestState.inProgress
+    profile: getProfile(state),
+    errorMsg: getLunchesError(state),
+    isLoading: getIfLunchesLoading(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-    searchLunch: (data: MeetingRequest) => dispatch({ type: LunchSagaActions.POST_LUNCH, payload: data }),
-});
+const mapDispatchToProps = {
+    requestLunch: lunchesSagaTriggers.requestLunch
+};
 
 export default connect(
     mapStateToProps,

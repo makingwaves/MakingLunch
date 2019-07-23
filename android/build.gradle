@@ -9,6 +9,7 @@ buildscript {
         supportLibVersion = "28.0.0"
         googlePlayServicesAuthVersion = "15.0.1" // <--- use this version or newer
         googlePlayServicesVersion = "15.0.1"
+        androidMapsUtilsVersion = "15.0.1"
 //        firebaseVersion = "15.0.1" // default: "+"
     }
     repositories {

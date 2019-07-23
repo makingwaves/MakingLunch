@@ -16,6 +16,7 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.airbnb.android.react.maps.MapsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
             new FBSDKPackage(mCallbackManager),
             new ReactNativePushNotificationPackage(),
             new RNGestureHandlerPackage(),
+            new MapsPackage(),
           new ReactNativeConfigPackage(),
           new RNGoogleSigninPackage() // <-- this needs to be in the list
       );

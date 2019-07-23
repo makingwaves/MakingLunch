@@ -139,15 +139,16 @@ android {
 }
 
 dependencies {
+    implementation project(":react-native-google-signin")
+    implementation project(':react-native-config')
     implementation project(':react-native-secure-key-store')
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-push-notification')
     implementation project(':react-native-gesture-handler')
+    implementation project(':react-native-maps')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation project(":react-native-google-signin")
-    implementation project(':react-native-config')
 }
 
 apply plugin: 'com.google.gms.google-services'

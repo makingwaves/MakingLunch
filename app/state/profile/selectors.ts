@@ -3,7 +3,7 @@ import { AppState } from '../state';
 
 const profileSelector = (state: AppState) => state.profile;
 
-export const profile = createSelector(
+export const getProfile = createSelector(
     profileSelector,
     (profileState) => profileState.data,
 );
