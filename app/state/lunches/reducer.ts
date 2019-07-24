@@ -33,7 +33,10 @@ class LunchesReducer extends GenericReducer<LunchesState, LunchesActionUnion, Lu
     ): LunchesState => {
         return {
             ...state,
-            request: action.payload
+            request: {
+                ...state.request,
+                ...action.payload
+            }
         }
     };
 

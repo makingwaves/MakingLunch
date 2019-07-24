@@ -1,16 +1,10 @@
 import { membersActionsCreators } from './actions';
 import { MembersActions, MembersState, MembersMap } from './types';
 import { GenericReducer, createReducer } from '../common/reducers';
-import { RequestState, ActionUnion } from "@app/state/common/types";
+import { ActionUnion } from "@app/state/common/types";
 
 
-const initialState: MembersState = {
-    request: {
-        state: RequestState.none,
-        errorMsg: '',
-    },
-    data: {},
-};
+const initialState: MembersState = {};
 
 type MembersActionUnion = ActionUnion<typeof membersActionsCreators>;
 
@@ -29,10 +23,7 @@ class MemberReducer extends GenericReducer<MembersState, MembersActionUnion, Mem
 
         return {
             ...state,
-            data: {
-                ...state.data,
-                [action.payload.id]: action.payload,
-            },
+            [action.payload.id]: action.payload,
         };
 
     };
@@ -41,28 +32,21 @@ class MemberReducer extends GenericReducer<MembersState, MembersActionUnion, Mem
 
         return {
             ...state,
-            data: {
-                ...state.data,
-                ...action.payload,
-            },
+            ...action.payload,
         };
 
     };
 
     private removeMember = (state: MembersState, action: ReturnType<typeof membersActionsCreators.removeMember>): MembersState => {
 
-        return {
-            ...state,
-            data: Object
-                .keys(state.data)
-                .reduce((accumulator: MembersMap, key) => {
-                    if (key !== action.payload) {
-                        accumulator[key] = state.data[key];
-                    }
-                    return accumulator;
-                }, {}),
-        };
-
+        return Object
+            .keys(state)
+            .reduce((accumulator: MembersMap, key) => {
+                if (key !== action.payload) {
+                    accumulator[key] = state.data[key];
+                }
+                return accumulator;
+            }, {})
     };
 }
 

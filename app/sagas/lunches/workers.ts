@@ -31,7 +31,7 @@ export function* requestLunchSaga({ payload }: ReturnType<typeof lunchesSagaTrig
 
         yield put(lunchesActionsCreators.createLunch(lunch));
     } catch (err) {
-        console.info('Error when trying to search for lunch.');
+        console.info('Error when trying to request for a lunch.');
     }
 }
 
@@ -40,6 +40,6 @@ export function* cancelLunchSaga({ payload: lunchId }: ReturnType<typeof lunches
         yield call([lunchesService, lunchesService.cancelRequestLunch], lunchId);
         yield put(lunchesActionsCreators.removeLunch(lunchId));
     } catch (err) {
-        console.info('Error when trying to cancel pending lunch.');
+        console.info('Error when trying to cancel a pending lunch.');
     }
 }
