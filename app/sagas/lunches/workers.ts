@@ -6,6 +6,7 @@ import { lunchesSagaTriggers } from "@app/sagas/lunches/actions";
 import { requestAction } from "@app/sagas/common/requests";
 import { normalizeLunch, normalizeLunches } from "@app/state/lunches/normalizer";
 import { Member } from "@app/state/members/types";
+import { createPushNotificationEventChannel } from "@app/sagas/common/pushNotification"
 
 export function* getLunchesSaga() {
     try {
