@@ -7,7 +7,6 @@ import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
-import io.github.traviskn.rnuuidgenerator.RNUUIDGeneratorPackage;
 import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -44,11 +43,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNGoogleSigninPackage(),
-            new FastImageViewPackage(),
           new RNGestureHandlerPackage(),
           new MapsPackage(),
-          new RNUUIDGeneratorPackage(),
           new RNSecureKeyStorePackage(),
           new ReactNativeConfigPackage(),
           new FBSDKPackage(mCallbackManager),
