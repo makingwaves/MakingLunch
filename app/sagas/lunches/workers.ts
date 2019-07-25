@@ -1,22 +1,29 @@
 import { put, call } from 'redux-saga/effects';
 import { lunchesActionsCreators } from '@app/state/lunches/actions';
 import { membersActionsCreators } from '@app/state/members/actions';
-import lunchesService from '@app/api/lunchesService/lunchesService';
+import lunchesService, {LunchDto} from '@app/api/lunchesService/lunchesService';
 import { lunchesSagaTriggers } from "@app/sagas/lunches/actions";
 import { requestAction } from "@app/sagas/common/requests";
+import {normalizeLunch, normalizeLunches} from "@app/state/lunches/normalizer";
+import {Member} from "@app/state/members/types";
 
 export function* getLunchesSaga() {
     try {
-        const { lunches, members }  = yield call(
+        const lunches: LunchDto[] = yield call(
             requestAction,
             lunchesActionsCreators.setLunchesRequestStatus,
             call([lunchesService, lunchesService.getAllLunches])
         );
 
-        yield put(lunchesActionsCreators.setLunches(lunches));
-        yield put(membersActionsCreators.batchSetMembers(members));
+        const members: Member[] = lunches.reduce<Member[]>((prev, current) => {
+            return [...prev, ...current.lunchProposals.map(lunchProposal => lunchProposal.user)]
+        }, [])
+
+        yield put(lunchesActionsCreators.setLunches(normalizeLunches(lunches)));
+        yield put(membersActionsCreators.batchSetMembers({}));
 
     } catch (err) {
+        console.log(err);
         console.info('Error when trying to fetch lunches.');
     }
 }
@@ -29,7 +36,7 @@ export function* requestLunchSaga({ payload }: ReturnType<typeof lunchesSagaTrig
             payload.timeSpan
         );
 
-        yield put(lunchesActionsCreators.createLunch(lunch));
+        yield put(lunchesActionsCreators.createLunch(normalizeLunch(lunch)));
     } catch (err) {
         console.info('Error when trying to request for a lunch.');
     }
