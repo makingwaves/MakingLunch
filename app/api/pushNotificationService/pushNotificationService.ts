@@ -2,7 +2,7 @@ import Config from 'react-native-config';
 import PushNotifications, { PushNotification } from 'react-native-push-notification';
 
 import store from '@app/boot/store';
-import { Profile } from '@app/state/auth/types';
+// import { Profile } from '@app/state/auth/types';
 import { navigationService } from '@app/services';
 import MessageNotification, { MessageNotificationTitle, MessageNotificationType } from './messageNotification';
 import LunchAssingedNotifcation, { LunchAssingedNotifcationType, LunchAssingedNotifcationTitle } from './lunchAssingedNotification';
@@ -56,10 +56,12 @@ class PushNotificationService {
     };
 
     public configureNotification(): void {
+
         PushNotifications.configure({
             onRegister: this.onRegister,
             onNotification: this.onNotification,
             senderID: Config.PUSH_NOTIFICATION_SENDER_ID,
+            requestPermissions: true
         })
     }
 
@@ -69,11 +71,13 @@ class PushNotificationService {
 
     private onRegister = (data: { os: string, token: string }): void => {
         this.deviceIdToken = data.token;
+
     }
 
     private onNotification = (data: ExtendedNotification & { notification: NotificationData }): void => {
         if (data.userInteraction) {
-            const title: string = this.isUserLogged() ? data['title'] : 'SplashScreen';
+            // const title: string = this.isUserLogged() ? data['title'] : 'SplashScreen';
+            const title: string = data['title'];
             this.localNotificationRedirect[title] && this.localNotificationRedirect[title](data['lunchId']);
         }
         else {
@@ -103,10 +107,10 @@ class PushNotificationService {
         navigationService.navigate('Initial');
     }
 
-    private isUserLogged(): boolean {
-        const user: Profile = store.getState().auth.profile;
-        return !!(user && user.id)
-    }
+    // private isUserLogged(): boolean {
+    //     const user: Profile = store.getState().auth.profile;
+    //     return !!(user && user.id)
+    // }
 }
 
 const pushNotificationService = new PushNotificationService;

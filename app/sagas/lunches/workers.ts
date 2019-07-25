@@ -1,13 +1,14 @@
-import { put, call } from 'redux-saga/effects';
+import { take, put, call } from 'redux-saga/effects';
 import { lunchesActionsCreators } from '@app/state/lunches/actions';
 import { membersActionsCreators } from '@app/state/members/actions';
 import lunchesService from '@app/api/lunchesService/lunchesService';
 import { lunchesSagaTriggers } from "@app/sagas/lunches/actions";
 import { requestAction } from "@app/sagas/common/requests";
+import { createPushNotificationEventChannel } from "@app/sagas/common/pushNotification";
 
 export function* getLunchesSaga() {
     try {
-        const { lunches, members }  = yield call(
+        const { lunches, members } = yield call(
             requestAction,
             lunchesActionsCreators.setLunchesRequestStatus,
             call([lunchesService, lunchesService.getAllLunches])
@@ -41,5 +42,23 @@ export function* cancelLunchSaga({ payload: lunchId }: ReturnType<typeof lunches
         yield put(lunchesActionsCreators.removeLunch(lunchId));
     } catch (err) {
         console.info('Error when trying to cancel pending lunch.');
+    }
+}
+
+export function* lunchAssingedNotification() {
+    const lunchAssignedEventChannel = yield call(createPushNotificationEventChannel, 'Lunch was assigned');
+
+    while (true) {
+        const lunchAssignedData = yield take(lunchAssignedEventChannel)
+        //TODO: dalsza obsługa notyfikacji
+    }
+}
+
+export function* canceledLunchNotification() {
+    const canceledLunchEventChannel = yield call(createPushNotificationEventChannel, 'Meeting canceled');
+
+    while (true) {
+        const canceledLunchData = yield take(canceledLunchEventChannel)
+        //TODO: dalsza obsługa notyfikacji
     }
 }

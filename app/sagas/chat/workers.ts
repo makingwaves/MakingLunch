@@ -1,16 +1,17 @@
 import dayjs from 'dayjs';
 import UUIDGenerator from 'react-native-uuid-generator';
-import {call, put, select} from "redux-saga/effects";
-import chatService, {ChatMessageDto} from "@app/api/chatService/chatService";
-import {chatSagaTriggers} from "@app/sagas/chat/actions";
-import {Profile} from "@app/state/profile/types";
-import {requestAction} from "@app/sagas/common/requests";
-import {chatActionsCreators} from "@app/state/chat/actions";
-import {normalizeChatMessages} from "@app/state/chat/normalizer";
-import {getProfile} from "@app/state/profile/selectors";
-import {Message, MessageStatus} from "@app/state/chat/types";
+import { take, call, put, select } from "redux-saga/effects";
+import chatService, { ChatMessageDto } from "@app/api/chatService/chatService";
+import { chatSagaTriggers } from "@app/sagas/chat/actions";
+import { Profile } from "@app/state/profile/types";
+import { requestAction } from "@app/sagas/common/requests";
+import { chatActionsCreators } from "@app/state/chat/actions";
+import { normalizeChatMessages } from "@app/state/chat/normalizer";
+import { getProfile } from "@app/state/profile/selectors";
+import { Message, MessageStatus } from "@app/state/chat/types";
+import { createPushNotificationEventChannel } from '../common/pushNotification';
 
-export function* getChatMessagesSaga({ payload } : ReturnType<typeof chatSagaTriggers.getChat>) {
+export function* getChatMessagesSaga({ payload }: ReturnType<typeof chatSagaTriggers.getChat>) {
     try {
         const chatMessages = yield call(
             requestAction,
@@ -20,11 +21,11 @@ export function* getChatMessagesSaga({ payload } : ReturnType<typeof chatSagaTri
 
         yield put(chatActionsCreators.setLoadedChatMessages(payload.lunchId, normalizeChatMessages(chatMessages)));
     } catch (err) {
-       console.info('Error when trying to fetch chat messages.');
+        console.info('Error when trying to fetch chat messages.');
     }
 }
 
-export function* sendChatMessageSaga({ payload }:  ReturnType<typeof chatSagaTriggers.sendChatMessage>) {
+export function* sendChatMessageSaga({ payload }: ReturnType<typeof chatSagaTriggers.sendChatMessage>) {
     try {
         const uuid: string = yield call([UUIDGenerator, UUIDGenerator.getRandomUUID]);
         const profile: Profile = yield select(getProfile);
@@ -48,5 +49,15 @@ export function* sendChatMessageSaga({ payload }:  ReturnType<typeof chatSagaTri
         yield put(chatActionsCreators.addChatMessage(payload.lunchId, messageToAdd));
     } catch (err) {
         console.info('Error when trying to post message.');
+    }
+}
+
+
+export function* newMessageNotification() {
+    const newMessageEventChannel = yield call(createPushNotificationEventChannel, 'New message');
+
+    while (true) {
+        const messageData = yield take(newMessageEventChannel)
+        //TODO: dalsza obsługa notyfikacji
     }
 }
