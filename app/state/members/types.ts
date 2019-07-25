@@ -1,5 +1,3 @@
-import { Request } from '../common/types';
-
 export interface Member {
     id: string;
     name: string;
@@ -11,10 +9,7 @@ export interface MembersMap {
     [memberId: string]: Member;
 }
 
-export interface MembersState {
-    request: Request;
-    data: MembersMap;
-}
+export type MembersState = MembersMap
 
 export enum MembersActions {
     SET_MEMBER = 'MEMBERS/SET_MEMBER',

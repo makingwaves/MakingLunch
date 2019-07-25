@@ -26,7 +26,10 @@ class ProfileReducer extends GenericReducer<ProfileState, ProfileActionUnion, Pr
     private setProfileRequestStatus = (state: ProfileState, action: ReturnType<typeof profileActionsCreators.setProfileRequestStatus>) : ProfileState => {
         return {
             ...state,
-            request: action.payload
+            request: {
+                ...state.request,
+                ...action.payload
+            }
         }
     };
 

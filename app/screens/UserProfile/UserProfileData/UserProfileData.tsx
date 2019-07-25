@@ -4,7 +4,7 @@ import { KeyboardAvoidingView } from "react-native";
 import styles from './style';
 
 import Avatar from "@app/components/Avatar";
-import { Profile } from "@app/state/auth/types";
+import { Profile } from "@app/state/profile/types";
 import CustomInput from "@app/components/CustomInput";
 import CustomButton from "@app/components/CustomButton";
 import { triangleSides } from "@app/components/Triangle/Triangle";

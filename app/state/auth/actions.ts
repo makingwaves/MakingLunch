@@ -7,5 +7,5 @@ export const authActionsCreators = {
     clearToken: () => makeAction(AuthActions.CLEAR_TOKEN),
     defineAuthState: () => makeAction(AuthActions.DEFINE_AUTH_STATE),
     loginSetRequestStatus: (requestStatus: Request) => makeAction(AuthActions.LOGIN_SET_REQUEST_STATUS, requestStatus),
-    logoutSetRequestStatus: (requestStatus: Request) => makeAction(AuthActions.LOGIN_SET_REQUEST_STATUS, requestStatus),
+    logoutSetRequestStatus: (requestStatus: Request) => makeAction(AuthActions.LOGOUT_SET_REQUEST_STATUS, requestStatus),
 };

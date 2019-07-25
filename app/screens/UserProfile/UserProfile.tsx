@@ -11,60 +11,62 @@ import ErrorPopup from '@app/components/ErrorPopup';
 import { AppState } from '@app/state/state';
 import UserProfileData from './UserProfileData';
 import UserProfilePlaceholder from './UserProfilePlaceholder';
-import { Profile, AuthSagaActions } from '@app/state/auth/types';
+import { Profile } from '@app/state/profile/types';
+import {getProfile, getProfileError} from "@app/state/profile/selectors";
+import {profileSagaTriggers} from "@app/sagas/user/profile/actions";
 
 export interface UserProfileProps extends NavigationScreenProps {
-    userData: Profile;
+    profile: Profile;
     errorMsg: string;
-    updateUser: (userData: { name: string, description: string }) => void;
+    updateProfile: typeof profileSagaTriggers.updateProfile;
 };
 
 const UserProfile: FunctionComponent<UserProfileProps> = ({
-    userData, errorMsg, updateUser, navigation
+    profile, errorMsg, updateProfile, navigation
 }) => {
     const showAlert = () => {
         Alert.alert(
             'Profile update',
-            'You have updated your data successfuly',
+            'You have updated your data successfully',
             [
                 { text: 'Ok' }
             ],
             { cancelable: false }
         );
-    }
+    };
 
     const saveUserData = (data: { name: string, description: string }) => {
-        updateUser(data);
+        updateProfile({...profile, ...data});
         showAlert();
     };
 
     return (
         <Fragment>
             <ErrorPopup
-                title={'An error has occured'}
+                title={'An error has occurred'}
                 showError={!!errorMsg}
                 description={errorMsg}
                 showDuration={3000}
             />
             <BackButton navigation={navigation} backgroundColor={colors.colorLight} />
             <ScrollView style={styles.userProfileContainer}>
-                <UserProfilePlaceholder onReady={!!userData}>
-                    <UserProfileData userData={userData} updateUser={saveUserData} />
+                <UserProfilePlaceholder onReady={!!profile}>
+                    <UserProfileData userData={profile} updateUser={saveUserData} />
                 </UserProfilePlaceholder>
             </ScrollView>
         </Fragment>
     )
-}
+};
 
 
 const mapStateToProps = (state: AppState) => ({
-    userData: state.auth.profile,
-    errorMsg: state.auth.request.errorMsg
+    profile: getProfile(state),
+    errorMsg: getProfileError(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateUser: (userData: { name: string, description: string }) => dispatch({ type: AuthSagaActions.UPDATE_USER_DATA, userData })
-});
+const mapDispatchToProps = {
+    updateProfile: profileSagaTriggers.updateProfile
+};
 
 export default connect(
     mapStateToProps,
