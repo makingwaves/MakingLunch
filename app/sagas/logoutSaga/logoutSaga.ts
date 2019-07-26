@@ -8,6 +8,7 @@ import { TOKEN_KEY } from '../loginSaga/loginSaga';
 import { AuthSagaActions } from '@app/state/auth/types';
 import { navigationService } from '@app/services';
 import { authActionsCreators } from '@app/state/auth/actions';
+import { appMessagesActionsCreators } from '@app/state/app_messages/actions';
 
 export function* removeSecureStoredKey(key: string) {
     try {
@@ -47,7 +48,8 @@ export function* logoutFlow() {
 
         yield navigationService.navigate('Auth');
     } catch (err) {
-        yield put(authActionsCreators.requestFail('Error when trying to logout.'));
+        yield put(appMessagesActionsCreators.showErrorMessage({ title: "Logout error", message: 'Error when trying to logout.' }));
+        yield put(authActionsCreators.requestFail());
     }
 }
 

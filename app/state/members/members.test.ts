@@ -9,10 +9,7 @@ describe('members reducer', () => {
 
     beforeAll(() => {
         initialState = {
-            request: {
-                state: RequestState.none,
-                errorMsg: '',
-            },
+            requestState: RequestState.none,
             data: {},
         };
     });
@@ -78,10 +75,8 @@ describe('members reducer', () => {
         });
 
         test(MembersActions.REQUEST_FAIL, () => {
-            const errorMsg = 'Shit happens';
-            expect(membersActionsCreators.requestFail(errorMsg)).toEqual({
-                type: MembersActions.REQUEST_FAIL,
-                payload: errorMsg,
+            expect(membersActionsCreators.requestFail()).toEqual({
+                type: MembersActions.REQUEST_FAIL
             });
         });
     });
@@ -179,10 +174,7 @@ describe('members reducer', () => {
         beforeAll(() => {
             requestInProgressState = {
                 ...initialState,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
+                requestState: RequestState.inProgress
             };
         });
 
@@ -190,10 +182,7 @@ describe('members reducer', () => {
             const startAction = membersActionsCreators.startRequest();
             Reducer(membersReducer).expect(startAction).toReturnState({
                 ...initialState,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
+                requestState: RequestState.inProgress
             });
         });
 
@@ -201,22 +190,15 @@ describe('members reducer', () => {
             const successAction = membersActionsCreators.requestSuccess();
             Reducer(membersReducer).withState(requestInProgressState).expect(successAction).toReturnState({
                 ...initialState,
-                request: {
-                    state: RequestState.succeeded,
-                    errorMsg: '',
-                },
+                requestState: RequestState.succeeded
             });
         });
 
         test(`${MembersActions.REQUEST_FAIL} - should reflect request failed state`, () => {
-            const errorMsg = 'Shit happens';
-            const failAction = membersActionsCreators.requestFail(errorMsg);
+            const failAction = membersActionsCreators.requestFail();
             Reducer(membersReducer).withState(requestInProgressState).expect(failAction).toReturnState({
                 ...initialState,
-                request: {
-                    state: RequestState.failed,
-                    errorMsg,
-                },
+                requestState: RequestState.failed
             });
         });
     });

@@ -1,7 +1,7 @@
 import { AppState } from '@app/state/state';
 import { AuthState } from "@app/state/auth/types";
 import { mapLunchesToArray } from "./lunchesListSelectors";
-import { RequestState, Request } from "@app/state/common/types";
+import { RequestState } from "@app/state/common/types";
 import { LunchesState, LunchesMap, LunchStatus, Lunch } from "@app/state/lunches/types";
 
 const getRunningLunch = (id: string, begin: string, end: string): Lunch => {
@@ -28,19 +28,15 @@ describe('LunchesListSelectors', () => {
     let initialLunchesState: LunchesState;
 
     beforeAll(() => {
-        const requestState: Request = {
-            state: RequestState.succeeded,
-            errorMsg: ''
-        };
         initialAuthState = {
-            request: requestState,
+            requestState: RequestState.succeeded,
             profile: {
                 id: userId
             } as any,
             token: undefined
         };
         initialLunchesState = {
-            request: requestState,
+            requestState: RequestState.succeeded,
             data: null
         };
     });

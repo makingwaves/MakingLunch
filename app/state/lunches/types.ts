@@ -1,4 +1,4 @@
-import { Request } from '../common/types';
+import { RequestState } from '../common/types';
 
 // --- State interfaces:
 export interface Message {
@@ -59,7 +59,7 @@ export interface LunchesMap {
 }
 
 export interface LunchesState {
-    request: Request;
+    requestState: RequestState;
     data: LunchesMap;
 }
 

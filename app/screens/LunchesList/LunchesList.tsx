@@ -13,7 +13,6 @@ import { mapLunchesToArray } from './selectors/lunchesListSelectors';
 import { LunchStatus, Lunch } from '@app/state/lunches/types';
 import LunchesPlaceholder from './LunchesPlaceholder';
 import { LunchSagaActions } from '@app/state/lunches/types';
-import ErrorPopup from '@app/components/ErrorPopup';
 
 export interface LunchesListDto {
     data: Lunch[];
@@ -23,7 +22,6 @@ export interface LunchesListDto {
 export interface LunchesListProps extends NavigationScreenProps {
     userId: string;
     lunches: LunchesListDto[];
-    errorMsg: string;
     cancelMeeting: (lunchId: string) => void;
 };
 
@@ -54,14 +52,12 @@ class LunchesList extends PureComponent<LunchesListProps> {
         const {
             userId,
             lunches,
-            errorMsg,
             navigation,
             cancelMeeting
         } = this.props;
 
         return (
             <View style={styles.lunchesListContainer}>
-                <ErrorPopup title={'An error has occured'} description={errorMsg} showError={!!errorMsg} showDuration={2000} />
                 <BackButton navigation={navigation} screenTitle={'Your lunches'} backgroundColor={colors.brandColorSecondary} />
                 <LunchesPlaceholder onReady={!!lunches} animate={'fade'}>
                     <SectionList
@@ -86,8 +82,7 @@ class LunchesList extends PureComponent<LunchesListProps> {
 
 const mapStateToProps = (state: AppState) => ({
     userId: state.auth.profile && state.auth.profile.id,
-    lunches: mapLunchesToArray(state),
-    errorMsg: state.lunches.request.errorMsg
+    lunches: mapLunchesToArray(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

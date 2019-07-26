@@ -6,12 +6,13 @@ import rootReducer from '@app/state/state';
 
 type Middlewares = SagaMiddleware<{}>;
 
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 function configureStore(middlewares: Middlewares[]) {
     return createStore(
         rootReducer,
-        composeEnhancers(applyMiddleware(...middlewares))
+        // composeEnhancers(applyMiddleware(...middlewares))
+        applyMiddleware(...middlewares)
     );
 }
 

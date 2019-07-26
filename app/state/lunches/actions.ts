@@ -40,6 +40,6 @@ export const lunchesActionsCreators = {
     removeChatMessage: (messagePayload: RemoveChatMessagePayload) => makeAction(LunchActions.REMOVE_CHAT_MESSAGE, messagePayload),
     startRequest: () => makeAction(LunchActions.START_REQUEST),
     requestSuccess: () => makeAction(LunchActions.REQUEST_SUCCESS),
-    requestFail: (errorMsg: string) => makeAction(LunchActions.REQUEST_FAIL, errorMsg),
+    requestFail: () => makeAction(LunchActions.REQUEST_FAIL),
     clearErrorMessage: () => makeAction(LunchActions.CLEAR_ERROR_MESSAGE)
 };

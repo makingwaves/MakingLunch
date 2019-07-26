@@ -1,5 +1,5 @@
 import { AppState } from '@app/state/state';
-import { Request, RequestState } from "@app/state/common/types";
+import { RequestState } from "@app/state/common/types";
 import { getPendingAndRunningLunches } from './mainContentSelector';
 import { LunchesState, LunchesMap, LunchStatus, Lunch } from "@app/state/lunches/types";
 
@@ -7,13 +7,9 @@ describe('MainContentSelector', () => {
     let initialLunchesState: LunchesState;
 
     beforeAll(() => {
-        const requestState: Request = {
-            state: RequestState.succeeded,
-            errorMsg: ''
-        };
 
         initialLunchesState = {
-            request: requestState,
+            requestState: RequestState.succeeded,
             data: null
         };
     });

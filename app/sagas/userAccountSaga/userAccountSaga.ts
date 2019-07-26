@@ -8,6 +8,7 @@ import { accountService } from '@app/api';
 import { authActionsCreators } from '@app/state/auth/actions';
 import { Profile, AuthSagaActions } from '@app/state/auth/types';
 import { TOKEN_KEY, configureGoogle } from '@app/sagas/loginSaga/loginSaga';
+import { appMessagesActionsCreators } from '@app/state/app_messages/actions';
 
 export function* getSecureStoredKey(key: string) {
     try {
@@ -39,7 +40,8 @@ export function* getUserDataFlow() {
         yield put(authActionsCreators.setProfile(userData));
         yield put(authActionsCreators.requestSuccess());
     } catch (err) {
-        yield put(authActionsCreators.requestFail('Error when trying to fetch user data.'));
+        yield put(appMessagesActionsCreators.showErrorMessage({ title: "Fetch data error", message: 'Error when trying to fetch user data.' }));
+        yield put(authActionsCreators.requestFail());
     }
 }
 
@@ -55,7 +57,8 @@ export function* updateUserDataFlow({ userData }: { type: string, userData: { na
         yield put(authActionsCreators.setProfile(updatedUserData));
         yield put(authActionsCreators.requestSuccess());
     } catch (err) {
-        yield put(authActionsCreators.requestFail('Error when trying to update user data.'));
+        yield put(appMessagesActionsCreators.showErrorMessage({ title: "Update error", message: 'Error when trying to update user data.' }));
+        yield put(authActionsCreators.requestFail());
     }
 }
 

@@ -6,10 +6,7 @@ import { authActionsCreators } from './actions';
 import { AuthActions, AuthState } from './types';
 
 const initialState: AuthState = {
-    request: {
-        state: RequestState.none,
-        errorMsg: '',
-    },
+    requestState: RequestState.none,
     profile: null,
     token: null,
 };
@@ -36,25 +33,17 @@ export const authReducer: Reducer<AuthState> = (state: AuthState = initialState,
         case AuthActions.START_REQUEST:
             return {
                 ...state,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
+                requestState: RequestState.inProgress,
             };
         case AuthActions.REQUEST_SUCCESS:
             return {
                 ...state,
-                request: {
-                    state: RequestState.succeeded,
-                    errorMsg: '',
-                },
+                requestState: RequestState.succeeded,
             };
         case AuthActions.REQUEST_FAIL:
             return {
                 ...state,
-                request: {
-                    state: RequestState.failed
-                },
+                requestState: RequestState.failed,
             };
         default:
             return state;

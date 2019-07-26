@@ -2,7 +2,7 @@ import { eventChannel } from 'redux-saga';
 import { call, take, put, select } from 'redux-saga/effects';
 import { NetInfo } from 'react-native';
 import { generalActionsCreators } from "../../state/general/actions";
-import { appMessagesActionsCreators } from "../../state/app_messages/actions";
+import { appMessagesActionsCreators, MessageDuration } from "../../state/app_messages/actions";
 import { getNetworkConnection } from "../../state/general/selectors";
 
 const NO_NETWORK_MSG_ID = "no_network_warning"
@@ -34,7 +34,8 @@ export function* networkStateSaga() {
                 yield put(appMessagesActionsCreators.showWarningMessage({
                     id: NO_NETWORK_MSG_ID,
                     title: "Network",
-                    message: "No network connection !"
+                    message: "No network connection !",
+                    duration: MessageDuration.INFINITE
                 }));
 
             } else {

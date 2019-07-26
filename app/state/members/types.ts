@@ -1,4 +1,4 @@
-import { Request } from '../common/types';
+import { RequestState } from '../common/types';
 
 export interface Member {
     id: string;
@@ -12,7 +12,7 @@ export interface MembersMap {
 }
 
 export interface MembersState {
-    request: Request;
+    requestState: RequestState;
     data: MembersMap;
 }
 

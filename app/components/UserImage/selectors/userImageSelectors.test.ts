@@ -1,4 +1,4 @@
-import { Request, RequestState } from '@app/state/common/types';
+import { RequestState } from '@app/state/common/types';
 import { getGivenUserPhoto } from "./userImageSelectors";
 import { MembersMap, MembersState } from "@app/state/members/types";
 import { AppState } from '@app/state/state';
@@ -27,14 +27,10 @@ describe('UserImageSelectors', () => {
                 description: 'desc3'
             }
         };
-        const requestState: Request = {
-            state: RequestState.succeeded,
-            errorMsg: ''
-        };
 
         initialMembersState = {
             data: membersState,
-            request: requestState
+            requestState: RequestState.succeeded
         };
     });
 

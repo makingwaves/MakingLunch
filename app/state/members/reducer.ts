@@ -6,10 +6,7 @@ import { membersActionsCreators } from './actions';
 import { MembersActions, MembersState, MembersMap } from './types';
 
 const initialState: MembersState = {
-    request: {
-        state: RequestState.none,
-        errorMsg: '',
-    },
+    requestState: RequestState.none,
     data: {},
 };
 
@@ -53,26 +50,17 @@ export const membersReducer: Reducer<MembersState> = (state: MembersState = init
         case MembersActions.START_REQUEST:
             return {
                 ...state,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
+                requestState: RequestState.inProgress
             };
         case MembersActions.REQUEST_SUCCESS:
             return {
                 ...state,
-                request: {
-                    state: RequestState.succeeded,
-                    errorMsg: '',
-                },
+                requestState: RequestState.succeeded
             };
         case MembersActions.REQUEST_FAIL:
             return {
                 ...state,
-                request: {
-                    state: RequestState.failed,
-                    errorMsg: action.payload,
-                },
+                requestState: RequestState.failed
             };
         default:
             return state;

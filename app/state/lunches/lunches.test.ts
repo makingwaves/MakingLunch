@@ -17,10 +17,7 @@ describe('lunches reducer', () => {
 
     beforeAll(() => {
         initialState = {
-            request: {
-                state: RequestState.none,
-                errorMsg: '',
-            },
+            requestState: RequestState.none,
             data: null,
         };
     });
@@ -204,9 +201,8 @@ describe('lunches reducer', () => {
             expect(lunchesActionsCreators.requestSuccess()).toEqual({ type: LunchActions.REQUEST_SUCCESS });
         });
         test(LunchActions.REQUEST_FAIL, () => {
-            const errorMsg = 'Shit happens';
-            expect(lunchesActionsCreators.requestFail(errorMsg))
-                .toEqual({ type: LunchActions.REQUEST_FAIL, payload: errorMsg });
+            expect(lunchesActionsCreators.requestFail())
+                .toEqual({ type: LunchActions.REQUEST_FAIL });
         });
     });
 
@@ -633,10 +629,7 @@ describe('lunches reducer', () => {
         beforeAll(() => {
             requestInProgressState = {
                 ...initialState,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
+                requestState: RequestState.inProgress
             };
         });
 
@@ -644,10 +637,7 @@ describe('lunches reducer', () => {
             const beginAction = lunchesActionsCreators.startRequest();
             Reducer(lunchesReducer).expect(beginAction).toReturnState({
                 ...initialState,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
+                requestState: RequestState.inProgress
             });
         });
 
@@ -655,22 +645,15 @@ describe('lunches reducer', () => {
             const successAction = lunchesActionsCreators.requestSuccess();
             Reducer(lunchesReducer).withState(requestInProgressState).expect(successAction).toReturnState({
                 ...initialState,
-                request: {
-                    state: RequestState.succeeded,
-                    errorMsg: '',
-                },
+                requestState: RequestState.succeeded
             });
         });
 
         test(`${LunchActions.REQUEST_FAIL} - should reflect request failed state`, () => {
-            const errorMsg = 'Shit happens';
-            const failAction = lunchesActionsCreators.requestFail(errorMsg);
+            const failAction = lunchesActionsCreators.requestFail();
             Reducer(lunchesReducer).withState(requestInProgressState).expect(failAction).toReturnState({
                 ...initialState,
-                request: {
-                    state: RequestState.failed,
-                    errorMsg,
-                },
+                requestState: RequestState.failed
             });
         });
     });

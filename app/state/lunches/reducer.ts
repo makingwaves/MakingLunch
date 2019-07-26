@@ -8,10 +8,7 @@ import { lunchesActionsCreators } from './actions';
 import { LunchActions, LunchesState, LunchStatus } from './types';
 
 const initialState: LunchesState = {
-    request: {
-        state: RequestState.none,
-        errorMsg: '',
-    },
+    requestState: RequestState.none,
     data: null,
 };
 
@@ -243,34 +240,22 @@ export const lunchesReducer: Reducer<LunchesState> = (state: LunchesState = init
         case LunchActions.START_REQUEST:
             return {
                 ...state,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
+                requestState: RequestState.inProgress
             };
         case LunchActions.REQUEST_SUCCESS:
             return {
                 ...state,
-                request: {
-                    state: RequestState.succeeded,
-                    errorMsg: '',
-                },
+                requestState: RequestState.succeeded
             };
         case LunchActions.REQUEST_FAIL:
             return {
                 ...state,
-                request: {
-                    state: RequestState.failed,
-                    errorMsg: action.payload,
-                },
+                requestState: RequestState.failed
             };
-        case LunchActions.CLEAR_ERROR_MESSAGE:
+        case LunchActions.CLEAR_ERROR_MESSAGE: //TODO REMOVE THIS ACTION !
             return {
                 ...state,
-                request: {
-                    ...state.request,
-                    errorMsg: ''
-                }
+                requestState: state.requestState
             }
         default:
             return state;

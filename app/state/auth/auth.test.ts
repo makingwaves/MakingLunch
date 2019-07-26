@@ -9,10 +9,7 @@ describe('auth reducer', () => {
 
     beforeAll(() => {
         initialState = {
-            request: {
-                state: RequestState.none,
-                errorMsg: '',
-            },
+            requestState: RequestState.none,
             profile: null,
             token: null,
         };
@@ -52,9 +49,8 @@ describe('auth reducer', () => {
             expect(authActionsCreators.requestSuccess()).toEqual({ type: AuthActions.REQUEST_SUCCESS });
         });
         test(AuthActions.REQUEST_FAIL, () => {
-            const errorMsg = 'Shit happens';
             expect(authActionsCreators.requestFail())
-                .toEqual({ type: AuthActions.REQUEST_FAIL, payload: errorMsg });
+                .toEqual({ type: AuthActions.REQUEST_FAIL });
         });
     });
 
@@ -104,10 +100,7 @@ describe('auth reducer', () => {
         beforeAll(() => {
             requestInProgressState = {
                 ...initialState,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
+                requestState: RequestState.inProgress
             };
         });
 
@@ -115,10 +108,7 @@ describe('auth reducer', () => {
             const startAction = authActionsCreators.startRequest();
             Reducer(authReducer).expect(startAction).toReturnState({
                 ...initialState,
-                request: {
-                    state: RequestState.inProgress,
-                    errorMsg: '',
-                },
+                requestState: RequestState.inProgress,
             });
         });
 
@@ -126,22 +116,15 @@ describe('auth reducer', () => {
             const successAction = authActionsCreators.requestSuccess();
             Reducer(authReducer).withState(requestInProgressState).expect(successAction).toReturnState({
                 ...initialState,
-                request: {
-                    state: RequestState.succeeded,
-                    errorMsg: '',
-                },
+                requestState: RequestState.succeeded
             });
         });
 
         test(`${AuthActions.REQUEST_FAIL} - should reflect request failed state`, () => {
-            const errorMsg = 'Shit happens';
             const failAction = authActionsCreators.requestFail();
             Reducer(authReducer).withState(requestInProgressState).expect(failAction).toReturnState({
                 ...initialState,
-                request: {
-                    state: RequestState.failed,
-                    errorMsg,
-                },
+                requestState: RequestState.failed
             });
         });
     });

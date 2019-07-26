@@ -8,5 +8,5 @@ export const membersActionsCreators = {
     removeAllMembers: () => makeAction(MembersActions.REMOVE_ALL_MEMBERS),
     startRequest: () => makeAction(MembersActions.START_REQUEST),
     requestSuccess: () => makeAction(MembersActions.REQUEST_SUCCESS),
-    requestFail: (errorMsg: string) => makeAction(MembersActions.REQUEST_FAIL, errorMsg),
+    requestFail: () => makeAction(MembersActions.REQUEST_FAIL),
 };

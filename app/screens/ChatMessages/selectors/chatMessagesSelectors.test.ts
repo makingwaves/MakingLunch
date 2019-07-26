@@ -1,7 +1,7 @@
 import { AppState } from '@app/state/state';
 import { ChatProps } from './../ChatMessages';
 import { mapLunchData } from "./chatMessagesSelectors";
-import { RequestState, Request } from "@app/state/common/types";
+import { RequestState } from "@app/state/common/types";
 import { LunchesState, LunchStatus, Lunch, LunchesMap, Message, MessageStatus } from "@app/state/lunches/types";
 
 const getChatProps = (lunchId: string): ChatProps => {
@@ -40,11 +40,7 @@ describe('ChatMessageSelectors', () => {
     };
 
     beforeAll(() => {
-        const requestState: Request = {
-            state: RequestState.succeeded,
-            errorMsg: ''
-        };
-
+        const requestState: RequestState = RequestState.succeeded;
         lunch = {
             id: 'defaultLunch',
             status: LunchStatus.finished,
@@ -65,7 +61,7 @@ describe('ChatMessageSelectors', () => {
         }
 
         initialLunchesState = {
-            request: requestState,
+            requestState: requestState,
             data: {
                 'defaultLunch': lunch
             }

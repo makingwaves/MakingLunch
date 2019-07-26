@@ -1,7 +1,6 @@
 import { ImageSourcePropType } from 'react-native';
 import React, { Fragment, FunctionComponent, memo, ReactNode } from 'react';
 
-import ErrorPopup from '@app/components/ErrorPopup';
 import ScreenLoader from '@app/components/ScreenLoader';
 
 export interface FetchDataHelper {

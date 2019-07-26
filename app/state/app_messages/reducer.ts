@@ -6,7 +6,7 @@ import { AppMessagesActions, AppMessagesState, AppMessage, AppMessageType } from
 
 
 const initialState: AppMessagesState = {
-    app_messages: []
+    app_messages: []//todo hashtable 
 };
 
 type AppAction = ActionUnion<typeof appMessagesActionsCreators>;

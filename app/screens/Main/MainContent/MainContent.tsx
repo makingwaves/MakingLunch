@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import React, { PureComponent, Fragment, RefObject, createRef } from 'react';
 
 import MapView from './MapView';
-import ErrorPopup from '@app/components/ErrorPopup';
 import { AppState } from '@app/state/state';
 import LunchSearcher from './LunchSearcher';
 import { RequestState } from '@app/state/common/types';
@@ -19,7 +18,6 @@ export interface MainContentProps {
     userId: string;
     pending: LunchesMap;
     running: Lunch;
-    errorMsg: string;
     isLoading: boolean;
     searchLunch: (data: MeetingRequest) => void;
 };
@@ -45,7 +43,7 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
 
     public componentDidUpdate(prevProps: MainContentProps): void {
         if (prevProps !== this.props) {
-            if (this.props.errorMsg || (!this.props.isLoading && this.state.stage === 'waitingForData'))
+            if (!this.props.isLoading && this.state.stage === 'waitingForData')
                 this.setState(prevState => ({
                     stage: 'chooseData'
                 }));
@@ -87,7 +85,6 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
     public render() {
         const {
             running,
-            errorMsg,
         } = this.props;
         const {
             stage
@@ -95,7 +92,6 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
 
         return (
             <Fragment>
-                <ErrorPopup title={'An error has occured'} description={errorMsg} showError={!!errorMsg} showDuration={3000} />
                 <MapView ref={this.mapViewRef} stage={stage} runningLunch={running} />
                 <LunchSearcher stage={stage} running={running} onSearchClick={this.onSearchClick} onLocationClick={this.onLocationClick} />
             </Fragment>
@@ -106,8 +102,7 @@ class MainContent extends PureComponent<MainContentProps, MainContentState> {
 const mapStateToProps = (state: AppState) => ({
     ...getPendingAndRunningLunches(state),
     userId: state.auth.profile && state.auth.profile.id,
-    errorMsg: state.lunches.request.errorMsg || state.auth.request.errorMsg,
-    isLoading: state.lunches.request.state === RequestState.inProgress
+    isLoading: state.lunches.requestState === RequestState.inProgress
 });
 
 const mapDispatchToProps = dispatch => ({

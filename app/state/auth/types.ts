@@ -1,4 +1,4 @@
-import { Request } from '../common/types';
+import { RequestState } from '../common/types';
 
 export interface BasicProfile {
     id: string;
@@ -12,7 +12,7 @@ export interface Profile extends BasicProfile {
 }
 
 export interface AuthState {
-    request: Request;
+    requestState: RequestState;
     profile: Profile | null;
     token: string | null;
 }
