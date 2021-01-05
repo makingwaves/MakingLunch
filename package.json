@@ -10,7 +10,7 @@
     "iosPostInstall": "./node_modules/react-native-maps/enable-google-maps ./ios"
   },
   "dependencies": {
-    "axios": "0.18.0",
+    "axios": "0.21.1",
     "dayjs": "1.7.8",
     "react": "16.6.1",
     "react-native": "0.57.7",
